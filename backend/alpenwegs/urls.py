@@ -1,22 +1,33 @@
-"""
-URL configuration for alpenwegs project.
+# API import:
+from rest_framework.authtoken.views import obtain_auth_token
+from drf_spectacular.views import SpectacularSwaggerView
+from drf_spectacular.views import SpectacularRedocView
+from drf_spectacular.views import SpectacularAPIView
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
+# Django import:
 from django.contrib import admin
 from django.urls import path
 
+# Test import:
+from notifications.test_view import NotifyMeView
+
 urlpatterns = [
+
+    # API - token generator registration:
+    path('api-admin/token-generate/', obtain_auth_token, name='token_generate'),
+
+    # API - schema registration:
+    path('api-schema/', SpectacularAPIView.as_view(), name='api-schema'),
+    path('api-docs/',
+        SpectacularSwaggerView.as_view(url_name='api-schema'),
+        name='api_docs'),
+    path('api-rdocs/',
+        SpectacularRedocView.as_view(url_name='api-schema'),
+        name='api_rdocs'),
+
+    # Admin site URL:
     path('admin/', admin.site.urls),
+
+    # Test notification URL:
+    path('notify-me/', NotifyMeView.as_view(), name='notify-me'),
 ]

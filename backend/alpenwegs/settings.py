@@ -118,8 +118,8 @@ CHANNEL_LAYERS = {
 
 # Rest framework configuration:
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'alpenwegs.base.api.base_exception_handler.custom_exception_handler',
-    'DEFAULT_PAGINATION_CLASS': 'alpenwegs.base.api.base_pagination.BasePaginator',
+    'EXCEPTION_HANDLER': 'alpenwegs.ashared.api.base_exception_handler.custom_exception_handler',
+    'DEFAULT_PAGINATION_CLASS': 'alpenwegs.ashared.api.base_pagination.BasePaginator',
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_AUTHENTICATION_CLASSES': [

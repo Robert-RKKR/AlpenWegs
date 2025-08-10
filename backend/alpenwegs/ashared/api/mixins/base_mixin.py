@@ -1,18 +1,17 @@
 # AlpenWegs import:
 from alpenwegs.ashared.constants.action_type import ActionTypeChoices
-from alpenwegs.notification import api_notification
-from alpenwegs.logger import api_logger
+from alpenwegs.ashared.models.base_model import BaseModel
 
 # AlpenWegs application import:
-from notification.object_collector import collect_object_data
-from notification.changer import log_change
+from notifications.object_collector import collect_object_data
+from notifications.notification import Notification
+from notifications.changer import log_change
 
 # Django import:
 from rest_framework.exceptions import ValidationError
 from rest_framework.exceptions import ErrorDetail
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib import admin
 
 
 # Base Mixin class:
@@ -69,7 +68,7 @@ class BaseMixin():
     def _create_notification(self,
         instance: object,
         action: ActionTypeChoices,
-        user: admin,
+        member: BaseModel,
         serializer = False,
         log_changes = False) -> None:
         """
@@ -78,7 +77,8 @@ class BaseMixin():
 
         if log_changes:
             # Create a new change notification:
-            log_change(instance, user, action)
+            log_change(instance, member, action)
+            
             # Collect object data:
             object_related_data = collect_object_data(instance)
             model_name = object_related_data.get('model_name', False)
@@ -86,10 +86,19 @@ class BaseMixin():
                 'object_representation', False)
             # Collect url:
             url = serializer.data.get('url') if serializer else None
+
+            # Collect action representation:
+            action_repr = ActionTypeChoices.value_from_int(action)
+
+            # Create a new notification:
+            notification = Notification(
+                task_id=f'api-{action_repr}',
+                channel_name=f'user_{member.id}',
+            )
             # Send notification:
-            notification.info(f'{model_name} "{instance_representation}" '\
-                f'has been {ActionTypeChoices.value_from_int(action)}d.',
-                url=url) 
+            notification.info(f'{model_name} "{instance_representation}" '
+                f'has been {action_repr}d.', url=url
+            )
 
     def _return_api_response(self,
         page_status: int,

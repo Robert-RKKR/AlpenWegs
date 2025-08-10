@@ -1,30 +1,10 @@
+# AlpenWegs import:
+from alpenwegs.ashared.api.mixins.base_mixin import BaseMixin
+
 # Rest framework import:
 from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
 from rest_framework import status
-
-# AlpenWegs import:
-from alpenwegs.ashared.constants.notification import ApplicationChoices
-from alpenwegs.ashared.api.mixins.base_mixin import BaseMixin
-
-# AlpenWegs application import:
-from notification.ashared import Notification
-from notification.ashared import Logger
-
-# Django import:
-from django.core.exceptions import ValidationError
-from django.db.models import ProtectedError
-from django.contrib import admin
-
-# Python import:
-import copy
-import uuid
-
-# Init API notification:
-notification = Notification(
-    'API', channel_name='objects_notifications')
-task_id = str(uuid.uuid4())
-logger = Logger(ApplicationChoices.API, task_id)
 
 
 class BaseListModelMixin(BaseMixin, ListModelMixin):

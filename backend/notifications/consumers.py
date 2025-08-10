@@ -4,7 +4,6 @@ from __future__ import annotations
 # Python import:
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from urllib.parse import parse_qs
-import json
 
 
 class NotificationConsumer(

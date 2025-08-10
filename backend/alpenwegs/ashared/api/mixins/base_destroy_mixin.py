@@ -1,31 +1,20 @@
-# Rest framework import:
-from rest_framework.mixins import DestroyModelMixin
-from rest_framework import status
-
 # AlpenWegs import:
 from alpenwegs.ashared.constants.notification import ApplicationChoices
 from alpenwegs.ashared.constants.action_type import ActionTypeChoices
 from alpenwegs.ashared.api.mixins.base_mixin import BaseMixin
 
 # AlpenWegs application import:
-from notification.object_collector import collect_object_data
-from notification.changer import log_change
-from notification.ashared import Notification
-from notification.ashared import Logger
+from notifications.object_collector import collect_object_data
+
+# Rest framework import:
+from rest_framework.mixins import DestroyModelMixin
+from rest_framework import status
 
 # Django import:
 from django.db.models import ProtectedError
 
 # Python import:
 import copy
-import uuid
-
-# Init API notification:
-notification = Notification(
-    'API', channel_name='objects_notifications')
-task_id = str(uuid.uuid4())
-logger = Logger(ApplicationChoices.API, task_id)
-
 
 
 class BaseDestroyModelMixin(BaseMixin, DestroyModelMixin):

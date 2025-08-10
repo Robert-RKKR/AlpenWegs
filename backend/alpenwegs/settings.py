@@ -176,6 +176,42 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
+# Logger configuration:
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {'format': '[%(levelname)s] %(asctime)s %(name)s: %(message)s'},
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'ERROR',
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': False
+        },
+        'django.request': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': False
+        },
+        'django.server': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': False
+        },
+    },
+}
+
 # Internationalization:
 TIME_ZONE = 'UTC'
 USE_I18N = True
@@ -224,4 +260,4 @@ JAZZMIN_UI_TWEAKS = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Default user model:
-# AUTH_USER_MODEL = 'profiles.MemberModel'
+AUTH_USER_MODEL = 'profiles.MemberModel'

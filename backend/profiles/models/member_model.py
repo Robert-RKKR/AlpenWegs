@@ -5,12 +5,16 @@ from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 from profiles.managers.member_manager import MemberProfileManager
 
 # Django import:
+from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
 
 
 # Member model class:
 class MemberModel(
-    BaseTimestampModel
+    BaseTimestampModel,
+    AbstractBaseUser,
+    PermissionsMixin,
 ):
 
     class Meta:
@@ -22,7 +26,7 @@ class MemberModel(
     # Model objects manager:
     objects = MemberProfileManager()
 
-    # Main Member information:
+    # Base Member identification information:
     email = models.EmailField(
         verbose_name='E-mail address',
         help_text='The user\'s unique email address, which serves as the '
@@ -34,18 +38,6 @@ class MemberModel(
         max_length=255,
         unique=True,
     )
-
-    # Password information:
-    password_to_change = models.BooleanField(
-        verbose_name='Password change required',
-        help_text='Indicates whether the user must change their '
-            'password upon next login. This is typically set after an '
-            'initial account setup or password reset to enhance '
-            'security and ensure the user has set a personalized password.',
-        default=False,
-    )
-
-    # Name detailed information:
     first_name = models.CharField(
         verbose_name='First Name',
         help_text='The user\'s given name, used for personalized '
@@ -74,6 +66,16 @@ class MemberModel(
         max_length=128,
         blank=True,
         null=False,
+    )
+
+    # Password information:
+    password_to_change = models.BooleanField(
+        verbose_name='Password change required',
+        help_text='Indicates whether the user must change their '
+            'password upon next login. This is typically set after an '
+            'initial account setup or password reset to enhance '
+            'security and ensure the user has set a personalized password.',
+        default=False,
     )
 
     # Contact information:

@@ -1,16 +1,20 @@
-"""
-ASGI config for alpenwegs project.
-
-It exposes the ASGI callable as a module-level variable named ``application``.
-
-For more information on this file, see
-https://docs.djangoproject.com/en/5.2/howto/deployment/asgi/
-"""
-
+# Set the default Django settings module:
 import os
-
-from django.core.asgi import get_asgi_application
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'alpenwegs.settings')
 
-application = get_asgi_application()
+# Python import:
+from django.core.asgi import get_asgi_application
+from channels.routing import ProtocolTypeRouter
+from channels.auth import AuthMiddlewareStack
+from channels.routing import URLRouter
+
+# AlpenWegs import:
+import notifications.routing
+
+# Register ASGI application with routing:
+application = ProtocolTypeRouter({
+    'http': get_asgi_application(),
+    'websocket': AuthMiddlewareStack(
+        URLRouter(notifications.routing.websocket_urlpatterns)
+    ),
+})

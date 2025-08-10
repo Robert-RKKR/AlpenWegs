@@ -5,16 +5,16 @@ from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 from profiles.managers.member_manager import MemberProfileManager
 
 # Django import:
-from django.contrib.auth.models import PermissionsMixin
-from django.contrib.auth.models import AbstractBaseUser
+# from django.contrib.auth.models import PermissionsMixin
+# from django.contrib.auth.models import AbstractBaseUser
 from django.db import models
 
 
 # Member model class:
 class MemberModel(
     BaseTimestampModel,
-    AbstractBaseUser,
-    PermissionsMixin,
+    # AbstractBaseUser,
+    # PermissionsMixin,
 ):
 
     class Meta:

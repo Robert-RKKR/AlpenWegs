@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
 
     # AlpenWegs applications:
+    'notifications.apps.NotificationsConfig',
     'profiles.apps.ProfilesConfig',
 ]
 

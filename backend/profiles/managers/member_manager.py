@@ -12,37 +12,60 @@ class MemberProfileManager(BaseUserManager):
     """
 
     def create_user(self,
-        name: str,
         email: str,
         password: str = None,
-        **extra_fields
+        **extra_fields: dict,
     ):
         """
         Method to create and return a new member.
         """
 
+        # Validate member mail:
+        email = self.normalize_email(email)
+
+        # Provide member extra fields:
+        extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+
         # Create a new user member instance with the provided data:
-        member = self.model(name=name, email=email, **extra_fields)
-        member.set_password(password)
+        member = self.model(
+            email=email,
+            **extra_fields
+        )
+
+        # Set member password:
+        if password:
+            member.set_password(password)
+        else:
+            member.set_unusable_password()
+
+        # Save the member instance:
         member.save(using=self._db)
 
         # Return the created member instance:
         return member
     
     def create_superuser(self,
-        name: str,
         email: str,
-        password: str
+        password: str,
+        **extra_fields: dict,
     ):
         """
         Method to create and return a new super member.
         """
 
-        # Create a new superuser member instance with the provided data:
-        member = self.create_user(name, email, password)
-        member.is_staff = True
-        member.is_superuser = True
-        member.save(using=self._db)
+        # Provide member extra fields:
+        extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
 
+        # Create a new superuser member instance with the provided data:
+        member = self.create_user(
+            email=email,
+            password=password,
+            **extra_fields,
+        )
+        
         # Return the created member instance:
         return member

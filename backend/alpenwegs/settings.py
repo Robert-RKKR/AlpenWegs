@@ -261,3 +261,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Default user model:
 AUTH_USER_MODEL = 'profiles.MemberModel'
+USERNAME_FIELD = 'email'

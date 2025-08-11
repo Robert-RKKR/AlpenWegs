@@ -2,6 +2,7 @@
 from .jazzmin import GLOBAL_JAZZMIN_SETTINGS
 
 # Python - libraries import:
+from datetime import timedelta
 from pathlib import Path
 import os
 
@@ -44,13 +45,26 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+    # Allauth:
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    # Allauth social providers:
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
 
     # Celery and channels:
     'django_celery_beat',
     'channels',
 
     # Django rest framework:
-    'rest_framework.authtoken',
+    # 'rest_framework_simplejwt.token_blacklist'
+    'rest_framework_simplejwt',
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
     'rest_framework',
     'django_filters',
     'drf_spectacular',
@@ -69,6 +83,7 @@ MIDDLEWARE = [
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -124,12 +139,23 @@ REST_FRAMEWORK = {
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissions',
     ],
 }
+REST_USE_JWT = True
+SIMPLEJWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+}
+JWT_AUTH_COOKIE = 'access'
+JWT_AUTH_REFRESH_COOKIE = 'refresh'
+# SIMPLEJWT.update({
+#     'BLACKLIST_AFTER_ROTATION': True,
+#     'ROTATE_REFRESH_TOKENS': True,
+# })
 
 # Schema configuration:
 SPECTACULAR_SETTINGS = {
@@ -261,4 +287,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Default user model:
 AUTH_USER_MODEL = 'profiles.MemberModel'
-USERNAME_FIELD = 'email'
+SITE_ID = 1
+
+# Allauth authentication backends:
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+LOGIN_REDIRECT_URL = '/'
+
+# Allauth Login behavior
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
+# Allauth user model mapping:
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+
+# Allauth quality-of-life:
+ACCOUNT_PRESERVE_USERNAME_CASING = False
+ACCOUNT_UNIQUE_EMAIL = True

@@ -34,11 +34,11 @@ class MemberModel(
             ),
             models.CheckConstraint(
                 check=Q(height__isnull=True) | Q(height__gt=0),
-                name="height_gt_zero_or_null",
+                name='height_gt_zero_or_null',
             ),
             models.CheckConstraint(
                 check=Q(weight__isnull=True) | Q(weight__gt=0),
-                name="weight_gt_zero_or_null",
+                name='weight_gt_zero_or_null',
             ),
         ]
 
@@ -66,8 +66,21 @@ class MemberModel(
             'password recovery, and receiving notifications or updates. '
             'Each email must be unique to ensure proper identification '
             'and prevent duplication of accounts.',
-        max_length=255,
+        max_length=128,
         unique=True,
+    )
+    username = models.CharField(
+        verbose_name='First Name',
+        help_text=('A display name used to represent the member\'s in public '
+            'views, comments, messages, and other interactions. This is not the '
+            'member\'s official account name or login credential, but rather '
+            'a presentation-friendly alias that helps protect the member\'s '
+            'real name when preferred.'
+        ),
+        max_length=64,
+        blank=False,
+        unique=True,
+        null=False,
     )
     first_name = models.CharField(
         verbose_name='First Name',
@@ -75,8 +88,8 @@ class MemberModel(
             'communication. This field is required for proper member '
             'identification. It helps in addressing the member in messages, '
             'emails, and other interactions within the system.',
-        max_length=128,
-        blank=True,
+        max_length=64,
+        blank=False,
         null=False,
     )
     middle_name = models.CharField(
@@ -84,7 +97,7 @@ class MemberModel(
         help_text='An optional middle name field for members who have '
             'multiple given names. This can provide more precise '
             'identification but is not mandatory.',
-        max_length=128,
+        max_length=64,
         blank=True,
         null=True,
     )
@@ -94,8 +107,8 @@ class MemberModel(
             'communication. This field is required for proper member '
             'identification. It helps in addressing the member in messages, '
             'emails, and other interactions within the system.',
-        max_length=128,
-        blank=True,
+        max_length=64,
+        blank=False,
         null=False,
     )
 
@@ -183,32 +196,45 @@ class MemberModel(
         null=True,
     )
 
-    EMAIL_FIELD = 'email'
+    #=================================================================
+    # Django User related static variables:
+    #=================================================================
+    REQUIRED_FIELDS = ['first_name', 'last_name', 'username']
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['first_name', 'last_name']
+    EMAIL_FIELD = 'email'
 
+    #=================================================================
+    # Object data collection:
+    #=================================================================
     def get_full_name(self) -> str:
+        """
+        Collect full member name representation.
+        """
 
-        parts = [self.first_name or '', self.middle_name or '', self.last_name or '']
-        return " ".join(p for p in parts if p).strip()
+        # Collect member first, middel and last name:
+        parts = [self.first_name, self.middle_name or '', self.last_name]
+        # Return full member name representation:
+        return ' '.join(p for p in parts if p).strip()
 
     def get_short_name(self) -> str:
-
-        return self.first_name or self.email
-
-    property
-    def bmi(self) -> float | None:
         """
-        Compute BMI on the fly from height (cm) and weight (kg).
+        Collect member short name representation.
         """
 
-        if not self.height or not self.weight:
-            return None
-        h_m = self.height / 100.0
-        if h_m <= 0:
-            return None
-        return round(self.weight / (h_m * h_m), 1)
+        # Return member short name representation:
+        return self.first_name + ' ' + self.last_name
 
+    def representation(self):
+        """
+        Collect member object representation:
+        """
+
+        # Return member object representation:
+        return self.username
+
+    #=================================================================
+    # Object additional methods:
+    #=================================================================
     def set_password(self, raw_password):
         """
         Set the password and clear 'password_to_change'.
@@ -217,5 +243,26 @@ class MemberModel(
         self.password_to_change = False
         super().set_password(raw_password)
 
-    def representation(self):
-        return f'{self.first_name} {self.last_name}'
+
+    #=================================================================
+    # Object calculations:
+    #=================================================================
+    def _compute_bmi(self):
+        """
+        Calculate BMI based on user weight and height.
+        """
+
+        # Check if required data has been provided:
+        if not self.height or not self.weight: return None
+        # Calculate height for BMI calculation:
+        h = self.height / 100.0
+        # Callculate and return BMI value:
+        return round(self.weight / (h*h), 1) if h > 0 else None
+
+    def run_before_save(self):
+        """
+        Run additional logic before saving model object to DB.
+        """
+        
+        # Calculate BMI before saving model object:
+        self.bmi_value = self._compute_bmi()

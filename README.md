@@ -124,21 +124,21 @@ This document outlines the selected technology stack for the AlpenWeg project, f
   - Apple
   - Token-based (JWT or session)
 
-## ⚙️ API Layer
+## API Layer
 
 - **`Django REST Framework (DRF)`**: Main framework for building RESTful APIs.
 - **`drf-nested-routers`**: Enables nested routes reflecting model relationships (e.g., `/regions/{id}/articles/`).
 - **`drf-spectacular`**: Auto-generates OpenAPI 3-compliant schema and Swagger/Redoc documentation.
 - **`django-filter`** *(optional)*: Enables filtering in list views via query parameters.
 
-## 🛠 Admin Interface
+## Admin Interface
 
 - **`Jazzmin`**: Customizable and responsive admin UI for Django Admin.
 - Benefits:
   - Enhanced usability for content editors
   - Improved navigation and theme control
 
-## 🌍 Geolocation
+## Geolocation
 
 - **`django.contrib.gis`**: Adds spatial fields and GIS functionality via GeoDjango.
 - **Database**: PostgreSQL + PostGIS required for geospatial operations.
@@ -147,14 +147,14 @@ This document outlines the selected technology stack for the AlpenWeg project, f
   - `PolygonField` for regions
   - Spatial queries (e.g., distance, containment)
 
-## 📁 File and Media Management
+## File and Media Management
 
 - **`django-storages`**: Integration with cloud storage providers (e.g., AWS S3, Google Cloud Storage, MinIO).
 - **Storage Types**:
   - User-uploaded images and files (e.g., GPX tracks, route images)
   - Static and media files management
 
-## 📊 Reporting Tools
+## Reporting Tools
 
 - **`WeasyPrint`**: HTML + CSS to PDF renderer.
   - Generate branded reports, summaries, and printable formats.

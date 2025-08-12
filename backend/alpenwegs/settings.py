@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
 
     # Allauth social providers:
-    'allauth.socialaccount.providers.google',
+    # 'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
 
     # Celery and channels:
@@ -138,24 +138,17 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
-        'dj_rest_auth.jwt_auth.JWTCookieAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissions',
     ],
 }
-REST_USE_JWT = True
 SIMPLEJWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
 }
-JWT_AUTH_COOKIE = 'access'
-JWT_AUTH_REFRESH_COOKIE = 'refresh'
-# SIMPLEJWT.update({
-#     'BLACKLIST_AFTER_ROTATION': True,
-#     'ROTATE_REFRESH_TOKENS': True,
-# })
 
 # Schema configuration:
 SPECTACULAR_SETTINGS = {
@@ -294,13 +287,12 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
-LOGIN_REDIRECT_URL = '/'
 
 # Allauth Login behavior
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
 # Allauth user model mapping:
 ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'

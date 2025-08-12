@@ -17,15 +17,17 @@ specific models that require detailed statistical tracking to analyze
 user activity and engagement patterns effectively.
 """
 
-# Application import:
-from .base_model import BaseModel
+# AlpenWegs import:
+from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 
 # Django import:
 from django.db import models
 
 
 # Base Statistic model class:
-class BaseStatisticModel(BaseModel):
+class BaseStatisticModel(
+    BaseTimestampModel, 
+):
     """
     An abstract base model that tracks engagement metrics for different entities.
     This includes user interactions such as comments, visits, likes,

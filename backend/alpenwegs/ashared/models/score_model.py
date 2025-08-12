@@ -12,15 +12,17 @@ This model is intended to be inherited by models that require a scoring
 system.
 """
 
-# Application import:
-from .base_model import BaseModel
+# AlpenWegs import:
+from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 
 # Django import:
 from django.db import models
 
 
 # Base Score model class:
-class BaseScoreModel(BaseModel):
+class BaseScoreModel(
+    BaseTimestampModel, 
+):
     """
     An abstract model representing a universal scoring system. 
     This model provides a standardized way to store and calculate 

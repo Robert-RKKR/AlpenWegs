@@ -4,20 +4,22 @@ Abstract Base Model for Ownership and Visibility
 
 This abstract model serves as a foundation for tracking the ownership 
 of objects within the system. It ensures that each object is linked 
-to a creator (a registered user) and includes an `is_public` flag 
+to a creator (a registered member) and includes an `is_public` flag 
 to control its visibility.
 """
 
-# Django import:
-from django.contrib.auth.models import User as UserModel
-from django.db import models
+# AlpenWegs import:
+from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
+from alpenwegs.profiles.models.member_model import MemberModel
 
-# Application import:
-from .base_model import BaseModel
+# Django import:
+from django.db import models
 
 
 # Base Creator models class:
-class BaseCreatorModel(BaseModel):
+class BaseCreatorModel(
+    BaseTimestampModel, 
+):
     """
     An abstract base model for tracking object ownership and visibility.
 
@@ -42,7 +44,7 @@ class BaseCreatorModel(BaseModel):
 
     # Creator model values:
     creator = models.ForeignKey(
-        UserModel,
+        MemberModel,
         on_delete=models.CASCADE,
         verbose_name='Creator',
         help_text='Stores the unique identifier (UUID) of '

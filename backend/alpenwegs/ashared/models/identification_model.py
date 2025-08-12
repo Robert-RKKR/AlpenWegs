@@ -11,10 +11,10 @@ This model is meant to be inherited by other models that require these
 identification fields.
 """
 
-# Application import:
-from ..validators.base_validators import DescriptionValueValidator
-from ..validators.base_validators import NameValueValidator
-from .base_model import BaseModel
+# AlpenWegs import:
+from alpenwegs.ashared.validators.base_validators import DescriptionValueValidator
+from alpenwegs.ashared.validators.base_validators import NameValueValidator
+from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 
 # Django import:
 from django.template.defaultfilters import slugify
@@ -22,7 +22,9 @@ from django.db import models
 
 
 # Base Identification models class:
-class BaseIdentificationModel(BaseModel):
+class BaseIdentificationModel(
+    BaseTimestampModel, 
+):
     """
     An abstract base model for handling identification attributes 
     and generating slugs for objects.

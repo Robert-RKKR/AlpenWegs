@@ -8,16 +8,18 @@ and a configurable order field, intended to be extended by specific
 relationship models across the application.
 """
 
+# AlpenWegs import:
+from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
+
 # Django import:
 from django.contrib.auth.models import User
 from django.db import models
 
-# Application import:
-from .timestamp_model import BaseTimestampModel
-
 
 # Base Relationship models class:
-class BaseRelationshipModel(BaseTimestampModel):
+class BaseRelationshipModel(
+    BaseTimestampModel, 
+):
     """
     Abstract base class for relationship models that require
     ordering and timestamping. Intended for inheritance by

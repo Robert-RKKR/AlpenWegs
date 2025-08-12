@@ -1,5 +1,5 @@
-# AlpenWeg import:
-from alpenwegs.ashared.models.base_model import BaseModel
+# AlpenWegs import:
+from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 
 # Django import:
 from django.db import models
@@ -7,7 +7,7 @@ from django.db import models
 
 # Object representation model class:
 class ObjectRepresentationModel(
-    BaseModel, 
+    BaseTimestampModel, 
 ):
 
     class Meta:

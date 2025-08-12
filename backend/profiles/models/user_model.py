@@ -3,7 +3,7 @@ from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 from alpenwegs.ashared.constants.gender_type import GenderTypeChoices
 
 # Component import:
-from profiles.managers.member_manager import MemberProfileManager
+from profiles.managers.user_manager import UserProfileManager
 
 # Django import:
 from django.contrib.auth.models import PermissionsMixin
@@ -13,8 +13,8 @@ from django.db.models import Q
 from django.db import models
 
 
-# Member model class:
-class MemberModel(
+# User model class:
+class UserModel(
     BaseTimestampModel,
     AbstractBaseUser,
     PermissionsMixin,
@@ -23,14 +23,14 @@ class MemberModel(
     class Meta:
 
         # Model name values:
-        verbose_name = 'Member'
-        verbose_name_plural = 'Members'
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
 
         # Model constraints:
         constraints = [
             models.UniqueConstraint(
                 Lower('email'),
-                name='uniq_member_email_lower',
+                name='uniq_user_email_lower',
             ),
             models.CheckConstraint(
                 check=Q(height__isnull=True) | Q(height__gt=0),
@@ -43,24 +43,24 @@ class MemberModel(
         ]
 
     # Model objects manager:
-    objects = MemberProfileManager()
+    objects = UserProfileManager()
 
-    # Required Member fields:
+    # Required User fields:
     is_active = models.BooleanField(
         verbose_name='Is Active',
-        help_text='Indicates whether the member account is active.',
+        help_text='Indicates whether the user account is active.',
         default=True,
     )
     is_staff = models.BooleanField(
         verbose_name='Is Staff',
-        help_text='Indicates whether the member has staff privileges.',
+        help_text='Indicates whether the user has staff privileges.',
         default=False,
     )
 
-    # Base Member identification information:
+    # Base User identification information:
     email = models.EmailField(
         verbose_name='E-mail address',
-        help_text='The member\'s unique email address, which serves as the '
+        help_text='The user\'s unique email address, which serves as the '
             'primary authentication credential and unique identifier '
             'within the system. This email is required for logging in, '
             'password recovery, and receiving notifications or updates. '
@@ -71,10 +71,10 @@ class MemberModel(
     )
     username = models.CharField(
         verbose_name='Username',
-        help_text=('A display name used to represent the member\'s in public '
+        help_text=('A display name used to represent the user\'s in public '
             'views, comments, messages, and other interactions. This is not the '
-            'member\'s official account name or login credential, but rather '
-            'a presentation-friendly alias that helps protect the member\'s '
+            'user\'s official account name or login credential, but rather '
+            'a presentation-friendly alias that helps protect the user\'s '
             'real name when preferred.'
         ),
         max_length=64,
@@ -84,9 +84,9 @@ class MemberModel(
     )
     first_name = models.CharField(
         verbose_name='First Name',
-        help_text='The member\'s given name, used for personalized '
-            'communication. This field is required for proper member '
-            'identification. It helps in addressing the member in messages, '
+        help_text='The user\'s given name, used for personalized '
+            'communication. This field is required for proper user '
+            'identification. It helps in addressing the user in messages, '
             'emails, and other interactions within the system.',
         max_length=64,
         blank=False,
@@ -94,7 +94,7 @@ class MemberModel(
     )
     middle_name = models.CharField(
         verbose_name='Middle Name',
-        help_text='An optional middle name field for members who have '
+        help_text='An optional middle name field for users who have '
             'multiple given names. This can provide more precise '
             'identification but is not mandatory.',
         max_length=64,
@@ -103,9 +103,9 @@ class MemberModel(
     )
     last_name = models.CharField(
         verbose_name='Last Name',
-        help_text='The member\'s surname name, used for personalized '
-            'communication. This field is required for proper member '
-            'identification. It helps in addressing the member in messages, '
+        help_text='The user\'s surname name, used for personalized '
+            'communication. This field is required for proper user '
+            'identification. It helps in addressing the user in messages, '
             'emails, and other interactions within the system.',
         max_length=64,
         blank=False,
@@ -115,10 +115,10 @@ class MemberModel(
     # Password information:
     password_to_change = models.BooleanField(
         verbose_name='Password change required',
-        help_text='Indicates whether the member must change their '
+        help_text='Indicates whether the user must change their '
             'password upon next login. This is typically set after an '
             'initial account setup or password reset to enhance '
-            'security and ensure the member has set a personalized password.',
+            'security and ensure the user has set a personalized password.',
         default=False,
     )
 
@@ -136,8 +136,8 @@ class MemberModel(
     gender = models.IntegerField(
         verbose_name='Gender',
         help_text='User\'s gender. This field can be used to '
-            'personalize the member experience and address the '
-            'member properly. It is optional.',
+            'personalize the user experience and address the '
+            'user properly. It is optional.',
         choices=GenderTypeChoices.choices,
         blank=True,
         null=True,
@@ -161,7 +161,7 @@ class MemberModel(
     bmi = models.FloatField(
         verbose_name='BMI',
         help_text='User\'s Body Mass Index (BMI). It is '
-            'calculated using the member\'s weight and height. '
+            'calculated using the user\'s weight and height. '
             'This field is optional.',
         blank=True,
         null=True,
@@ -169,7 +169,7 @@ class MemberModel(
     birthday = models.DateTimeField(
         verbose_name='Birthday',
         help_text='User\'s birthdate. This can be used to '
-            'calculate the member\'s age or personalize content.'
+            'calculate the user\'s age or personalize content.'
             'This field is optional.',
         blank=True,
         null=True,
@@ -180,7 +180,7 @@ class MemberModel(
         verbose_name='Location',
         help_text='User\'s geographic location, which '
             'could be used for personalization or for tracking '
-            'member activity. This field is optional.',
+            'user activity. This field is optional.',
         max_length=128,
         blank=True,
         null=True,
@@ -189,7 +189,7 @@ class MemberModel(
         verbose_name='Location Name',
         help_text='User\'s location name, such as city, '
             'town, or landmark. This field provides additional '
-            'context to the member\'s geographical location and '
+            'context to the user\'s geographical location and '
             'can help personalize their experience.',
         max_length=128,
         blank=True,
@@ -208,28 +208,28 @@ class MemberModel(
     #=================================================================
     def get_full_name(self) -> str:
         """
-        Collect full member name representation.
+        Collect full user name representation.
         """
 
-        # Collect member first, middel and last name:
+        # Collect user first, middel and last name:
         parts = [self.first_name, self.middle_name or '', self.last_name]
-        # Return full member name representation:
+        # Return full user name representation:
         return ' '.join(p for p in parts if p).strip()
 
     def get_short_name(self) -> str:
         """
-        Collect member short name representation.
+        Collect user short name representation.
         """
 
-        # Return member short name representation:
+        # Return user short name representation:
         return self.first_name + ' ' + self.last_name
 
     def representation(self):
         """
-        Collect member object representation:
+        Collect user object representation:
         """
 
-        # Return member object representation:
+        # Return user object representation:
         return self.username
 
     #=================================================================

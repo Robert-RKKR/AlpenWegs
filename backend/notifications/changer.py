@@ -1,6 +1,6 @@
 # AlpenWegs application import:
 from notifications.models.change_log_model import ChangeLogModel
-from profiles.models.member_model import MemberModel
+from profiles.models.user_model import UserModel
 
 # AlpenWegs import:
 from alpenwegs.ashared.models.base_model import BaseModel
@@ -54,7 +54,7 @@ def collect_object_representation(
 
 def log_change(
     instance: BaseModel,
-    member: MemberModel,
+    member: UserModel,
     change_log_action,
 ) -> ChangeLogModel:
     """
@@ -62,10 +62,10 @@ def log_change(
     """
 
     # Check collected data:
-    if not isinstance(member, MemberModel):
+    if not isinstance(member, UserModel):
         raise TypeError('Provided member is not a valid AlpenWegs member model.')
     if not isinstance(
-        instance, BaseModel) and not isinstance(instance, MemberModel):
+        instance, BaseModel) and not isinstance(instance, UserModel):
         raise TypeError('Provided instance is not a valid AlpenWegs model.')
 
     # Collect sender class:

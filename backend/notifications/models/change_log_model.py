@@ -3,7 +3,7 @@ from alpenwegs.ashared.models.representation_model import ObjectRepresentationMo
 from alpenwegs.ashared.constants.action_type import ActionTypeChoices
 
 # AlpenWeg application import:
-from profiles.models.member_model import MemberModel
+from profiles.models.user_model import UserModel
 
 # Django models import:
 from django.db import models
@@ -34,7 +34,7 @@ class ChangeLogModel(
 
     # Member information:
     member = models.ForeignKey(
-        MemberModel,
+        UserModel,
         verbose_name='Member',
         help_text='The member responsible for the change. This field '
             'links to the member who performed the action, '

@@ -1,10 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import MemberModel
+from .models import UserModel
 
-@admin.register(MemberModel)
+@admin.register(UserModel)
 class MemberAdmin(UserAdmin):
-    model = MemberModel
+    model = UserModel
     list_display = ('email', 'first_name', 'last_name', 'is_staff', 'is_active')
     list_filter = ('is_staff', 'is_active', 'gender')
     search_fields = ('email', 'first_name', 'last_name')

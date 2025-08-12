@@ -58,3 +58,14 @@ class BaseTimestampModel(BaseModel):
             'whenever the object is modified.',
         auto_now=True,
     )
+
+    #=================================================================
+    # Object representation:
+    #=================================================================
+    def object_representation(self) -> str:
+        """
+        AlpenWeg model object representation:
+        """
+
+        # Return object representation:
+        return f'Created: {self.created}, Updated: {self.updated}'

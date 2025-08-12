@@ -78,13 +78,32 @@ class BaseIdentificationModel(
         null=True,
     )
 
-    # object representation:
-    def object_representation(self):
+    #=================================================================
+    # Object representation:
+    #=================================================================
+    def object_representation(self) -> str:
         """
-        Return object string representation.
+        AlpenWeg model object representation:
         """
 
-        return self.name
+        # Return object representation:
+        return f'Name: {self.name}'
+
+    #=================================================================
+    # Before save dedicated operations:
+    #=================================================================
+    def run_before_save(self):
+        """
+        Custom logic to be executed before saving the model.
+        This method can be overridden in derived classes.
+        """
+
+        # Call the original run_before_save method:
+        super().run_before_save()
+        # Create slug based on provided name value:
+        self._generate_slug()
+        # Create default object snippet if not provided:
+        self._generate_snippet()
 
     def _generate_slug(self):
         """
@@ -103,12 +122,3 @@ class BaseIdentificationModel(
         if not self.snippet:
             self.snippet = f'{self.model_representation()} '\
                 'object default snippet.'
-
-    # Run dedicated operation function:
-    def dedicated_operation(self):
-        # Call the original dedicated_operation method:
-        super().dedicated_operation()
-        # Create slug based on provided name value:
-        self._generate_slug()
-        # Create default object snippet if not provided:
-        self._generate_snippet()

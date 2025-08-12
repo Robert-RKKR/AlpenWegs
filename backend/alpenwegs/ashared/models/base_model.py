@@ -109,7 +109,7 @@ class BaseModel(models.Model):
         # Collect object representation name:
         object_rep = self.object_representation()
         # Return object representation:
-        return f'<Class {model_rep}: {object_rep}>'
+        return f'<Class {model_rep} ({object_rep})>'
 
     def model_representation(self):
         """
@@ -126,7 +126,7 @@ class BaseModel(models.Model):
         Return object string representation.
         """
 
-        return self.id
+        return 'ID: {self.id}'
 
     #=================================================================
     # Additional representation methods:

@@ -6,15 +6,15 @@ from drf_spectacular.views import SpectacularAPIView
 
 # Django import:
 from django.contrib import admin
+from django.urls import include
 from django.urls import path
 
 # Test import:
 from notifications.test_view import NotifyMeView
 
-urlpatterns = [
+from rest_framework_simplejwt.views import TokenRefreshView
 
-    # API - token generator registration:
-    path('api-admin/token-generate/', obtain_auth_token, name='token_generate'),
+urlpatterns = [
 
     # API - schema registration:
     path('api-schema/', SpectacularAPIView.as_view(), name='api-schema'),
@@ -24,6 +24,15 @@ urlpatterns = [
     path('api-rdocs/',
         SpectacularRedocView.as_view(url_name='api-schema'),
         name='api_rdocs'),
+
+    # dj-rest-auth core (login/logout/password/change/reset, user endpoint)
+    path('api/auth/', include('dj_rest_auth.urls')),
+    # Registration (uses allauth under the hood)
+    path('api/auth/registration/', include('dj_rest_auth.registration.urls')),
+    # SimpleJWT refresh (for header-based JWT)
+    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # Optional: Allauth HTML routes (useful for provider callbacks & debugging)
+    path('accounts/', include('allauth.urls')),
 
     # Admin site URL:
     path('admin/', admin.site.urls),

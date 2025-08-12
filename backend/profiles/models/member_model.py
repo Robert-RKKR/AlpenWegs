@@ -70,7 +70,7 @@ class MemberModel(
         unique=True,
     )
     username = models.CharField(
-        verbose_name='First Name',
+        verbose_name='Username',
         help_text=('A display name used to represent the member\'s in public '
             'views, comments, messages, and other interactions. This is not the '
             'member\'s official account name or login credential, but rather '

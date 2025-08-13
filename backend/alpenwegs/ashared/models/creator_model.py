@@ -10,7 +10,7 @@ to control its visibility.
 
 # AlpenWegs import:
 from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
-from alpenwegs.profiles.models.member_model import MemberModel
+from alpenwegs.profiles.models.user_model import UserModel
 
 # Django import:
 from django.db import models
@@ -44,7 +44,7 @@ class BaseCreatorModel(
 
     # Creator model values:
     creator = models.ForeignKey(
-        MemberModel,
+        UserModel,
         on_delete=models.CASCADE,
         verbose_name='Creator',
         help_text='Stores the unique identifier (UUID) of '

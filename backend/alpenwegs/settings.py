@@ -294,14 +294,14 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 # Allauth:
-ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_PRESERVE_USERNAME_CASING = False
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_UNIQUE_EMAIL = True
 
-# Email
+# Email:
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

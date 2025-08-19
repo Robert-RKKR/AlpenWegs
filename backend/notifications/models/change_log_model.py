@@ -32,12 +32,12 @@ class ChangeLogModel(
         auto_now_add=True,
     )
 
-    # Member information:
-    member = models.ForeignKey(
+    # User information:
+    user = models.ForeignKey(
         UserModel,
-        verbose_name='Member',
-        help_text='The member responsible for the change. This field '
-            'links to the member who performed the action, '
+        verbose_name='User',
+        help_text='The user responsible for the change. This field '
+            'links to the user who performed the action, '
             'providing accountability and traceability.',
         on_delete=models.PROTECT,
         null=True,

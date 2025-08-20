@@ -144,10 +144,12 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
         'alpenwegs.ashared.api.base_permissions_model.BasePermissionsModel',
     ],
     'DEFAULT_RENDERER_CLASSES': [
         'alpenwegs.ashared.api.base_response_handler.base_response_handler',
+        'rest_framework.renderers.BrowsableAPIRenderer',
     ]
 }
 SIMPLEJWT = {

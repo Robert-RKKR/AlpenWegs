@@ -113,12 +113,12 @@ WSGI_APPLICATION = 'alpenwegs.wsgi.application'
 ASGI_APPLICATION = 'alpenwegs.asgi.application'
 
 # Celery configuration:
-CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 CELERY_IGNORE_RESULT = True
 
 # Channel configuration:
@@ -133,17 +133,22 @@ CHANNEL_LAYERS = {
 
 # Rest framework configuration:
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'alpenwegs.ashared.api.base_exception_handler.custom_exception_handler',
+    'EXCEPTION_HANDLER': 'alpenwegs.ashared.api.base_exception_handler.base_exception_handler',
     'DEFAULT_PAGINATION_CLASS': 'alpenwegs.ashared.api.base_pagination.BasePaginator',
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissions',
+        'alpenwegs.ashared.api.base_permissions_model.BasePermissionsModel',
     ],
+    'DEFAULT_RENDERER_CLASSES': [
+        'alpenwegs.ashared.api.base_response_handler.base_response_handler',
+    ]
 }
 SIMPLEJWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),

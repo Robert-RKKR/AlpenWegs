@@ -3,7 +3,7 @@ from rest_framework.views import exception_handler
 from rest_framework.response import Response
 
 # Custom exception handler function: 
-def custom_exception_handler(exc, context):
+def base_exception_handler(exc, context):
     """
     Custom exception handler to return JSON responses.
     """

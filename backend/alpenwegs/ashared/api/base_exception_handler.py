@@ -40,5 +40,6 @@ def base_exception_handler(exc, context):
         return Response(error_response, status=response.status_code)
     
     else:
-        # If response if not available, raise exception:
-        raise InterruptedError(exc)
+        pass
+        # # If response if not available, raise exception:
+        # raise InterruptedError(exc)

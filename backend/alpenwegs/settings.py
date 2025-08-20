@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    "allauth.headless",
+    "allauth.usersessions",
 
     # Allauth social providers:
     # 'allauth.socialaccount.providers.google',
@@ -61,7 +63,7 @@ INSTALLED_APPS = [
     'channels',
 
     # Django rest framework:
-    # 'rest_framework_simplejwt.token_blacklist'
+    'rest_framework_simplejwt.token_blacklist',
     'rest_framework_simplejwt',
     'dj_rest_auth',
     'dj_rest_auth.registration',
@@ -141,7 +143,6 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        # 'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -152,15 +153,21 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.BrowsableAPIRenderer',
     ]
 }
-SIMPLEJWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
-}
 REST_AUTH = {
     'USE_JWT': True,
     'TOKEN_MODEL': None,
-    'REGISTER_SERIALIZER': 'profiles.api.serializers.member_register_serializer.MemberRegisterSerializer',
+    'REGISTER_SERIALIZER': 'profiles.api.serializers.auth_serializer.UserRegisterSerializer',
 }
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=2),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': False,
+    'UPDATE_LAST_LOGIN': True,
+}
+REST_USE_JWT = True
+# JWT_AUTH_COOKIE = None
+# JWT_AUTH_REFRESH_COOKIE = None
 
 # Schema configuration:
 SPECTACULAR_SETTINGS = {

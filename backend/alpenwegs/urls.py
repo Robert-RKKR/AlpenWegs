@@ -33,6 +33,7 @@ urlpatterns = [
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     # Optional: Allauth HTML routes (useful for provider callbacks & debugging)
     path('accounts/', include('allauth.urls')),
+    path("allauth/", include("allauth.headless.urls")),
 
     # Admin site URL:
     path('admin/', admin.site.urls),

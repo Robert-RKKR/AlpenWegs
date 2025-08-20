@@ -16,21 +16,29 @@ def base_exception_handler(exc, context):
         # Prepare error response to return:
         error_response = {
             'page_status': False,
-            'page_errors': []}
+            'page_errors': []
+        }
         
-        # Try to collect response data:
         try:
-            error = {'error_code': response.status_code,
-                'error_message': response.data}
+            # Collect error message from response:
+            error = {
+                'error_code': response.status_code,
+                'error_message': response.data
+            }
+            # Add error message to response:
             error_response['page_errors'].append(error)
         
-        # If not available return response:
         except:
-            error = {'error_message': str(response)}
+            # If error message is not available collect response:
+            error = {
+                'error_message': str(response)
+            }
+            # Add error message to response:
             error_response['page_errors'].append(error)
         
         # Return error response:
         return Response(error_response, status=response.status_code)
     
-    else: # If response if not available, raise exception:
+    else:
+        # If response if not available, raise exception:
         raise InterruptedError(exc)

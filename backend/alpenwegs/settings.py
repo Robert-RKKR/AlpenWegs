@@ -141,14 +141,14 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
         'alpenwegs.ashared.api.base_permissions_model.BasePermissionsModel',
     ],
     'DEFAULT_RENDERER_CLASSES': [
-        'alpenwegs.ashared.api.base_response_handler.base_response_handler',
+        'alpenwegs.ashared.api.base_response_renderer.BaseResponseRenderer',
         'rest_framework.renderers.BrowsableAPIRenderer',
     ]
 }

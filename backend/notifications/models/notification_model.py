@@ -17,8 +17,12 @@ class NotificationModel(
         verbose_name = 'Notification'
         verbose_name_plural = 'Notifications'
 
-        # Default ordering:
-        ordering = ['-timestamp']
+        # Overwrite default permissions:
+        default_permissions = ()
+        permissions = (
+            ('read_write', 'Read and write access.'),
+            ('read_only', 'Read only access')
+        )
     
     # Base notification data:
     timestamp = models.DateTimeField(

@@ -45,6 +45,13 @@ class BaseModel(models.Model):
         # Default ordering:
         ordering = ['id']
 
+        # Overwrite default permissions:
+        default_permissions = ()
+        permissions = (
+            ('read_write', 'Read and write access.'),
+            ('read_only', 'Read only access')
+        )
+
 
     # Primary Key value:
     id = models.UUIDField(

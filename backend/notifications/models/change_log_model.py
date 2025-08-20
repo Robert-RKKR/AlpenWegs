@@ -20,8 +20,12 @@ class ChangeLogModel(
         verbose_name = 'Change'
         verbose_name_plural = 'Changes'
 
-        # Default ordering:
-        ordering = ['-timestamp']
+        # Overwrite default permissions:
+        default_permissions = ()
+        permissions = (
+            ('read_write', 'Read and write access.'),
+            ('read_only', 'Read only access')
+        )
     
     # Model data time information:
     timestamp = models.DateTimeField(

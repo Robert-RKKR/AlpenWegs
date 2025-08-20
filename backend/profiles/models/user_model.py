@@ -42,6 +42,13 @@ class UserModel(
             ),
         ]
 
+        # Overwrite default permissions:
+        default_permissions = ()
+        permissions = (
+            ('read_write', 'Read and write access.'),
+            ('read_only', 'Read only access')
+        )
+
     # Model objects manager:
     objects = UserProfileManager()
 

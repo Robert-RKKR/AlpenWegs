@@ -39,6 +39,9 @@ class BaseTimestampModel(BaseModel):
         verbose_name = 'Base Timestamp model'
         verbose_name_plural = 'Base Timestamp models'
 
+        # Default ordering:
+        ordering = ['-timestamp']
+
         # Abstract class value:
         abstract = True
 

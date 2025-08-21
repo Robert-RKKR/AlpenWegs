@@ -8,7 +8,7 @@ def base_exception_handler(
     context
 ) -> Response:
     """
-    Custom exception handler to return JSON responses.
+    Base exception handler to return JSON error responses.
     """
 
     # Collect HTTP response:

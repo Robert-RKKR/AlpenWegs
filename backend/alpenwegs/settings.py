@@ -166,7 +166,7 @@ CHANNEL_LAYERS = {
 
 # Rest framework configuration:
 REST_FRAMEWORK = {
-    # 'EXCEPTION_HANDLER': 'alpenwegs.ashared.api.base_exception_handler.base_exception_handler',
+    'EXCEPTION_HANDLER': 'alpenwegs.ashared.api.base_exception_handler.base_exception_handler',
     'DEFAULT_PAGINATION_CLASS': 'alpenwegs.ashared.api.base_pagination.BasePaginator',
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_FILTER_BACKENDS': [
@@ -179,15 +179,16 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
         'alpenwegs.ashared.api.base_permissions_model.BasePermissionsModel',
     ],
-    # 'DEFAULT_RENDERER_CLASSES': [
-    #     'alpenwegs.ashared.api.base_response_renderer.BaseResponseRenderer',
-    #     'rest_framework.renderers.BrowsableAPIRenderer',
-    # ]
+    'DEFAULT_RENDERER_CLASSES': [
+        'alpenwegs.ashared.api.base_response_renderer.BaseResponseRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
+    ]
 }
 REST_AUTH = {
     'USE_JWT': True,
     'TOKEN_MODEL': None,
     'REGISTER_SERIALIZER': 'profiles.api.serializers.auth_serializer.UserRegisterSerializer',
+    'JWT_AUTH_HTTPONLY': False,
 }
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=2),
@@ -196,12 +197,7 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': False,
     'UPDATE_LAST_LOGIN': True,
 }
-JWT_AUTH_REFRESH_COOKIE = 'refresh'
-JWT_AUTH_COOKIE = 'access'
 REST_USE_JWT = True
-REST_AUTH_SERIALIZERS = {
-    'LOGIN_SERIALIZER': 'profiles.api.serializers.auth_serializer.DebugJWTSerializer',
-}
 
 # Schema configuration:
 SPECTACULAR_SETTINGS = {
@@ -291,7 +287,7 @@ LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
-        'simple': {'format': '[%(levelname)s] %(asctime)s %(name)s: %(message)s'},
+        'simple': {'format': '%(asctime)s - %(levelname)s - %(name)s - %(message)s'},
     },
     'handlers': {
         'console': {
@@ -301,22 +297,22 @@ LOGGING = {
     },
     'root': {
         'handlers': ['console'],
-        'level': 'ERROR',
+        'level': 'INFO',
     },
     'loggers': {
         'django': {
             'handlers': ['console'],
-            'level': 'ERROR',
+            'level': 'INFO',
             'propagate': False
         },
         'django.request': {
             'handlers': ['console'],
-            'level': 'ERROR',
+            'level': 'INFO',
             'propagate': False
         },
         'django.server': {
             'handlers': ['console'],
-            'level': 'ERROR',
+            'level': 'INFO',
             'propagate': False
         },
     },

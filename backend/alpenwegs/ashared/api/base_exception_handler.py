@@ -3,7 +3,10 @@ from rest_framework.views import exception_handler
 from rest_framework.response import Response
 
 # Custom exception handler function: 
-def base_exception_handler(exc, context):
+def base_exception_handler(
+    exc,
+    context
+) -> Response:
     """
     Custom exception handler to return JSON responses.
     """
@@ -14,10 +17,7 @@ def base_exception_handler(exc, context):
     # Check collected response:
     if response:
         # Prepare error response to return:
-        error_response = {
-            'page_status': False,
-            'page_errors': []
-        }
+        page_errors = []
         
         try:
             # Collect error message from response:
@@ -26,7 +26,7 @@ def base_exception_handler(exc, context):
                 'error_message': response.data
             }
             # Add error message to response:
-            error_response['page_errors'].append(error)
+            page_errors.append(error)
         
         except:
             # If error message is not available collect response:
@@ -34,12 +34,11 @@ def base_exception_handler(exc, context):
                 'error_message': str(response)
             }
             # Add error message to response:
-            error_response['page_errors'].append(error)
+            page_errors.append(error)
         
         # Return error response:
-        return Response(error_response, status=response.status_code)
+        return Response(page_errors, status=response.status_code)
     
     else:
-        pass
-        # # If response if not available, raise exception:
-        # raise InterruptedError(exc)
+        # If response if not available, raise exception:
+        raise InterruptedError(exc)

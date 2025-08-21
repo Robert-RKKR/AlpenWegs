@@ -19,24 +19,26 @@ class UserRegisterSerializer(RegisterSerializer):
         user.last_name = self.validated_data.get('last_name', '')
         user.save(update_fields=['first_name', 'last_name'])
         return user
-
-from dj_rest_auth.serializers import LoginSerializer
+    
+from dj_rest_auth.serializers import LoginSerializer as BaseLoginSerializer
 from rest_framework_simplejwt.tokens import RefreshToken
 
+class WorkingJWTLoginSerializer(BaseLoginSerializer):
+
+    def validate(self, attrs):
+        data = super().validate(attrs)
+        self.user = self.user  # needed for refresh generation
+
+        refresh = RefreshToken.for_user(self.user)
+        data['refresh'] = str(refresh)
+        data['access'] = str(refresh.access_token)
+
+        return data
+    
 from dj_rest_auth.serializers import LoginSerializer
-from rest_framework_simplejwt.tokens import RefreshToken
 
 class DebugJWTSerializer(LoginSerializer):
     def validate(self, attrs):
-        # First, call super() to do default validation
         data = super().validate(attrs)
-
-        # Set self.user so it's available
-        self.user = self.user  # <- If `super()` already sets self.user, this is enough
-
-        # Now generate tokens using that user
-        refresh = RefreshToken.for_user(self.user)
-        data['access'] = str(refresh.access_token)
-        data['refresh'] = str(refresh)
-
+        print("DEBUG: Custom LoginSerializer used.")
         return data

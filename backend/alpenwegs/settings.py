@@ -6,6 +6,12 @@ from datetime import timedelta
 from pathlib import Path
 import os
 
+#==========================================================================
+#
+#                          Application Base Variables
+#
+#==========================================================================
+
 # Main application Constance's:
 ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', default=['*'])
 DEBUG = int(os.environ.get('DEBUG', default=True))
@@ -32,7 +38,13 @@ SECRET_KEY = os.environ.get('SECRET_KEY',
 CRYPTO_KEY = os.environ.get('CRYPTO_KEY',
     default=b'kKMcugPPwQaft1m4-G9kx7urqWhz6sh0hKcJmFNqiOQ=')
 
-# Application configuration:
+#==========================================================================
+#
+#                          Application Base Settings
+#
+#==========================================================================
+
+# Base Application settings:
 INSTALLED_APPS = [
     # Django Jazzmin:
     'jazzmin',
@@ -110,9 +122,22 @@ TEMPLATES = [
     },
 ]
 
+
+#==========================================================================
+#
+#                 Application WSGI and ASGI Configuration
+#
+#==========================================================================
+
 # WSGI and ASGI configuration:
 WSGI_APPLICATION = 'alpenwegs.wsgi.application'
 ASGI_APPLICATION = 'alpenwegs.asgi.application'
+
+#==========================================================================
+#
+#              Application Celery and Channels Configuration
+#
+#==========================================================================
 
 # Celery configuration:
 CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
@@ -133,9 +158,15 @@ CHANNEL_LAYERS = {
     },
 }
 
+#==========================================================================
+#
+#                        Application API Configuration
+#
+#==========================================================================
+
 # Rest framework configuration:
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'alpenwegs.ashared.api.base_exception_handler.base_exception_handler',
+    # 'EXCEPTION_HANDLER': 'alpenwegs.ashared.api.base_exception_handler.base_exception_handler',
     'DEFAULT_PAGINATION_CLASS': 'alpenwegs.ashared.api.base_pagination.BasePaginator',
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_FILTER_BACKENDS': [
@@ -148,10 +179,10 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
         'alpenwegs.ashared.api.base_permissions_model.BasePermissionsModel',
     ],
-    'DEFAULT_RENDERER_CLASSES': [
-        'alpenwegs.ashared.api.base_response_renderer.BaseResponseRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    ]
+    # 'DEFAULT_RENDERER_CLASSES': [
+    #     'alpenwegs.ashared.api.base_response_renderer.BaseResponseRenderer',
+    #     'rest_framework.renderers.BrowsableAPIRenderer',
+    # ]
 }
 REST_AUTH = {
     'USE_JWT': True,
@@ -165,9 +196,12 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': False,
     'UPDATE_LAST_LOGIN': True,
 }
+JWT_AUTH_REFRESH_COOKIE = 'refresh'
+JWT_AUTH_COOKIE = 'access'
 REST_USE_JWT = True
-# JWT_AUTH_COOKIE = None
-# JWT_AUTH_REFRESH_COOKIE = None
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'profiles.api.serializers.auth_serializer.DebugJWTSerializer',
+}
 
 # Schema configuration:
 SPECTACULAR_SETTINGS = {
@@ -185,6 +219,44 @@ SPECTACULAR_SETTINGS = {
         'docExpansion': 'none',
     },
 }
+
+#==========================================================================
+#
+#                    Application User Configuration
+#
+#==========================================================================
+
+# Default primary key field type:
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Default user model:
+AUTH_USER_MODEL = 'profiles.UserModel'
+SITE_ID = 1
+
+# Allauth authentication backends:
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+# Allauth:
+ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_PRESERVE_USERNAME_CASING = False
+ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+ACCOUNT_LOGIN_METHODS = {'email'}
+ACCOUNT_UNIQUE_EMAIL = True
+
+# Email:
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+#==========================================================================
+#
+#                     Application Database Configuration
+#
+#==========================================================================
 
 # Database configuration:
 if DB_TYPE == 'sqlite3':
@@ -293,29 +365,3 @@ JAZZMIN_UI_TWEAKS = {
     'theme_color': 'indigo',
     'sidebar_nav_flat_style': True
 }
-
-# Default primary key field type:
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-# Default user model:
-AUTH_USER_MODEL = 'profiles.UserModel'
-SITE_ID = 1
-
-# Allauth authentication backends:
-AUTHENTICATION_BACKENDS = [
-    'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-
-# Allauth:
-ACCOUNT_SIGNUP_FIELDS = ['email*', 'username*', 'password1*', 'password2*']
-ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
-# ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_PRESERVE_USERNAME_CASING = False
-ACCOUNT_USER_MODEL_EMAIL_FIELD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
-ACCOUNT_LOGIN_METHODS = {'email'}
-ACCOUNT_UNIQUE_EMAIL = True
-
-# Email:
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

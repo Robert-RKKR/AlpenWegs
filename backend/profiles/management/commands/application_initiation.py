@@ -17,7 +17,7 @@ class Command(BaseCommand):
         def create_administrator():
             # Prepare administrator data:
             username = 'admin'
-            email = 'admin@capybara.com'
+            email = 'admin@admin.com'
             password = 'admin'
             
             # Check if administrator exist:

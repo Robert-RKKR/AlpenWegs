@@ -7,6 +7,7 @@ GLOBAL_JAZZMIN_SETTINGS = {
     'site_logo_classes': 'img-circle',
     'site_icon': 'ico/favicon/favicon-32x32.png',
     'welcome_sign': 'Welcome to the AlpenWegs',
+    'custom_css': 'css/custom_admin.css',
     'copyright': 'Copyright (c) 2025 Robert Tadeusz Kucharski RKKR - AlpenWegs',
     #'search_model': 'auth.User',
     'user_avatar': None,
@@ -18,15 +19,8 @@ GLOBAL_JAZZMIN_SETTINGS = {
         {'name': 'Tokens',  'model': 'authtoken.token', 'permissions': ['auth.view_user']},
         {'model': 'auth.User', 'permissions': ['auth.view_user']},
     ],
-
-    # 'usermenu_links': [
-    #     {'model': 'authtoken.token'},
-    #     {'model': 'auth.user'}
-    # ],
     'show_sidebar': True,
     'navigation_expanded': False,
-    #'hide_apps': ['auth'],
-    'hide_apps': ['auth', 'authtoken'],
     'hide_models': [],
     'order_with_respect_to': [
         'inventory',
@@ -35,36 +29,17 @@ GLOBAL_JAZZMIN_SETTINGS = {
         'management',
         'notifications'],
     'icons': {
-        # https://www.w3schools.com/icons/fontawesome5_icons_code.asp
         # Authentication:
         'auth': 'fas fa-users-cog',
         'auth.user': 'fas fa-user',
         'auth.Group': 'fas fa-users',
-        # Inventory:
-        'inventory': 'fas fa-server',
-        'inventory.Device': 'fas fa-database',
-        'inventory.Host': 'fas fa-desktop',
-        'inventory.VHost': 'fas fa-desktop',
-        'inventory.Platform': 'fas fa-cube',
-        'inventory.Credential': 'fas fa-users',
-        'inventory.Region': 'fas fa-globe',
-        'inventory.Site': 'fas fa-building',
-        # Connections:
-        'connections': 'fas fa-paper-plane',
-        'connections.Template': 'fas fa-file-word',
-        'connections.TemplateExecution': 'far fa-file-word',
-        'connections.Policy': 'fas fa-file-powerpoint',
-        'connections.PolicyExecution': 'far fa-file-powerpoint',
-        # Management:
-        'management': 'fas fa-info-circle',
-        'management.GlobalSettings': 'fas fa-cog',
-        # History:
-        'history': 'fas fa-archive',
-        'history.Snapshot': 'fas fa-file-archive',
+        # profiles:
+        'invenprofilestory': 'fas fa-server',
+        'profiles.UserModel': 'fas fa-database',
         # Notifications:
         'notifications': 'fas fa-envelope',
-        'notifications.ChangeLog': 'fas fa-clock',
-        'notifications.Notification': 'fas fa-envelope-open',
+        'notifications.ChangeLogModel': 'fas fa-clock',
+        'notifications.NotificationModel': 'fas fa-envelope-open',
         # Celery:
         'django_celery_beat': 'fas fa-sitemap',
         'django_celery_beat.Clocked': 'fas fa-code',

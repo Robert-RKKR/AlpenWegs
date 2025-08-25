@@ -3,7 +3,9 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 
 # Base Premission Model:
-class BasePermissionsModel(BasePermission):
+class BasePermissionsModel(
+    BasePermission,
+):
     """
     Replacement for DjangoModelPermissions.
     - Users with `read_only` can only GET/list/retrieve.
@@ -22,8 +24,12 @@ class BasePermissionsModel(BasePermission):
         'DELETE': 'read_write',
     }
 
-    def has_permission(self, request, view):
-        # Superusers bypass all checks
+    def has_permission(self,
+        request,
+        view
+    ):
+
+        
         if request.user and request.user.is_superuser:
             return True
 
@@ -44,7 +50,12 @@ class BasePermissionsModel(BasePermission):
 
         return request.user.has_perm(codename)
 
-    def has_object_permission(self, request, view, obj):
+    def has_object_permission(self,
+        request,
+        view,
+        obj
+    ):
+
         # Safe methods are always allowed if user has read_only
         if request.method in SAFE_METHODS:
             return True

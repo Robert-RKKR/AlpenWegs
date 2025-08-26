@@ -15,20 +15,22 @@ from notifications.test_view import NotifyMeView
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
-    # API - schema registration:
-    path('api-schema/', SpectacularAPIView.as_view(), name='api-schema'),
-    path('api-docs/', SpectacularSwaggerView.as_view(url_name='api-schema'), name='api_docs'),
-    path('api-rdocs/', SpectacularRedocView.as_view(url_name='api-schema'), name='api_rdocs'),
-
-    # dj-rest-auth core:
-    path('api/auth/', include('dj_rest_auth.urls')),
-    path('api/auth/registration/', include('dj_rest_auth.registration.urls')),
-
-    # SimpleJWT refresh:
-    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-
+    
     # Admin:
     path('admin/', admin.site.urls),
+
+    # API schema registration:
+    path('api/schema/', SpectacularAPIView.as_view(), name='api-schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='api-schema'), name='api_docs'),
+    path('api/rdocs/', SpectacularRedocView.as_view(url_name='api-schema'), name='api_rdocs'),
+
+    # API authentication and registration:
+    path('api/auth/', include('dj_rest_auth.urls')),
+    path('api/auth/registration/', include('dj_rest_auth.registration.urls')),
+    path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # API endpoints:
+    path('api/profiles/', include('profiles.api.urls')),
 
     # Test notification:
     path('notify-me/', NotifyMeView.as_view(), name='notify-me'),

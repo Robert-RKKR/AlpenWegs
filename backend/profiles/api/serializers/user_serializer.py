@@ -15,20 +15,34 @@ fields = [
     # Default:
     'pk',
     'url',
-    # Status Model:
-    'is_deleted',
-    'is_root',
-    'is_active',
+    # Timestamp model values:
     'created',
     'updated',
-    # User Model:
-    'last_login',
+    # Required User fields:
+    'is_active',
     'is_staff',
+    'last_login',
     'is_superuser',
-    'name',
+    
+    # Base User identification information:
     'email',
-    'groups',
-    'user_permissions',
+    'username',
+    'first_name',
+    'middle_name',
+    'last_name',
+    # Password information:
+    'password_to_change',
+    # Contact information:
+    'phone_number',
+    # Personal information:
+    'gender',
+    'weight',
+    'height',
+    'bmi',
+    'birthday',
+    # Location information:
+    'location',
+    'location_name',
 ]
 
 

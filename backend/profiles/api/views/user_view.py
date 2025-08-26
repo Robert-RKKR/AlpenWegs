@@ -29,7 +29,7 @@ class UserView(ReadWriteViewSet):
     # User changes:
     log_changes = True
     # Basic API view parameters:
-    queryset = UserModel.objects.all().order_by('-created')
+    queryset = UserModel.objects.all()
     pagination_class = BaseSmallPaginator
     # Serializer classes:
     serializer_class = UserSerializer

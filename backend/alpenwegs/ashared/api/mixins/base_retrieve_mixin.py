@@ -8,7 +8,10 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
-class BaseRetrieveModelMixin(BaseMixin, RetrieveModelMixin):
+class BaseRetrieveModelMixin(
+    BaseMixin,
+    RetrieveModelMixin,
+):
     """
     Mixin class to retrieve a model instance.
     """

@@ -1,20 +1,28 @@
+# AlpenWegs import:
+from alpenwegs.ashared.api.base_exceptions import ValidationAPIException
+from alpenwegs.ashared.constants.action_type import ActionTypeChoices
+from alpenwegs.ashared.api.mixins.base_mixin import BaseMixin
+
 # Rest framework import:
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.response import Response
 from rest_framework import status
 
-# AlpenWegs import:
-from alpenwegs.ashared.constants.action_type import ActionTypeChoices
-from alpenwegs.ashared.api.mixins.base_mixin import BaseMixin
-
 
 # Base mixins custom classes:
-class BaseCreateModelMixin(BaseMixin, CreateModelMixin):
+class BaseCreateModelMixin(
+    BaseMixin,
+    CreateModelMixin,
+):
     """
     Mixin class to create a model instance.
     """
 
-    def create(self, request, *args, **kwargs):
+    def _call_create(self,
+        request: Response,
+        *args: list,
+        **kwargs: dict,
+    ) -> Response:
 
         # Collect a new serializer:
         serializer = self.get_serializer(data=request.data)
@@ -37,3 +45,26 @@ class BaseCreateModelMixin(BaseMixin, CreateModelMixin):
             data=serializer.data,
             status=status.HTTP_201_CREATED,
         )
+    
+    def create(self,
+        request: Response,
+        *args: list,
+        **kwargs: dict,
+    ) -> Response:
+        """
+        Create a new model instance.
+        """
+        
+        try:
+            return self._call_create(
+                request,
+                *args,
+                **kwargs,
+            )
+        
+        except Exception as exception:
+            print('TEST')
+            raise ValidationAPIException(
+                error_message=str(exception),
+                error_details=exception.args,
+            )

@@ -8,10 +8,10 @@ from profiles.api.views.user_view import UserView
 router = BaseDefaultRouter()
 
 # App name registration:
-app_name = 'api-report'
+app_name = 'api-profiles'
 
-# Report view route registration:
-router.register(r'user', UserView, basename='user')
+# Profiles view route registration:
+router.register(r'user', UserView, basename='user_model')
 
 # Add urlpatterns:
 urlpatterns = router.urls

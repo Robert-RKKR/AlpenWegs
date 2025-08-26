@@ -13,6 +13,9 @@ from rest_framework.exceptions import ErrorDetail
 from rest_framework.response import Response
 from rest_framework import status
 
+# Python import:
+import logging
+logger = logging.getLogger('API')
 
 # Base Mixin class:
 class BaseMixin():
@@ -100,6 +103,47 @@ class BaseMixin():
                 f'has been {action_repr}d.', url=url
             )
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     def _return_api_response(self,
         page_status: int,
         page_data: str,
@@ -156,6 +200,7 @@ class BaseMixin():
             'page_status': False,
             'page_errors': [api_error]}, error_code)
 
+
     def _log_api_call(self,
         request,
         is_error_message = False,
@@ -173,18 +218,16 @@ class BaseMixin():
             'method': request_method,
             'auth': request.auth,
             'path': request_path,
-            'code': error_code}
+            'code': error_code
+        }
         
         # Create message for a new log:
         if is_error_message:
-            # Create a new negative message:
-            message = f'{request_method} API to "{request_path}" '\
-                f'has failed (HTTP {error_code} response code).'
-            # Create a new log:
-            logger.warning(message, request_user, additional_data=collected_data)
+            # Create a new log entry:
+            logger.warning(message)
         
         else: # Create a new positive negative message:
             message = f'{request_method} API call to '\
                 f'"{request_path}" was successfully made.'
             # Create a new log:
-            logger.debug(message, request_user, additional_data=collected_data)
+            logger.debug(message)

@@ -1,6 +1,6 @@
 # AlpenWegs import:
 from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
-from alpenwegs.ashared.api.base_pagination import BaseSmallPaginator
+from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
 
 # AlpenWegs application import:
 from profiles.api.serializers.user_serializer import UserSerializer
@@ -29,7 +29,7 @@ class UserView(ReadWriteViewSet):
     # User changes:
     log_changes = True
     # Basic API view parameters:
-    queryset = UserModel.objects.all()
+    queryset = UserModel.objects.all().order_by('-created')
     pagination_class = BaseSmallPaginator
     # Serializer classes:
     serializer_class = UserSerializer

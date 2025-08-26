@@ -2,7 +2,7 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
 
-# Base Premission Model:
+# Base Permission Model:
 class BasePermissionsModel(
     BasePermission,
 ):
@@ -28,7 +28,8 @@ class BasePermissionsModel(
         request,
         view
     ):
-
+        
+        return True
         
         if request.user and request.user.is_superuser:
             return True

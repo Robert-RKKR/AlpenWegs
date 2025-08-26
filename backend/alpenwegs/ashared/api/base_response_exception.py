@@ -23,7 +23,7 @@ def base_exception_handler(
             # Collect error message from response:
             error = {
                 'error_code': response.status_code,
-                'error_message': response.data
+                'error_message': response.data['detail']
             }
             # Add error message to response:
             page_errors.append(error)
@@ -40,5 +40,15 @@ def base_exception_handler(
         return Response(page_errors, status=response.status_code)
     
     else:
-        # If response if not available, raise exception:
-        raise InterruptedError(exc)
+
+        return exc
+
+        # If response if not available, raise 500 error:
+        error = {
+            'error_code': 500,
+            'error_message': 'Internal Server Error',
+            'debug': str(exc),
+        }
+        
+        # Return error response:
+        return Response(error, status=500)

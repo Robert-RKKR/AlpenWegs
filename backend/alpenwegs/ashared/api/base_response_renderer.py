@@ -16,6 +16,7 @@ class BaseResponseRenderer(JSONRenderer):
         accepted_media_type: bool = None,
         renderer_context: dict = None
     ) -> str:
+    
 
         # Get the response from renderer context:
         response = renderer_context.get('response', None)
@@ -32,17 +33,10 @@ class BaseResponseRenderer(JSONRenderer):
 
         # Check if response is successful:
         if success:
-            
-            # If response is successful, check if data are paginated:
-            if isinstance(data, dict) and 'results' in data and 'count' in data:
-                
-                # Prepare paginated response:
-                response_data['page_data'] = {
-                    'count': data.get('count'),
-                    'next': data.get('next'),
-                    'previous': data.get('previous'),
-                    'items': data.get('results'),
-                }
+
+            # Check if data already has page results:
+            if 'page_results' in data:
+                response_data = data
             
             else:
                 # Add data response directly:

@@ -7,7 +7,7 @@ import math
 
 
 # All paginator classes:
-class BasePaginator(PageNumberPagination):
+class BaseResponsePagination(PageNumberPagination):
     """
     Base paginator class providing common pagination
     settings and response structure.
@@ -61,7 +61,7 @@ class BasePaginator(PageNumberPagination):
         return self.page_size
 
 
-class BaseSmallPaginator(BasePaginator):
+class BaseSmallPaginator(BaseResponsePagination):
     """
     Paginator class for smaller pagination.
     """
@@ -70,7 +70,7 @@ class BaseSmallPaginator(BasePaginator):
     page_size = 10
 
 
-class BaseMediumPaginator(BasePaginator):
+class BaseMediumPaginator(BaseResponsePagination):
     """
     Paginator class for medium-sized pagination.
     """
@@ -79,7 +79,7 @@ class BaseMediumPaginator(BasePaginator):
     page_size = 50
 
 
-class BaseLargePaginator(BasePaginator):
+class BaseLargePaginator(BaseResponsePagination):
     """
     Paginator class for larger pagination.
     """
@@ -88,7 +88,7 @@ class BaseLargePaginator(BasePaginator):
     page_size = 100
 
 
-class BaseMaxPaginator(BasePaginator):
+class BaseMaxPaginator(BaseResponsePagination):
     """
     Paginator class for max pagination.
     """

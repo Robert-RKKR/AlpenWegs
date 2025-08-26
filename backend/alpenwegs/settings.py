@@ -166,8 +166,8 @@ CHANNEL_LAYERS = {
 
 # Rest framework configuration:
 REST_FRAMEWORK = {
-    'EXCEPTION_HANDLER': 'alpenwegs.ashared.api.base_exception_handler.base_exception_handler',
-    'DEFAULT_PAGINATION_CLASS': 'alpenwegs.ashared.api.base_pagination.BasePaginator',
+    'EXCEPTION_HANDLER': 'alpenwegs.ashared.api.base_response_exception.base_exception_handler',
+    'DEFAULT_PAGINATION_CLASS': 'alpenwegs.ashared.api.base_response_pagination.BaseResponsePagination',
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     'DEFAULT_FILTER_BACKENDS': [
         'django_filters.rest_framework.DjangoFilterBackend',
@@ -176,7 +176,7 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
         'alpenwegs.ashared.api.base_permissions_model.BasePermissionsModel',
     ],
     'DEFAULT_RENDERER_CLASSES': [
@@ -191,8 +191,8 @@ REST_AUTH = {
     'JWT_AUTH_HTTPONLY': False,
 }
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=2),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=200),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=100),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': False,
     'UPDATE_LAST_LOGIN': True,

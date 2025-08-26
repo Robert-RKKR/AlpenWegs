@@ -1,14 +1,13 @@
-# AlpenWegs - import:
+# AlpenWegs import:
 from alpenwegs.ashared.api.mixins.base_retrieve_mixin import BaseRetrieveModelMixin
 from alpenwegs.ashared.api.mixins.base_destroy_mixin import BaseDestroyModelMixin
 from alpenwegs.ashared.api.mixins.base_update_mixin import BaseUpdateModelMixin
 from alpenwegs.ashared.api.mixins.base_create_mixin import BaseCreateModelMixin
+from alpenwegs.ashared.api.base_permissions_model import BasePermissionsModel
 from alpenwegs.ashared.api.mixins.base_list_mixin import BaseListModelMixin
 
 # Rest framework import:
-from rest_framework.authentication import SessionAuthentication
-from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import DjangoModelPermissions
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
 from rest_framework.filters import SearchFilter
@@ -43,11 +42,10 @@ class BaseViewSet(viewsets.GenericViewSet):
 
     # Authentication and permissions:
     authentication_classes = [
-        SessionAuthentication,
-        TokenAuthentication,
+        JWTAuthentication,
     ]
     permission_classes = [
-        DjangoModelPermissions,
+        BasePermissionsModel,
     ]
 
     # Django rest framework filters:

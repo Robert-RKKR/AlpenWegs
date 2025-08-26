@@ -1,6 +1,7 @@
 # Rest framework import:
-from rest_framework.exceptions import ValidationError as RestValidationError
+from rest_framework.exceptions import ValidationError
 from rest_framework.mixins import CreateModelMixin
+from rest_framework.exceptions import ParseError
 from rest_framework import status
 
 # AlpenWegs import:
@@ -20,18 +21,17 @@ class BaseCreateModelMixin(BaseMixin, CreateModelMixin):
         serializer = self.get_serializer(data=request.data)
         
         try: # try to validate serializer:
+            print(f'request data: {request.data} user: {request.user}')
             serializer.is_valid(raise_exception=True)
         
-        except RestValidationError as error:
-            # Define error code:
-            error_code = status.HTTP_400_BAD_REQUEST
-            # Create a new log notification:
-            self._log_api_call(request, True, error_code)
-            # Return HTTP response 400 - Bad request:
-            return self._return_api_error(
-                error_code, 'ValidationError',
-                'The data provided is incorrect.',
-                self.format_validation_error(error))
+        except ValidationError as exception:
+            print(f'Validation error: {exception}')
+            # Raise not found error:
+            raise ParseError(f'The provided data are incorrect. {self.format_validation_error(exception)}')
+        
+        except Exception as exception:
+            # Raise not found error:
+            raise ValidationError(f'An error occurred during data validation. {str(exception)}')
         
         else: # Save serializer:
             instance = serializer.save()

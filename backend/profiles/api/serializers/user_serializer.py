@@ -2,11 +2,11 @@
 from alpenwegs.ashared.api.base_serializers import WritableNestedSerializer
 from alpenwegs.ashared.api.base_serializers import BaseSerializer
 
-# AlpenWegs application import:
-from profiles.models.user_model import UserModel
-
 # Rest framework serializer import:
 from rest_framework.serializers import HyperlinkedIdentityField
+
+# AlpenWegs application import:
+from profiles.models.user_model import UserModel
 
 
 # User Model serializer details:
@@ -23,7 +23,6 @@ fields = [
     'is_staff',
     'last_login',
     'is_superuser',
-    
     # Base User identification information:
     'email',
     'username',
@@ -51,7 +50,7 @@ class UserSerializer(BaseSerializer):
 
     # Object URL definition:
     url = HyperlinkedIdentityField(
-        view_name='api-management:user_model-detail',
+        view_name='api-profiles:user_model-detail',
         help_text='URL to provided object.',
         read_only=False
     )
@@ -60,7 +59,6 @@ class UserSerializer(BaseSerializer):
 
         model = model
         fields = fields
-        extra_kwargs = {'password': {'write_only': True}}
 
 
 # User Model nested serializer class:
@@ -68,7 +66,7 @@ class UserNestedSerializer(WritableNestedSerializer):
 
     # Object URL definition:
     url = HyperlinkedIdentityField(
-        view_name='api-management:user_model-detail',
+        view_name='api-profiles:user_model-detail',
         help_text='URL to provided object.',
         read_only=False
     )
@@ -77,4 +75,3 @@ class UserNestedSerializer(WritableNestedSerializer):
 
         model = model
         fields = fields
-        extra_kwargs = {'password': {'write_only': True}}

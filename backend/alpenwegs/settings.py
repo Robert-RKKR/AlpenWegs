@@ -187,7 +187,7 @@ REST_FRAMEWORK = {
 REST_AUTH = {
     'USE_JWT': True,
     'TOKEN_MODEL': None,
-    'REGISTER_SERIALIZER': 'profiles.api.serializers.auth_serializer.UserRegisterSerializer',
+    'REGISTER_SERIALIZER': 'profiles.api.serializers.auth_serializers.UserRegisterSerializer',
     'JWT_AUTH_HTTPONLY': False,
 }
 SIMPLE_JWT = {
@@ -202,8 +202,10 @@ REST_USE_JWT = True
 # Schema configuration:
 SPECTACULAR_SETTINGS = {
     'TITLE': 'AlpenWegs REST API',
+    'DESCRIPTION': 'API for AlpenWegs project.',
     'LICENSE': {'name': 'Apache v2 License'},
     'VERSION': VERSION,
+    'SERVE_INCLUDE_SCHEMA': False,
     'COMPONENT_SPLIT_REQUEST': True,
     'SERVE_PERMISSIONS': ['rest_framework.permissions.AllowAny'],
     'SWAGGER_UI_SETTINGS': {
@@ -214,6 +216,9 @@ SPECTACULAR_SETTINGS = {
         'defaultModelExpandDepth': 3,
         'docExpansion': 'none',
     },
+    "POSTPROCESSING_HOOKS": [
+        "alpenwegs.ashared.api.schema_hooks.retag_auth_endpoints",
+    ],
 }
 
 #==========================================================================

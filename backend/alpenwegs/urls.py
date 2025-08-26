@@ -1,10 +1,10 @@
+# AlpenWegs imports:
+from profiles.api.views.auth_views import AuthTokenRefreshView
+
 # API import:
-from rest_framework.authtoken.views import obtain_auth_token
 from drf_spectacular.views import SpectacularSwaggerView
 from drf_spectacular.views import SpectacularRedocView
 from drf_spectacular.views import SpectacularAPIView
-
-# Django import:
 from django.contrib import admin
 from django.urls import include
 from django.urls import path

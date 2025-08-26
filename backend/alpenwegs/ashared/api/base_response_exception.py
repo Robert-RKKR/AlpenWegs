@@ -13,6 +13,10 @@ def base_exception_handler(
 
     # Collect HTTP response:
     response = exception_handler(exc, context)
+
+    print(f'Exception response: {response}')
+    print(f'Exception response.status_code: {response.status_code}')
+    print(f'Exception response.data: {response.data}')
     
     # Check collected response:
     if response:

@@ -24,13 +24,8 @@ class BaseRetrieveModelMixin(BaseMixin, RetrieveModelMixin):
 
     def retrieve(self, request, *args, **kwargs):
 
-        try: # Try to make a nwe API GET - Retrieve call:
-            response = self._call_retrieve()
-        
-        except Exception:
-            # Raise not found error:
-            raise NotFound('The object has not been found.')
-        
-        else:
-            # Return collected response:
-            return Response(response, status.HTTP_200_OK)
+        # Collect and return retrieve response:
+        return Response(
+            data=self._call_retrieve(),
+            status=status.HTTP_200_OK
+        )

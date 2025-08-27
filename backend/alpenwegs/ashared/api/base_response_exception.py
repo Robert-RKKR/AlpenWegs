@@ -5,7 +5,6 @@ from alpenwegs.ashared.api.base_exceptions import BaseAPIException
 from rest_framework.views import exception_handler
 from rest_framework.response import Response
 
-
 def collect_exception_data(
     exc: dict,
     context: dict,
@@ -36,7 +35,6 @@ def collect_exception_data(
     # Return collected error response:
     return error_response, response
 
-# Custom exception handler function: 
 def base_exception_handler(
     exc: dict,
     context: dict,
@@ -44,6 +42,15 @@ def base_exception_handler(
     """
     Base exception handler to return JSON error responses.
     """
+
+    error_response, response = collect_exception_data(
+        context=context,
+        exc=exc,
+    )
+    return Response(
+        data=error_response,
+        status=response.status_code
+    )
 
     try:
         # Try to collect exception data:
@@ -57,7 +64,7 @@ def base_exception_handler(
         error_response = {
             'error_code': 500,
             'error_message': 'Internal Server Error',
-            'error_details': str(exc),
+            'error_details': str(exception),
         }
 
         # Return error response:

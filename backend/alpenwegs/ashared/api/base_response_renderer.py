@@ -3,7 +3,9 @@ from rest_framework.renderers import JSONRenderer
 
 
 # Custom response handler: 
-class BaseResponseRenderer(JSONRenderer):
+class BaseResponseRenderer(
+    JSONRenderer,
+):
     """
     Define base API response renderer for AlpenWegs API.
     
@@ -28,7 +30,7 @@ class BaseResponseRenderer(JSONRenderer):
         response_data = {
             'page_status': success,
             'page_data': None,
-            'page_errors': None,
+            'page_error': None,
         }
 
         # Check if response is successful:
@@ -44,7 +46,7 @@ class BaseResponseRenderer(JSONRenderer):
         
         else:
             # If response is not successful, add errors to response:
-            response_data['page_errors'] = data
+            response_data['page_error'] = data
 
         # Return the rendered response as original method:
         return super().render(

@@ -8,3 +8,4 @@ def retag_auth_endpoints(result, generator, request, public):
             for method, operation in path_item.items():
                 operation["tags"] = ["Profiles - Authentication and Verification"]
     return result
+

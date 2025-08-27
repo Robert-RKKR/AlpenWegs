@@ -43,7 +43,8 @@ class BaseResponsePagination(PageNumberPagination):
             'page_links': {
                 'page_next': self.get_next_link(),
                 'page_previous': self.get_previous_link()
-            }
+            },
+            'page_error': None,
         })
 
     def get_page_sizes(self):

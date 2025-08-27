@@ -4,7 +4,9 @@ from rest_framework import status
 
 
 # Base Application API Exception:
-class BaseAPIException(APIException):
+class BaseAPIException(
+    APIException,
+):
     """
     Custom base exception for AlpenWegs API.
     All custom errors should inherit from this.
@@ -34,45 +36,65 @@ class BaseAPIException(APIException):
         }
 
 
-class ValidationAPIException(BaseAPIException):
+class ValidationAPIException(
+    BaseAPIException,
+):
     """
     Raised when validation fails (e.g. serializer.is_valid).
     """
 
     status_code = status.HTTP_400_BAD_REQUEST
-    default_message = 'The provided data are invalid.'
+    default_message = (
+        'The data you provided is invalid. Please check each field for errors '
+        'and correct them before trying again.'
+    )
     default_code = 'validation_error'
     default_detail = []
 
 
-class PermissionAPIException(BaseAPIException):
+class PermissionAPIException(
+    BaseAPIException,
+):
     """
     Raised when permission is denied.
     """
 
     status_code = status.HTTP_403_FORBIDDEN
-    default_message = 'You do not have permission to perform this action.'
+    default_message = (
+        'You do not have the required permissions to perform this action. '
+        'If you believe this is a mistake, please contact an administrator.'
+    )
     default_code = 'permission_denied'
     default_detail = []
 
 
-class NotFoundAPIException(BaseAPIException):
+class NotFoundAPIException(
+    BaseAPIException,
+):
     """
     Raised when object is not found.
     """
 
     status_code = status.HTTP_404_NOT_FOUND
-    default_message = 'The requested resource was not found.'
+    default_message = (
+        'The requested resource could not be found. It may have been '
+        'removed or are temporarily unavailable.'
+    )
     default_code = 'not_found'
     default_detail = []
 
 
-class ServerAPIException(BaseAPIException):
+class ServerAPIException(
+    BaseAPIException,
+):
     """
     Raised for unexpected server errors.
     """
 
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-    default_message = 'Internal server error.'
+    default_message = (
+        'An internal server error occurred while processing your request. '
+        'Our team has been notified, and we are working to resolve the issue.'
+    )
     default_code = 'server_error'
     default_detail = []

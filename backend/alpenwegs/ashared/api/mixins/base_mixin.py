@@ -5,6 +5,7 @@ from alpenwegs.ashared.models.base_model import BaseModel
 # AlpenWegs application import:
 from notifications.object_collector import collect_object_data
 from notifications.notification import Notification
+from profiles.models.user_model import UserModel
 from notifications.changer import log_change
 
 # Django import:
@@ -19,6 +20,51 @@ logger = logging.getLogger('API')
 
 # Base Mixin class:
 class BaseMixin():
+
+    def _create_notification(self,
+        instance: BaseModel,
+        action: ActionTypeChoices,
+        user: UserModel,
+        serializer = False,
+        log_changes = False
+    ) -> None:
+        """
+        Create a notification for object changes.
+        """
+
+        if log_changes:
+            # Create a new change notification:
+            log_change(
+                instance=instance,
+                user=user,
+                action=action,
+            )
+            
+            # Collect object data:
+            object_related_data = collect_object_data(instance)
+            model_name = object_related_data.get('model_name', False)
+            instance_representation = object_related_data.get(
+                'object_representation', False)
+            # Collect url:
+            url = serializer.data.get('url') if serializer else None
+
+            # Collect action representation:
+            action_repr = ActionTypeChoices.value_from_int(action)
+
+            # Create a new notification:
+            notification = Notification(
+                task_id=f'api-{action_repr}',
+                channel_name=f'user_{user.id}',
+            )
+            # Send notification:
+            notification.info(f'{model_name} "{instance_representation}" '
+                f'has been {action_repr}d.', url=url
+            )
+
+
+
+
+
 
     def format_validation_error(self,
         error_obj: ValidationError) -> dict:
@@ -67,41 +113,6 @@ class BaseMixin():
         
         # If object is not a root object, return False value:
         return False
-
-    def _create_notification(self,
-        instance: object,
-        action: ActionTypeChoices,
-        member: BaseModel,
-        serializer = False,
-        log_changes = False) -> None:
-        """
-        Create a notification for object changes.
-        """
-
-        if log_changes:
-            # Create a new change notification:
-            log_change(instance, member, action)
-            
-            # Collect object data:
-            object_related_data = collect_object_data(instance)
-            model_name = object_related_data.get('model_name', False)
-            instance_representation = object_related_data.get(
-                'object_representation', False)
-            # Collect url:
-            url = serializer.data.get('url') if serializer else None
-
-            # Collect action representation:
-            action_repr = ActionTypeChoices.value_from_int(action)
-
-            # Create a new notification:
-            notification = Notification(
-                task_id=f'api-{action_repr}',
-                channel_name=f'user_{member.id}',
-            )
-            # Send notification:
-            notification.info(f'{model_name} "{instance_representation}" '
-                f'has been {action_repr}d.', url=url
-            )
 
 
 

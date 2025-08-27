@@ -37,7 +37,7 @@ class BaseCreateModelMixin(
             action=ActionTypeChoices.CREATE,
             log_changes=self.log_changes,
             serializer=serializer,
-            member=request.user,
+            user=request.user,
             instance=instance,
         )
 

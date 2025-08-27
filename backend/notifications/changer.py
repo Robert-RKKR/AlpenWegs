@@ -3,6 +3,7 @@ from notifications.models.change_log_model import ChangeLogModel
 from profiles.models.user_model import UserModel
 
 # AlpenWegs import:
+from alpenwegs.ashared.constants.action_type import ActionTypeChoices
 from alpenwegs.ashared.models.base_model import BaseModel
 from alpenwegs.logger import app_logger
 
@@ -54,16 +55,16 @@ def collect_object_representation(
 
 def log_change(
     instance: BaseModel,
-    member: UserModel,
-    change_log_action,
+    user: UserModel,
+    action: ActionTypeChoices,
 ) -> ChangeLogModel:
     """
     Logs the change made to the provided instance.
     """
 
     # Check collected data:
-    if not isinstance(member, UserModel):
-        raise TypeError('Provided member is not a valid AlpenWegs member model.')
+    if not isinstance(user, UserModel):
+        raise TypeError('Provided user is not a valid AlpenWegs user model.')
     if not isinstance(
         instance, BaseModel) and not isinstance(instance, UserModel):
         raise TypeError('Provided instance is not a valid AlpenWegs model.')
@@ -80,13 +81,13 @@ def log_change(
     try:
         # Create a new change log:
         change_log = ChangeLogModel.objects.create(
-            object_representation=collect_object_representation(instance),
-            action_type=change_log_action,
+            object_repr=collect_object_representation(instance),
             model_name=model_name,
             object_id=instance.pk,
+            action_type=action,
             app_name=app_name,
             after=object_data,
-            member=member,
+            user=user,
         )
    
     except Exception as exception:

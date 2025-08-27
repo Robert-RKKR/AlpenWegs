@@ -11,8 +11,9 @@ class BaseAPIException(APIException):
     """
 
     status_code = status.HTTP_400_BAD_REQUEST
-    default_detail = 'An error occurred.'
-    default_code = 'error'
+    default_message = 'An error occurred.'
+    default_code = 'api_error'
+    default_detail = []
 
     def __init__(self,
         status_code: status = None,
@@ -27,9 +28,9 @@ class BaseAPIException(APIException):
             self.default_code = error_code
 
         self.detail = {
-            'error_message': error_message or self.default_detail,
-            'error_details': error_details,
-            'error_code': self.default_code,
+            'detail': error_message or self.default_message,
+            'messages': error_details or self.default_code,
+            'code': error_code or self.default_code,
         }
 
 
@@ -39,8 +40,9 @@ class ValidationAPIException(BaseAPIException):
     """
 
     status_code = status.HTTP_400_BAD_REQUEST
-    default_detail = 'The provided data are invalid.'
+    default_message = 'The provided data are invalid.'
     default_code = 'validation_error'
+    default_detail = []
 
 
 class PermissionAPIException(BaseAPIException):
@@ -49,8 +51,9 @@ class PermissionAPIException(BaseAPIException):
     """
 
     status_code = status.HTTP_403_FORBIDDEN
-    default_detail = 'You do not have permission to perform this action.'
+    default_message = 'You do not have permission to perform this action.'
     default_code = 'permission_denied'
+    default_detail = []
 
 
 class NotFoundAPIException(BaseAPIException):
@@ -59,8 +62,9 @@ class NotFoundAPIException(BaseAPIException):
     """
 
     status_code = status.HTTP_404_NOT_FOUND
-    default_detail = 'The requested resource was not found.'
+    default_message = 'The requested resource was not found.'
     default_code = 'not_found'
+    default_detail = []
 
 
 class ServerAPIException(BaseAPIException):
@@ -69,5 +73,6 @@ class ServerAPIException(BaseAPIException):
     """
 
     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-    default_detail = 'Internal server error.'
+    default_message = 'Internal server error.'
     default_code = 'server_error'
+    default_detail = []

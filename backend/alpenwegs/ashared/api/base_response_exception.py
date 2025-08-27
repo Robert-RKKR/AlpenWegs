@@ -1,67 +1,74 @@
+# AlpenWegs import:
+from alpenwegs.ashared.api.base_exceptions import BaseAPIException
+
 # Rest framework import:
 from rest_framework.views import exception_handler
 from rest_framework.response import Response
 
+
+def collect_exception_data(
+    exc: dict,
+    context: dict,
+ ) -> dict:
+    """
+    Collects exception data to return a structured error response.
+    """
+
+    # Define error response dictionary:
+    error_response = {}
+
+    # Collect HTTP response:
+    response = exception_handler(exc, context)
+
+    if isinstance(response.data, dict):
+        # Collect error message based od detail key:
+        error_response['error_message'] = response.data.get(
+            'detail', 'An error occurred.')
+        # Collect response status code:
+        error_response['error_status'] = response.status_code
+        # Collect error code if available:
+        error_response['error_code'] = response.data.get(
+                'code', 'api_error')
+        # Collect error details if available:
+        error_response['error_details'] = response.data.get(
+            'messages', [])
+        
+    # Return collected error response:
+    return error_response, response
+
 # Custom exception handler function: 
 def base_exception_handler(
-    exc,
-    context
+    exc: dict,
+    context: dict,
 ) -> Response:
     """
     Base exception handler to return JSON error responses.
     """
 
-    # Collect HTTP response:
-    response = exception_handler(exc, context)
+    try:
+        # Try to collect exception data:
+        error_response, response = collect_exception_data(
+            context=context,
+            exc=exc,
+        )
 
-    print(f'Exception response: {response}')
-    print(f'Exception response type: {type(response)}')
-    print(f'Exception response.status_code: {response.status_code}')
-    print(f'Exception response.status_code type: {type(response.status_code)}')
-    print(f'Exception response.data: {response.data}')
-    print(f'Exception response.data type: {type(response.data)}')
+    except Exception as exception:
+        # If response if not available, raise 500 error:
+        error_response = {
+            'error_code': 500,
+            'error_message': 'Internal Server Error',
+            'error_details': str(exc),
+        }
 
+        # Return error response:
+        return Response(
+            data=error_response,
+            status=500
+        )
 
-    return Response(response.data, status=response.status_code)
-    
-    # # Check collected response:
-    # if response:
-    #     # Prepare error response to return:
-    #     error_response = {
-    #         'page_status': False,
-    #         'page_errors': []
-    #     }
-
-    #     try:
-    #         # Collect error message from response:
-    #         error = {
-    #             'error_code': response.status_code,
-    #             'error_message': response.data['detail']
-    #         }
-    #         # Add error message to response:
-    #         page_errors.append(error)
-        
-    #     except:
-    #         # If error message is not available collect response:
-    #         error = {
-    #             'error_message': str(response)
-    #         }
-    #         # Add error message to response:
-    #         page_errors.append(error)
-        
-    #     # Return error response:
-    #     return Response(page_errors, status=response.status_code)
-    
-    # else:
-
-    #     return exc
-
-    #     # If response if not available, raise 500 error:
-    #     error = {
-    #         'error_code': 500,
-    #         'error_message': 'Internal Server Error',
-    #         'debug': str(exc),
-    #     }
-        
-    #     # Return error response:
-    #     return Response(error, status=500)
+    else:
+        # Return error response:
+        return Response(
+            data=error_response,
+            status=response.status_code
+        )

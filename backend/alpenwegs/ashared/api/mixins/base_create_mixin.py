@@ -4,6 +4,7 @@ from alpenwegs.ashared.constants.action_type import ActionTypeChoices
 from alpenwegs.ashared.api.mixins.base_mixin import BaseMixin
 
 # Rest framework import:
+from rest_framework.exceptions import ValidationError
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.response import Response
 from rest_framework import status
@@ -54,17 +55,37 @@ class BaseCreateModelMixin(
         """
         Create a new model instance.
         """
-        
+
         try:
+            # Try to create a new instance:
             return self._call_create(
-                request,
+                request=request,
                 *args,
                 **kwargs,
             )
         
-        except Exception as exception:
-            print('TEST')
+        except ValidationError as exception:
+            # Define error details list:
+            error_details = []
+            
+            # Iterate over validation errors items to collect details:
+            for field, field_errors in exception.get_full_details().items():
+                # Iterate over field errors to collect details:
+                for error in field_errors:
+                    # Collect error details:
+                    error_details.append({
+                        'error_field': field,
+                        'error_message': error.get(
+                            'message',
+                            'The provided data are invalid.'
+                        ),
+                        'error_code': error.get(
+                            'code', 'validation_error'
+                        ),
+                    })
+            
+            # Raise validation API exception with collected details:
             raise ValidationAPIException(
-                error_message=str(exception),
-                error_details=exception.args,
+                error_message='The provided data are invalid.',
+                error_details=error_details,
             )

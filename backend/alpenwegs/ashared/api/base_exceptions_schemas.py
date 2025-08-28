@@ -1,24 +1,23 @@
 # Rest framework import:
 from rest_framework import serializers
-from rest_framework import status
-
 
 
 class BaseAPIExceptionSchema(serializers.Serializer):
     """
-    Base schema for API error responses.
+    Default general API schema for exceptions.
     """
 
-    class BaseSubSchema(serializers.Serializer):
-        """
-        Single error detail for page_error.
-        """
+    class BaseSubSchema(
+        serializers.Serializer
+    ):
 
+        # Sub schema fields:
         error_message = serializers.CharField()
         error_status = serializers.IntegerField()
         error_code = serializers.CharField()
         error_details = serializers.BooleanField()
 
+    # Main schema fields:
     page_status = serializers.BooleanField()
     page_data = serializers.JSONField()
     page_error = serializers.DictField(
@@ -32,21 +31,19 @@ class TokenAuthenticationAPIExceptionSchema(
     BaseAPIExceptionSchema,
 ):
     """
-    Raised when validation fails (e.g. serializer.is_valid).
+    API schema for Token Authentication exception.
     """
 
     class TokenAuthenticationSubSchema(
         serializers.Serializer
     ):
-        """
-        Single error detail for page_error.
-        """
 
+        # Sub schema fields:
         token_class = serializers.CharField()
         token_type = serializers.CharField()
         message = serializers.CharField()
 
-    # override page error sub schema:
+    # Override page error sub schema:
     page_error = serializers.DictField(
         child=serializers.ListSerializer(
             child=TokenAuthenticationSubSchema()
@@ -54,27 +51,21 @@ class TokenAuthenticationAPIExceptionSchema(
     )
 
 
-# class PermissionAPIExceptionSchema(
-#     BaseAPIExceptionSchema,
-# ):
-#     """
-#     Raised when permission is denied.
-#     """
+class PermissionAPIExceptionSchema(
+    BaseAPIExceptionSchema,
+):
+    """
+    API schema for Permission exception.
+    """
 
-#     status_code = status.HTTP_403_FORBIDDEN
-#     default_message = (
-#         'You do not have the required permissions to perform this action. '
-#         'If you believe this is a mistake, please contact an administrator.'
-#     )
-#     default_code = 'permission_denied'
-#     default_detail = []
+    pass
 
 
 class ValidationAPIExceptionSchema(
     BaseAPIExceptionSchema,
 ):
     """
-    Raised when object is not found.
+    API schema for Validation exception.
     """
 
     pass
@@ -84,23 +75,17 @@ class NotFoundAPIExceptionSchema(
     BaseAPIExceptionSchema,
 ):
     """
-    Raised when object is not found.
+    API schema for Not Found exception.
     """
 
     pass
 
 
-# class ServerAPIExceptionSchema(
-#     BaseAPIExceptionSchema,
-# ):
-#     """
-#     Raised for unexpected server errors.
-#     """
+class ServerAPIExceptionSchema(
+    BaseAPIExceptionSchema,
+):
+    """
+    API schema for Server exception.
+    """
 
-#     status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
-#     default_message = (
-#         'An internal server error occurred while processing your request. '
-#         'Our team has been notified, and we are working to resolve the issue.'
-#     )
-#     default_code = 'server_error'
-#     default_detail = []
+    pass

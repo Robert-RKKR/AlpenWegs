@@ -10,6 +10,7 @@ class UserRegisterSerializer(RegisterSerializer):
     first_name = serializers.CharField(required=True)
     last_name = serializers.CharField(required=True)
 
+
     def custom_signup(self, request, user):
         """
         Called after user is created. We can add extra fields here.

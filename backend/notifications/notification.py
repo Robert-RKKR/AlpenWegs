@@ -116,7 +116,7 @@ class Notification:
             task_id=self.task_id,
             message=message,
             severity=severity,
-            url=url,
+            object_url=url,
         )
 
         # Broadcast only after commit succeeds:
@@ -134,7 +134,7 @@ class Notification:
                 'task_id': self.task_id,
                 'type': 'send_collect',
                 'message': message,
-                'url': url,
+                'object_url': url,
             }
 
             # Send the event to the appropriate channel group:

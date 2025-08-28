@@ -261,13 +261,24 @@ class UserModel(
         if not self.height or not self.weight: return None
         # Calculate height for BMI calculation:
         h = self.height / 100.0
-        # Callculate and return BMI value:
+        # Calculate and return BMI value:
         return round(self.weight / (h*h), 1) if h > 0 else None
+    
+    def _lower_case_unique(self):
+        """
+        Lowercase email and username for uniqueness checks.
+        """
+
+        # Lowercase email and username for uniqueness checks:
+        self.email = self.email.lower()
+        self.username = self.username.lower()
 
     def run_before_save(self):
         """
         Run additional logic before saving model object to DB.
         """
-        
+
         # Calculate BMI before saving model object:
         self.bmi_value = self._compute_bmi()
+        # Lowercase email and username for uniqueness checks:
+        self._lower_case_unique()

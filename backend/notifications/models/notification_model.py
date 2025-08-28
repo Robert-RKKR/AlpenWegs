@@ -17,12 +17,12 @@ class NotificationModel(
         verbose_name = 'Notification'
         verbose_name_plural = 'Notifications'
 
-        # Overwrite default permissions:
-        default_permissions = ()
-        permissions = (
-            ('read_write', 'Read and write access.'),
-            ('read_only', 'Read only access')
-        )
+    # Default roles and their permissions:
+    ROLE_PERMS = {
+        'Member': ['view'],
+        'Author': ['view'],
+        'Admin':  ['view'],
+    }
     
     # Base notification data:
     timestamp = models.DateTimeField(

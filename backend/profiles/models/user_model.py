@@ -42,12 +42,10 @@ class UserModel(
             ),
         ]
 
-        # Overwrite default permissions:
-        default_permissions = ()
-        permissions = (
-            ('read_write', 'Read and write access.'),
-            ('read_only', 'Read only access')
-        )
+    # Default roles and their permissions:
+    ROLE_PERMS = {
+        'Admin':  ['view', 'add', 'change', 'delete'],
+    }
 
     # Model objects manager:
     objects = UserProfileManager()

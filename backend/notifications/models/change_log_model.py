@@ -20,12 +20,12 @@ class ChangeLogModel(
         verbose_name = 'Change'
         verbose_name_plural = 'Changes'
 
-        # Overwrite default permissions:
-        default_permissions = ()
-        permissions = (
-            ('read_write', 'Read and write access.'),
-            ('read_only', 'Read only access')
-        )
+    # Default roles and their permissions:
+    ROLE_PERMS = {
+        'Member': ['view'],
+        'Author': ['view'],
+        'Admin':  ['view'],
+    }
     
     # Model data time information:
     timestamp = models.DateTimeField(

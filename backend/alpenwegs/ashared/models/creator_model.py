@@ -10,7 +10,7 @@ to control its visibility.
 
 # AlpenWegs import:
 from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
-from alpenwegs.profiles.models.user_model import UserModel
+from profiles.models.user_model import UserModel
 
 # Django import:
 from django.db import models

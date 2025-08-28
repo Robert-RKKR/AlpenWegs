@@ -22,13 +22,13 @@ class BasePermissionsModel(
     """
 
     perms_map = {
-        'GET':     'view',
-        'HEAD':    'view',
+        'GET': 'view',
+        'HEAD': 'view',
         'OPTIONS': 'view',
-        'POST':    'add',
-        'PUT':     'change',
-        'PATCH':   'change',
-        'DELETE':  'delete',
+        'POST': 'add',
+        'PUT': 'change',
+        'PATCH': 'change',
+        'DELETE': 'delete',
     }
 
     def has_permission(self,

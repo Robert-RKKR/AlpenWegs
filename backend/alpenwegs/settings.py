@@ -217,7 +217,7 @@ SPECTACULAR_SETTINGS = {
         'docExpansion': 'none',
     },
     "POSTPROCESSING_HOOKS": [
-        'alpenwegs.ashared.api.schema_hooks.retag_auth_endpoints',
+        'alpenwegs.ashared.api.schemas.schema_hooks.retag_auth_endpoints',
     ],
 }
 

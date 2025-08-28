@@ -1,12 +1,12 @@
 # AlpenWegs import:
+from alpenwegs.ashared.api.schemas.schema_generators import schema_partial_update
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
-from alpenwegs.ashared.api.schema_generators import schema_partial_update
+from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
+from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
+from alpenwegs.ashared.api.schemas.schema_generators import schema_update
+from alpenwegs.ashared.api.schemas.schema_generators import schema_create
+from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
-from alpenwegs.ashared.api.schema_generators import schema_retrieve
-from alpenwegs.ashared.api.schema_generators import schema_destroy
-from alpenwegs.ashared.api.schema_generators import schema_update
-from alpenwegs.ashared.api.schema_generators import schema_create
-from alpenwegs.ashared.api.schema_generators import schema_list
 
 # AlpenWegs application import:
 from profiles.api.serializers.user_serializer import UserSerializer

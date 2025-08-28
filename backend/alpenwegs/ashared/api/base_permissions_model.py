@@ -75,21 +75,6 @@ class BasePermissionsModel(
         obj
     ):
 
-        # Superusers bypass
-        if request.user.is_superuser:
-            return True
-        
-        
-
-        # Write actions → only if owner
-        return getattr(obj, 'created_by_id', None) == request.user.id
-
-    def has_object_permission(self,
-        request,
-        view,
-        obj
-    ):
-
         # Collect user from request:
         user = request.user
 

@@ -59,7 +59,7 @@ class NotificationModel(
                 'contain between 1 and 1024 characters.',
         },
     )
-    url = models.CharField(
+    object_url = models.CharField(
         verbose_name='URL',
         help_text='The URL to the object related to this notification. '
             'This can be used to provide a direct link to the relevant '

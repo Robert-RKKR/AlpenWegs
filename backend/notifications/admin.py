@@ -27,11 +27,11 @@ class NotificationAdmin(BaseAdmin):
     fieldsets = (
         ('Basic information', {
             'classes': ('wide', 'extrapretty',),
-            'fields': ('severity', 'task_id', 'message', 'url')
+            'fields': ('severity', 'task_id', 'message', 'object_url')
         }),
     )
     readonly_fields = (
-        'timestamp', 'severity', 'task_id', 'message', 'url'
+        'timestamp', 'severity', 'task_id', 'message', 'object_url'
     )
     empty_value_display = '--None--'
 

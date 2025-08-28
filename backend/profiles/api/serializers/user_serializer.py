@@ -12,7 +12,7 @@ from profiles.models.user_model import UserModel
 # User Model serializer details:
 model = UserModel
 fields = [
-    # Default:
+    # Base Model values:
     'pk',
     'url',
     # Timestamp model values:

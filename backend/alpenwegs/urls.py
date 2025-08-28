@@ -30,6 +30,7 @@ urlpatterns = [
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 
     # API endpoints:
+    path('api/notifications/', include('notifications.api.urls')),
     path('api/profiles/', include('profiles.api.urls')),
 
     # Test notification:

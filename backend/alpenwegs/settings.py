@@ -38,6 +38,12 @@ SECRET_KEY = os.environ.get('SECRET_KEY',
 CRYPTO_KEY = os.environ.get('CRYPTO_KEY',
     default=b'kKMcugPPwQaft1m4-G9kx7urqWhz6sh0hKcJmFNqiOQ=')
 
+# Add test variable:
+os.environ.setdefault(
+    'DJANGO_SETTINGS_MODULE',
+    'alpenwegs.settings'
+)
+
 #==========================================================================
 #
 #                          Application Base Settings

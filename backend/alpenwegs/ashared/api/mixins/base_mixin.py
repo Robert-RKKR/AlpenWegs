@@ -1,6 +1,7 @@
 # AlpenWegs import:
 from alpenwegs.ashared.constants.action_type import ActionTypeChoices
 from alpenwegs.ashared.models.base_model import BaseModel
+from alpenwegs.logger import api_logger as logger
 
 # AlpenWegs application import:
 from notifications.object_collector import collect_object_data
@@ -14,9 +15,6 @@ from rest_framework.exceptions import ErrorDetail
 from rest_framework.response import Response
 from rest_framework import status
 
-# Python import:
-import logging
-logger = logging.getLogger('API')
 
 # Base Mixin class:
 class BaseMixin():

@@ -5,9 +5,12 @@ from __future__ import annotations
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from urllib.parse import parse_qs
 
+# AlpenWegs import:
+from alpenwegs.logger import api_logger as logger
+
 
 class NotificationConsumer(
-    AsyncJsonWebsocketConsumer
+    AsyncJsonWebsocketConsumer,
 ):
     """
     WebSocket consumer for push notifications.
@@ -47,7 +50,8 @@ class NotificationConsumer(
         # Iterate thru all groups:
         for group in list(self.groups_joined):
             # Close the group connection:
-            await self.channel_layer.group_discard(group, self.channel_name)
+            await self.channel_layer.group_discard(
+                group, self.channel_name)
 
         # Clear the set of joined groups:
         self.groups_joined.clear()
@@ -60,15 +64,39 @@ class NotificationConsumer(
         # Handle incoming JSON messages:
         action = content.get('action')
 
-        # Handle subscription actions:
-        if action == 'subscribe':
-            await self._join_group(str(content.get('group', '')))
-        elif action == 'unsubscribe':
-            await self._leave_group(str(content.get('group', '')))
-        elif action == 'ping':
-            await self.send_json({'action': 'pong'})
-        
-        # ignore unknown actions silently
+        try:
+            # Try to handle subscription actions:
+            if action == 'subscribe':
+                # Collect group name:
+                group = str(content.get('group', '')).strip()
+                # Join the group:
+                await self._join_group(group)
+                # Send subscription confirmation:
+                await self.send_json({'action': 'subscribed', 'group': group})
+
+            elif action == 'unsubscribe':
+                # Collect group name:
+                group = str(content.get('group', '')).strip()
+                # Leave the group:
+                await self._leave_group(group)
+                # Send unsubscription confirmation:
+                await self.send_json({'action': 'unsubscribed', 'group': group})
+
+            elif action == 'ping':
+                # Send pong response:
+                await self.send_json({'action': 'pong'})
+
+        except Exception as exception:
+            # Log error:
+            logger.error('An error occurred while processing '
+                f'{action} action. Error: {exception}',
+                exc_info=True
+            )
+            # Send error response to client:
+            await self.send_json({
+                'action': 'error',
+                'message': f'Failed to process {action} action.'
+            })
 
     async def send_collect(self,
         event: dict,
@@ -101,7 +129,8 @@ class NotificationConsumer(
                 return None
 
         # Join the group:
-        await self.channel_layer.group_add(name, self.channel_name)
+        await self.channel_layer.group_add(
+            name, self.channel_name)
         self.groups_joined.add(name)
 
     async def _leave_group(self,
@@ -113,5 +142,6 @@ class NotificationConsumer(
             return None
 
         # Leave the group:
-        await self.channel_layer.group_discard(name, self.channel_name)
+        await self.channel_layer.group_discard(
+            name, self.channel_name)
         self.groups_joined.discard(name)

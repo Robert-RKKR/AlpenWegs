@@ -1,5 +1,5 @@
 # AlpenWegs application import:
-from notifications.consumers import NotificationConsumer
+from notifications.ashared.notifications.consumers import NotificationConsumer
 
 # Django import:
 from django.urls import re_path

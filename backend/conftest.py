@@ -18,7 +18,7 @@ def _channels_inmemory(settings, monkeypatch):
 
     # Patch Notification.info() to no-op (adjust import path if different)
     try:
-        from notifications.notification import Notification
+        from notifications.ashared.notifications.notification import Notification
         monkeypatch.setattr(Notification, 'info', lambda *a, **k: None)
     except Exception:
         # If notifications app isn’t used in some test modules, ignore

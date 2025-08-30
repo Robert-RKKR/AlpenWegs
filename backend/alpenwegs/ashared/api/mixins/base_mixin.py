@@ -4,8 +4,8 @@ from alpenwegs.ashared.models.base_model import BaseModel
 from alpenwegs.logger import api_logger as logger
 
 # AlpenWegs application import:
+from notifications.ashared.notifications.notification import Notification
 from notifications.object_collector import collect_object_data
-from notifications.notification import Notification
 from profiles.models.user_model import UserModel
 from notifications.changer import log_change
 

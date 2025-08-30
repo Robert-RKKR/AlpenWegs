@@ -7,7 +7,6 @@ from django.urls import include
 from django.urls import path
 
 # Test import:
-from notifications.test_view import NotifyMeView
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [
@@ -28,8 +27,5 @@ urlpatterns = [
     # API endpoints:
     path('api/notifications/', include('notifications.api.urls')),
     path('api/profiles/', include('profiles.api.urls')),
-
-    # Test notification:
-    path('notify-me/', NotifyMeView.as_view(), name='notify-me'),
 ]
 

@@ -13,12 +13,29 @@ def collect_exception_data(
     Collects exception data to return a structured error response.
     """
 
+    def non_field_errors():
+        # Collect error message based od detail key:
+        error_response['error_message'] = (
+            'Unable to log in with provided credentials.')
+        # Collect error code if available:
+        error_response['error_code'] = 'wrong_credentials'
+        # Collect response status code:
+        error_response['error_status'] = 400
+
+        # Return collected error response:
+        return error_response
+
     def collect_message(data):
         # Try to collect message from details key:
         if data.get('detail'):
             # Return collected message:
             return data['detail']
-        
+
+        # Try to collect message from string key:
+        elif data.get('string'):
+            # Return collected message:
+            return data['string']
+
         # If details key is not available, return default message:
         return 'An error occurred.'
 
@@ -40,19 +57,28 @@ def collect_exception_data(
 
     # Define error response dictionary:
     error_response = {}
-
     # Collect HTTP response:
     response = exception_handler(exc, context)
 
+    # Check if response data is a dictionary
     if isinstance(response.data, dict):
+        
+        # Collect response data in special cases:
+        if response.data.get('non_field_errors'):
+            return non_field_errors(), response
+
+        else:
+            # In other case use standard data:
+            data = response.data
+
         # Collect error message based od detail key:
-        error_response['error_message'] = collect_message(response.data)
+        error_response['error_message'] = collect_message(data)
         # Collect error code if available:
-        error_response['error_code'] = collect_code(response.data)
+        error_response['error_code'] = collect_code(data)
         # Collect response status code:
         error_response['error_status'] = response.status_code
         # Collect error details if available:
-        error_response['error_details'] = response.data.get(
+        error_response['error_details'] = data.get(
             'messages', [])
         
     # Return collected error response:
@@ -65,6 +91,13 @@ def base_exception_handler(
     """
     Base exception handler to return JSON error responses.
     """
+
+    print(f'Exception: {exc}')
+    print(f'Context: {context}')
+    response = exception_handler(exc, context)
+    print(f'Response: {response}')
+    print(f'Response data: {response.data}')
+
 
     error_response, response = collect_exception_data(
         context=context,

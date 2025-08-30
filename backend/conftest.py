@@ -11,6 +11,7 @@ def _channels_inmemory(settings, monkeypatch):
     Use an in-memory channel layer during tests to avoid Redis writes.
     Also patch notifications broadcast to no-op so tests don’t hit Channels.
     """
+    
     settings.CHANNEL_LAYERS = {
         'default': {'BACKEND': 'channels.layers.InMemoryChannelLayer'}
     }

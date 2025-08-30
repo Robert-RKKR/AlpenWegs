@@ -2,20 +2,16 @@
 from alpenwegs.ashared.tests.base_test_operations import BaseApiTestOperations
 from alpenwegs.logger import api_logger as logger
 
-# Rest framework import:
+# Python import:
+from rest_framework.test import APIClient
 from dataclasses import dataclass
-from typing import Dict, Optional, Any
-from django.test import override_settings
-from rest_framework.test import APITestCase, APIClient
-from django.urls import reverse
-from django.apps import apps
-import yaml, os, re, inspect
-from alpenwegs.logger import test_logger as logger
+
 
 @dataclass
 class Actor:
     client: APIClient
     password: str
+    refresh: str
     access: str
     email: str
     name: str
@@ -37,7 +33,7 @@ class BaseApiTestActors(
         super().setUp()
 
         # Initialize actor dictionary:
-        self.actors: Dict[str, Actor] = {}
+        self.actors: dict[str, Actor] = {}
 
     def create_actor(self,
         username: str,
@@ -50,7 +46,7 @@ class BaseApiTestActors(
 
         # Create API client instance:
         client = APIClient()
-        
+
         # Create actor registration payload:
         register_payload = {
             'first_name': 'first_name',
@@ -71,7 +67,8 @@ class BaseApiTestActors(
         if response.status_code == 201:
             # Convert json response to dictionary:
             data = response.json()
-            # Collect actor access code:
+            # Collect actor access and refresh code:
+            refresh = data.get('page_data', {}).get('refresh', '')
             access = data.get('page_data', {}).get('access', '')
             # Collect actor PK number:
             pk = data.get('page_data', {}).get('user_id', '')
@@ -80,16 +77,18 @@ class BaseApiTestActors(
                 password=password,
                 name=username,
                 client=client,
+                refresh=refresh,
                 access=access,
                 email=email,
                 pk=pk,
             )
 
         else:
-            # Log the error:
-            logger.error(f'Failed to login actor: {response.json()}')
-            # Return an empty string on failure:
-            return ''
+            # Raise an assertion error:
+            raise AssertionError('User creation failed for actor '
+                f'{username}. Status code: {response.status_code}, '
+                f'Response: {data}.'
+            )
 
     def login_actor(self,
         username: str,
@@ -121,10 +120,10 @@ class BaseApiTestActors(
             return data.get('page_data', {}).get('access', '')
 
         else:
-            # Log the error:
-            logger.error(f'Failed to login actor: {response.json()}')
-            # Return an empty string on failure:
-            return ''
+            # Raise an assertion error:
+            raise AssertionError(f'Login failed for actor {username}. '
+                f'Status code: {response.status_code}, Response: {data}.'
+            )
 
     def logout_actor(self,
         username: str,
@@ -136,12 +135,17 @@ class BaseApiTestActors(
         # Collect actor object:
         actor = self.actors[username]
 
+        # Create actor logout payload:
+        logout_payload = {
+            'refresh': actor.refresh,
+        }
         # Send logout request:
         response = actor.client.post(
             path=self.LOGOUT_URL,
+            data=logout_payload,
             format='json',
-            data={},
         )
+
         # Check if logout was successful:
         if response.status_code == 200:
             # Clear actor credentials:
@@ -150,7 +154,7 @@ class BaseApiTestActors(
             return True
 
         else:
-            # Log the error:
-            logger.error(f'Failed to login actor: {response.json()}')
-            # Return False on failure:
-            return False
+            # Raise an assertion error:
+            raise AssertionError(f'Logout failed for actor {username}. '
+                f'Status code: {response.status_code}.'
+            )

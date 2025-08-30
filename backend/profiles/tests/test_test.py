@@ -17,9 +17,9 @@ class UserApiTest(BaseApiTestActors):
             username="testuser"
         )
 
-        logger.warning(f'access_code: {access_code}')
+        
+
 
         status = self.logout_actor(
             username="testuser"
         )
-        logger.warning(f'status: {status}')

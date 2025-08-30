@@ -48,9 +48,8 @@ class BaseRetrieveModelMixin(
                 **kwargs,
             )
         
-        except Http404 as exception:
+        except Http404:
             # Define error details list:
-
             error_details = {
                 'error_field': kwargs,
                 'error_message': 'Item with provided PK value does not exist.',

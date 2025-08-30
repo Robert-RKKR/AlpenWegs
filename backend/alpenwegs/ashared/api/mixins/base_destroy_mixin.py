@@ -4,7 +4,7 @@ from alpenwegs.ashared.constants.action_type import ActionTypeChoices
 from alpenwegs.ashared.api.mixins.base_mixin import BaseMixin
 
 # AlpenWegs application import:
-from notifications.object_collector import collect_object_data
+from notifications.ashared.changes.collector import collect_object_data
 
 # Rest framework import:
 from rest_framework.mixins import DestroyModelMixin

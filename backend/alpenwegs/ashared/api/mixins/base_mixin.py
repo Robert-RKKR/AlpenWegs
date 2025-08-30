@@ -5,9 +5,9 @@ from alpenwegs.logger import api_logger as logger
 
 # AlpenWegs application import:
 from notifications.ashared.notifications.notification import Notification
-from notifications.object_collector import collect_object_data
+from notifications.ashared.changes.collector import collect_object_data
 from profiles.models.user_model import UserModel
-from notifications.changer import log_change
+from notifications.ashared.changes.changer import log_change
 
 # Django import:
 from rest_framework.exceptions import ValidationError

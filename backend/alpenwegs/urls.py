@@ -1,6 +1,3 @@
-# AlpenWegs imports:
-from profiles.api.views.auth_views import AuthTokenRefreshView
-
 # API import:
 from drf_spectacular.views import SpectacularSwaggerView
 from drf_spectacular.views import SpectacularRedocView
@@ -11,7 +8,6 @@ from django.urls import path
 
 # Test import:
 from notifications.test_view import NotifyMeView
-
 from rest_framework_simplejwt.views import TokenRefreshView
 
 urlpatterns = [

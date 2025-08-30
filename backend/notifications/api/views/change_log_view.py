@@ -40,7 +40,7 @@ class ChangeLogView(ReadOnlyViewSet):
     ordering_fields = '__all__'
     search_fields = '__all__'
 
-    @action(detail=True, methods=['get'], url_path='compare_changes')
+    @action(detail=True, methods=['get'], url_path='compare-changes')
     def compare_changes(self, request, pk=None):
         """
         Custom method to retrieve current change log and append the previous

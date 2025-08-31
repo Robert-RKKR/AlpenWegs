@@ -88,4 +88,4 @@ class ObjectRepresentationModel(
         """
 
         # Return object representation:
-        return f'Object Representation: {self.object_repr}'
+        return self.object_repr

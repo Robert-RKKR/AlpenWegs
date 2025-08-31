@@ -15,7 +15,6 @@ GLOBAL_JAZZMIN_SETTINGS = {
     # Links to put along the top menu:
     'topmenu_links': [
         {'name': 'Home',  'url': 'admin:index', 'permissions': ['auth.view_user']},
-        {'name': 'Home',  'model': 'inventory.Device', 'permissions': ['auth.view_user']},
         {'name': 'Tokens',  'model': 'authtoken.token', 'permissions': ['auth.view_user']},
         {'model': 'auth.User', 'permissions': ['auth.view_user']},
     ],
@@ -23,19 +22,19 @@ GLOBAL_JAZZMIN_SETTINGS = {
     'navigation_expanded': False,
     'hide_models': [],
     'order_with_respect_to': [
-        'inventory',
-        'authtoken',
-        'connections',
-        'management',
-        'notifications'],
+        'profiles',
+        'auth',
+        'notifications',
+        'django_celery_beat',
+    ],
     'icons': {
         # Authentication:
         'auth': 'fas fa-users-cog',
         'auth.user': 'fas fa-user',
         'auth.Group': 'fas fa-users',
         # profiles:
-        'invenprofilestory': 'fas fa-server',
-        'profiles.UserModel': 'fas fa-database',
+        'profiles': 'fas fa-users',
+        'profiles.UserModel': 'fas fa-user',
         # Notifications:
         'notifications': 'fas fa-envelope',
         'notifications.ChangeLogModel': 'fas fa-clock',

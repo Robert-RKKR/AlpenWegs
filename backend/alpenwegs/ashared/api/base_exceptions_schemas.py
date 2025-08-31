@@ -89,3 +89,13 @@ class ServerAPIExceptionSchema(
     """
 
     pass
+
+
+class ProtectedAPIExceptionSchema(
+    BaseAPIExceptionSchema,
+):
+    """
+    API schema for Protected exception.
+    """
+
+    pass

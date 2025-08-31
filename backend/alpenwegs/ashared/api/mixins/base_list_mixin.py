@@ -1,14 +1,11 @@
 # AlpenWegs import:
-from alpenwegs.ashared.models.creator_model import BaseCreatorModel
 from alpenwegs.ashared.api.mixins.base_mixin import BaseMixin
 
 # Rest framework import:
 from rest_framework.mixins import ListModelMixin
 from rest_framework.exceptions import ParseError
 from rest_framework.response import Response
-
-# Django import:
-from django.db import models
+from rest_framework import status
 
 
 class BaseListModelMixin(
@@ -41,7 +38,12 @@ class BaseListModelMixin(
         
         # Prepare page view without pagination:
         serializer = self.get_serializer(queryset, many=True)
-        return serializer.data
+
+        # Return HTTP response 200 objects has been collected:
+        return Response(
+            data=serializer.data,
+            status=status.HTTP_200_OK,
+        )
 
     def list(self,
         request: Response,
@@ -50,19 +52,18 @@ class BaseListModelMixin(
     ) -> Response:
 
         try:
-            # Run a new API GET List call:
-            response = self._call_list(
+            # Try to collect all instances:
+            return self._call_list(
                 request=request,
                 *args,
                 **kwargs,
             )
 
-        except Exception:
+        except Exception as exception:
+            # Test exceptions:
+            print(f'Type of list exception: {type(exception)}')
+            
             # Raise not found error:
             raise ParseError(
                 'An error occurred during the GET List API call.',
             )
-        
-        else:
-            # Return collected response:
-            return Response(response)

@@ -1,6 +1,7 @@
 # AlpenWegs import:
 from alpenwegs.ashared.api.base_exceptions_schemas import TokenAuthenticationAPIExceptionSchema
 from alpenwegs.ashared.api.base_exceptions_schemas import ValidationAPIExceptionSchema
+from alpenwegs.ashared.api.base_exceptions_schemas import ProtectedAPIExceptionSchema
 from alpenwegs.ashared.api.base_exceptions_schemas import NotFoundAPIExceptionSchema
 
 # Drf spectacular import:
@@ -159,6 +160,10 @@ def schema_destroy(
             401: OpenApiResponse(
                 TokenAuthenticationAPIExceptionSchema,
                 description='Token authentication error'
+            ),
+            403: OpenApiResponse(
+                ProtectedAPIExceptionSchema,
+                description='Object protected error'
             ),
             404: OpenApiResponse(
                 NotFoundAPIExceptionSchema,

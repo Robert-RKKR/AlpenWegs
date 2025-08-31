@@ -103,6 +103,22 @@ class NotFoundAPIException(
     default_detail = []
 
 
+class ProtectedAPIException(
+    BaseAPIException,
+):
+    """
+    Raised when an object is protected and cannot be deleted.
+    """
+
+    # Override base exception properties:
+    status_code = status.HTTP_403_FORBIDDEN
+    default_message = (
+        'The requested resource is protected and cannot be deleted.'
+    )
+    default_code = 'protected'
+    default_detail = []
+
+
 class ServerAPIException(
     BaseAPIException,
 ):

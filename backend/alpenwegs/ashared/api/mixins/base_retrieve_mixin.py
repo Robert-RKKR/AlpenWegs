@@ -28,7 +28,7 @@ class BaseRetrieveModelMixin(
         # Collect serializer:
         serializer = self.get_serializer(instance)
 
-        # Return HTTP response 200 object was created:
+        # Return HTTP response 200 object was retried:
         return Response(
             data=serializer.data,
             status=status.HTTP_200_OK,
@@ -41,14 +41,14 @@ class BaseRetrieveModelMixin(
     ) -> Response:
 
         try:
-            # Try to create a new instance:
+            # Try to collect a single instance:
             return self._call_retrieve(
                 request=request,
                 *args,
                 **kwargs,
             )
         
-        except Http404:
+        except Http404 as exception:
             # Define error details list:
             error_details = {
                 'error_field': kwargs,

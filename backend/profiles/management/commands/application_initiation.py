@@ -8,6 +8,13 @@ from django.apps import apps
 # AlpenWegs application import:
 from profiles.models.user_model import UserModel
 
+# Define allowed actions:
+ALLOWED_ACTIONS = [
+    'view',
+    'add',
+    'change',
+    'delete',
+]
 
 # Command class:
 class Command(BaseCommand):
@@ -79,6 +86,13 @@ class Command(BaseCommand):
 
                 # Iterate over permission actions to assign permissions:
                 for permission_action in permission_actions:
+                    # Check if requested action is allowed:
+                    if permission_action not in ALLOWED_ACTIONS:
+                        raise CommandError(
+                            f'3.2: The action "{permission_action}" is not allowed. '
+                            'Please use one of the following actions: '
+                            f'"{", ".join(ALLOWED_ACTIONS)}".'
+                        )
                     # Collect permission object based on action and model name:
                     permission = Permission.objects.get(
                         codename=f'{permission_action}_{model_name}')

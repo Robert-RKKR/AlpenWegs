@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Choices class:
 class SeverityChoices(
-    BaseIntegerChoices
+    BaseIntegerChoices,
 ):
 
     # Choices values:
@@ -19,9 +19,8 @@ class SeverityChoices(
 
 
 class ExclusionInclusionChoices(
-    BaseIntegerChoices
+    BaseIntegerChoices,
 ):
-
 
     # Choices values:
     NONE = 0, _('None')
@@ -30,7 +29,7 @@ class ExclusionInclusionChoices(
 
 
 class ApplicationChoices(
-    BaseIntegerChoices
+    BaseIntegerChoices,
 ):
 
     # Choices values:

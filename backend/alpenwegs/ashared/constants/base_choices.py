@@ -4,7 +4,9 @@ from django.db.models import TextChoices
 
 
 # Base integer choices class:
-class BaseIntegerChoices(IntegerChoices):
+class BaseIntegerChoices(
+    IntegerChoices,
+):
 
     @classmethod
     def value_from_int(cls, int_to_search):
@@ -26,7 +28,9 @@ class BaseIntegerChoices(IntegerChoices):
 
 
 # Base string choices class:
-class BaseStringChoices(TextChoices):
+class BaseStringChoices(
+    TextChoices,
+):
 
     @classmethod
     def value_from_str(cls, str_to_search):

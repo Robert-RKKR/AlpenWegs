@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 # Choices class:
 class ActionTypeChoices(
-    BaseIntegerChoices
+    BaseIntegerChoices,
 ):
 
     # Choices values:

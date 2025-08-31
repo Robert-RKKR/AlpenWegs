@@ -9,8 +9,8 @@ to control its visibility.
 """
 
 # AlpenWegs import:
-from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 from profiles.models.user_model import UserModel
+from .base_model import BaseModel
 
 # Django import:
 from django.db import models
@@ -18,7 +18,7 @@ from django.db import models
 
 # Base Creator models class:
 class BaseCreatorModel(
-    BaseTimestampModel, 
+    BaseModel, 
 ):
     """
     An abstract base model for tracking object ownership and visibility.

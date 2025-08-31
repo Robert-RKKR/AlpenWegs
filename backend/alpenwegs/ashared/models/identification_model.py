@@ -14,7 +14,7 @@ identification fields.
 # AlpenWegs import:
 from alpenwegs.ashared.validators.base_validators import DescriptionValueValidator
 from alpenwegs.ashared.validators.base_validators import NameValueValidator
-from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
+from .base_model import BaseModel
 
 # Django import:
 from django.template.defaultfilters import slugify
@@ -23,7 +23,7 @@ from django.db import models
 
 # Base Identification models class:
 class BaseIdentificationModel(
-    BaseTimestampModel, 
+    BaseModel, 
 ):
     """
     An abstract base model for handling identification attributes 

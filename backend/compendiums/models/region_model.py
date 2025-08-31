@@ -49,17 +49,3 @@ class RegionModel(
         verbose_name='Region Description',
         help_text='A description of the region.',
     )
-    
-    # Region Geographic Location:
-    latitude = models.FloatField(
-        verbose_name='Latitude',
-        help_text='Geographic location of the Region (Latitude).',
-        blank=True,
-        null=True,
-    )
-    longitude = models.FloatField(
-        verbose_name='Longitude',
-        help_text='Geographic location of the Region (Longitude).',
-        blank=True,
-        null=True,
-    )

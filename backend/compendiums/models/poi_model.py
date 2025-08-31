@@ -1,6 +1,7 @@
 # AlpenWegs import:
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
 from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
+from alpenwegs.ashared.constants.poi_category import PoiCategoryChoices
 from alpenwegs.ashared.models.creator_model import BaseCreatorModel
 
 # AlpenWegs application import:
@@ -21,7 +22,6 @@ class PoiModel(
     such as bridges, mountains, peaks, rivers, shelters, etc.
     """
     
-
     class Meta:
         verbose_name = 'Point of Interest'
         verbose_name_plural = 'Points of Interest'
@@ -38,7 +38,7 @@ class PoiModel(
         RegionModel,
         verbose_name='Region ID',
         help_text='The region to which this point of interest belongs. '
-        'This establishes the geographical context for the PoI.',
+            'This establishes the geographical context for the PoI.',
         on_delete=models.CASCADE,
         blank=True,
         null=True,
@@ -54,42 +54,48 @@ class PoiModel(
     # )
     
     # PoI description:
-    details_description = models.TextField(
-        verbose_name='Details Description',
-        help_text='Details Description of the PoI.',
+    description = models.TextField(
+        verbose_name='Description',
+        help_text='Additional descriptive information about this PoI '
+            '(historical notes, natural features, etc.).',
         blank=True,
         null=True,
     )
     transport_description = models.BigIntegerField(
         verbose_name='Transport Description',
-        help_text='Information about transport to reach this PoI.',
+        help_text='Information about how to reach this PoI '
+            '(roads, trails, public transport).',
         blank=True,
         null=True,
     )
     
     # PoI classification:
-    category = models.CharField(
-        verbose_name='PoI Category',
-        help_text='Xxx.',
-        max_length=32,
+    category = models.IntegerField(
+        choices=PoiCategoryChoices.choices,
+        verbose_name='Category',
+        help_text='Classification of this Point of Interest '
+            '(e.g. City, Village, Hut, Peak, Lake, Pass).',
+        default=PoiCategoryChoices.OTHER,
     )
     
     # PoI Geographic Location:
     latitude = models.FloatField(
         verbose_name='Latitude',
-        help_text='Geographic location of the PoI (Latitude).',
+        help_text='Latitude in decimal degrees (WGS84). '
+            'Used for map display and spatial queries.',
         blank=True,
         null=True,
     )
     longitude = models.FloatField(
         verbose_name='Longitude',
-        help_text='Geographic location of the PoI (Longitude).',
+        help_text='Longitude in decimal degrees (WGS84). '
+            'Used for map display and spatial queries.',
         blank=True,
         null=True,
     )
     elevation = models.IntegerField(
-        verbose_name='Elevation',
-        help_text='Elevation of the PoI in meters.',
+        verbose_name='Elevation (m a.s.l.)',
+        help_text='Elevation of the PoI in meters above sea level.',
         blank=True,
         null=True,
     )

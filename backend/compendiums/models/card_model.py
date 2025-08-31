@@ -1,4 +1,5 @@
 # AlpenWegs import:
+from alpenwegs.ashared.constants.sport_category_difficulty import SportCategoryDifficultyChoices
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
 from alpenwegs.ashared.constants.sport_category import SportCategoryChoices
 from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
@@ -82,11 +83,10 @@ class CardModel(
             'card (e.g., hiking, via ferrata, climbing, biking).',
         default=SportCategoryChoices.HIKING,
     )
-    category_specific_difficulty = models.CharField(
-        max_length=32,
+    category_specific_difficulty = models.IntegerField(
+        choices=SportCategoryDifficultyChoices.choices,
         verbose_name='Difficulty Level',
         help_text='Difficulty level within the chosen sport category '
             '(e.g., T2 for hiking, K3 for via ferrata). Optional field.',
-        blank=True,
-        null=True,
+        default=SportCategoryDifficultyChoices.T3,
     )

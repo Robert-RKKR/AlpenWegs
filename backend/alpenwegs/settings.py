@@ -348,10 +348,10 @@ USE_I18N = True
 USE_TZ = True
 
 # Static files configuration:
-STATIC_URL = '/assets/static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR.joinpath('assets/static'),
-    BASE_DIR.joinpath('assets/media'),
+    BASE_DIR.joinpath('staticfiles'),
+    BASE_DIR.joinpath('media'),
 ]
 STATIC_ROOT = BASE_DIR.joinpath('staticfiles')
 STATICFILES_FINDERS = [

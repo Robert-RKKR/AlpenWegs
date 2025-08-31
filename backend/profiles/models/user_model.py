@@ -33,11 +33,11 @@ class UserModel(
                 name='uniq_user_email_lower',
             ),
             models.CheckConstraint(
-                check=Q(height__isnull=True) | Q(height__gt=0),
+                condition=Q(height__isnull=True) | Q(height__gt=0),
                 name='height_gt_zero_or_null',
             ),
             models.CheckConstraint(
-                check=Q(weight__isnull=True) | Q(weight__gt=0),
+                condition=Q(weight__isnull=True) | Q(weight__gt=0),
                 name='weight_gt_zero_or_null',
             ),
         ]

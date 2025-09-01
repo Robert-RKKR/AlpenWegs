@@ -2,6 +2,7 @@
 from alpenwegs.ashared.constants.sport_category_difficulty import SportCategoryDifficultyChoices
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
 from alpenwegs.ashared.constants.sport_category import SportCategoryChoices
+from alpenwegs.ashared.models.descriptive_model import BaseDescriptiveModel
 from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 from alpenwegs.ashared.models.creator_model import BaseCreatorModel
 from alpenwegs.ashared.constants.card_type import CardTypeChoices
@@ -16,6 +17,7 @@ from django.db import models
 # Card Model class:
 class CardModel(
     BaseIdentificationModel,
+    BaseDescriptiveModel,
     BaseTimestampModel,
     BaseCreatorModel,
 ):
@@ -35,19 +37,19 @@ class CardModel(
     }
     
     # Card Many-to-many relationships:
-    # routes = models.ManyToManyField(
-    #     'routes.RouteModel',
-    #     through='routes.RouteToCardModel',
-    #     related_name='card_routes',
-    #     verbose_name='Associated Routes.',
-    # )
-    # users = models.ManyToManyField(
-    #     'profiles.UserModel',
-    #     through='profiles.UserToCardModel',
-    #     related_name='card_users',
-    #     verbose_name='Users',
-    #     help_text='Associated Users.',
-    # )
+    section = models.ManyToManyField(
+        'explorers.SectionModel',
+        through='explorers.SectionToCardModel',
+        related_name='card_sections',
+        verbose_name='Associated Sections',
+    )
+    users = models.ManyToManyField(
+        'profiles.UserModel',
+        through='profiles.UserToCardModel',
+        related_name='card_users',
+        verbose_name='Users',
+        help_text='Associated Users.',
+    )
 
     # Card One-to-One relationships:
     poi = models.ForeignKey(
@@ -58,11 +60,6 @@ class CardModel(
     )
 
     # Card specific values:
-    description = models.TextField(
-        verbose_name='Card Description',
-        help_text='Main text shown on the card (summary, '
-            'story, or important information).',
-    )
     elevation = models.FloatField(
         verbose_name='Elevation (m a.s.l.)',
         help_text='Approximate elevation (in meters above '
@@ -76,6 +73,8 @@ class CardModel(
         max_length=32,
         default=CardTypeChoices.MOUNTAIN_PEAK,
     )
+
+    # Category value:
     category = models.IntegerField(
         choices=SportCategoryChoices.choices,
         verbose_name='Sport Category',
@@ -83,6 +82,8 @@ class CardModel(
             'card (e.g., hiking, via ferrata, climbing, biking).',
         default=SportCategoryChoices.HIKING,
     )
+
+    # Level characteristics value:
     category_specific_difficulty = models.IntegerField(
         choices=SportCategoryDifficultyChoices.choices,
         verbose_name='Difficulty Level',

@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     # AlpenWegs applications:
     'notifications.apps.NotificationsConfig',
     'compendiums.apps.CompendiumsConfig',
+    'explorers.apps.ExplorersConfig',
     'profiles.apps.ProfilesConfig',
 ]
 

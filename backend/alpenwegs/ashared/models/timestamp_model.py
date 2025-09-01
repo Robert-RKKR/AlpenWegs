@@ -19,7 +19,9 @@ from django.db import models
 
 
 # Base Timestamp model class:
-class BaseTimestampModel(BaseModel):
+class BaseTimestampModel(
+    BaseModel,
+):
     """
     An abstract base model for tracking creation and update timestamps.
 

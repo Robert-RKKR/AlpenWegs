@@ -12,7 +12,7 @@ identification fields.
 """
 
 # AlpenWegs import:
-from alpenwegs.ashared.validators.base_validators import DescriptionValueValidator
+from alpenwegs.ashared.validators.base_validators import SnippetValueValidator
 from alpenwegs.ashared.validators.base_validators import NameValueValidator
 from .base_model import BaseModel
 
@@ -46,7 +46,7 @@ class BaseIdentificationModel(
 
     # Model validators:
     name_validator = NameValueValidator()
-    description_validator = DescriptionValueValidator()
+    snippet_validator = SnippetValueValidator()
 
     # Identification model values:
     name = models.CharField(
@@ -72,7 +72,7 @@ class BaseIdentificationModel(
         help_text='A short description of the object, between 8 and 256 '
             'characters. It may include letters, numbers, spaces, and '
             'the special characters -, _, and .',
-        validators=[description_validator],
+        validators=[snippet_validator],
         max_length=256,
         blank=True,
         null=True,

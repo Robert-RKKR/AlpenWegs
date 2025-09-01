@@ -25,7 +25,7 @@ class NameValueValidator(RegexValidator):
 
 # Description validator:
 @deconstructible
-class DescriptionValueValidator(RegexValidator):
+class SnippetValueValidator(RegexValidator):
     """
     Validate if specified value is a valid description field.
     """

@@ -13,7 +13,7 @@ system.
 """
 
 # AlpenWegs import:
-from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
+from .base_model import BaseModel
 
 # Django import:
 from django.db import models
@@ -21,7 +21,7 @@ from django.db import models
 
 # Base Score model class:
 class BaseScoreModel(
-    BaseTimestampModel, 
+    BaseModel, 
 ):
     """
     An abstract model representing a universal scoring system. 

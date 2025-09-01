@@ -18,7 +18,7 @@ user activity and engagement patterns effectively.
 """
 
 # AlpenWegs import:
-from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
+from .base_model import BaseModel
 
 # Django import:
 from django.db import models
@@ -26,7 +26,7 @@ from django.db import models
 
 # Base Statistic model class:
 class BaseStatisticModel(
-    BaseTimestampModel, 
+    BaseModel, 
 ):
     """
     An abstract base model that tracks engagement metrics for different entities.

@@ -20,7 +20,9 @@ import re
 
 
 # Base model class:
-class BaseModel(models.Model):
+class BaseModel(
+    models.Model,
+):
     """
     An abstract base model that assigns a unique ID to each
     object and includes built-in methods for validation,

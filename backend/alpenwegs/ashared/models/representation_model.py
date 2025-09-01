@@ -15,7 +15,7 @@ references to other objects.
 """
 
 # AlpenWegs import:
-from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
+from alpenwegs.ashared.models.base_model import BaseModel
 
 # Django import:
 from django.db import models
@@ -23,7 +23,7 @@ from django.db import models
 
 # Object representation model class:
 class ObjectRepresentationModel(
-    BaseTimestampModel, 
+    BaseModel, 
 ):
     """
     Abstract base class for storing standardized references to other

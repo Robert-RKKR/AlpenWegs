@@ -12,7 +12,6 @@ relationship models across the application.
 from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 
 # Django import:
-from django.contrib.auth.models import User
 from django.db import models
 
 

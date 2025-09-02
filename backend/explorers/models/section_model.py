@@ -1,13 +1,14 @@
 # AlpenWegs import:
-from alpenwegs.ashared.constants.sport_category_difficulty import SportCategoryDifficultyChoices
+from alpenwegs.ashared.models.relationship_model import BaseRelationshipOrderedModel
+from alpenwegs.ashared.constants.section_poi_category import SectionPoiRoleChoices
+from alpenwegs.ashared.models.characteristic_model import BaseCharacteristicModel
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
+from alpenwegs.ashared.models.sport_category_model import BaseSportCategoryModel
 from alpenwegs.ashared.models.relationship_model import BaseRelationshipModel
-from alpenwegs.ashared.constants.sport_category import SportCategoryChoices
 from alpenwegs.ashared.models.descriptive_model import BaseDescriptiveModel
 from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
-from alpenwegs.ashared.models.statistic_model import BaseStatisticModel
 from alpenwegs.ashared.models.creator_model import BaseCreatorModel
-from alpenwegs.ashared.models.score_model import BaseScoreModel
+from alpenwegs.ashared.models.liked_model import BaseLikedModel
 from alpenwegs.ashared.models.gpx_model import BaseGpxModel
 
 # AlpenWegs application import:
@@ -22,16 +23,17 @@ from django.db import models
 
 # Section Model class:
 class SectionModel(
+    BaseCharacteristicModel,
     BaseIdentificationModel,
+    BaseSportCategoryModel,
     BaseDescriptiveModel,
     BaseTimestampModel,
-    BaseStatisticModel,
     BaseCreatorModel,
-    BaseScoreModel,
+    BaseLikedModel,
     BaseGpxModel,
 ):
     """
-    Model representing section sections.
+    Model representing single route Section.
     """
 
     class Meta:
@@ -77,115 +79,10 @@ class SectionModel(
             'section passes.'
     )
 
-    # Category value:
-    category = models.IntegerField(
-        choices=SportCategoryChoices.choices,
-        verbose_name='Sport Category',
-        help_text='The sport or activity associated with this '
-            'section (e.g., hiking, via ferrata, climbing, biking).',
-        default=SportCategoryChoices.HIKING,
-    )
-
-    # Level characteristics values:
-    difficulty = models.CharField(
-        verbose_name='General Difficulty Level',
-        help_text='Overall difficulty level of the section. Options '
-            'include: Easy, Moderate, Difficult, Very Difficult, '
-            'and Extremely Difficult sections.',
-        max_length=32,
-        blank=True,
-        null=True,
-    )
-    category_specific_difficulty = models.IntegerField(
-        choices=SportCategoryDifficultyChoices.choices,
-        verbose_name='Difficulty Level',
-        help_text='Difficulty level within the chosen sport category '
-            '(e.g., T2 for hiking, K3 for via ferrata). Optional field.',
-        default=SportCategoryDifficultyChoices.T3,
-    )
-    stamina_requirement = models.CharField(
-        verbose_name='Stamina Requirement',
-        help_text='Level of stamina required to complete the section.',
-        max_length=32,
-        blank=True,
-        null=True,
-    )
-    experience_requirement = models.CharField(
-        verbose_name='Experience Requirement',
-        help_text='Level of experience required to safely '
-            'complete the entire section.',
-        max_length=32,
-        blank=True,
-        null=True,
-    )
-    potential_risk_requirement = models.CharField(
-        verbose_name='Risk Requirement',
-        help_text='Potential risks associated with this section.',
-        max_length=32,
-        blank=True,
-        null=True,
-    )
-    potential_risk_description = models.CharField(
-        verbose_name='Risk Description',
-        help_text='Detailed description of possible hazards along the section.',
-        max_length=1024,
-        blank=True,
-        null=True,
-    )
-
-    # Seasonal Information:
-    best_seasons = models.CharField(
-        verbose_name='Best Seasons',
-        help_text='Best seasons for hiking this section.',
-        max_length=32,
-        blank=True,
-        null=True,
-    )
-    best_months = models.JSONField(
-        verbose_name='Best Months',
-        help_text='List of best months to complete this section.',
-        blank=True,
-        null=True,
-    )
-    winter_season = models.BooleanField(
-        verbose_name='Available in Winter',
-        help_text='Indicates if the section is accessible in winter.',
-        blank=True,
-        null=True,
-    )
-    summer_season = models.BooleanField(
-        verbose_name='Available in Summer',
-        help_text='Indicates if the section is accessible in summer.',
-        blank=True,
-        null=True,
-    )
-    family_friendly = models.BooleanField(
-        verbose_name='Family Friendly',
-        help_text='Indicates if the section is suitable for families.',
-        blank=True,
-        null=True,
-    )
-
-    # API-Related Fields
-    photo_primary = models.CharField(
-        max_length=255,
-        blank=True,
-        null=True,
-    )
-    user_difficulty = models.CharField(
-        max_length=32,
-        blank=True,
-        null=True,
-    )
-    user_duration = models.BigIntegerField(
-        blank=True,
-        null=True,
-    )
-
 
 # Section Model Many-to-many relationships with other models:
 class SectionToPoiModel(
-    BaseRelationshipModel,
+    BaseRelationshipOrderedModel,
 ):
     """
     An intermediate model for associating a Point of Interest
@@ -210,30 +107,22 @@ class SectionToPoiModel(
     )
     
     # PoI role in relation to section:
-    start_point = models.BooleanField(
-        default=False,
-        verbose_name='Is Start Point',
-        help_text='Indicates whether this point of interest is the '
-            'starting point of the associated section. If True, this PoI '
-            'marks the beginning of the section; otherwise, it is other '
-            'typ of associated PoI like end or middle point.',
-    )
-    end_point = models.BooleanField(
-        default=False,
-        verbose_name='Is End Point',
-        help_text='Indicates whether this point of interest is the '
-            'ending point of the associated section. If True, this PoI '
-            'marks the end of the section; otherwise, it is other '
-            'typ of associated PoI like beginning or middle point.',
-    )
-    middle_point = models.BooleanField(
-        default=False,
-        verbose_name='Is Middle Point',
-        help_text='Indicates whether this point of interest is the '
-            'middle point of the associated section. If True, this PoI '
-            'is considered as a middle or intermediate point along '
-            'the section; otherwise, it is other typ of associated '
-            'PoI like beginning or end point of the section.',
+    role = models.IntegerField(
+        choices=SectionPoiRoleChoices.choices,
+        db_index=True,
+        verbose_name='Role',
+        help_text=(
+            'Role of this Point of Interest within the section’s path. "START" '
+            'marks the logical beginning of the section (at most one per '
+            'section). "VIA" intermediate waypoint(s) along the section; '
+            'multiple allowed and ordered via seq_index; annotations that do '
+            'not change the section geometry. "END" marks the logical end of '
+            'the section (at most one per section). The POI does not have to '
+            'lie exactly on the path; nearby POIs may be snapped to the line '
+            'or connected visually. Typical anchors: START ≈ 0 m, END ≈ total '
+            'length.'
+        ),
+        default=SectionPoiRoleChoices.VIA,
     )
 
 

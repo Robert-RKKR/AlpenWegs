@@ -20,8 +20,8 @@ class BaseRelationshipModel(
     BaseTimestampModel, 
 ):
     """
-    Abstract base class for relationship models that require
-    ordering and timestamping. Intended for inheritance by
+    Abstract base class for relationship models that provides
+    timestamping for relations models. Intended for inheritance by
     specific relationship models that link entities such as
     routes, points of interest, users, etc.
     """
@@ -35,14 +35,6 @@ class BaseRelationshipModel(
         # Abstract class value:
         abstract = True
 
-    # Relationship model values:
-    order = models.IntegerField(
-        verbose_name='Order',
-        help_text='Defines the ordering or precedence '
-            'of the relationship.',
-        default=0,
-    )
-
     #=================================================================
     # Object representation:
     #=================================================================
@@ -52,4 +44,32 @@ class BaseRelationshipModel(
         """
 
         # Return object representation:
-        return f'Order: {self.order}'
+        return f'Position: {self.order}'
+
+
+class BaseRelationshipOrderedModel(
+    BaseRelationshipModel, 
+):
+    """
+    Abstract base class for relationship models that provides
+    ordering and timestamping. Intended for inheritance by
+    specific relationship models that link entities such as
+    routes, points of interest, users, etc.
+    """
+
+    class Meta:
+
+        # Model name values:
+        verbose_name = 'Base Ordered Relationship Model'
+        verbose_name_plural = 'Base Ordered Relationship Models'
+
+        # Abstract class value:
+        abstract = True
+
+    # Relationship model values:
+    position = models.IntegerField(
+        verbose_name='Position',
+        help_text='Manual ordering within this relationship. '
+            'Use gap indexing (10,20,30).',
+        default=10,
+    )

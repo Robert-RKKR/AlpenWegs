@@ -40,6 +40,9 @@ class BaseCharacteristicModel(
         verbose_name = 'Base Characteristic Model'
         verbose_name_plural = 'Base Characteristic Models'
 
+        # Abstract class value:
+        abstract = True
+
     # Characteristics values:
     difficulty = models.CharField(
         verbose_name='General Difficulty Level',

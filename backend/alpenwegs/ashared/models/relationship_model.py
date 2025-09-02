@@ -35,17 +35,6 @@ class BaseRelationshipModel(
         # Abstract class value:
         abstract = True
 
-    #=================================================================
-    # Object representation:
-    #=================================================================
-    def object_representation(self) -> str:
-        """
-        AlpenWeg model object representation:
-        """
-
-        # Return object representation:
-        return f'Position: {self.order}'
-
 
 class BaseRelationshipOrderedModel(
     BaseRelationshipModel, 

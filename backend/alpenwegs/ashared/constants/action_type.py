@@ -1,5 +1,5 @@
 # AlpenWeg import:
-from alpenwegs.ashared.constants.base_choices import BaseIntegerChoices
+from alpenwegs.ashared.constants.ashared.base_choices import BaseIntegerChoices
 
 # Django translation model import:
 from django.utils.translation import gettext_lazy as _

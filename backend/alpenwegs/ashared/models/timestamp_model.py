@@ -41,9 +41,6 @@ class BaseTimestampModel(
         verbose_name = 'Base Timestamp model'
         verbose_name_plural = 'Base Timestamp models'
 
-        # Default ordering:
-        ordering = ['-timestamp']
-
         # Abstract class value:
         abstract = True
 
@@ -63,14 +60,3 @@ class BaseTimestampModel(
             'whenever the object is modified.',
         auto_now=True,
     )
-
-    #=================================================================
-    # Object representation:
-    #=================================================================
-    def object_representation(self) -> str:
-        """
-        AlpenWeg model object representation:
-        """
-
-        # Return object representation:
-        return f'Created: {self.created}, Updated: {self.updated}'

@@ -42,6 +42,9 @@ class BaseSportCategoryModel(
         verbose_name = 'Base Sport Category Model'
         verbose_name_plural = 'Base Sport Category Models'
 
+        # Abstract class value:
+        abstract = True
+
     # Category value:
     category = models.IntegerField(
         choices=SportCategoryChoices.choices,

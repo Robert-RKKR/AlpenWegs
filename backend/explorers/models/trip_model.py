@@ -63,7 +63,7 @@ class TripToRouteModel(
     """
     An intermediate model for associating a Trip
     with a route. This model allows us to store the
-    relationship between a Card and a specific route.
+    relationship between a Trip and a specific Route.
     """
     
     # Base relation between Many-to-many Models:
@@ -71,14 +71,16 @@ class TripToRouteModel(
         TripModel,
         related_name='route_trip_associations',
         verbose_name='Trip',
-        help_text='The Trip that this route is associated with.',
+        help_text='The Trip that is associated with the Route '
+            'to Trip M2M relationship.',
         on_delete=models.CASCADE,
     )
     route = models.ForeignKey(
         RouteModel,
         related_name='trip_route_associations',
         verbose_name='Route',
-        help_text='The route that this Trip is associated with.',
+        help_text='The Route that is associated with the Trip '
+            'to Route M2M relationship.',
         on_delete=models.CASCADE,
     )
     
@@ -86,7 +88,8 @@ class TripToRouteModel(
     poi = models.ForeignKey(
         PoiModel,
         verbose_name='Point of Interest',
-        help_text='The point of interest associated with a route.',
+        help_text='The point of interest associated with '
+            'Route to Trip M2M relationship.',
         on_delete=models.CASCADE,
         blank=True,
         null=True,

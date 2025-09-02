@@ -33,7 +33,12 @@ class SectionModel(
     BaseGpxModel,
 ):
     """
-    Model representing single route Section.
+    Represents a single route section within the AlpenWegs system.
+
+    A section is the core building block of a route. It combines 
+    geographical, descriptive, and sport-specific characteristics 
+    (difficulty, sport category, GPX geometry, etc.) and links to 
+    related Points of Interest, Cards, and Regions.
     """
 
     class Meta:
@@ -75,9 +80,40 @@ class SectionModel(
         through='SectionToRegionModel',
         related_name='section_regions',
         verbose_name='Section Regions',
-        help_text='Geographical regions through which the '
-            'section passes.'
+        help_text='Geographical regions that this section crosses '
+            'or belongs to. Useful for filtering and categorization.'
     )
+
+
+# class SectionToPhotoModel(
+#     BaseRelationshipModel,
+# ):
+#     """
+#     Intermediate model linking a Section to Photos.
+
+#     Stores the association between a route section and one or more 
+#     photos that visually document the section. This enables attaching 
+#     user-contributed or system-provided media to enhance the section’s 
+#     descriptive context.
+#     """
+    
+#     # Base relation between Many-to-many Models:
+#     section = models.ForeignKey(
+#         SectionModel,
+#         related_name='photo_section_associations',
+#         verbose_name='Section',
+#         help_text='The Section that is associated with the Photo '
+#             'to Section M2M relationship.',
+#         on_delete=models.PROTECT,
+#     )
+#     photo = models.ForeignKey(
+#         PhotoModel,
+#         related_name='section_photo_associations',
+#         verbose_name='Photo',
+#         help_text='The Photo that is associated with the Section '
+#             'to Photo M2M relationship.',
+#         on_delete=models.PROTECT,
+#     )
 
 
 # Section Model Many-to-many relationships with other models:
@@ -85,9 +121,12 @@ class SectionToPoiModel(
     BaseRelationshipOrderedModel,
 ):
     """
-    An intermediate model for associating a Point of Interest
-    (PoI) with a section. This model allows us to store the
-    relationship between a PoI and a specific section.
+    Intermediate model linking a Section to one or more
+    Points of Interest (PoIs).
+
+    Stores the ordered association and semantic role of a PoI
+    within the section's path. For example, a PoI can mark the
+    start, an intermediate waypoint, or the end of the section.
     """
     
     # Base relation between Many-to-many Models:
@@ -95,14 +134,16 @@ class SectionToPoiModel(
         SectionModel,
         related_name='poi_section_associations',
         verbose_name='Section',
-        help_text='The section that this point of interest is associated with.',
+        help_text='The Section that is associated with the Point of '
+            'Interest to Section M2M relationship.',
         on_delete=models.PROTECT,
     )
     poi = models.ForeignKey(
         PoiModel,
         related_name='section_poi_associations',
         verbose_name='Point of Interest',
-        help_text='The point of interest associated with a section.',
+        help_text='The Point of Interest that is associated with the '
+            'Section to Point of Interest M2M relationship.',
         on_delete=models.PROTECT,
     )
     
@@ -126,39 +167,14 @@ class SectionToPoiModel(
     )
 
 
-# class SectionToPhotoModel(
-#     BaseRelationshipModel,
-# ):
-#     """
-#     An intermediate model for associating a Photo
-#     with a section. This model allows us to store the
-#     relationship between a Photo and a specific section.
-#     """
-    
-#     # Base relation between Many-to-many Models:
-#     section = models.ForeignKey(
-#         SectionModel,
-#         related_name='photo_section_associations',
-#         verbose_name='Section',
-#         help_text='The section that this point of interest is associated with.',
-#         on_delete=models.PROTECT,
-#     )
-#     photo = models.ForeignKey(
-#         PhotoModel,
-#         related_name='section_photo_associations',
-#         verbose_name='Photo',
-#         help_text='Xxx.',
-#         on_delete=models.PROTECT,
-#     )
-
-
 class SectionToCardModel(
     BaseRelationshipModel,
 ):
     """
-    An intermediate model for associating a card
-    with a section. This model allows us to store the
-    relationship between a Card and a specific section.
+    Intermediate model linking a Section to Cards.
+
+    Allows tracking which achievement cards are tied to 
+    completing this section.
     """
     
     # Base relation between Many-to-many Models:
@@ -166,14 +182,16 @@ class SectionToCardModel(
         SectionModel,
         related_name='card_section_associations',
         verbose_name='Section',
-        help_text='The section that this point of interest is associated with.',
+        help_text='The Section that is associated with the Card '
+            'to Section M2M relationship.',
         on_delete=models.PROTECT,
     )
     card = models.ForeignKey(
         CardModel,
         related_name='section_card_associations',
         verbose_name='Card',
-        help_text='Xxx.',
+        help_text='The Card that is associated with the Section '
+            'to Card M2M relationship.',
         on_delete=models.PROTECT,
     )
 
@@ -182,9 +200,10 @@ class SectionToRegionModel(
     BaseRelationshipModel,
 ):
     """
-    An intermediate model for associating a region
-    with a section. This model allows us to store the
-    relationship between a Card and a specific section.
+    Intermediate model linking a Section to Regions.
+
+    Represents the geographical regions that a section belongs to 
+    or traverses, enabling filtering and classification.
     """
     
     # Base relation between Many-to-many Models:
@@ -192,13 +211,15 @@ class SectionToRegionModel(
         SectionModel,
         related_name='region_section_associations',
         verbose_name='Section',
-        help_text='The section that this point of interest is associated with.',
+        help_text='The Section that is associated with the Region '
+            'to Section M2M relationship.',
         on_delete=models.PROTECT,
     )
     region = models.ForeignKey(
         RegionModel,
         related_name='section_region_associations',
         verbose_name='Region',
-        help_text='Xxx.',
+        help_text='The Region that is associated with the Section '
+            'to Region M2M relationship.',
         on_delete=models.PROTECT,
     )

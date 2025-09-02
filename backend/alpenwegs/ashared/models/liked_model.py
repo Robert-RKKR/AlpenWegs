@@ -43,16 +43,16 @@ class BaseLikedModel(
     # Model Many-to-Many Relationships with User Model:
     users_liked = models.ManyToManyField(
         'profiles.UserModel',
-        related_name='route_users_liked',
+        related_name='%(class)s_users_liked',
         verbose_name='Users Liked',
-        help_text='Users who liked this object. Used to record engagement '
+        help_text='Users who liked this %(class)s. Used to record engagement '
             'and allow retrieval of which members expressed a positive reaction.'
     )
 
     # Statistic Information:
     like_count = models.BigIntegerField(
         verbose_name='Like Count',
-        help_text='Total number of likes this object has received. '
+        help_text='Total number of likes this %(class)s has received. '
             'This field is used for faster queries and should be '
             'synchronized with `users_liked` relations between '
             'Model and UserModel.',

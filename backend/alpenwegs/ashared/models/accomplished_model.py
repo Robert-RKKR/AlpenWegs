@@ -44,18 +44,17 @@ class BaseAccomplishedModel(
     # Model Many-to-Many Relationships with User Model:
     users_accomplished = models.ManyToManyField(
         'profiles.UserModel',
-        related_name='route_users_accomplished',
+        related_name='%(class)s_users_accomplished',
         verbose_name='Users Accomplished',
-        help_text='Users who have accomplished or completed this object. '
-            'Allows queries of which members completed a route, task, '
-            'or milestone.'
+        help_text='Users who have accomplished or completed this %(class)s. '
+            'Allows queries of which members completed a %(class)s.'
     )
 
     # Statistic Information:
     accomplished_count = models.BigIntegerField(
         verbose_name='Accomplished Count',
-        help_text='Total number of users who have accomplished this object. '
+        help_text='Total number of users who have accomplished this %(class)s. '
             'This field improves performance and should be kept in sync with '
-            '`users_accomplished` relations between Model and UserModel.',
+            '`users_accomplished` relations between %(class)s and UserModel.',
         default=0,
     )

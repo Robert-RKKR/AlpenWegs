@@ -1,5 +1,6 @@
 # AlpenWegs import:
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
+from alpenwegs.ashared.models.descriptive_model import BaseDescriptiveModel
 from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 from alpenwegs.ashared.constants.poi_category import PoiCategoryChoices
 from alpenwegs.ashared.models.creator_model import BaseCreatorModel
@@ -14,6 +15,7 @@ from django.db import models
 # PoI Model class:
 class PoiModel(
     BaseIdentificationModel,
+    BaseDescriptiveModel,
     BaseTimestampModel,
     BaseCreatorModel,
 ):
@@ -54,13 +56,6 @@ class PoiModel(
     # )
     
     # PoI description:
-    description = models.TextField(
-        verbose_name='Description',
-        help_text='Additional descriptive information about this PoI '
-            '(historical notes, natural features, etc.).',
-        blank=True,
-        null=True,
-    )
     transport_description = models.BigIntegerField(
         verbose_name='Transport Description',
         help_text='Information about how to reach this PoI '

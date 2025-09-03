@@ -65,12 +65,11 @@ class CardModel(
         help_text='Approximate elevation (in meters above '
             'sea level) where the card’s feature is located.',
     )
-    type = models.CharField(
+    type = models.IntegerField(
         choices=CardTypeChoices.choices,
         verbose_name='Card Type',
         help_text='Specifies the type of feature this card '
             'represents (e.g., mountain peak, hut, lake).',
-        max_length=32,
         default=CardTypeChoices.MOUNTAIN_PEAK,
     )
 

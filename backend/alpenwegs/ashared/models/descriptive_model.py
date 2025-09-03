@@ -43,7 +43,7 @@ class BaseDescriptiveModel(
 
     # Descriptive model values:
     description = models.TextField(
-        verbose_name='Object Description',
+        verbose_name='Detail Description',
         help_text='A detailed description of the object. Supports plain '
             'text, rich text, or Markdown. Intended for contextual details '
             'such as terrain, difficulty level, notable landmarks, scenic '

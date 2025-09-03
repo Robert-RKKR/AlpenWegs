@@ -1,5 +1,6 @@
 # AlpenWegs import:
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
+from alpenwegs.ashared.models.descriptive_model import BaseDescriptiveModel
 from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 from alpenwegs.ashared.models.creator_model import BaseCreatorModel
 from alpenwegs.ashared.constants.country import CountryChoices
@@ -11,6 +12,7 @@ from django.db import models
 # Region Model class:
 class RegionModel(
     BaseIdentificationModel,
+    BaseDescriptiveModel,
     BaseTimestampModel,
     BaseCreatorModel,
 ):
@@ -44,8 +46,4 @@ class RegionModel(
         verbose_name='Country',
         help_text='Country where the region is located (fixed numeric list).',
         default=CountryChoices.SWITZERLAND,
-    )
-    description = models.TextField(
-        verbose_name='Region Description',
-        help_text='A description of the region.',
     )

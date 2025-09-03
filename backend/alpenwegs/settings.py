@@ -224,7 +224,7 @@ SPECTACULAR_SETTINGS = {
         'defaultModelExpandDepth': 3,
         'docExpansion': 'none',
     },
-    "POSTPROCESSING_HOOKS": [
+    'POSTPROCESSING_HOOKS': [
         'alpenwegs.ashared.api.schemas.schema_hooks.retag_auth_endpoints',
     ],
 }
@@ -239,6 +239,7 @@ SPECTACULAR_SETTINGS = {
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Default user model:
+AUTH_GROUP_MODEL = 'profiles.GroupModel'
 AUTH_USER_MODEL = 'profiles.UserModel'
 SITE_ID = 1
 

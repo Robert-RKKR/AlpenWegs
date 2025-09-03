@@ -2,10 +2,10 @@
 from django.core.management.base import CommandError
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Permission
-from django.contrib.auth.models import Group
 from django.apps import apps
 
 # AlpenWegs application import:
+from profiles.models.group_model import GroupModel
 from profiles.models.user_model import UserModel
 
 # Define allowed actions:
@@ -67,9 +67,9 @@ class Command(BaseCommand):
 
         # Fetch created groups:
         roles = {
-            'Member': Group.objects.get(name='Member'),
-            'Author': Group.objects.get(name='Author'),
-            'Admin':  Group.objects.get(name='Admin'),
+            'Member': GroupModel.objects.get(name='Member'),
+            'Author': GroupModel.objects.get(name='Author'),
+            'Admin':  GroupModel.objects.get(name='Admin'),
         }
 
         # Iterate over all models in the application:
@@ -106,9 +106,9 @@ class Command(BaseCommand):
     def create_default_groups(self):
 
         # Create default groups:
-        Group.objects.get_or_create(name='Member')
-        Group.objects.get_or_create(name='Author')
-        Group.objects.get_or_create(name='Admin')
+        GroupModel.objects.get_or_create(name='Member')
+        GroupModel.objects.get_or_create(name='Author')
+        GroupModel.objects.get_or_create(name='Admin')
         # Log action positively accomplished:
         self.stdout.write(self.style.SUCCESS(
             '1.1: Successfully created all base groups.'))

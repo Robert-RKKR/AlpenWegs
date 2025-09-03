@@ -62,6 +62,16 @@ class UserModel(
         default=False,
     )
 
+    # User groups relationship:
+    groups = models.ManyToManyField(
+        'profiles.GroupModel',
+        verbose_name='Groups',
+        help_text='The groups this user belongs to.',
+        blank=True,
+        related_name='user_set',
+        related_query_name='user',
+    )
+
     # Base User identification information:
     email = models.EmailField(
         verbose_name='E-mail address',
@@ -229,14 +239,6 @@ class UserModel(
         # Return user short name representation:
         return self.first_name + ' ' + self.last_name
 
-    def representation(self):
-        """
-        Collect user object representation:
-        """
-
-        # Return user object representation:
-        return self.username
-
     #=================================================================
     # Object additional methods:
     #=================================================================
@@ -282,3 +284,14 @@ class UserModel(
         self.bmi_value = self._compute_bmi()
         # Lowercase email and username for uniqueness checks:
         self._lower_case_unique()
+
+    #=================================================================
+    # Object representation:
+    #=================================================================
+    def representation(self):
+        """
+        Collect user object representation:
+        """
+
+        # Return user object representation:
+        return self.username

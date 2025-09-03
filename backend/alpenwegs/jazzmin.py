@@ -1,4 +1,6 @@
 GLOBAL_JAZZMIN_SETTINGS = {
+
+    # Base application configuration:
     'site_title': 'AlpenWegs',
     'site_header': 'AlpenWegs',
     'site_brand': 'AlpenWegs',
@@ -9,7 +11,6 @@ GLOBAL_JAZZMIN_SETTINGS = {
     'welcome_sign': 'Welcome to the AlpenWegs',
     'custom_css': 'css/custom_admin.css',
     'copyright': 'Copyright (c) 2025 Robert Tadeusz Kucharski RKKR - AlpenWegs',
-    #'search_model': 'auth.User',
     'user_avatar': None,
 
     # Links to put along the top menu:
@@ -20,32 +21,46 @@ GLOBAL_JAZZMIN_SETTINGS = {
     ],
     'show_sidebar': True,
     'navigation_expanded': False,
-    'hide_models': [],
+    'hide_models': [
+        'auth.user',
+        'auth.group',
+    ],
     'order_with_respect_to': [
         'profiles',
-        'auth',
         'notifications',
+        'explorers',
+        'compendiums',
         'django_celery_beat',
     ],
     'icons': {
-        # Authentication:
-        'auth': 'fas fa-users-cog',
-        'auth.user': 'fas fa-user',
-        'auth.Group': 'fas fa-users',
-        # profiles:
+        # Profiles app:
         'profiles': 'fas fa-users',
         'profiles.UserModel': 'fas fa-user',
-        # Notifications:
-        'notifications': 'fas fa-envelope',
-        'notifications.ChangeLogModel': 'fas fa-clock',
-        'notifications.NotificationModel': 'fas fa-envelope-open',
-        # Celery:
+        'profiles.GroupModel': 'fas fa-users-cog',
+        # Notifications app:
+        'notifications': 'fas fa-bell',
+        'notifications.NotificationModel': 'fas fa-envelope-open-text',
+        'notifications.ChangeLogModel': 'fas fa-history',
+        # Explorers app:
+        'explorers': 'fas fa-hiking',
+        'explorers.SectionModel': 'fas fa-route',
+        'explorers.RouteModel': 'fas fa-map-marked-alt',
+        'explorers.TripModel': 'fas fa-mountain',
+        # Compendiums app:
+        'compendiums': 'fas fa-book',
+        'compendiums.RegionModel': 'fas fa-globe-europe',
+        'compendiums.CardModel': 'fas fa-id-card',
+        'compendiums.PoiModel': 'fas fa-map-pin',
+        # Celery (system tasks):
         'django_celery_beat': 'fas fa-sitemap',
-        'django_celery_beat.Clocked': 'fas fa-code',
-        'django_celery_beat.Crontab': 'fas fa-code',
-        'django_celery_beat.Interval': 'fas fa-code',
-        'django_celery_beat.PeriodicTask': 'fas fa-code',
-        'django_celery_beat.SolarEvent': 'fas fa-code',
+        'django_celery_beat.Clocked': 'fas fa-clock',
+        'django_celery_beat.Crontab': 'fas fa-calendar-alt',
+        'django_celery_beat.Interval': 'fas fa-hourglass-half',
+        'django_celery_beat.PeriodicTask': 'fas fa-tasks',
+        'django_celery_beat.SolarEvent': 'fas fa-sun',
+        # Default icons (fallbacks):
+        'default_icon_parents': 'fas fa-chevron-circle-right',
+        'default_icon_children': 'fas fa-circle',
     },
     'default_icon_parents': 'fas fa-chevron-circle-right',
     'default_icon_children': 'fas fa-circle',

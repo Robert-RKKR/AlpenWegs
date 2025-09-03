@@ -35,8 +35,8 @@ class BaseAccomplishedModel(
     class Meta:
 
         # Model name values:
-        verbose_name = 'Base Accomplished Model'
-        verbose_name_plural = 'Base Accomplished Models'
+        verbose_name = 'Base %(class)s to User Accomplished Model'
+        verbose_name_plural = 'Base %(class)s to User Accomplished Models'
 
         # Abstract class value:
         abstract = True

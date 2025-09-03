@@ -34,8 +34,8 @@ class BaseLikedModel(
     class Meta:
 
         # Model name values:
-        verbose_name = 'Base Liked model'
-        verbose_name_plural = 'Base Liked models'
+        verbose_name = 'Base %(class)s to User Liked Model'
+        verbose_name_plural = 'Base %(class)s to User Liked Models'
 
         # Abstract class value:
         abstract = True

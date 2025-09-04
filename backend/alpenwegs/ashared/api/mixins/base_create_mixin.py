@@ -41,7 +41,7 @@ class BaseCreateModelMixin(
             instance=instance,
         )
 
-        # Return HTTP response 201 object was created:
+        # Return (201 HTTP - Created) response:
         return Response(
             data=serializer.data,
             status=status.HTTP_201_CREATED,
@@ -64,6 +64,7 @@ class BaseCreateModelMixin(
                 **kwargs,
             )
         
+        # Return (400 HTTP - Bad Request) response:
         except ValidationError as exception:
             # Define error details list:
             error_details = []

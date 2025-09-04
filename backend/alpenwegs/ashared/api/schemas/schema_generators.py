@@ -1,8 +1,10 @@
 # AlpenWegs import:
-from alpenwegs.ashared.api.base_exceptions_schemas import TokenAuthenticationAPIExceptionSchema
-from alpenwegs.ashared.api.base_exceptions_schemas import ValidationAPIExceptionSchema
-from alpenwegs.ashared.api.base_exceptions_schemas import ProtectedAPIExceptionSchema
-from alpenwegs.ashared.api.base_exceptions_schemas import NotFoundAPIExceptionSchema
+from alpenwegs.ashared.api.schemas.exceptions_schemas import TokenAuthenticationAPIExceptionSchema
+from alpenwegs.ashared.api.schemas.exceptions_schemas import PermissionAPIExceptionSchema
+from alpenwegs.ashared.api.schemas.exceptions_schemas import ValidationAPIExceptionSchema
+from alpenwegs.ashared.api.schemas.exceptions_schemas import NotContentAPIExceptionSchema
+from alpenwegs.ashared.api.schemas.exceptions_schemas import ProtectedAPIExceptionSchema
+from alpenwegs.ashared.api.schemas.exceptions_schemas import NotFoundAPIExceptionSchema
 
 # Drf spectacular import:
 from drf_spectacular.utils import OpenApiResponse
@@ -21,11 +23,11 @@ def schema_list(
         responses={
             200: OpenApiResponse(
                 default_schema,
-                description=f'Retrieve {object_repr} object',
+                description=f'Retrieve {object_repr} objects',
             ),
             401: OpenApiResponse(
                 TokenAuthenticationAPIExceptionSchema,
-                description='Token authentication error'
+                description=f'{object_repr} token authentication error'
             ),
         },
         tags=[f'{application_repr} - {object_repr}'],
@@ -47,11 +49,15 @@ def schema_retrieve(
             ),
             401: OpenApiResponse(
                 TokenAuthenticationAPIExceptionSchema,
-                description='Token authentication error'
+                description=f'{object_repr} token authentication error'
+            ),
+            403: OpenApiResponse(
+                PermissionAPIExceptionSchema,
+                description=f'{object_repr} forbidden error'
             ),
             404: OpenApiResponse(
                 NotFoundAPIExceptionSchema,
-                description='Object not found error'
+                description=f'{object_repr} not found error'
             ),
         },
         tags=[f'{application_repr} - {object_repr}'],
@@ -73,11 +79,15 @@ def schema_create(
             ),
             400: OpenApiResponse(
                 ValidationAPIExceptionSchema,
-                description='Data validation error'
+                description=f'{object_repr} data validation error'
             ),
             401: OpenApiResponse(
                 TokenAuthenticationAPIExceptionSchema,
-                description='Token authentication error'
+                description=f'{object_repr} token authentication error'
+            ),
+            403: OpenApiResponse(
+                PermissionAPIExceptionSchema,
+                description=f'{object_repr} forbidden error'
             ),
         },
         tags=[f'{application_repr} - {object_repr}'],
@@ -93,21 +103,25 @@ def schema_update(
     
     return extend_schema(
         responses={
-            201: OpenApiResponse(
+            200: OpenApiResponse(
                 default_schema,
-                description=f'Retrieve {object_repr} object',
+                description=f'Updated and retrieve {object_repr} object',
             ),
             400: OpenApiResponse(
                 ValidationAPIExceptionSchema,
-                description='Data validation error'
+                description=f'{object_repr} data validation error'
             ),
             401: OpenApiResponse(
                 TokenAuthenticationAPIExceptionSchema,
-                description='Token authentication error'
+                description=f'{object_repr} token authentication error'
+            ),
+            403: OpenApiResponse(
+                PermissionAPIExceptionSchema,
+                description=f'{object_repr} forbidden error'
             ),
             404: OpenApiResponse(
                 NotFoundAPIExceptionSchema,
-                description='Object not found error'
+                description=f'{object_repr} not found error'
             ),
         },
         tags=[f'{application_repr} - {object_repr}'],
@@ -123,21 +137,25 @@ def schema_partial_update(
     
     return extend_schema(
         responses={
-            201: OpenApiResponse(
+            200: OpenApiResponse(
                 default_schema,
-                description=f'Retrieve {object_repr} object',
+                description=f'Updated and retrieve {object_repr} object',
             ),
             400: OpenApiResponse(
                 ValidationAPIExceptionSchema,
-                description='Data validation error'
+                description=f'{object_repr} data validation error'
             ),
             401: OpenApiResponse(
                 TokenAuthenticationAPIExceptionSchema,
-                description='Token authentication error'
+                description=f'{object_repr} token authentication error'
+            ),
+            403: OpenApiResponse(
+                PermissionAPIExceptionSchema,
+                description=f'{object_repr} forbidden error'
             ),
             404: OpenApiResponse(
                 NotFoundAPIExceptionSchema,
-                description='Object not found error'
+                description=f'{object_repr} not found error'
             ),
         },
         tags=[f'{application_repr} - {object_repr}'],
@@ -153,21 +171,25 @@ def schema_destroy(
     
     return extend_schema(
         responses={
-            201: OpenApiResponse(
-                default_schema,
-                description=f'Retrieve {object_repr} object',
+            204: OpenApiResponse(
+                NotContentAPIExceptionSchema,
+                description=f'{object_repr} no content response',
             ),
             401: OpenApiResponse(
                 TokenAuthenticationAPIExceptionSchema,
-                description='Token authentication error'
+                description=f'{object_repr} token authentication error'
             ),
             403: OpenApiResponse(
-                ProtectedAPIExceptionSchema,
-                description='Object protected error'
+                PermissionAPIExceptionSchema,
+                description=f'{object_repr} forbidden error'
             ),
             404: OpenApiResponse(
                 NotFoundAPIExceptionSchema,
-                description='Object not found error'
+                description=f'{object_repr} not found error'
+            ),
+            409: OpenApiResponse(
+                ProtectedAPIExceptionSchema,
+                description=f'{object_repr} conflict error'
             ),
         },
         tags=[f'{application_repr} - {object_repr}'],

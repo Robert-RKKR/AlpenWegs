@@ -39,7 +39,7 @@ class BaseListModelMixin(
         # Prepare page view without pagination:
         serializer = self.get_serializer(queryset, many=True)
 
-        # Return HTTP response 200 objects has been collected:
+        # Return (200 HTTP - Ok) response:
         return Response(
             data=serializer.data,
             status=status.HTTP_200_OK,
@@ -59,6 +59,7 @@ class BaseListModelMixin(
                 **kwargs,
             )
 
+        # Unexpected exception handling !TEMPORARY:
         except Exception as exception:
             # Test exceptions:
             print(f'Type of list exception: {type(exception)}')

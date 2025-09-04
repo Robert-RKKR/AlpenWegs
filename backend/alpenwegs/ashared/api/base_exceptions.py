@@ -111,7 +111,7 @@ class ProtectedAPIException(
     """
 
     # Override base exception properties:
-    status_code = status.HTTP_403_FORBIDDEN
+    status_code = status.HTTP_409_CONFLICT
     default_message = (
         'The requested resource is protected and cannot be deleted.'
     )

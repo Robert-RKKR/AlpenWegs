@@ -49,7 +49,7 @@ class BaseUpdateModelMixin(BaseMixin, UpdateModelMixin):
             # on the instance.
             instance._prefetched_objects_cache = {}
         
-        # Return HTTP response 200 Object was updated:
+        # Return (200 HTTP - Ok) response:
         return Response(
             data=serializer.data,
             status=status.HTTP_200_OK,
@@ -72,6 +72,7 @@ class BaseUpdateModelMixin(BaseMixin, UpdateModelMixin):
                 **kwargs,
             )
         
+        # Return (400 HTTP - Bad Request) response:
         except (ValidationError, RestValidationError) as exception:
             # Define error details list:
             error_details = []
@@ -98,6 +99,7 @@ class BaseUpdateModelMixin(BaseMixin, UpdateModelMixin):
                 error_details=error_details,
             )
         
+        # Return (404 HTTP - Not Found) response:
         except Http404 as exception:
             # Define error details list:
             error_details = {

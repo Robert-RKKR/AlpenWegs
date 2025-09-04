@@ -81,6 +81,18 @@ class NotFoundAPIExceptionSchema(
     pass
 
 
+class NotContentAPIExceptionSchema(
+    BaseAPIExceptionSchema,
+):
+    """
+    API schema for Not Content exception.
+    """
+
+    # Main schema fields:
+    page_data = None
+    page_error = None
+
+
 class ServerAPIExceptionSchema(
     BaseAPIExceptionSchema,
 ):

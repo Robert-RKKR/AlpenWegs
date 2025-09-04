@@ -28,7 +28,7 @@ class BaseRetrieveModelMixin(
         # Collect serializer:
         serializer = self.get_serializer(instance)
 
-        # Return HTTP response 200 object was retried:
+        # Return (200 HTTP - Ok) response:
         return Response(
             data=serializer.data,
             status=status.HTTP_200_OK,
@@ -48,6 +48,7 @@ class BaseRetrieveModelMixin(
                 **kwargs,
             )
         
+        # Return (404 HTTP - Not Found) response:
         except Http404 as exception:
             # Define error details list:
             error_details = {

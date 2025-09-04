@@ -42,10 +42,11 @@ class BaseDestroyModelMixin(BaseMixin, DestroyModelMixin):
             copy_instance, ActionTypeChoices.DELETE, request.user,
             False, self.log_changes)
         
-        # Return 204 HTTP response if object was deleted:
+        # Return (204 HTTP - No Content) response:
         return self._return_api_response(
             status.HTTP_204_NO_CONTENT, [], False,
-            f'Object {instance} has been successfully deleted.')
+            f'Object {instance} has been successfully deleted.'
+        )
 
     def destroy(self,
         request: Response,
@@ -61,6 +62,7 @@ class BaseDestroyModelMixin(BaseMixin, DestroyModelMixin):
                 **kwargs,
             )
         
+        # Return (404 HTTP - Not Found) response:
         except Http404 as exception:
             # Define error details list:
             error_details = {
@@ -74,6 +76,7 @@ class BaseDestroyModelMixin(BaseMixin, DestroyModelMixin):
                 error_details=error_details,
             )
         
+        # Return (409 HTTP - Conflict) response:
         except ProtectedError as exception:
             # Iterate thru all related objects:
             related_objects = [collect_object_data(obj) for

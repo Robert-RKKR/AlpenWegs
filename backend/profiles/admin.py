@@ -4,7 +4,6 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib import admin
 
 # AlpenWegs import:
-from profiles.models.group_model import GroupModel
 from profiles.models.user_model import UserModel
 
 
@@ -104,23 +103,3 @@ class UserAdmin(DjangoUserAdmin):
     )
 
     readonly_fields = ('last_login', 'created', 'updated')
-
-
-@admin.register(GroupModel)
-class GroupAdmin(DjangoGroupAdmin):
-    """
-    Admin panel for the custom GroupModel.
-    Extends Django’s default GroupAdmin so you still get the
-    permissions selection widget and filtering UI.
-    """
-
-    model = GroupModel
-    filter_horizontal = (
-        'permissions',
-    )
-    search_fields = (
-        'name',
-    )
-    ordering = (
-        'name',
-    )

@@ -18,7 +18,10 @@ from rest_framework import status
 import copy
 
 
-class BaseDestroyModelMixin(BaseMixin, DestroyModelMixin):
+class BaseDestroyModelMixin(
+    BaseMixin,
+    DestroyModelMixin,
+):
     """
     Mixin class to destroy a model instance.
     """

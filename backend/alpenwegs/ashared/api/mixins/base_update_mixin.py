@@ -13,7 +13,10 @@ from alpenwegs.ashared.constants.action_type import ActionTypeChoices
 from alpenwegs.ashared.api.mixins.base_mixin import BaseMixin
 
 
-class BaseUpdateModelMixin(BaseMixin, UpdateModelMixin):
+class BaseUpdateModelMixin(
+    BaseMixin,
+    UpdateModelMixin,
+):
     """
     Mixin class to update a model instance.
     """

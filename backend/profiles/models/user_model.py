@@ -62,16 +62,6 @@ class UserModel(
         default=False,
     )
 
-    # User groups relationship:
-    groups = models.ManyToManyField(
-        'profiles.GroupModel',
-        verbose_name='Groups',
-        help_text='The groups this user belongs to.',
-        blank=True,
-        related_name='user_set',
-        related_query_name='user',
-    )
-
     # Base User identification information:
     email = models.EmailField(
         verbose_name='E-mail address',

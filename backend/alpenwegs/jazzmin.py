@@ -30,6 +30,7 @@ GLOBAL_JAZZMIN_SETTINGS = {
         'notifications',
         'explorers',
         'compendiums',
+        'assets',
         'django_celery_beat',
     ],
     'icons': {
@@ -51,6 +52,10 @@ GLOBAL_JAZZMIN_SETTINGS = {
         'compendiums.RegionModel': 'fas fa-globe-europe',
         'compendiums.CardModel': 'fas fa-id-card',
         'compendiums.PoiModel': 'fas fa-map-pin',
+        # Assets app:
+        'assets': 'fas fa-folder-open',
+        'assets.PhotoModel': 'fas fa-image',
+        'assets.FileModel': 'fas fa-file-alt',
         # Celery (system tasks):
         'django_celery_beat': 'fas fa-sitemap',
         'django_celery_beat.Clocked': 'fas fa-clock',

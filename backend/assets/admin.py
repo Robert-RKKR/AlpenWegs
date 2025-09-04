@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models.photo_model import PhotoModel
+from .models.file_model import FileModel
+
+admin.site.register(PhotoModel)
+admin.site.register(FileModel)

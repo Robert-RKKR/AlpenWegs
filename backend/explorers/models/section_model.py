@@ -16,6 +16,7 @@ from compendiums.models.region_model import RegionModel
 from compendiums.models.card_model import CardModel
 # from assets.models.photo_model import PhotoModel
 from compendiums.models.poi_model import PoiModel
+from assets.models.photo_model import PhotoModel
 
 # Django import:
 from django.db import models
@@ -48,15 +49,15 @@ class SectionModel(
         verbose_name_plural = 'Sections'
 
     # Many-to-Many Relationships:
-    # photos = models.ManyToManyField(
-    #     PhotoModel,
-    #     through='SectionToPhotoModel',
-    #     related_name='section_photos',
-    #     verbose_name='Section Photos',
-    #     help_text='A collection of photos that are linked to '
-    #         'the section and that provide a visual documentation '
-    #         'of the section created by the section creator.'
-    # )
+    photos = models.ManyToManyField(
+        PhotoModel,
+        through='SectionToPhotoModel',
+        related_name='section_photos',
+        verbose_name='Section Photos',
+        help_text='A collection of photos that are linked to '
+            'the section and that provide a visual documentation '
+            'of the section created by the section creator.'
+    )
     pois = models.ManyToManyField(
         PoiModel,
         through='SectionToPoiModel',
@@ -85,35 +86,35 @@ class SectionModel(
     )
 
 
-# class SectionToPhotoModel(
-#     BaseRelationshipModel,
-# ):
-#     """
-#     Intermediate model linking a Section to Photos.
+class SectionToPhotoModel(
+    BaseRelationshipModel,
+):
+    """
+    Intermediate model linking a Section to Photos.
 
-#     Stores the association between a route section and one or more 
-#     photos that visually document the section. This enables attaching 
-#     user-contributed or system-provided media to enhance the section’s 
-#     descriptive context.
-#     """
+    Stores the association between a route section and one or more 
+    photos that visually document the section. This enables attaching 
+    user-contributed or system-provided media to enhance the section’s 
+    descriptive context.
+    """
     
-#     # Base relation between Many-to-many Models:
-#     section = models.ForeignKey(
-#         SectionModel,
-#         related_name='photo_section_associations',
-#         verbose_name='Section',
-#         help_text='The Section that is associated with the Photo '
-#             'to Section M2M relationship.',
-#         on_delete=models.PROTECT,
-#     )
-#     photo = models.ForeignKey(
-#         PhotoModel,
-#         related_name='section_photo_associations',
-#         verbose_name='Photo',
-#         help_text='The Photo that is associated with the Section '
-#             'to Photo M2M relationship.',
-#         on_delete=models.PROTECT,
-#     )
+    # Base relation between Many-to-many Models:
+    section = models.ForeignKey(
+        SectionModel,
+        related_name='photo_section_associations',
+        verbose_name='Section',
+        help_text='The Section that is associated with the Photo '
+            'to Section M2M relationship.',
+        on_delete=models.PROTECT,
+    )
+    photo = models.ForeignKey(
+        PhotoModel,
+        related_name='section_photo_associations',
+        verbose_name='Photo',
+        help_text='The Photo that is associated with the Section '
+            'to Photo M2M relationship.',
+        on_delete=models.PROTECT,
+    )
 
 
 # Section Model Many-to-many relationships with other models:

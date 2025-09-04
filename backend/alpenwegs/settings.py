@@ -94,6 +94,7 @@ INSTALLED_APPS = [
     'compendiums.apps.CompendiumsConfig',
     'explorers.apps.ExplorersConfig',
     'profiles.apps.ProfilesConfig',
+    'assets.apps.AssetsConfig',
 ]
 
 # Middleware configuration:
@@ -360,6 +361,8 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder'
 ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type:
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -21,7 +21,7 @@ sport-specific difficulty ratings.
 # AlpenWegs import:
 from alpenwegs.ashared.constants.sport_category_difficulty import SportCategoryDifficultyChoices
 from alpenwegs.ashared.constants.sport_category import SportCategoryChoices
-from .base_model import BaseModel
+from alpenwegs.ashared.models.base_model import BaseModel
 
 # Django import:
 from django.db import models

@@ -17,24 +17,18 @@ class RouteAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'name',
-        'region',
         'difficulty',
-        'distance',
-        'ascent',
-        'descent',
         'created',
-        'updated'
+        'updated',
     )
     list_filter = (
         'difficulty',
-        'region',
         'created',
-        'updated'
+        'updated',
     )
     search_fields = (
         'name',
         'description',
-        'region__name'
     )
     ordering = (
         'name',
@@ -45,7 +39,7 @@ class RouteAdmin(admin.ModelAdmin):
                 'fields': (
                     'name',
                     'slug',
-                    'description'
+                    'description',
                 )
             }
         ),
@@ -56,15 +50,14 @@ class RouteAdmin(admin.ModelAdmin):
                     'ascent',
                     'descent',
                     'duration',
-                    'difficulty'
+                    'difficulty',
                 )
             }
         ),
         (
             'Relations', {
                 'fields': (
-                    'region',
-                    'gpx_file'
+                    'gpx_file',
                 )
             }
         ),
@@ -72,13 +65,16 @@ class RouteAdmin(admin.ModelAdmin):
             'Metadata', {
                 'fields': (
                     'created',
-                    'updated'
+                    'updated',
                 )
             }
         ),
     )
 
-    readonly_fields = ('created', 'updated')
+    readonly_fields = (
+        'created',
+        'updated'
+    )
 
 
 @admin.register(TripModel)
@@ -91,7 +87,7 @@ class TripAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'name',
-        'owner',
+        'creator',
         'is_public',
         'created',
         'updated'
@@ -104,9 +100,9 @@ class TripAdmin(admin.ModelAdmin):
     search_fields = (
         'name',
         'description',
-        'owner__email',
-        'owner__first_name',
-        'owner__last_name'
+        'creator__email',
+        'creator__first_name',
+        'creator__last_name'
     )
     ordering = (
         '-created',
@@ -123,8 +119,8 @@ class TripAdmin(admin.ModelAdmin):
         (
             'Relations', {
                 'fields': (
-                    'owner',
-                    'routes'
+                    'creator',
+                    'trips',
                 )
             }
         ),
@@ -145,7 +141,10 @@ class TripAdmin(admin.ModelAdmin):
         ),
     )
 
-    readonly_fields = ('created', 'updated')
+    readonly_fields = (
+        'created',
+        'updated'
+    )
 
 
 @admin.register(SectionModel)
@@ -158,24 +157,18 @@ class SectionAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'name',
-        'route',
-        'order',
         'distance',
         'created',
-        'updated'
+        'updated',
     )
     list_filter = (
-        'route',
         'created',
-        'updated'
+        'updated',
     )
     search_fields = (
         'name',
         'description',
-        'route__name'
-    )
-    ordering = (
-        'order',
+        'route__name',
     )
     fieldsets = (
         (
@@ -183,7 +176,6 @@ class SectionAdmin(admin.ModelAdmin):
                 'fields': (
                     'name',
                     'description',
-                    'order'
                 )
             }
         ),
@@ -200,7 +192,7 @@ class SectionAdmin(admin.ModelAdmin):
                     'distance',
                     'ascent',
                     'descent',
-                    'duration'
+                    'duration',
                 )
             }
         ),
@@ -208,10 +200,13 @@ class SectionAdmin(admin.ModelAdmin):
             'Metadata', {
                 'fields': (
                     'created',
-                    'updated'
+                    'updated',
                 )
             }
         ),
     )
 
-    readonly_fields = ('created', 'updated')
+    readonly_fields = (
+        'created',
+        'updated'
+    )

@@ -32,6 +32,5 @@ class PhotoFilter(
             'updated': ['exact', 'lt', 'gt'],
 
             # FileModel values:
-            'path': ['exact', 'icontains'],
             'format': ['exact', 'icontains'],
         }

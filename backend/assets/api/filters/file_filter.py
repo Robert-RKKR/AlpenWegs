@@ -31,6 +31,5 @@ class FileFilter(
             'updated': ['exact', 'lt', 'gt'],
 
             # FileModel values:
-            'file': ['exact', 'icontains'],
             'format': ['exact', 'icontains'],
         }

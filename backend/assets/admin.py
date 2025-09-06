@@ -16,9 +16,8 @@ class PhotoAdmin(admin.ModelAdmin):
     model = PhotoModel
     list_display = (
         'id',
-        'title',
-        'file',
-        'owner',
+        'name',
+        'creator',
         'is_public',
         'created',
         'updated'
@@ -29,11 +28,11 @@ class PhotoAdmin(admin.ModelAdmin):
         'updated'
     )
     search_fields = (
-        'title',
-        'description',
-        'owner__email',
-        'owner__first_name',
-        'owner__last_name'
+        'name',
+        'snippet',
+        'creator__email',
+        'creator__first_name',
+        'creator__last_name'
     )
     ordering = (
         '-created',
@@ -42,8 +41,9 @@ class PhotoAdmin(admin.ModelAdmin):
         (
             None, {
                 'fields': (
-                    'title',
-                    'description',
+                    'name',
+                    'slug',
+                    'snippet',
                     'file'
                 )
             }
@@ -51,7 +51,7 @@ class PhotoAdmin(admin.ModelAdmin):
         (
             'Ownership', {
                 'fields': (
-                    'owner',
+                    'creator',
                     'is_public'
                 )
             }
@@ -79,9 +79,9 @@ class FileAdmin(admin.ModelAdmin):
     model = FileModel
     list_display = (
         'id',
-        'title',
+        'name',
         'file',
-        'owner',
+        'creator',
         'is_public',
         'created',
         'updated'
@@ -92,11 +92,11 @@ class FileAdmin(admin.ModelAdmin):
         'updated'
     )
     search_fields = (
-        'title',
-        'description',
-        'owner__email',
-        'owner__first_name',
-        'owner__last_name'
+        'name',
+        'snippet',
+        'creator__email',
+        'creator__first_name',
+        'creator__last_name'
     )
     ordering = (
         '-created',
@@ -105,8 +105,9 @@ class FileAdmin(admin.ModelAdmin):
         (
             None, {
                 'fields': (
-                    'title',
-                    'description',
+                    'name',
+                    'slug',
+                    'snippet',
                     'file'
                 )
             }
@@ -114,7 +115,7 @@ class FileAdmin(admin.ModelAdmin):
         (
             'Ownership', {
                 'fields': (
-                    'owner',
+                    'creator',
                     'is_public'
                 )
             }

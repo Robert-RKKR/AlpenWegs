@@ -18,21 +18,19 @@ class PoiAdmin(admin.ModelAdmin):
         'id',
         'name',
         'region',
-        'poi_type',
         'latitude',
         'longitude',
         'created',
         'updated'
     )
     list_filter = (
-        'poi_type',
         'region',
         'created',
         'updated'
     )
     search_fields = (
         'name',
-        'description',
+        'snippet',
         'region__name'
     )
     ordering = (
@@ -43,8 +41,16 @@ class PoiAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
+                    'slug',
+                    'snippet',
+                    'poi_type',
+                )
+            }
+        ),
+        (
+            'Description', {
+                'fields': (
                     'description',
-                    'poi_type'
                 )
             }
         ),
@@ -53,7 +59,7 @@ class PoiAdmin(admin.ModelAdmin):
                 'fields': (
                     'latitude',
                     'longitude',
-                    'region'
+                    'region',
                 )
             }
         ),
@@ -61,7 +67,7 @@ class PoiAdmin(admin.ModelAdmin):
             'Metadata', {
                 'fields': (
                     'created',
-                    'updated'
+                    'updated',
                 )
             }
         ),
@@ -79,22 +85,20 @@ class CardAdmin(admin.ModelAdmin):
     model = CardModel
     list_display = (
         'id',
-        'title',
-        'region',
-        'achievement_type',
+        'name',
+        'category',
         'created',
-        'updated'
+        'updated',
     )
     list_filter = (
-        'achievement_type',
-        'region',
+        'category',
         'created',
-        'updated'
+        'updated',
     )
     search_fields = (
-        'title',
-        'description',
-        'region__name'
+        'name',
+        'snippet',
+        'region__name',
     )
     ordering = (
         '-created',
@@ -103,9 +107,19 @@ class CardAdmin(admin.ModelAdmin):
         (
             None, {
                 'fields': (
-                    'title',
+                    'name',
+                    'slug',
+                    'snippet',
+                    'icon',
+                    'category',
+                    'category_specific_difficulty',
+                )
+            }
+        ),
+        (
+            'Description', {
+                'fields': (
                     'description',
-                    'icon'
                 )
             }
         ),
@@ -113,7 +127,6 @@ class CardAdmin(admin.ModelAdmin):
             'Relations', {
                 'fields': (
                     'region',
-                    'achievement_type'
                 )
             }
         ),
@@ -121,7 +134,7 @@ class CardAdmin(admin.ModelAdmin):
             'Metadata', {
                 'fields': (
                     'created',
-                    'updated'
+                    'updated',
                 )
             }
         ),
@@ -145,9 +158,8 @@ class RegionAdmin(admin.ModelAdmin):
         'updated'
     )
     list_filter = (
-        'country',
         'created',
-        'updated'
+        'updated',
     )
     search_fields = (
         'name',
@@ -161,7 +173,15 @@ class RegionAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
-                    'description'
+                    'slug',
+                    'snippet',
+                )
+            }
+        ),
+        (
+            'Description', {
+                'fields': (
+                    'description',
                 )
             }
         ),

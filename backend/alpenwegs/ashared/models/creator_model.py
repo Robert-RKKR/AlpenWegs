@@ -9,8 +9,8 @@ to control its visibility.
 """
 
 # AlpenWegs import:
+from alpenwegs.ashared.models.base_model import BaseModel
 from profiles.models.user_model import UserModel
-from .base_model import BaseModel
 
 # Django import:
 from django.db import models

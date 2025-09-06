@@ -13,7 +13,7 @@ system.
 """
 
 # AlpenWegs import:
-from .base_model import BaseModel
+from alpenwegs.ashared.models.base_model import BaseModel
 
 # Django import:
 from django.db import models

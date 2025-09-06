@@ -15,7 +15,9 @@ from rest_framework import viewsets
 
 
 # Base ModelViewSet model:
-class BaseViewSet(viewsets.GenericViewSet):
+class BaseViewSet(
+    viewsets.GenericViewSet,
+):
     """
     BaseViewSet provides foundational configuration for all ModelViewSets used
     in the AlpenWegs project. It integrates authentication, permissions, and
@@ -76,7 +78,8 @@ class ReadWriteViewSet(
     BaseRetrieveModelMixin,
     BaseUpdateModelMixin,
     BaseDestroyModelMixin,
-    BaseListModelMixin):
+    BaseListModelMixin,
+):
     """
     ReadWriteViewSet provides full CRUD (Create, Retrieve, Update, Delete) 
     functionality for models. This class integrates all the behavior needed 
@@ -106,7 +109,8 @@ class ReadDeleteViewSet(
     BaseViewSet,
     BaseRetrieveModelMixin,
     BaseListModelMixin,
-    BaseDestroyModelMixin):
+    BaseDestroyModelMixin,
+):
     """
     ReadDeleteViewSet allows retrieval and deletion of model instances but 
     restricts creation and updating of models. It is designed for cases where
@@ -118,7 +122,8 @@ class ReadDeleteViewSet(
 
 class RetrieveOnlyViewSet(
     BaseViewSet,
-    BaseRetrieveModelMixin):
+    BaseRetrieveModelMixin,
+):
     """
     RetrieveOnlyViewSet is a minimal viewset that restricts operations 
     to retrieving individual instances only. No list, create, update, or 
@@ -132,7 +137,8 @@ class ReadEditViewSet(
     BaseViewSet,
     BaseRetrieveModelMixin,
     BaseUpdateModelMixin,
-    BaseListModelMixin):
+    BaseListModelMixin,
+):
     """
     ReadEditViewSet allows read and update operations. This viewset can 
     retrieve a list of instances, retrieve a single instance by ID, and 

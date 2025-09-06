@@ -108,39 +108,39 @@ def base_exception_handler(
     print('\n')
 
 
-    # error_response, response = collect_exception_data(
-    #     context=context,
-    #     exc=exc,
-    # )
-    # return Response(
-    #     data=error_response,
-    #     status=response.status_code
-    # )
+    error_response, response = collect_exception_data(
+        context=context,
+        exc=exc,
+    )
+    return Response(
+        data=error_response,
+        status=response.status_code
+    )
 
-    # try:
-    #     # Try to collect exception data:
-    #     error_response, response = collect_exception_data(
-    #         context=context,
-    #         exc=exc,
-    #     )
+    try:
+        # Try to collect exception data:
+        error_response, response = collect_exception_data(
+            context=context,
+            exc=exc,
+        )
 
-    # except Exception as exception:
-    #     # If response if not available, raise 500 error:
-    #     error_response = {
-    #         'error_code': 500,
-    #         'error_message': 'Internal Server Error',
-    #         'error_details': str(exception),
-    #     }
+    except Exception as exception:
+        # If response if not available, raise 500 error:
+        error_response = {
+            'error_code': 500,
+            'error_message': 'Internal Server Error',
+            'error_details': str(exception),
+        }
 
-    #     # Return error response:
-    #     return Response(
-    #         data=error_response,
-    #         status=500
-    #     )
+        # Return error response:
+        return Response(
+            data=error_response,
+            status=500
+        )
 
-    # else:
-    #     # Return error response:
-    #     return Response(
-    #         data=error_response,
-    #         status=response.status_code
-    #     )
+    else:
+        # Return error response:
+        return Response(
+            data=error_response,
+            status=response.status_code
+        )

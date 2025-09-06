@@ -24,15 +24,19 @@ from drf_spectacular.utils import extend_schema_view
     destroy=schema_destroy(CardDetailedSerializer, 'Compendiums', 'Card'),
     update=schema_update(CardDetailedSerializer, 'Compendiums', 'Card'),
     create=schema_create(CardDetailedSerializer, 'Compendiums', 'Card'),
+    admin=schema_list(CardDetailedSerializer, 'Compendiums', 'Card'),
     list=schema_list(CardDetailedSerializer, 'Compendiums', 'Card'),
 )
-class CardView(ReadWriteViewSet):
+class CardView(
+    ReadWriteViewSet,
+):
     """
     Read-write API view for the Card model.
     """
 
-    # Query used to collect objects for the view:
-    queryset = CardModel.objects.all().order_by('-created')
+    # Model and query ordering used for the view:
+    query_ordering = '-created'
+    query_model = CardModel
 
     # Serializer class used for the view:
     serializer_class = CardDetailedSerializer

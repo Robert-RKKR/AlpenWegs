@@ -31,8 +31,9 @@ class RegionView(ReadWriteViewSet):
     Read-write API view for the Region model.
     """
 
-    # Query used to collect objects for the view:
-    queryset = RegionModel.objects.all().order_by('-created')
+    # Model and query ordering used for the view:
+    query_ordering = '-created'
+    query_model = RegionModel
 
     # Serializer class used for the view:
     serializer_class = RegionDetailedSerializer

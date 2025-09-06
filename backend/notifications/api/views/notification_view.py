@@ -13,7 +13,6 @@ from profiles.api.serializers.user_serializer import UserSerializer
 
 # Drf spectacular import:
 from drf_spectacular.utils import extend_schema_view
-from drf_spectacular.utils import extend_schema
 
 
 # Notification Model api view class:
@@ -27,14 +26,21 @@ class NotificationView(ReadDeleteViewSet):
     Notification Read and write view.
     """
 
-    # Notification changes:
-    Notification_changes = True
-    # Basic API view parameters:
-    queryset = NotificationModel.objects.all().order_by('-timestamp')
-    pagination_class = BaseSmallPaginator
-    # Serializer classes:
+    # Model and query ordering used for the view:
+    query_model = NotificationModel
+    query_ordering = '-created'
+
+    # Serializer class used for the view:
     serializer_class = NotificationSerializer
-    # Django rest framework filters:
+
+    # Pagination class used for the view:
+    pagination_class = BaseSmallPaginator
+
+    # Filter classes used for the view:
     filterset_class = NotificationFilter
+
+    # Ordering filter parameters:
     ordering_fields = '__all__'
+
+    # Search filter parameters:
     search_fields = '__all__'

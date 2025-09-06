@@ -31,14 +31,21 @@ class UserView(ReadWriteViewSet):
     User Read and write view.
     """
 
-    # User changes:
-    log_changes = True
-    # Basic API view parameters:
-    queryset = UserModel.objects.all().order_by('-created')
-    pagination_class = BaseSmallPaginator
-    # Serializer classes:
+    # Model and query ordering used for the view:
+    query_ordering = '-created'
+    query_model = UserModel
+
+    # Serializer class used for the view:
     serializer_class = UserSerializer
-    # Django rest framework filters:
+
+    # Pagination class used for the view:
+    pagination_class = BaseSmallPaginator
+
+    # Filter classes used for the view:
     filterset_class = UserFilter
+
+    # Ordering filter parameters:
     ordering_fields = '__all__'
+
+    # Search filter parameters:
     search_fields = '__all__'

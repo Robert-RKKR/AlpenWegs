@@ -33,8 +33,9 @@ class SectionView(
     Read-write API view for the Section model.
     """
 
-    # Query used to collect objects for the view:
-    queryset = SectionModel.objects.all().order_by('-created')
+    # Model and query ordering used for the view:
+    query_ordering = '-created'
+    query_model = SectionModel
 
     # Serializer class used for the view:
     serializer_class = SectionDetailedSerializer

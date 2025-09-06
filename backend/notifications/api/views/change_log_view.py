@@ -28,16 +28,23 @@ class ChangeLogView(ReadOnlyViewSet):
     Change Log Read and write view.
     """
 
-    # ChangeLog changes:
-    log_changes = False
-    # Basic API view parameters:
-    queryset = ChangeLogModel.objects.all().order_by('-timestamp')
-    pagination_class = BaseSmallPaginator
-    # Serializer classes:
+    # Model and query ordering used for the view:
+    query_model = ChangeLogModel
+    query_ordering = '-created'
+
+    # Serializer class used for the view:
     serializer_class = ChangeLogSerializer
-    # Django rest framework filters:
+
+    # Pagination class used for the view:
+    pagination_class = BaseSmallPaginator
+
+    # Filter classes used for the view:
     filterset_class = ChangeLogFilter
+
+    # Ordering filter parameters:
     ordering_fields = '__all__'
+
+    # Search filter parameters:
     search_fields = '__all__'
 
     @action(detail=True, methods=['get'], url_path='compare-changes')

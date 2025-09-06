@@ -33,8 +33,9 @@ class TripView(
     Read-write API view for the Trip model.
     """
 
-    # Query used to collect objects for the view:
-    queryset = TripModel.objects.all().order_by('-created')
+    # Model and query ordering used for the view:
+    query_ordering = '-created'
+    query_model = TripModel
 
     # Serializer class used for the view:
     serializer_class = TripDetailedSerializer

@@ -19,7 +19,9 @@ and seasonal conditions.
 """
 
 # AlpenWegs import:
-from .base_model import BaseModel
+from alpenwegs.ashared.constants.season_category import SeasonChoices
+from alpenwegs.ashared.constants.season_category import MonthChoices
+from alpenwegs.ashared.models.base_model import BaseModel
 
 # Django import:
 from django.db import models
@@ -90,18 +92,17 @@ class BaseCharacteristicModel(
     )
 
     # Seasonal values:
-    best_seasons = models.CharField(
+    best_seasons = models.IntegerField(
+        choices=SeasonChoices.choices,
         verbose_name='Best Seasons',
         help_text='Best seasons for hiking this route.',
-        max_length=32,
-        blank=True,
-        null=True,
+        default=SeasonChoices.SUMMER,
     )
-    best_months = models.JSONField(
+    best_months = models.IntegerField(
+        choices=MonthChoices.choices,
         verbose_name='Best Months',
         help_text='List of best months to complete this route.',
-        blank=True,
-        null=True,
+        default=MonthChoices.JANUARY,
     )
     winter_season = models.BooleanField(
         verbose_name='Available in Winter',

@@ -18,10 +18,9 @@ class PoiAdmin(admin.ModelAdmin):
         'id',
         'name',
         'region',
-        'latitude',
-        'longitude',
+        'category',
         'created',
-        'updated'
+        'updated',
     )
     list_filter = (
         'region',
@@ -43,7 +42,8 @@ class PoiAdmin(admin.ModelAdmin):
                     'name',
                     'slug',
                     'snippet',
-                    'poi_type',
+                    'category',
+                    'creator',
                 )
             }
         ),
@@ -51,14 +51,13 @@ class PoiAdmin(admin.ModelAdmin):
             'Description', {
                 'fields': (
                     'description',
+                    'elevation',
                 )
             }
         ),
         (
-            'Location', {
+            'Region', {
                 'fields': (
-                    'latitude',
-                    'longitude',
                     'region',
                 )
             }
@@ -110,9 +109,9 @@ class CardAdmin(admin.ModelAdmin):
                     'name',
                     'slug',
                     'snippet',
-                    'icon',
                     'category',
                     'category_specific_difficulty',
+                    'creator',
                 )
             }
         ),
@@ -120,13 +119,14 @@ class CardAdmin(admin.ModelAdmin):
             'Description', {
                 'fields': (
                     'description',
+                    'elevation',
                 )
             }
         ),
         (
-            'Relations', {
+            'PoI', {
                 'fields': (
-                    'region',
+                    'poi',
                 )
             }
         ),

@@ -25,18 +25,6 @@ fields = [
     # BaseDescriptiveModel values:
     'description',
 
-    # BaseCharacteristicModel values:
-    'difficulty',
-    'stamina_requirement',
-    'experience_requirement',
-    'potential_risk_requirement',
-    'potential_risk_description',
-    'family_friendly',
-    'best_seasons',
-    'best_months',
-    'winter_season',
-    'summer_season',
-
     # BaseSportCategoryModel values:
     'category',
     'category_specific_difficulty',

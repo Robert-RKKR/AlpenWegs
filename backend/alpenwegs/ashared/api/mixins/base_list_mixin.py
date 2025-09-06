@@ -34,7 +34,7 @@ class BaseListModelMixin(
             # if page has been received, serializer it:
             serializer = self.get_serializer(page, many=True)
             paginated = self.get_paginated_response(serializer.data)
-            return paginated.data
+            return paginated
         
         # Prepare page view without pagination:
         serializer = self.get_serializer(queryset, many=True)

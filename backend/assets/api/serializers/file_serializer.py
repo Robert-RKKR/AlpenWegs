@@ -65,9 +65,17 @@ class FileDetailedSerializer(
     )
 
     class Meta:
+
+        # Define read only fields:
         read_only_fields = read_only_fields
+
+        # Define writable fields:
         fields = fields
+
+        # Define related model:
         model = model
+
+        # Define model depth:
         depth = depth
 
 
@@ -90,7 +98,15 @@ class FileRelationSerializer(
     )
 
     class Meta:
+
+        # Define read only fields:
         read_only_fields = read_only_fields
+
+        # Define writable fields:
         fields = fields
+
+        # Define related model:
         model = model
+
+        # Define model depth:
         depth = depth

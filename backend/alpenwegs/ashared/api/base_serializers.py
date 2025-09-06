@@ -15,7 +15,9 @@ from django.core.exceptions import FieldError
 
 
 # Base serializer class:
-class BaseSerializer(serializers.ModelSerializer):
+class BaseSerializer(
+    serializers.ModelSerializer,
+):
     """
     Base serializer class providing additional functionality.
     """
@@ -36,7 +38,9 @@ class BaseSerializer(serializers.ModelSerializer):
 
 
 # Base nested serializer class:
-class WritableNestedSerializer(BaseSerializer):
+class WritableNestedSerializer(
+    BaseSerializer,
+):
     """
     Serializer for handling nested objects.
     """
@@ -107,7 +111,9 @@ class WritableNestedSerializer(BaseSerializer):
 
 
 # Field serializer for PrimaryKeyRelatedField:
-class SerializedPkRelatedField(PrimaryKeyRelatedField):
+class SerializedPkRelatedField(
+    PrimaryKeyRelatedField,
+):
     """
     Extends PrimaryKeyRelatedField to return a serialized object on read.
     """
@@ -124,5 +130,8 @@ class SerializedPkRelatedField(PrimaryKeyRelatedField):
     def to_representation(self, value):
 
         # Return serialized representation:
-        return self.serializer(value, context={
-            'request': self.context['request']}).data
+        return self.serializer(
+            value, context={
+                'request': self.context['request']
+            }
+        ).data

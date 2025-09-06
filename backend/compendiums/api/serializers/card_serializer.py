@@ -1,12 +1,15 @@
 # AlpenWegs import:
 from alpenwegs.ashared.api.base_serializers import WritableNestedSerializer
+from alpenwegs.ashared.api.base_serializers import SerializedPkRelatedField
 from alpenwegs.ashared.api.base_serializers import BaseSerializer
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
 
 # AlpenWegs application import:
+from compendiums.api.serializers.poi_serializer import PoiRelationSerializer
 from compendiums.models.card_model import CardModel
+from compendiums.models.poi_model import PoiModel
 
 
 # Card Model serializer details:
@@ -70,10 +73,25 @@ class CardDetailedSerializer(
         read_only=True,
     )
 
+    # Field related to relations with other models:
+    poi = PoiRelationSerializer(
+        help_text=PoiModel.region.field.help_text,
+        required=PoiModel.region.field.null,
+        allow_null=PoiModel.region.field.blank,
+    )
+
     class Meta:
+
+        # Define read only fields:
         read_only_fields = read_only_fields
+
+        # Define writable fields:
         fields = fields
+
+        # Define related model:
         model = model
+
+        # Define model depth:
         depth = depth
 
 
@@ -96,7 +114,15 @@ class CardRelationSerializer(
     )
 
     class Meta:
+
+        # Define read only fields:
         read_only_fields = read_only_fields
+
+        # Define writable fields:
         fields = fields
+
+        # Define related model:
         model = model
+
+        # Define model depth:
         depth = depth

@@ -28,6 +28,7 @@ urlpatterns = [
 
     # API endpoints:
     path('api/notifications/', include('notifications.api.urls')),
+    path('api/compendiums/', include('compendiums.api.urls')),
     path('api/explorers/', include('explorers.api.urls')),
     path('api/profiles/', include('profiles.api.urls')),
     path('api/assets/', include('assets.api.urls')),

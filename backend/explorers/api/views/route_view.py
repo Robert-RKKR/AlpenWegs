@@ -1,0 +1,52 @@
+# AlpenWegs application import:
+from explorers.api.serializers.route_serializer import RouteDetailedSerializer
+from explorers.api.filters.route_filter import RouteFilter
+from explorers.models.route_model import RouteModel
+
+# AlpenWegs import:
+from alpenwegs.ashared.api.schemas.schema_generators import schema_partial_update
+from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
+from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
+from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
+from alpenwegs.ashared.api.schemas.schema_generators import schema_update
+from alpenwegs.ashared.api.schemas.schema_generators import schema_create
+from alpenwegs.ashared.api.schemas.schema_generators import schema_list
+from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
+
+# API import:
+from drf_spectacular.utils import extend_schema_view
+
+
+# Route Model API view class:
+@extend_schema_view(
+    partial_update=schema_partial_update(RouteDetailedSerializer, 'Explorers', 'Route'),
+    retrieve=schema_retrieve(RouteDetailedSerializer, 'Explorers', 'Route'),
+    destroy=schema_destroy(RouteDetailedSerializer, 'Explorers', 'Route'),
+    update=schema_update(RouteDetailedSerializer, 'Explorers', 'Route'),
+    create=schema_create(RouteDetailedSerializer, 'Explorers', 'Route'),
+    list=schema_list(RouteDetailedSerializer, 'Explorers', 'Route'),
+)
+class RouteView(
+    ReadWriteViewSet,
+):
+    """
+    Read-write API view for the Route model.
+    """
+
+    # Query used to collect objects for the view:
+    queryset = RouteModel.objects.all().order_by('-created')
+
+    # Serializer class used for the view:
+    serializer_class = RouteDetailedSerializer
+
+    # Pagination class used for the view:
+    pagination_class = BaseSmallPaginator
+
+    # Filter classes used for the view:
+    filterset_class = RouteFilter
+
+    # Ordering filter parameters:
+    ordering_fields = '__all__'
+
+    # Search filter parameters:
+    search_fields = '__all__'

@@ -14,7 +14,6 @@ from alpenwegs.ashared.models.gpx_model import BaseGpxModel
 # AlpenWegs application import:
 from compendiums.models.region_model import RegionModel
 from compendiums.models.card_model import CardModel
-# from assets.models.photo_model import PhotoModel
 from compendiums.models.poi_model import PoiModel
 from assets.models.photo_model import PhotoModel
 

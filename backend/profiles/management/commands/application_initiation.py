@@ -2,10 +2,10 @@
 from django.core.management.base import CommandError
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Group
 from django.apps import apps
 
 # AlpenWegs application import:
-from profiles.models.group_model import GroupModel
 from profiles.models.user_model import UserModel
 
 # Define allowed actions:
@@ -22,42 +22,92 @@ class Command(BaseCommand):
 
     def create_default_administrator(self):
 
-        def create_administrator():
-            # Prepare administrator data:
-            username = 'admin'
-            email = 'admin@admin.com'
-            password = 'admin'
+        def create_user(
+            super_user: bool,
+            first_name: str,
+            last_name: str,
+            password: str,
+            username: str,
+            email: str,
+        ):
             
-            # Check if administrator exist:
+            # Check if user exist:
             if UserModel.objects.filter(username=username).exists():
-                # Get the administrator object:
-                user = UserModel.objects.get(username=username)
-                # Delete the administrator object:
+                # Get the user object:
+                user = UserModel.objects.get(
+                    username=username,
+                )
+                # Delete the user object:
                 user.delete()
                 # Log actions:
-                self.stdout.write(self.style.SUCCESS(
-                    f'3.0: Successfully deleted a old administrator.'))
-            
-            # Create a nwe administrator:
-            return UserModel.objects.create_superuser(
-                email,
-                password,
-                username=username,
-            )
-        
-        try: # Try to make action:
-            self.administrator = create_administrator()
-        
-        except Exception as exception:
-            # Log action negatively accomplished:
-            self.stdout.write(self.style.WARNING(
-                '3.1: An error occurred while creating '
-                f'a new administrator. Error: {exception}'))
-        
-        else:
+                self.stdout.write(
+                    self.style.SUCCESS(
+                        f'3.0: Successfully deleted a old user.'
+                    )
+                )
+
+            # Create a new user:
+            if super_user:
+                # Create a new super user:
+                user = UserModel.objects.create_superuser(
+                    first_name=first_name,
+                    last_name=last_name,
+                    password=password,
+                    username=username,
+                    email=email,
+                )
+
+            else:
+                # Create a new regular user:
+                user = UserModel.objects.create_user(
+                    first_name=first_name,
+                    last_name=last_name,
+                    password=password,
+                    username=username,
+                    email=email,
+                )
+
             # Log action positively accomplished:
-            self.stdout.write(self.style.SUCCESS(
-                '3.1: Successfully created a new administrator.'))
+            self.stdout.write(
+                self.style.SUCCESS(
+                    f'3.1: Successfully created a new {username} user.'
+                )
+            )
+            # Return created user:
+            return user
+
+        self.member = create_user(
+            super_user=False,
+            email='member@alpenwegs.com',
+            first_name='First',
+            last_name='Last',
+            password='sfsefsef3434@!$2',
+            username='Member'
+        )
+        self.author = create_user(
+            super_user=False,
+            email='author@alpenwegs.com',
+            first_name='First',
+            last_name='Last',
+            password='sfsefsef3434@!$2',
+            username='Author'
+        )
+        self.admin = create_user(
+            super_user=False,
+            email='admin@alpenwegs.com',
+            first_name='First',
+            last_name='Last',
+            password='sfsefsef3434@!$2',
+            username='Admin'
+        )
+        self.administrator = create_user(
+            super_user=True,
+            email='administrator@alpenwegs.com',
+            first_name='First',
+            last_name='Last',
+            password='sfsefsef3434@!$2',
+            username='Administrator'
+        )
             
     def apply_role_permissions(self):
         """
@@ -67,9 +117,9 @@ class Command(BaseCommand):
 
         # Fetch created groups:
         roles = {
-            'Member': GroupModel.objects.get(name='Member'),
-            'Author': GroupModel.objects.get(name='Author'),
-            'Admin':  GroupModel.objects.get(name='Admin'),
+            'Member': Group.objects.get(name='Member'),
+            'Author': Group.objects.get(name='Author'),
+            'Admin':  Group.objects.get(name='Admin'),
         }
 
         # Iterate over all models in the application:
@@ -106,9 +156,9 @@ class Command(BaseCommand):
     def create_default_groups(self):
 
         # Create default groups:
-        GroupModel.objects.get_or_create(name='Member')
-        GroupModel.objects.get_or_create(name='Author')
-        GroupModel.objects.get_or_create(name='Admin')
+        Group.objects.get_or_create(name='Member')
+        Group.objects.get_or_create(name='Author')
+        Group.objects.get_or_create(name='Admin')
         # Log action positively accomplished:
         self.stdout.write(self.style.SUCCESS(
             '1.1: Successfully created all base groups.'))

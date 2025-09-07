@@ -10,6 +10,7 @@ from django.urls import path
 
 # Test import:
 from rest_framework_simplejwt.views import TokenRefreshView
+from alpenwegs.ashared.api.base_response_not_found import base_page_not_found
 
 urlpatterns = [
     
@@ -33,6 +34,8 @@ urlpatterns = [
     path('api/profiles/', include('profiles.api.urls')),
     path('api/assets/', include('assets.api.urls')),
 ]
+
+handler404 = base_page_not_found
 
 # Register media files serving during development:
 if settings.DEBUG:

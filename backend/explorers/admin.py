@@ -38,7 +38,6 @@ class RouteAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
-                    'slug',
                     'description',
                 )
             }

@@ -22,10 +22,15 @@ from drf_spectacular.utils import extend_schema_view
     admin=schema_list(UserSerializer, 'Notification', 'Notification'),
     list=schema_list(UserSerializer, 'Notification', 'Notification'),
 )
-class NotificationView(ReadDeleteViewSet):
+class NotificationView(
+    ReadDeleteViewSet,
+):
     """
     Notification Read and write view.
     """
+
+    # Queryset for the view (Legacy, required by DRF):
+    queryset = NotificationModel.objects.all()
 
     # Model and query ordering used for the view:
     query_model = NotificationModel

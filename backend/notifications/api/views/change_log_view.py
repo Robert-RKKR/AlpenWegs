@@ -24,10 +24,15 @@ from rest_framework.decorators import action
     admin=schema_list(UserSerializer, 'Notification', 'Change Log'),
     list=schema_list(UserSerializer, 'Notification', 'Change Log'),
 )
-class ChangeLogView(ReadOnlyViewSet):
+class ChangeLogView(
+    ReadOnlyViewSet,
+):
     """
     Change Log Read and write view.
     """
+
+    # Queryset for the view (Legacy, required by DRF):
+    queryset = ChangeLogModel.objects.all()
 
     # Model and query ordering used for the view:
     query_model = ChangeLogModel

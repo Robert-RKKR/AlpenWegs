@@ -40,7 +40,6 @@ class PoiAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
-                    'slug',
                     'snippet',
                     'category',
                     'creator',
@@ -107,7 +106,6 @@ class CardAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
-                    'slug',
                     'snippet',
                     'category',
                     'category_specific_difficulty',
@@ -173,8 +171,8 @@ class RegionAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
-                    'slug',
                     'snippet',
+                    'creator',
                 )
             }
         ),

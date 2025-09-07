@@ -21,20 +21,41 @@ class BaseListModelMixin(
     # Define custom list values:
     allow_list = False
 
+    def _collect_queryset(self):
+        """
+        Default queryset restriction:
+        - If model has `creator` field → restrict to objects created by the user.
+        - Otherwise → return all objects.
+        """
+
+        try:
+            # Check if model has creator field:
+            self.query_model._meta.get_field('creator')
+            
+            # Filter only objects created by the requesting user:
+            return self.query_model.objects.filter(
+                creator=self.request.user,
+            ).order_by(
+                self.query_ordering
+            )
+        
+        except FieldDoesNotExist:
+            # Return all objects:
+            return self.query_model.objects.all(
+                ).order_by(
+                    self.query_ordering
+                )
+
     def _call_list(self,
         request: Response,
         *args: list,
         **kwargs: dict,
     ) -> Response:
-        
-        # Collect queryset value:
-        queryset = self.query_model.objects.all(
-            ).order_by(
-                self.query_ordering
-            )
 
         # Collect all instances:
-        queryset = self.filter_queryset(queryset)
+        queryset = self.filter_queryset(
+            self._collect_queryset()
+        )
         
         # Prepare page view with pagination:
         page = self.paginate_queryset(queryset)

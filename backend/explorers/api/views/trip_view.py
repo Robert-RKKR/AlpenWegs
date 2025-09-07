@@ -34,6 +34,9 @@ class TripView(
     Read-write API view for the Trip model.
     """
 
+    # Queryset for the view (Legacy, required by DRF):
+    queryset = TripModel.objects.all()
+
     # Model and query ordering used for the view:
     query_ordering = '-created'
     query_model = TripModel

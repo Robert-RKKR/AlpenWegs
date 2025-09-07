@@ -20,7 +20,33 @@ ALLOWED_ACTIONS = [
 class Command(BaseCommand):
     help = 'Creates a default administrator if none exists'
 
-    def create_default_administrator(self):
+    def add_users_to_groups(self):
+        """
+        Add created users to their matching groups.
+        """
+
+        # Add users to groups:
+        self.member.groups.add(
+            Group.objects.get(name='Member')
+        )
+        self.author.groups.add(
+            Group.objects.get(name='Author')
+        )
+        self.admin.groups.add(
+            Group.objects.get(name='Admin')
+        )
+        self.administrator.groups.add(
+            Group.objects.get(name='Admin')
+        )
+
+        # Log action positively accomplished:
+        self.stdout.write(
+            self.style.SUCCESS(
+                '4.1: Successfully added all users to their matching groups.'
+            )
+        )
+
+    def create_default_users(self):
 
         def create_user(
             super_user: bool,
@@ -171,5 +197,8 @@ class Command(BaseCommand):
         # 2: Apply role permissions:
         self.apply_role_permissions()
 
-        # # 3: Create default administrator:
-        self.create_default_administrator()
+        # 3: Create default users:
+        self.create_default_users()
+
+        # 4: Add users to groups:
+        self.add_users_to_groups()

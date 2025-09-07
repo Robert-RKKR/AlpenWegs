@@ -21,17 +21,17 @@ class UserAdmin(DjangoUserAdmin):
         'first_name',
         'last_name',
         'is_staff',
-        'is_active'
+        'is_active',
     )
     list_filter = (
         'is_staff',
         'is_active',
-        'gender'
+        'gender',
     )
     search_fields = (
         'email',
         'first_name',
-        'last_name'
+        'last_name',
     )
     ordering = (
         '-created',
@@ -41,7 +41,7 @@ class UserAdmin(DjangoUserAdmin):
             None, {
                 'fields': (
                     'email',
-                    'password'
+                    'password',
                 )
             }
         ),
@@ -77,7 +77,7 @@ class UserAdmin(DjangoUserAdmin):
                 'fields': (
                     'last_login',
                     'created',
-                    'updated'
+                    'updated',
                 )
             }
         ),
@@ -96,10 +96,14 @@ class UserAdmin(DjangoUserAdmin):
                     'password2',
                     'is_staff',
                     'is_superuser',
-                    'is_active'
+                    'is_active',
                 ),
             }
         ),
     )
 
-    readonly_fields = ('last_login', 'created', 'updated')
+    readonly_fields = (
+        'last_login',
+        'created',
+        'updated',
+    )

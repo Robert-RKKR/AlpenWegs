@@ -34,6 +34,9 @@ class CardView(
     Read-write API view for the Card model.
     """
 
+    # Queryset for the view (Legacy, required by DRF):
+    queryset = CardModel.objects.all()
+
     # Model and query ordering used for the view:
     query_ordering = '-created'
     query_model = CardModel

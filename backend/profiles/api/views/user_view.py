@@ -33,6 +33,9 @@ class UserView(
     User Read and write view.
     """
 
+    # Queryset for the view (Legacy, required by DRF):
+    queryset = UserModel.objects.all()
+
     # Model and query ordering used for the view:
     query_ordering = '-created'
     query_model = UserModel

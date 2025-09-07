@@ -42,7 +42,6 @@ class PhotoAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
-                    'slug',
                     'snippet',
                     'file'
                 )
@@ -106,7 +105,6 @@ class FileAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
-                    'slug',
                     'snippet',
                     'file'
                 )

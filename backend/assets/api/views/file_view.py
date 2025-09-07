@@ -34,6 +34,9 @@ class FileView(
     Read-write API view for the File model.
     """
 
+    # Queryset for the view (Legacy, required by DRF):
+    queryset = FileModel.objects.all()
+
     # Model and query ordering used for the view:
     query_ordering = '-created'
     query_model = FileModel

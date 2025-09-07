@@ -53,9 +53,27 @@ class TripModel(
 
     # Default roles and their permissions:
     ROLE_PERMS = {
-        'Member': ['change_own', 'delete_own', 'view_own', 'add_own'],
-        'Author': ['change_own', 'delete_own', 'view_own', 'add_own'],
-        'Admin':  ['change_all', 'delete_all', 'view_all', 'add_own'],
+        'Member': [
+            'change_own',
+            'delete_own',
+            'view_own',
+            'add_own'
+        ],
+        'Author': [
+            'change_own',
+            'delete_own',
+            'view_own',
+            'add_own'
+        ],
+        'Admin':  [
+            'change_all',
+            'change_own',
+            'delete_all',
+            'delete_own',
+            'view_all',
+            'view_own',
+            'add_own',
+        ],
     }
 
     # Trip Many-to-Many Relationships:

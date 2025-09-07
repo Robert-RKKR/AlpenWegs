@@ -18,6 +18,7 @@ class UserAdmin(DjangoUserAdmin):
     model = UserModel
     list_display = (
         'email',
+        'username',
         'first_name',
         'last_name',
         'is_staff',
@@ -42,6 +43,7 @@ class UserAdmin(DjangoUserAdmin):
                 'fields': (
                     'email',
                     'password',
+                    'username',
                 )
             }
         ),

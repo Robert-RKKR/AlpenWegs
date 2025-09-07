@@ -46,9 +46,26 @@ class PoiModel(
 
     # Default roles and their permissions:
     ROLE_PERMS = {
-        'Member': ['view_all'],
-        'Author': ['change_own', 'delete_own', 'view_all', 'add_own'],
-        'Admin':  ['change_all', 'delete_all', 'view_all', 'add_own'],
+        'Member': [
+            'view_all',
+            'view_own',
+        ],
+        'Author': [
+            'change_own',
+            'delete_own',
+            'view_all',
+            'view_own',
+            'add_own',
+        ],
+        'Admin':  [
+            'change_all',
+            'change_own',
+            'delete_all',
+            'delete_own',
+            'view_all',
+            'view_own',
+            'add_own',
+        ],
     }
 
     # PoI One-to-Many relationship:

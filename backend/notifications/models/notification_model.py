@@ -30,9 +30,16 @@ class NotificationModel(
 
     # Default roles and their permissions:
     ROLE_PERMS = {
-        'Member': ['view_own'],
-        'Author': ['view_own'],
-        'Admin':  ['view_all'],
+        'Member': [
+            'view_own',
+        ],
+        'Author': [
+            'view_own',
+        ],
+        'Admin':  [
+            'view_all',
+            'view_own',
+        ],
     }
     
     # Base notification data:

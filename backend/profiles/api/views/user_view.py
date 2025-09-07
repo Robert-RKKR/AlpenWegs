@@ -25,6 +25,7 @@ from drf_spectacular.utils import extend_schema_view
     update=schema_update(UserSerializer, 'Profiles', 'User'),
     create=schema_create(UserSerializer, 'Profiles', 'User'),
     admin=schema_list(UserSerializer, 'Profiles', 'User'),
+    list=schema_list(UserSerializer, 'Profiles', 'User'),
 )
 class UserView(
     ReadWriteViewSet,

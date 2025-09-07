@@ -33,7 +33,7 @@ class BasePermissionsModel(
 
     def has_permission(self,
         request,
-        view
+        view,
     ):
         
         # Check is user is superuser:
@@ -45,9 +45,23 @@ class BasePermissionsModel(
         if not request.user or not request.user.is_authenticated:
             # Deny access for unauthenticated users:
             return False
+        
+        # Collect action:
+        action = self.perms_map.get(request.method)
+        # Check if action has been collected:
+        if not action:
+            # Deny access if no permission is defined for the method:
+            return False
+
+        # Allow methods that will be verified in has_object_permission:
+        if action not in ['view', 'add']:
+            # Allow action:
+            return True
 
         # Get model class from view's queryset:
-        model_cls = getattr(getattr(view, 'queryset', None), 'model', None)
+        model_cls = getattr(
+            getattr(view, 'queryset', None), 'model', None
+        )
         # Check if model class is available:
         if not model_cls:
             # Deny access if model class is not found:
@@ -56,15 +70,27 @@ class BasePermissionsModel(
         app_label = model_cls._meta.app_label
         model_name = model_cls._meta.model_name
 
-        # Get required permission based on HTTP method:
-        required_perm = self.perms_map.get(request.method)
-        # Check if required permission is defined:
-        if not required_perm:
-            # Deny access if no permission is defined for the method:
-            return False
+        # Collect action code name:
+        if action == 'view':
 
-        # Create full permission codename:
-        codename = f'{app_label}.{required_perm}_{model_name}'
+            # Check if view is admin view:
+            if hasattr(view, 'action') and view.action == 'admin':
+                # Create access code for admin view action:
+                codename = f'{app_label}.view_all_{model_name}'
+            
+            else:
+                # Create access code for other view actions:
+                codename = f'{app_label}.view_own_{model_name}'
+
+        else:
+            # Create access code for add action:
+            codename = f'{app_label}.add_own_{model_name}'
+
+        # print(f'\n\napp_label: {app_label}')
+        # print(f'model_name: {model_name}')
+        # print(f'model_cls: {model_cls}')
+        # print(f'action: {action}')
+        # print(f'codename: {codename}\n\n')
 
         # Return whether the user has the required permission:
         return request.user.has_perm(codename)
@@ -72,7 +98,7 @@ class BasePermissionsModel(
     def has_object_permission(self,
         request,
         view,
-        obj
+        obj,
     ):
 
         # Collect user from request:

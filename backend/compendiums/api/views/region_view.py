@@ -24,6 +24,7 @@ from drf_spectacular.utils import extend_schema_view
     destroy=schema_destroy(RegionDetailedSerializer, 'Compendiums', 'Region'),
     update=schema_update(RegionDetailedSerializer, 'Compendiums', 'Region'),
     create=schema_create(RegionDetailedSerializer, 'Compendiums', 'Region'),
+    admin=schema_list(RegionDetailedSerializer, 'Compendiums', 'Region'),
     list=schema_list(RegionDetailedSerializer, 'Compendiums', 'Region'),
 )
 class RegionView(ReadWriteViewSet):

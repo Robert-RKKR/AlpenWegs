@@ -19,6 +19,7 @@ from drf_spectacular.utils import extend_schema_view
 @extend_schema_view(
     retrieve=schema_retrieve(UserSerializer, 'Notification', 'Notification'),
     destroy=schema_destroy(UserSerializer, 'Notification', 'Notification'),
+    admin=schema_list(UserSerializer, 'Notification', 'Notification'),
     list=schema_list(UserSerializer, 'Notification', 'Notification'),
 )
 class NotificationView(ReadDeleteViewSet):

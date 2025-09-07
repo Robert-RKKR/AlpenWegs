@@ -24,6 +24,7 @@ from drf_spectacular.utils import extend_schema_view
     destroy=schema_destroy(FileDetailedSerializer, 'Assets', 'File'),
     update=schema_update(FileDetailedSerializer, 'Assets', 'File'),
     create=schema_create(FileDetailedSerializer, 'Assets', 'File'),
+    admin=schema_list(FileDetailedSerializer, 'Assets', 'File'),
     list=schema_list(FileDetailedSerializer, 'Assets', 'File'),
 )
 class FileView(

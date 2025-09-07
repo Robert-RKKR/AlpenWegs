@@ -21,6 +21,7 @@ from rest_framework.decorators import action
 @extend_schema_view(
     compare_changes=schema_retrieve(UserSerializer, 'Notification', 'Change Log'),
     retrieve=schema_retrieve(UserSerializer, 'Notification', 'Change Log'),
+    admin=schema_list(UserSerializer, 'Notification', 'Change Log'),
     list=schema_list(UserSerializer, 'Notification', 'Change Log'),
 )
 class ChangeLogView(ReadOnlyViewSet):

@@ -24,6 +24,7 @@ from drf_spectacular.utils import extend_schema_view
     destroy=schema_destroy(TripDetailedSerializer, 'Explorers', 'Trip'),
     update=schema_update(TripDetailedSerializer, 'Explorers', 'Trip'),
     create=schema_create(TripDetailedSerializer, 'Explorers', 'Trip'),
+    admin=schema_list(TripDetailedSerializer, 'Explorers', 'Trip'),
     list=schema_list(TripDetailedSerializer, 'Explorers', 'Trip'),
 )
 class TripView(

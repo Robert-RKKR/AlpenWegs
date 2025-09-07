@@ -24,6 +24,7 @@ from drf_spectacular.utils import extend_schema_view
     destroy=schema_destroy(PoiDetailedSerializer, 'Compendiums', 'Poi'),
     update=schema_update(PoiDetailedSerializer, 'Compendiums', 'Poi'),
     create=schema_create(PoiDetailedSerializer, 'Compendiums', 'Poi'),
+    admin=schema_list(PoiDetailedSerializer, 'Compendiums', 'Poi'),
     list=schema_list(PoiDetailedSerializer, 'Compendiums', 'Poi'),
 )
 class PoiView(ReadWriteViewSet):

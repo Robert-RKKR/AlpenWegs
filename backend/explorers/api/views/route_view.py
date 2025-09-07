@@ -24,6 +24,7 @@ from drf_spectacular.utils import extend_schema_view
     destroy=schema_destroy(RouteDetailedSerializer, 'Explorers', 'Route'),
     update=schema_update(RouteDetailedSerializer, 'Explorers', 'Route'),
     create=schema_create(RouteDetailedSerializer, 'Explorers', 'Route'),
+    admin=schema_list(RouteDetailedSerializer, 'Explorers', 'Route'),
     list=schema_list(RouteDetailedSerializer, 'Explorers', 'Route'),
 )
 class RouteView(

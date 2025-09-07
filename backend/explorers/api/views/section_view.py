@@ -24,6 +24,7 @@ from drf_spectacular.utils import extend_schema_view
     destroy=schema_destroy(SectionDetailedSerializer, 'Explorers', 'Section'),
     update=schema_update(SectionDetailedSerializer, 'Explorers', 'Section'),
     create=schema_create(SectionDetailedSerializer, 'Explorers', 'Section'),
+    admin=schema_list(SectionDetailedSerializer, 'Explorers', 'Section'),
     list=schema_list(SectionDetailedSerializer, 'Explorers', 'Section'),
 )
 class SectionView(

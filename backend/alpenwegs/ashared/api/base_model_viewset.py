@@ -1,6 +1,7 @@
 # AlpenWegs import:
 from alpenwegs.ashared.api.mixins.base_retrieve_mixin import BaseRetrieveModelMixin
 from alpenwegs.ashared.api.mixins.base_destroy_mixin import BaseDestroyModelMixin
+from alpenwegs.ashared.api.mixins.base_list_admin import BaseListAdminModelMixin
 from alpenwegs.ashared.api.mixins.base_update_mixin import BaseUpdateModelMixin
 from alpenwegs.ashared.api.mixins.base_create_mixin import BaseCreateModelMixin
 from alpenwegs.ashared.api.base_permissions_model import BasePermissionsModel
@@ -74,10 +75,11 @@ class BaseViewSet(
 # All AlpenWegs ModelViewSet models:
 class ReadWriteViewSet(
     BaseViewSet,
-    BaseCreateModelMixin,
+    BaseListAdminModelMixin,
     BaseRetrieveModelMixin,
-    BaseUpdateModelMixin,
     BaseDestroyModelMixin,
+    BaseCreateModelMixin,
+    BaseUpdateModelMixin,
     BaseListModelMixin,
 ):
     """
@@ -88,13 +90,33 @@ class ReadWriteViewSet(
     """
 
     pass
+
+
+class ReadWriteNoListViewSet(
+    BaseViewSet,
+    BaseListAdminModelMixin,
+    BaseRetrieveModelMixin,
+    BaseDestroyModelMixin,
+    BaseCreateModelMixin,
+    BaseUpdateModelMixin,
+):
+    """
+    ReadWriteNoListViewSet provides full CRUD (Create, Retrieve, Update, Delete)
+    functionality for models without list access. This class integrates all the behavior needed
+    for complete management of model instances, supporting creation, retrieval,
+    modification, and deletion.
+    """
+
+    pass
     
 
 
 class ReadOnlyViewSet(
     BaseViewSet,
+    BaseListAdminModelMixin,
     BaseRetrieveModelMixin,
-    BaseListModelMixin):
+    BaseListModelMixin,
+):
     """
     ReadOnlyViewSet restricts the view to read-only operations. It allows 
     fetching a list of model instances or retrieving a single instance by ID, 
@@ -107,9 +129,10 @@ class ReadOnlyViewSet(
 
 class ReadDeleteViewSet(
     BaseViewSet,
+    BaseListAdminModelMixin,
     BaseRetrieveModelMixin,
-    BaseListModelMixin,
     BaseDestroyModelMixin,
+    BaseListModelMixin,
 ):
     """
     ReadDeleteViewSet allows retrieval and deletion of model instances but 
@@ -135,6 +158,7 @@ class RetrieveOnlyViewSet(
 
 class ReadEditViewSet(
     BaseViewSet,
+    BaseListAdminModelMixin,
     BaseRetrieveModelMixin,
     BaseUpdateModelMixin,
     BaseListModelMixin,

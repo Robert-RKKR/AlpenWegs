@@ -24,6 +24,7 @@ from drf_spectacular.utils import extend_schema_view
     destroy=schema_destroy(PhotoDetailedSerializer, 'Assets', 'Photo'),
     update=schema_update(PhotoDetailedSerializer, 'Assets', 'Photo'),
     create=schema_create(PhotoDetailedSerializer, 'Assets', 'Photo'),
+    admin=schema_list(PhotoDetailedSerializer, 'Assets', 'Photo'),
     list=schema_list(PhotoDetailedSerializer, 'Assets', 'Photo'),
 )
 class PhotoView(

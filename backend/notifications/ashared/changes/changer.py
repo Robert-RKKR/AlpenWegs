@@ -94,7 +94,7 @@ def log_change(
             action_type=action,
             app_name=app_name,
             after=object_data,
-            user=user,
+            creator=user,
         )
    
     except Exception as exception:

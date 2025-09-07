@@ -17,11 +17,22 @@ class NotificationModel(
         verbose_name = 'Notification'
         verbose_name_plural = 'Notifications'
 
+        # Add custom AlpenWegs permissions:
+        permissions = [
+            ('change_own_notificationmodel', 'Can change own notifications'),
+            ('change_all_notificationmodel', 'Can change all notifications'),
+            ('delete_own_notificationmodel', 'Can delete own notifications'),
+            ('delete_all_notificationmodel', 'Can delete all notifications'),
+            ('view_own_notificationmodel', 'Can view own notifications'),
+            ('view_all_notificationmodel', 'Can view all notifications'),
+            ('add_own_notificationmodel', 'Can add own notifications'),
+        ]
+
     # Default roles and their permissions:
     ROLE_PERMS = {
-        'Member': ['view'],
-        'Author': ['view'],
-        'Admin':  ['view'],
+        'Member': ['view_own'],
+        'Author': ['view_own'],
+        'Admin':  ['view_all'],
     }
     
     # Base notification data:

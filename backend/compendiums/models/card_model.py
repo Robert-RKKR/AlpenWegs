@@ -29,11 +29,25 @@ class CardModel(
         verbose_name = 'Card'
         verbose_name_plural = 'Cards'
 
+        # Disable default Django permissions:
+        default_permissions = ()
+
+        # Add custom AlpenWegs permissions:
+        permissions = [
+            ('change_own_cardmodel', 'Can change own cards'),
+            ('change_all_cardmodel', 'Can change all cards'),
+            ('delete_own_cardmodel', 'Can delete own cards'),
+            ('delete_all_cardmodel', 'Can delete all cards'),
+            ('view_own_cardmodel', 'Can view own cards'),
+            ('view_all_cardmodel', 'Can view all cards'),
+            ('add_own_cardmodel', 'Can add own cards'),
+        ]
+
     # Default roles and their permissions:
     ROLE_PERMS = {
-        'Member': ['view'],
-        'Author': ['view', 'add', 'change', 'delete'],
-        'Admin':  ['view', 'add', 'change', 'delete'],
+        'Member': ['view_all'],
+        'Author': ['change_own', 'delete_own', 'view_all', 'add_own'],
+        'Admin':  ['change_all', 'delete_all', 'view_all', 'add_own'],
     }
     
     # Card Many-to-many relationships:

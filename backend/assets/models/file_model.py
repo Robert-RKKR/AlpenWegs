@@ -25,6 +25,27 @@ class FileModel(
         verbose_name = 'File'
         verbose_name_plural = 'Files'
 
+        # Disable default Django permissions:
+        default_permissions = ()
+
+        # Add custom AlpenWegs permissions:
+        permissions = [
+            ('change_own_filemodel', 'Can change own files'),
+            ('change_all_filemodel', 'Can change all files'),
+            ('delete_own_filemodel', 'Can delete own files'),
+            ('delete_all_filemodel', 'Can delete all files'),
+            ('view_own_filemodel', 'Can view own files'),
+            ('view_all_filemodel', 'Can view all files'),
+            ('add_own_filemodel', 'Can add own files'),
+        ]
+
+    # Default roles and their permissions:
+    ROLE_PERMS = {
+        'Member': ['change_own', 'delete_own', 'view_own', 'add_own'],
+        'Author': ['change_own', 'delete_own', 'view_own', 'add_own'],
+        'Admin':  ['change_all', 'delete_all', 'view_all', 'add_own'],
+    }
+
     # File Information:
     file = models.FileField(
         upload_to='files/',

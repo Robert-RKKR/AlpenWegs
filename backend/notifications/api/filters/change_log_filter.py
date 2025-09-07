@@ -24,7 +24,7 @@ class ChangeLogFilter(
             'timestamp': ['exact', 'icontains', 'lt', 'gt'],
 
             # User information:
-            'user': ['exact'],
+            'creator': ['exact'],
             
             # Change details:
             'action_type': ['exact'],

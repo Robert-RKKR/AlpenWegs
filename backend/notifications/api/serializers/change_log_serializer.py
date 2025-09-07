@@ -23,7 +23,7 @@ fields = [
     # Model data time information:
     'timestamp',
     # User information:
-    'user',
+    'creator',
     # Change details:
     'action_type',
     'after',
@@ -40,7 +40,7 @@ read_only_fields = [
     # Model data time information:
     'timestamp',
     # User information:
-    'user',
+    'creator',
     # Change details:
     'action_type',
     'after',

@@ -60,7 +60,7 @@ class ChangLogAdmin(BaseAdmin):
 
     list_display = (
         'pk',
-        'user',
+        'creator',
         'timestamp',
         'action_type',
         'model_name',
@@ -72,7 +72,7 @@ class ChangLogAdmin(BaseAdmin):
     )
     list_filter = (
         'app_name',
-        'user',
+        'creator',
         'model_name',
         'action_type',
         'after',
@@ -89,7 +89,7 @@ class ChangLogAdmin(BaseAdmin):
                     'extrapretty',
                 ),
                 'fields': (
-                    'user',
+                    'creator',
                     'app_name',
                     'model_name',
                     'object_representation',
@@ -111,10 +111,10 @@ class ChangLogAdmin(BaseAdmin):
         ),
     )
     readonly_fields = (
-        'user',
+        'creator',
         'timestamp',
         'action_type',
-        'user',
+        'creator',
         'app_name',
         'object_representation',
         'after',

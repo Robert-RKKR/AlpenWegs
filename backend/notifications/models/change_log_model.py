@@ -20,11 +20,22 @@ class ChangeLogModel(
         verbose_name = 'Change'
         verbose_name_plural = 'Changes'
 
+        # Add custom AlpenWegs permissions:
+        permissions = [
+            ('change_own_changelogmodel', 'Can change own changes'),
+            ('change_all_changelogmodel', 'Can change all changes'),
+            ('delete_own_changelogmodel', 'Can delete own changes'),
+            ('delete_all_changelogmodel', 'Can delete all changes'),
+            ('view_own_changelogmodel', 'Can view own changes'),
+            ('view_all_changelogmodel', 'Can view all changes'),
+            ('add_own_changelogmodel', 'Can add own changes'),
+        ]
+
     # Default roles and their permissions:
     ROLE_PERMS = {
-        'Member': ['view'],
-        'Author': ['view'],
-        'Admin':  ['view'],
+        'Member': ['view_own'],
+        'Author': ['view_own'],
+        'Admin':  ['view_all'],
     }
     
     # Model data time information:
@@ -37,15 +48,22 @@ class ChangeLogModel(
     )
 
     # User information:
-    user = models.ForeignKey(
+    creator = models.ForeignKey(
         UserModel,
-        verbose_name='User',
+        verbose_name='Creator',
         help_text='The user responsible for the change. This field '
             'links to the user who performed the action, '
             'providing accountability and traceability.',
         on_delete=models.PROTECT,
         null=True,
         blank=True,
+    )
+    is_public = models.BooleanField(
+        verbose_name='Is Public',
+        help_text='Indicates whether the object is publicly '
+            'accessible (True) or private (False). If set to True, '
+            'the object will be visible to all users and guests.',
+        default=True,
     )
 
     # Change details:

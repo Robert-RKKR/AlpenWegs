@@ -21,8 +21,31 @@ class PhotoModel(
     """
 
     class Meta:
+
+        # Model name values:
         verbose_name = 'Photo'
         verbose_name_plural = 'Photos'
+
+        # Disable default Django permissions:
+        default_permissions = ()
+
+        # Add custom AlpenWegs permissions:
+        permissions = [
+            ('change_own_photomodel', 'Can change own photos'),
+            ('change_all_photomodel', 'Can change all photos'),
+            ('delete_own_photomodel', 'Can delete own photos'),
+            ('delete_all_photomodel', 'Can delete all photos'),
+            ('view_own_photomodel', 'Can view own photos'),
+            ('view_all_photomodel', 'Can view all photos'),
+            ('add_own_photomodel', 'Can add own photos'),
+        ]
+
+    # Default roles and their permissions:
+    ROLE_PERMS = {
+        'Member': ['change_own', 'delete_own', 'view_own', 'add_own'],
+        'Author': ['change_own', 'delete_own', 'view_own', 'add_own'],
+        'Admin':  ['change_all', 'delete_all', 'view_all', 'add_own'],
+    }
     
     # Photo Many-to-many relationships:
     sections = models.ManyToManyField(

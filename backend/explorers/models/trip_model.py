@@ -40,6 +40,24 @@ class TripModel(
         verbose_name = 'Trip'
         verbose_name_plural = 'Trips'
 
+        # Add custom AlpenWegs permissions:
+        permissions = [
+            ('change_own_tripmodel', 'Can change own trips'),
+            ('change_all_tripmodel', 'Can change all trips'),
+            ('delete_own_tripmodel', 'Can delete own trips'),
+            ('delete_all_tripmodel', 'Can delete all trips'),
+            ('view_own_tripmodel', 'Can view own trips'),
+            ('view_all_tripmodel', 'Can view all trips'),
+            ('add_own_tripmodel', 'Can add own trips'),
+        ]
+
+    # Default roles and their permissions:
+    ROLE_PERMS = {
+        'Member': ['change_own', 'delete_own', 'view_own', 'add_own'],
+        'Author': ['change_own', 'delete_own', 'view_own', 'add_own'],
+        'Admin':  ['change_all', 'delete_all', 'view_all', 'add_own'],
+    }
+
     # Trip Many-to-Many Relationships:
     routes = models.ManyToManyField(
         RouteModel,

@@ -10,10 +10,13 @@ from profiles.models.user_model import UserModel
 
 # Define allowed actions:
 ALLOWED_ACTIONS = [
-    'view',
-    'add',
-    'change',
-    'delete',
+    'change_own',
+    'change_all',
+    'delete_own',
+    'delete_all',
+    'view_own',
+    'view_all',
+    'add_own',
 ]
 
 # Command class:

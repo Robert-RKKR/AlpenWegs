@@ -42,9 +42,22 @@ class UserModel(
             ),
         ]
 
+        # Add custom AlpenWegs permissions:
+        permissions = [
+            ('change_own_usermodel', 'Can change own users'),
+            ('change_all_usermodel', 'Can change all users'),
+            ('delete_own_usermodel', 'Can delete own users'),
+            ('delete_all_usermodel', 'Can delete all users'),
+            ('view_own_usermodel', 'Can view own users'),
+            ('view_all_usermodel', 'Can view all users'),
+            ('add_own_usermodel', 'Can add own users'),
+        ]
+
     # Default roles and their permissions:
     ROLE_PERMS = {
-        'Admin':  ['view', 'add', 'change', 'delete'],
+        'Member': ['change_own', 'view_own'],
+        'Author': ['change_own', 'view_own'],
+        'Admin':  ['change_all', 'delete_all', 'view_all', 'add_own'],
     }
 
     # Model objects manager:

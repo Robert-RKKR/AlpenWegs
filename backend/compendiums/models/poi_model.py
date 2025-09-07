@@ -25,14 +25,30 @@ class PoiModel(
     """
     
     class Meta:
+
+        # Model name values:
         verbose_name = 'Point of Interest'
         verbose_name_plural = 'Points of Interest'
 
+        # Disable default Django permissions:
+        default_permissions = ()
+
+        # Add custom AlpenWegs permissions:
+        permissions = [
+            ('change_own_poimodel', 'Can change own pois'),
+            ('change_all_poimodel', 'Can change all pois'),
+            ('delete_own_poimodel', 'Can delete own pois'),
+            ('delete_all_poimodel', 'Can delete all pois'),
+            ('view_own_poimodel', 'Can view own pois'),
+            ('view_all_poimodel', 'Can view all pois'),
+            ('add_own_poimodel', 'Can add own pois'),
+        ]
+
     # Default roles and their permissions:
     ROLE_PERMS = {
-        'Member': ['view'],
-        'Author': ['view', 'add', 'change', 'delete'],
-        'Admin':  ['view', 'add', 'change', 'delete'],
+        'Member': ['view_all'],
+        'Author': ['change_own', 'delete_own', 'view_all', 'add_own'],
+        'Admin':  ['change_all', 'delete_all', 'view_all', 'add_own'],
     }
 
     # PoI One-to-Many relationship:

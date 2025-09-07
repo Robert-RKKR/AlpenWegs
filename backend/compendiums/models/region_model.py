@@ -21,14 +21,30 @@ class RegionModel(
     """
 
     class Meta:
+
+        # Model name values:
         verbose_name = 'Region'
         verbose_name_plural = 'Regions'
 
+        # Disable default Django permissions:
+        default_permissions = ()
+
+        # Add custom AlpenWegs permissions:
+        permissions = [
+            ('change_own_regionmodel', 'Can change own regions'),
+            ('change_all_regionmodel', 'Can change all regions'),
+            ('delete_own_regionmodel', 'Can delete own regions'),
+            ('delete_all_regionmodel', 'Can delete all regions'),
+            ('view_own_regionmodel', 'Can view own regions'),
+            ('view_all_regionmodel', 'Can view all regions'),
+            ('add_own_regionmodel', 'Can add own regions'),
+        ]
+
     # Default roles and their permissions:
     ROLE_PERMS = {
-        'Member': ['view'],
-        'Author': ['view', 'add', 'change', 'delete'],
-        'Admin':  ['view', 'add', 'change', 'delete'],
+        'Member': ['view_all'],
+        'Author': ['change_own', 'delete_own', 'view_all', 'add_own'],
+        'Admin':  ['change_all', 'delete_all', 'view_all', 'add_own'],
     }
     
     # Region Many-to-many relationship:

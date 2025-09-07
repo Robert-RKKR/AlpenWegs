@@ -47,6 +47,24 @@ class SectionModel(
         verbose_name = 'Section'
         verbose_name_plural = 'Sections'
 
+        # Add custom AlpenWegs permissions:
+        permissions = [
+            ('change_own_sectionmodel', 'Can change own sections'),
+            ('change_all_sectionmodel', 'Can change all sections'),
+            ('delete_own_sectionmodel', 'Can delete own sections'),
+            ('delete_all_sectionmodel', 'Can delete all sections'),
+            ('view_own_sectionmodel', 'Can view own sections'),
+            ('view_all_sectionmodel', 'Can view all sections'),
+            ('add_own_sectionmodel', 'Can add own sections'),
+        ]
+
+    # Default roles and their permissions:
+    ROLE_PERMS = {
+        'Member': ['change_own', 'delete_own', 'view_own', 'add_own'],
+        'Author': ['change_own', 'delete_own', 'view_own', 'add_own'],
+        'Admin':  ['change_all', 'delete_all', 'view_all', 'add_own'],
+    }
+
     # Many-to-Many Relationships:
     photos = models.ManyToManyField(
         PhotoModel,
@@ -67,10 +85,10 @@ class SectionModel(
             'to visit along the way. Points of Interest also '
             'mark the start and end points of the section.'
     )
-    cards = models.ManyToManyField(
+    sections = models.ManyToManyField(
         CardModel,
         through='SectionToCardModel',
-        related_name='section_cards',
+        related_name='section_sections',
         verbose_name='Section Cards',
         help_text='Cards associated with the section that can '
             'be obtained by the user by completing this section.'
@@ -173,7 +191,7 @@ class SectionToCardModel(
     """
     Intermediate model linking a Section to Cards.
 
-    Allows tracking which achievement cards are tied to 
+    Allows tracking which achievement sections are tied to 
     completing this section.
     """
     

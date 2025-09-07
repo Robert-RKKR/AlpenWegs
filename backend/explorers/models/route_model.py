@@ -37,6 +37,24 @@ class RouteModel(
         verbose_name = 'Route'
         verbose_name_plural = 'Routes'
 
+        # Add custom AlpenWegs permissions:
+        permissions = [
+            ('change_own_routemodel', 'Can change own routes'),
+            ('change_all_routemodel', 'Can change all routes'),
+            ('delete_own_routemodel', 'Can delete own routes'),
+            ('delete_all_routemodel', 'Can delete all routes'),
+            ('view_own_routemodel', 'Can view own routes'),
+            ('view_all_routemodel', 'Can view all routes'),
+            ('add_own_routemodel', 'Can add own routes'),
+        ]
+
+    # Default roles and their permissions:
+    ROLE_PERMS = {
+        'Member': ['change_own', 'delete_own', 'view_own', 'add_own'],
+        'Author': ['change_own', 'delete_own', 'view_own', 'add_own'],
+        'Admin':  ['change_all', 'delete_all', 'view_all', 'add_own'],
+    }
+
     # Route Many-to-Many Relationships:
     trips = models.ManyToManyField(
         'TripModel',

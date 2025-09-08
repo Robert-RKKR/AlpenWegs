@@ -1,4 +1,5 @@
 # AlpenWegs application import:
+from assets.api.serializers.file_serializer import FileRepresentationSerializer
 from assets.api.serializers.file_serializer import FileDetailedSerializer
 from assets.api.filters.file_filter import FileFilter
 from assets.models.file_model import FileModel
@@ -43,6 +44,7 @@ class FileView(
     query_model = FileModel
 
     # Serializer class used for the view:
+    representation_serializer_class = FileRepresentationSerializer
     serializer_class = FileDetailedSerializer
 
     # Pagination class used for the view:

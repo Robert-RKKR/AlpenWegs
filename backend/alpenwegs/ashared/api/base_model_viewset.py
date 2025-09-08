@@ -1,7 +1,8 @@
 # AlpenWegs import:
+from alpenwegs.ashared.api.mixins.base_list_representation_mixin import BaseListRepresentationModelMixin
+from alpenwegs.ashared.api.mixins.base_list_admin_mixin import BaseListAdminModelMixin
 from alpenwegs.ashared.api.mixins.base_retrieve_mixin import BaseRetrieveModelMixin
 from alpenwegs.ashared.api.mixins.base_destroy_mixin import BaseDestroyModelMixin
-from alpenwegs.ashared.api.mixins.base_list_admin import BaseListAdminModelMixin
 from alpenwegs.ashared.api.mixins.base_update_mixin import BaseUpdateModelMixin
 from alpenwegs.ashared.api.mixins.base_create_mixin import BaseCreateModelMixin
 from alpenwegs.ashared.api.base_permissions_model import BasePermissionsModel
@@ -75,6 +76,7 @@ class BaseViewSet(
 # All AlpenWegs ModelViewSet models:
 class ReadWriteViewSet(
     BaseViewSet,
+    BaseListRepresentationModelMixin,
     BaseListAdminModelMixin,
     BaseRetrieveModelMixin,
     BaseDestroyModelMixin,

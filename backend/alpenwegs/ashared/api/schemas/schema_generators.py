@@ -12,13 +12,21 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import serializers
 
 
-# Base list schema generator
+# Base list schema generator:
 def schema_list(
     default_schema: serializers.Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
 ):
+    """
+    Schema generator for standard list views.
+
+    - Returns only objects created by the requesting user
+      OR objects that are publicly visible (`is_public=True`).
+    - Intended for standard users to retrieve their own data
+      and public entries of the model.
+    """
 
     # Create a dedicated schema for list responses:
     list_schema = extend_schema(
@@ -34,6 +42,14 @@ def schema_list(
             ),
         },
 
+        # Add description and summary to schema:
+        description=f'Retrieve a filtered list of {object_repr} objects '
+            'created by the requesting user or available for public view. '
+            'Some user groups may be permitted to view all objects '
+            'regardless of ownership or public status, but to receive all '
+            'objects they need to use the admin view.',
+        summary=f'List all user created or publicly available {object_repr} objects.',
+
         # Add tag to schema:
         tags=[f'{application_repr} - {object_repr}'],
     )
@@ -46,13 +62,67 @@ def schema_list(
     # Return extended schema for list view:
     return list_schema
 
-# Base retrieval schema generator
+
+# Base admin schema generator:
+def schema_admin(
+    default_schema: serializers.Serializer,
+    application_repr: str,
+    object_repr: str,
+    optional_tag: str = None,
+):
+    """
+    Schema generator for admin list views.
+
+    - Returns **all** objects of the given model in the system,
+      regardless of ownership or public status.
+    - Restricted to administrative users only.
+    """
+
+    # Create a dedicated schema for admin responses:
+    admin_schema = extend_schema(
+        # Define possible API responses:
+        responses={
+            200: OpenApiResponse(
+                default_schema,
+                description=f'Retrieve {object_repr} objects',
+            ),
+            401: OpenApiResponse(
+                TokenAuthenticationAPIExceptionSchema,
+                description=f'{object_repr} token authentication error'
+            ),
+        },
+
+        # Add description and summary to schema:
+        description=f'Admin-only endpoint that retrieves all {object_repr} '
+            'objects in the AlpenWeg application. Only users that belong to '
+            'the Admin group have access to this view.',
+        summary=f'List all {object_repr} objects (Admin user only).',
+
+        # Add tag to schema:
+        tags=[f'{application_repr} - {object_repr}'],
+    )
+
+    # Add additional tag if provided:
+    if optional_tag is not None:
+        # Add tag to existing list:
+        admin_schema.tags.append(optional_tag)
+
+    # Return extended schema for admin view:
+    return admin_schema
+
+# Base retrieval schema generator:
 def schema_retrieve(
     default_schema: serializers.Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
 ):
+    """
+    Schema generator for retrieving a single object.
+
+    - Returns one {object_repr} object if the user has permission.
+    - Ensures object visibility and ownership are respected.
+    """
 
     # Create a dedicated schema for retrieval responses:
     retrieval_schema = extend_schema(
@@ -76,6 +146,14 @@ def schema_retrieve(
             ),
         },
 
+        # Add description and summary to schema:
+        description='Retrieve detailed information about a specific '
+            f'{object_repr} object. The object must be created by the '
+            'requesting user or be available as public. Some user groups '
+            'may be permitted to view all objects regardless of ownership '
+            'or public status of given object.',
+        summary=f'Retrieve single {object_repr} object.',
+
         # Add tag to schema:
         tags=[f'{application_repr} - {object_repr}'],
     )
@@ -89,13 +167,19 @@ def schema_retrieve(
     return retrieval_schema
 
 
-# Base create schema generator
+# Base create schema generator:
 def schema_create(
     default_schema: serializers.Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
 ):
+    """
+    Schema generator for creating a new object.
+
+    - Allows users to submit data to create a new {object_repr}.
+    - Returns the created object upon success.
+    """
 
     # Create a dedicated schema for create responses:
     create_schema = extend_schema(
@@ -119,6 +203,12 @@ def schema_create(
             ),
         },
 
+        # Add description and summary to schema:
+        description=f'Create a new {object_repr} object based on the '
+            'provided data. Allowed only for users that belongs to '
+            'groups with sufficient privileges to perform object creation.',
+        summary=f'Create new {object_repr} object.',
+
         # Add tag to schema:
         tags=[f'{application_repr} - {object_repr}'],
     )
@@ -132,13 +222,19 @@ def schema_create(
     return create_schema
 
 
-# Base update schema generator
+# Base update schema generator:
 def schema_update(
     default_schema: serializers.Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
 ):
+    """
+    Schema generator for full updates.
+
+    - Allows replacing all fields of an existing {object_repr}.
+    - Returns the updated object.
+    """
 
     # Create a dedicated schema for update responses:
     update_schema = extend_schema(
@@ -166,6 +262,13 @@ def schema_update(
             ),
         },
 
+        # Add description and summary to schema:
+        description=f'Perform a full update on an existing {object_repr}. '
+            'object. Some user groups can update only objects they created, '
+            'while others may be permitted to update all objects, regardless '
+            'of ownership or public status of given object.',
+        summary=f'Update existing {object_repr} object.',
+
         # Add tag to schema:
         tags=[f'{application_repr} - {object_repr}'],
     )
@@ -179,13 +282,19 @@ def schema_update(
     return update_schema
 
 
-# Base partial update schema generator
+# Base partial update schema generator:
 def schema_partial_update(
     default_schema: serializers.Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
 ):
+    """
+    Schema generator for partial updates.
+
+    - Allows updating specific fields of an existing {object_repr}.
+    - Returns the updated object.
+    """
 
     # Create a dedicated schema for partial update responses:
     partial_update_schema = extend_schema(
@@ -213,6 +322,13 @@ def schema_partial_update(
             ),
         },
 
+        # Add description and summary to schema:
+        description=f'Perform a partial update on an existing {object_repr}. '
+            'object. Some user groups can update only objects they created, '
+            'while others may be permitted to update all objects, regardless '
+            'of ownership or public status of given object.',
+        summary=f'Partially update existing {object_repr} object.',
+
         # Add tag to schema:
         tags=[f'{application_repr} - {object_repr}'],
     )
@@ -226,13 +342,19 @@ def schema_partial_update(
     return partial_update_schema
 
 
-# Base destroy schema generator
+# Base destroy schema generator:
 def schema_destroy(
     default_schema: serializers.Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
 ):
+    """
+    Schema generator for deletion.
+
+    - Deletes a {object_repr} object if permitted.
+    - Returns no content upon success.
+    """
 
     # Create a dedicated schema for destroy responses:
     destroy_schema = extend_schema(
@@ -259,6 +381,14 @@ def schema_destroy(
                 description=f'{object_repr} conflict error'
             ),
         },
+
+        # Add description and summary to schema:
+        description=f'Delete a specific {object_repr} object if permitted. '
+            'Some user groups can delete only objects they created, while '
+            'others may be permitted to delete all objects, regardless '
+            'of ownership or public status of given object. Returns no '
+            'content upon success.',
+        summary=f'Delete {object_repr} object.',
 
         # Add tag to schema:
         tags=[f'{application_repr} - {object_repr}'],

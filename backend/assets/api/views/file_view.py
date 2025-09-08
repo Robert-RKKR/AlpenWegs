@@ -10,6 +10,7 @@ from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
 from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
 from alpenwegs.ashared.api.schemas.schema_generators import schema_update
 from alpenwegs.ashared.api.schemas.schema_generators import schema_create
+from alpenwegs.ashared.api.schemas.schema_generators import schema_admin
 from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
 
@@ -24,7 +25,7 @@ from drf_spectacular.utils import extend_schema_view
     destroy=schema_destroy(FileDetailedSerializer, 'Assets', 'File'),
     update=schema_update(FileDetailedSerializer, 'Assets', 'File'),
     create=schema_create(FileDetailedSerializer, 'Assets', 'File'),
-    admin=schema_list(FileDetailedSerializer, 'Assets', 'File'),
+    admin=schema_admin(FileDetailedSerializer, 'Assets', 'File'),
     list=schema_list(FileDetailedSerializer, 'Assets', 'File'),
 )
 class FileView(

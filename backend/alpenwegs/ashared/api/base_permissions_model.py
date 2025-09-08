@@ -35,30 +35,36 @@ class BasePermissionsModel(
         request,
         view,
     ):
+
+        # 0: Collect user from request, deny if user data not found:
+        user = getattr(request, 'user', False)
+        if not user:
+            # Deny access if user is not found:
+            return False
         
-        # Check is user is superuser:
-        if request.user and request.user.is_superuser:
+        # 1: Allow full access for superusers:
+        if user and user.is_superuser:
             # Allow access for superusers:
             return True
 
-        # Check if user is authenticated:
-        if not request.user or not request.user.is_authenticated:
+        # 2: Check if user is authenticated:
+        if not user or not user.is_authenticated:
             # Deny access for unauthenticated users:
             return False
         
-        # Collect action:
+        # 3: Collect action and deny access if not defined:
         action = self.perms_map.get(request.method)
         # Check if action has been collected:
         if not action:
             # Deny access if no permission is defined for the method:
             return False
 
-        # Allow methods that will be verified in has_object_permission:
+        # 4: Allow methods that will be verified in has_object_permission:
         if action not in ['view', 'add']:
             # Allow action:
             return True
 
-        # Get model class from view's queryset:
+        # 5: Get model class from view's queryset and deny access if not found:
         model_cls = getattr(
             getattr(view, 'queryset', None), 'model', None
         )
@@ -70,7 +76,7 @@ class BasePermissionsModel(
         app_label = model_cls._meta.app_label
         model_name = model_cls._meta.model_name
 
-        # Collect action code name:
+        # 6: Collect action code name:
         if action == 'view':
 
             # Check if view is admin view:
@@ -86,13 +92,16 @@ class BasePermissionsModel(
             # Create access code for add action:
             codename = f'{app_label}.add_own_{model_name}'
 
-        # print(f'\n\napp_label: {app_label}')
-        # print(f'model_name: {model_name}')
-        # print(f'model_cls: {model_cls}')
-        # print(f'action: {action}')
-        # print(f'codename: {codename}\n\n')
+        # Debug prints:
+        # print(f'\n\n')
+        # print(f'Has permission view "app_label" value: "{app_label}".')
+        # print(f'Has permission view "model_name" value: "{model_name}".')
+        # print(f'Has permission view "model_cl" values: "{model_cls}".')
+        # print(f'Has permission view "action" value: "{action}".')
+        # print(f'Has permission view "codename" value: "{codename}".')
+        # print(f'\n\n')
 
-        # Return whether the user has the required permission:
+        # 7: Return whether the user has the required permission:
         return request.user.has_perm(codename)
 
     def has_object_permission(self,
@@ -101,14 +110,25 @@ class BasePermissionsModel(
         obj,
     ):
 
-        # Collect user from request:
-        user = request.user
+        # 0: Collect user from request, deny if user data not found:
+        user = getattr(request, 'user', False)
+        if not user:
+            # Deny access if user is not found:
+            return False
 
-        # Superusers bypass everything:
-        if getattr(user, 'is_superuser', False):
+        # 1: Allow full access for superusers:
+        if user and user.is_superuser:
+            # Allow access for superusers:
             return True
         
-        # Check if user is instance of UserModel:
+        # 2: Collect action and deny access if not defined:
+        action = self.perms_map.get(request.method)
+        # Check if action has been collected:
+        if not action:
+            # Deny access if no permission is defined for the method:
+            return False
+        
+        # 3: Check if user is instance of UserModel:
         if isinstance(obj, UserModel):
             # Check if the object is the same as the user:
             if obj.pk == user.pk:
@@ -118,7 +138,25 @@ class BasePermissionsModel(
                 # Deny access to other user objects:
                 return False
 
-        # Check if model is instance of BaseCreatorModel:
+        # 4: Get model class from view's queryset and deny access if not found:
+        model_cls = getattr(
+            getattr(view, 'queryset', None), 'model', None
+        )
+        # Check if model class is available:
+        if not model_cls:
+            # Deny access if model class is not found:
+            return False
+        # Collect details info about the class model:
+        app_label = model_cls._meta.app_label
+        model_name = model_cls._meta.model_name
+
+        # 5: Check if user haves all-object permission:
+        codename = f'{app_label}.{action}_all_{model_name}'
+        if request.user.has_perm(codename):
+            # Allow access if user has all-object permission:
+            return True
+
+        # 6: Check if model is instance of BaseCreatorModel:
         elif isinstance(obj, BaseCreatorModel):
             # Check if user is the creator of the object:
             if obj.creator_pk == user.pk:

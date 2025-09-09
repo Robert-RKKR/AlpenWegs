@@ -5,11 +5,26 @@ from alpenwegs.ashared.api.schemas.exceptions_schemas import ValidationAPIExcept
 from alpenwegs.ashared.api.schemas.exceptions_schemas import NotContentAPIExceptionSchema
 from alpenwegs.ashared.api.schemas.exceptions_schemas import ProtectedAPIExceptionSchema
 from alpenwegs.ashared.api.schemas.exceptions_schemas import NotFoundAPIExceptionSchema
+from alpenwegs.ashared.api.schemas.response_schemas import StandardAPIExceptionSchema
 
 # Drf spectacular import:
 from drf_spectacular.utils import OpenApiResponse
 from drf_spectacular.utils import extend_schema
 from rest_framework import serializers
+
+
+def build_api_response_schema(data_schema, many=False):
+    """
+    Factory to wrap any serializer into the standard response schema.
+    If many=True, wraps as a list of the schema.
+    """
+
+    class APIResponseSchema(serializers.Serializer):
+        page_status = serializers.BooleanField()
+        page_data = data_schema(many=many)
+        page_error = None
+
+    return APIResponseSchema
 
 
 # Base list schema generator:
@@ -28,12 +43,14 @@ def schema_list(
       and public entries of the model.
     """
 
+    response_schema = build_api_response_schema(default_schema, many=True)
+
     # Create a dedicated schema for list responses:
     list_schema = extend_schema(
         # Define possible API responses:
         responses={
             200: OpenApiResponse(
-                default_schema,
+                response_schema,
                 description=f'Retrieve {object_repr} objects',
             ),
             401: OpenApiResponse(
@@ -109,6 +126,53 @@ def schema_admin(
 
     # Return extended schema for admin view:
     return admin_schema
+
+
+# Base representation schema generator:
+def schema_representation(
+    default_schema: serializers.Serializer,
+    application_repr: str,
+    object_repr: str,
+    optional_tag: str = None,
+):
+    """
+    Schema generator for representation list views.
+
+    - Returns **all** objects of the given model in the system,
+      regardless of ownership or public status, without pagination.
+    - Available for all users.
+    """
+
+    # Create a dedicated schema for representation responses:
+    representation_schema = extend_schema(
+        # Define possible API responses:
+        responses={
+            200: OpenApiResponse(
+                default_schema,
+                description=f'Retrieve {object_repr} objects',
+            ),
+            401: OpenApiResponse(
+                TokenAuthenticationAPIExceptionSchema,
+                description=f'{object_repr} token authentication error'
+            ),
+        },
+
+        # Add description and summary to schema:
+        description=f'Fully available endpoint that retrieves all {object_repr} '
+            'objects in the AlpenWeg application.',
+        summary=f'Representative list all {object_repr} objects.',
+
+        # Add tag to schema:
+        tags=[f'{application_repr} - {object_repr}'],
+    )
+
+    # Add additional tag if provided:
+    if optional_tag is not None:
+        # Add tag to existing list:
+        representation_schema.tags.append(optional_tag)
+
+    # Return extended schema for representation view:
+    return representation_schema
 
 # Base retrieval schema generator:
 def schema_retrieve(

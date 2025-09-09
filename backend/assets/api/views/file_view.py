@@ -1,11 +1,13 @@
 # AlpenWegs application import:
 from assets.api.serializers.file_serializer import FileRepresentationSerializer
 from assets.api.serializers.file_serializer import FileDetailedSerializer
+from assets.api.serializers.file_serializer import FileRelationSerializer
 from assets.api.filters.file_filter import FileFilter
 from assets.models.file_model import FileModel
 
 # AlpenWegs import:
 from alpenwegs.ashared.api.schemas.schema_generators import schema_partial_update
+from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
 from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
 from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
@@ -21,6 +23,7 @@ from drf_spectacular.utils import extend_schema_view
 
 # File Model API view class:
 @extend_schema_view(
+    representation=schema_representation(FileRepresentationSerializer, 'Assets', 'File'),
     partial_update=schema_partial_update(FileDetailedSerializer, 'Assets', 'File'),
     retrieve=schema_retrieve(FileDetailedSerializer, 'Assets', 'File'),
     destroy=schema_destroy(FileDetailedSerializer, 'Assets', 'File'),
@@ -43,9 +46,13 @@ class FileView(
     query_ordering = '-created'
     query_model = FileModel
 
+    # Serializer class (Legacy, required by DRF):
+    serializer_class = FileDetailedSerializer
+
     # Serializer class used for the view:
     representation_serializer_class = FileRepresentationSerializer
-    serializer_class = FileDetailedSerializer
+    detailed_serializer_class = FileDetailedSerializer
+    relation_serializer_class = FileRelationSerializer
 
     # Pagination class used for the view:
     pagination_class = BaseSmallPaginator

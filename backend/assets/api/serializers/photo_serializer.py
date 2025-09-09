@@ -41,6 +41,14 @@ read_only_fields = [
     'created',
     'updated',
 ]
+representation_fields = [
+    # BaseModel values:
+    'pk',
+    'url',
+
+    # BaseIdentificationModel values:
+    'name',
+]
 
 
 # Photo Detailed serializer:
@@ -70,6 +78,40 @@ class PhotoDetailedSerializer(
 
         # Define writable fields:
         fields = fields
+
+        # Define related model:
+        model = model
+
+        # Define model depth:
+        depth = depth
+
+
+# Photo Detailed serializer:
+class PhotoRepresentationSerializer(
+    BaseSerializer,
+):
+    """
+    Representation serializer for the File model. Includes only the fields
+    necessary for representing a File object in API responses.
+
+    Used for standard API actions such as list and retrieve, whenever
+    a simplified representation of a File object is sufficient.
+    """
+
+    # Default model URL field with hyperlink to retrieve view:
+    url = HyperlinkedIdentityField(
+        view_name='api-assets:photo_model-detail',
+        help_text='URL to provided object.',
+        read_only=True,
+    )
+
+    class Meta:
+
+        # Define read only fields:
+        read_only_fields = representation_fields
+
+        # Define writable fields:
+        fields = representation_fields
 
         # Define related model:
         model = model

@@ -12,6 +12,31 @@ from profiles.models.user_model import UserModel
 # Base Mixin class:
 class BaseMixin():
 
+    def _get_serializer_class(self,
+        serializer_name: str,
+    ):
+        """
+        Collect serializer class using its name.
+        """
+        
+        # Collect serializer class using name:
+        serializer = getattr(
+            self,
+            f'{serializer_name}_serializer_class',
+            False,
+        )
+        
+        # Check if serializer exists:
+        if serializer:
+            # Return serializer if exists:
+            return serializer
+        else:
+            # Raise error if serializer does not exist:
+            raise AttributeError(
+                f'Serializer with name "{serializer_name}" has not been '
+                f'defined in {self.__class__.__name__} class.'
+            )
+
     def _create_notification(self,
         instance: BaseModel,
         action: ActionTypeChoices,

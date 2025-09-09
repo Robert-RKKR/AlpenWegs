@@ -37,8 +37,9 @@ class BaseListRepresentationModelMixin(
         queryset = self.filter_queryset(queryset)
         
         # Prepare page view without pagination:
-        # serializer = self.get_serializer(queryset, many=True)
-        serializer = self.representation_serializer_class
+        serializer = self._get_serializer_class(
+            'representation',
+        )
 
         # Return (200 HTTP - Ok) response:
         return Response(

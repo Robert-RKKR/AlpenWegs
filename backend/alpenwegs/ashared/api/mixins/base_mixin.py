@@ -33,9 +33,26 @@ class BaseMixin():
         else:
             # Raise error if serializer does not exist:
             raise AttributeError(
-                f'Serializer with name "{serializer_name}" has not been '
+                f'Serializer with name \'{serializer_name}\' has not been '
                 f'defined in {self.__class__.__name__} class.'
             )
+        
+    def _get_serializer(self,
+        *args,
+        serializer_name: str = None,
+        **kwargs
+    ):
+        """
+        Custom serializer resolver.
+        """
+
+        if serializer_name:
+            serializer_class = self._get_serializer_class(serializer_name)
+        else:
+            serializer_class = self.get_serializer_class()
+
+        kwargs.setdefault('context', self.get_serializer_context())
+        return serializer_class(*args, **kwargs)
 
     def _create_notification(self,
         instance: BaseModel,

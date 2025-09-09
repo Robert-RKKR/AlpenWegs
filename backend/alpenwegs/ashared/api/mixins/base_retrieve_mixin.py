@@ -26,7 +26,10 @@ class BaseRetrieveModelMixin(
         # Collect instance:
         instance = self.get_object()
         # Collect serializer:
-        serializer = self.get_serializer(instance)
+        serializer = self._get_serializer(   
+            instance,
+            serializer_name='detailed',
+        )
 
         # Return (200 HTTP - Ok) response:
         return Response(

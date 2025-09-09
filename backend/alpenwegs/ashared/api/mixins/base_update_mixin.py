@@ -33,8 +33,12 @@ class BaseUpdateModelMixin(
         instance = self.get_object()
         
         # Collect serializer:
-        serializer = self.get_serializer(
-        instance, data=request.data, partial=partial)
+        serializer = self._get_serializer(
+            instance,
+            serializer_name='detailed',
+            data=request.data,
+            partial=partial
+        )
         # Validate serializer:
         serializer.is_valid(raise_exception=True)
         # Save serializer:

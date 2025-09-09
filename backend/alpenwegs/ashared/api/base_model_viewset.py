@@ -96,6 +96,7 @@ class ReadWriteViewSet(
 
 class ReadWriteNoListViewSet(
     BaseViewSet,
+    BaseListRepresentationModelMixin,
     BaseListAdminModelMixin,
     BaseRetrieveModelMixin,
     BaseDestroyModelMixin,
@@ -115,6 +116,7 @@ class ReadWriteNoListViewSet(
 
 class ReadOnlyViewSet(
     BaseViewSet,
+    BaseListRepresentationModelMixin,
     BaseListAdminModelMixin,
     BaseRetrieveModelMixin,
     BaseListModelMixin,
@@ -131,6 +133,7 @@ class ReadOnlyViewSet(
 
 class ReadDeleteViewSet(
     BaseViewSet,
+    BaseListRepresentationModelMixin,
     BaseListAdminModelMixin,
     BaseRetrieveModelMixin,
     BaseDestroyModelMixin,
@@ -160,6 +163,7 @@ class RetrieveOnlyViewSet(
 
 class ReadEditViewSet(
     BaseViewSet,
+    BaseListRepresentationModelMixin,
     BaseListAdminModelMixin,
     BaseRetrieveModelMixin,
     BaseUpdateModelMixin,

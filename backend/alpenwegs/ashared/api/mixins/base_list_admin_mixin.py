@@ -39,13 +39,25 @@ class BaseListAdminModelMixin(
         # Prepare page view with pagination:
         page = self.paginate_queryset(queryset)
         if page is not None:
-            # if page has been received, serializer it:
-            serializer = self.get_serializer(page, many=True)
-            paginated = self.get_paginated_response(serializer.data)
+            # If page has been received, serializer it:
+            serializer = self._get_serializer(
+                page,
+                serializer_name='relation',
+                many=True
+            )
+            # Prepare paginated response:
+            paginated = self.get_paginated_response(
+                serializer.data
+            )
+            # Return paginated response:
             return paginated
         
         # Prepare page view without pagination:
-        serializer = self.get_serializer(queryset, many=True)
+        serializer = self._get_serializer(
+            queryset,
+            serializer_name='relation',
+            many=True,
+        )
 
         # Return (200 HTTP - Ok) response:
         return Response(

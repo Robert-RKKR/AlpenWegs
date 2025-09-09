@@ -25,8 +25,11 @@ class BaseCreateModelMixin(
         **kwargs: dict,
     ) -> Response:
 
-        # Collect a new serializer:
-        serializer = self.get_serializer(data=request.data)
+        # Collect a new objet detailed serializer:
+        serializer = self._get_serializer(
+            serializer_name='detailed',
+            data=request.data,
+        )
         # Validate created serializer:
         serializer.is_valid(raise_exception=True)
         # Save a new instance based on validated serializer data:

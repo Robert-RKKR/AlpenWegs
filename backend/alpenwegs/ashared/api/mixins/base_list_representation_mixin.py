@@ -2,7 +2,6 @@
 from alpenwegs.ashared.api.mixins.base_mixin import BaseMixin
 
 # Rest framework import:
-from django.core.exceptions import FieldDoesNotExist
 from rest_framework.mixins import ListModelMixin
 from rest_framework.exceptions import ParseError
 from rest_framework.decorators import action
@@ -37,8 +36,10 @@ class BaseListRepresentationModelMixin(
         queryset = self.filter_queryset(queryset)
         
         # Prepare page view without pagination:
-        serializer = self._get_serializer_class(
-            'representation',
+        serializer = self._get_serializer(
+            queryset,
+            serializer_name='representation',
+            many=True,
         )
 
         # Return (200 HTTP - Ok) response:

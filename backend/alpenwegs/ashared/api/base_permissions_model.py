@@ -159,7 +159,7 @@ class BasePermissionsModel(
         # 6: Check if model is instance of BaseCreatorModel:
         elif isinstance(obj, BaseCreatorModel):
             # Check if user is the creator of the object:
-            if obj.creator_pk == user.pk:
+            if obj.creator_id == user.pk:
                 # Owner can run all actions on instance:
                 return True
             

@@ -1,10 +1,13 @@
 # AlpenWegs application import:
+from compendiums.api.serializers.poi_serializer import PoiRepresentationSerializer
 from compendiums.api.serializers.poi_serializer import PoiDetailedSerializer
+from compendiums.api.serializers.poi_serializer import PoiRelationSerializer
 from compendiums.api.filters.poi_filter import PoiFilter
 from compendiums.models.poi_model import PoiModel
 
 # AlpenWegs import:
 from alpenwegs.ashared.api.schemas.schema_generators import schema_partial_update
+from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
 from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
 from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
@@ -19,6 +22,7 @@ from drf_spectacular.utils import extend_schema_view
 
 # PoI Model API view class:
 @extend_schema_view(
+    representation=schema_representation(PoiDetailedSerializer, 'Compendiums', 'Poi'),
     partial_update=schema_partial_update(PoiDetailedSerializer, 'Compendiums', 'Poi'),
     retrieve=schema_retrieve(PoiDetailedSerializer, 'Compendiums', 'Poi'),
     destroy=schema_destroy(PoiDetailedSerializer, 'Compendiums', 'Poi'),
@@ -39,8 +43,13 @@ class PoiView(ReadWriteViewSet):
     query_ordering = '-created'
     query_model = PoiModel
 
-    # Serializer class used for the view:
+    # Serializer class (Legacy, required by DRF):
     serializer_class = PoiDetailedSerializer
+
+    # Serializer class used for the view:
+    representation_serializer_class = PoiRepresentationSerializer
+    detailed_serializer_class = PoiDetailedSerializer
+    relation_serializer_class = PoiRelationSerializer
 
     # Pagination class used for the view:
     pagination_class = BaseSmallPaginator

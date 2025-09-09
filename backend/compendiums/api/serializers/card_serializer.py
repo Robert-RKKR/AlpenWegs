@@ -51,6 +51,14 @@ read_only_fields = [
     'created',
     'updated',
 ]
+representation_fields = [
+    # BaseModel values:
+    'pk',
+    'url',
+
+    # BaseIdentificationModel values:
+    'name',
+]
 
 
 # Card Detailed serializer:
@@ -87,6 +95,40 @@ class CardDetailedSerializer(
 
         # Define writable fields:
         fields = fields
+
+        # Define related model:
+        model = model
+
+        # Define model depth:
+        depth = depth
+
+
+# Card Representation serializer:
+class CardRepresentationSerializer(
+    BaseSerializer,
+):
+    """
+    Representation serializer for the Card model. Includes only the fields
+    necessary for representing a Card object in API responses.
+
+    Used for standard API actions such as list and retrieve, whenever
+    a simplified representation of a Card object is sufficient.
+    """
+
+    # Default model URL field with hyperlink to retrieve view:
+    url = HyperlinkedIdentityField(
+        view_name='api-compendiums:card_model-detail',
+        help_text='URL to provided object.',
+        read_only=True,
+    )
+
+    class Meta:
+
+        # Define read only fields:
+        read_only_fields = representation_fields
+
+        # Define writable fields:
+        fields = representation_fields
 
         # Define related model:
         model = model

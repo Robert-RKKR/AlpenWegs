@@ -1,10 +1,13 @@
 # AlpenWegs application import:
+from compendiums.api.serializers.region_serializer import RegionRepresentationSerializer
 from compendiums.api.serializers.region_serializer import RegionDetailedSerializer
+from compendiums.api.serializers.region_serializer import RegionRelationSerializer
 from compendiums.api.filters.region_filter import RegionFilter
 from compendiums.models.region_model import RegionModel
 
 # AlpenWegs import:
 from alpenwegs.ashared.api.schemas.schema_generators import schema_partial_update
+from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
 from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
 from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
@@ -19,6 +22,7 @@ from drf_spectacular.utils import extend_schema_view
 
 # Region Model API view class:
 @extend_schema_view(
+    representation=schema_representation(RegionDetailedSerializer, 'Compendiums', 'Region'),
     partial_update=schema_partial_update(RegionDetailedSerializer, 'Compendiums', 'Region'),
     retrieve=schema_retrieve(RegionDetailedSerializer, 'Compendiums', 'Region'),
     destroy=schema_destroy(RegionDetailedSerializer, 'Compendiums', 'Region'),
@@ -39,8 +43,13 @@ class RegionView(ReadWriteViewSet):
     query_ordering = '-created'
     query_model = RegionModel
 
-    # Serializer class used for the view:
+    # Serializer class (Legacy, required by DRF):
     serializer_class = RegionDetailedSerializer
+
+    # Serializer class used for the view:
+    representation_serializer_class = RegionRepresentationSerializer
+    detailed_serializer_class = RegionDetailedSerializer
+    relation_serializer_class = RegionRelationSerializer
 
     # Pagination class used for the view:
     pagination_class = BaseSmallPaginator

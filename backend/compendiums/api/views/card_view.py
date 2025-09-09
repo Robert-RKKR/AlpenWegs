@@ -1,10 +1,13 @@
 # AlpenWegs application import:
+from compendiums.api.serializers.card_serializer import CardRepresentationSerializer
 from compendiums.api.serializers.card_serializer import CardDetailedSerializer
+from compendiums.api.serializers.card_serializer import CardRelationSerializer
 from compendiums.api.filters.card_filter import CardFilter
 from compendiums.models.card_model import CardModel
 
 # AlpenWegs import:
 from alpenwegs.ashared.api.schemas.schema_generators import schema_partial_update
+from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
 from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
 from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
@@ -19,6 +22,7 @@ from drf_spectacular.utils import extend_schema_view
 
 # Card Model API view class:
 @extend_schema_view(
+    representation=schema_representation(CardDetailedSerializer, 'Compendiums', 'Card'),
     partial_update=schema_partial_update(CardDetailedSerializer, 'Compendiums', 'Card'),
     retrieve=schema_retrieve(CardDetailedSerializer, 'Compendiums', 'Card'),
     destroy=schema_destroy(CardDetailedSerializer, 'Compendiums', 'Card'),
@@ -40,9 +44,13 @@ class CardView(
     # Model and query ordering used for the view:
     query_ordering = '-created'
     query_model = CardModel
+    # Serializer class (Legacy, required by DRF):
+    serializer_class = CardDetailedSerializer
 
     # Serializer class used for the view:
-    serializer_class = CardDetailedSerializer
+    representation_serializer_class = CardRepresentationSerializer
+    detailed_serializer_class = CardDetailedSerializer
+    relation_serializer_class = CardRelationSerializer
 
     # Pagination class used for the view:
     pagination_class = BaseSmallPaginator

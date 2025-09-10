@@ -63,7 +63,6 @@ def schema_list(
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
-    paginated: bool = True,
 ):
     """
     Schema generator for standard list views.

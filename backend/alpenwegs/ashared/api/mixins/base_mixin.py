@@ -1,12 +1,18 @@
 # AlpenWegs import:
+from alpenwegs.ashared.api.base_exceptions import ValidationAPIException
 from alpenwegs.ashared.constants.action_type import ActionTypeChoices
 from alpenwegs.ashared.models.base_model import BaseModel
+from alpenwegs.logger import logger
 
 # AlpenWegs application import:
 from notifications.ashared.notifications.notification import Notification
 from notifications.ashared.changes.collector import collect_object_data
 from notifications.ashared.changes.changer import log_change
 from profiles.models.user_model import UserModel
+
+# Python import:
+from django.core.exceptions import ImproperlyConfigured
+import redis
 
 
 # Base Mixin class:
@@ -89,7 +95,37 @@ class BaseMixin():
                 task_id=f'api-{action_repr}',
                 channel_name=f'user_{user.id}',
             )
-            # Send notification:
-            notification.info(f'{model_name} "{instance_representation}" '
-                f'has been {action_repr}d.', url=url
-            )
+
+            try:
+                # Send notification:
+                notification.info(
+                    f'{model_name} "{instance_representation}" '
+                    f'has been {action_repr}d.',
+                    url=url
+                )
+
+            except (
+                redis.exceptions.ConnectionError,
+                redis.exceptions.TimeoutError,
+                redis.exceptions.ReadOnlyError,
+                ImproperlyConfigured
+            ) as exception:
+                
+                # # Raise an API-level 500 error:
+                # raise ValidationAPIException(
+                #     error_message='Notification service unavailable.',
+                #     error_details=[{
+                #         'error_field': 'redis',
+                #         'error_message': str(exception),
+                #         'error_code': 'redis_unavailable',
+                #     }],
+                #     status_code=500
+                # )
+
+                logger.critical(f'Notification service unavailable: {exception}')
+
+                pass
+
+            except Exception as exception:
+
+                pass

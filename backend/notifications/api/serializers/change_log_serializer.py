@@ -48,6 +48,7 @@ read_only_fields = [
 ]
 representation_fields = [
     'url',
+    'object_repr',
 ]
 
 
@@ -126,31 +127,6 @@ class ChangeLogRelationSerializer(
         view_name='api-notification:change_log_model-detail',
         help_text='URL to provided object.',
         read_only=True,
-    )
-
-    class Meta:
-
-        # Define read only fields:
-        read_only_fields = read_only_fields
-
-        # Define writable fields:
-        fields = fields
-
-        # Define related model:
-        model = model
-
-        # Define model depth:
-        depth = depth
-
-
-# ChangeLog Model serializer class without After value:
-class ChangeLogWithoutAfterSerializer(BaseSerializer):
-
-    # Object URL definition:
-    url = HyperlinkedIdentityField(
-        view_name='api-notification:change_log_model-detail',
-        help_text='URL to provided object.',
-        read_only=False,
     )
 
     class Meta:

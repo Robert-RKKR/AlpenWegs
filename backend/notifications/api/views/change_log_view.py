@@ -1,6 +1,5 @@
 # AlpenWegs application import:
 from notifications.api.serializers.change_log_serializer import ChangeLogRepresentationSerializer
-from notifications.api.serializers.change_log_serializer import ChangeLogWithoutAfterSerializer
 from notifications.api.serializers.change_log_serializer import ChangeLogDetailedSerializer
 from notifications.api.serializers.change_log_serializer import ChangeLogRelationSerializer
 from notifications.api.filters.change_log_filter import ChangeLogFilter
@@ -39,7 +38,7 @@ class ChangeLogView(
 
     # Model and query ordering used for the view:
     query_model = ChangeLogModel
-    query_ordering = '-created'
+    query_ordering = '-timestamp'
 
     # Serializer class (Legacy, required by DRF):
     serializer_class = ChangeLogDetailedSerializer
@@ -62,7 +61,10 @@ class ChangeLogView(
     search_fields = '__all__'
 
     @action(detail=True, methods=['get'], url_path='compare-changes')
-    def compare_changes(self, request, pk=None):
+    def compare_changes(self,
+        request,
+        pk=None,
+    ):
         """
         Custom method to retrieve current change log and append the previous
         change log's 'after' value as part of the current change's response.
@@ -86,7 +88,7 @@ class ChangeLogView(
         
         # Build the response data:
         data = {
-            'change_object': ChangeLogWithoutAfterSerializer(
+            'change_object': ChangeLogRepresentationSerializer(
                 current_change, context={'request': request}).data,
             'current_change': current_change.after,
             'previous_change': previous_change.after if previous_change else None

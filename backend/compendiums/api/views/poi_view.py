@@ -36,6 +36,9 @@ class PoiView(ReadWriteViewSet):
     Read-write API view for the PoI model.
     """
 
+    # Log model changes:
+    log_changes = True
+
     # Queryset for the view (Legacy, required by DRF):
     queryset = PoiModel.objects.all()
 

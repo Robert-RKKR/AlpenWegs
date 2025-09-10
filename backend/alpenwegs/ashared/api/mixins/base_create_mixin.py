@@ -36,7 +36,7 @@ class BaseCreateModelMixin(
         instance = serializer.save()
 
         # Create change log notification:
-        self._create_notification(
+        test = self._create_notification(
             action=ActionTypeChoices.CREATE,
             log_changes=self.log_changes,
             serializer=serializer,

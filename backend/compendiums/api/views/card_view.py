@@ -38,6 +38,9 @@ class CardView(
     Read-write API view for the Card model.
     """
 
+    # Log model changes:
+    log_changes = True
+
     # Queryset for the view (Legacy, required by DRF):
     queryset = CardModel.objects.all()
 

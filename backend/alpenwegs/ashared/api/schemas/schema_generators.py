@@ -12,8 +12,25 @@ from drf_spectacular.utils import OpenApiResponse
 from drf_spectacular.utils import extend_schema
 from rest_framework import serializers
 
+def build_paginated_list_schema(data_schema):
+    """
+    Custom schema matching your actual paginated response format.
+    """
+    class PaginatedListSchema(serializers.Serializer):
+        page_status = serializers.BooleanField()
+        page_results = data_schema(many=True)
+        page_objects = serializers.IntegerField()
+        page_count = serializers.IntegerField()
+        page_links = serializers.DictField(
+            child=serializers.CharField(allow_null=True)
+        )
+        page_error = serializers.JSONField(allow_null=True, required=False)
 
-def build_list_schema(data_schema, paginated: bool = False):
+    PaginatedListSchema.__name__ = f"{data_schema.__name__}PaginatedListResponse"
+    return PaginatedListSchema
+
+
+def build_list_schema(data_schema):
     """
     Wrapper for list responses (paginated or not).
     """
@@ -22,14 +39,7 @@ def build_list_schema(data_schema, paginated: bool = False):
         page_results = data_schema(many=True)
         page_error = serializers.JSONField(allow_null=True, required=False)
 
-        if paginated:
-            page_objects = serializers.IntegerField()
-            page_count = serializers.IntegerField()
-            page_links = serializers.DictField(
-                child=serializers.CharField(allow_null=True)
-            )
-
-    suffix = "PaginatedListResponse" if paginated else "ListResponse"
+    suffix = "ListResponse"
     ListSchema.__name__ = f"{data_schema.__name__}{suffix}"
     return ListSchema
 
@@ -65,7 +75,7 @@ def schema_list(
     """
 
     # Generate paginated list schema based on model serializer:
-    response_schema = build_list_schema(default_schema, paginated=True)
+    response_schema = build_paginated_list_schema(default_schema)
 
     # Create a dedicated schema for list responses:
     list_schema = extend_schema(
@@ -118,7 +128,7 @@ def schema_admin(
     """
 
     # Generate paginated list schema based on model serializer:
-    response_schema = build_list_schema(default_schema, paginated=True)
+    response_schema = build_paginated_list_schema(default_schema)
 
     # Create a dedicated schema for admin responses:
     admin_schema = extend_schema(
@@ -169,7 +179,7 @@ def schema_representation(
     """
 
     # Generate non-paginated list schema based on model serializer:
-    response_schema = build_list_schema(default_schema, paginated=False)
+    response_schema = build_list_schema(default_schema)
 
     # Create a dedicated schema for representation responses:
     representation_schema = extend_schema(

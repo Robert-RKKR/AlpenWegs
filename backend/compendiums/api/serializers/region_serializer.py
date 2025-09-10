@@ -2,11 +2,12 @@
 from alpenwegs.ashared.api.base_serializers import WritableNestedSerializer
 from alpenwegs.ashared.api.base_serializers import BaseSerializer
 
+# AlpenWegs application import:
+from profiles.api.serializers.user_serializer import UserRelationSerializer
+from compendiums.models.region_model import RegionModel
+
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
-
-# AlpenWegs application import:
-from compendiums.models.region_model import RegionModel
 
 
 # Region Model serializer details:
@@ -67,6 +68,13 @@ class RegionDetailedSerializer(
         view_name='api-compendiums:region_model-detail',
         help_text='URL to provided object.',
         read_only=True,
+    )
+
+    # Other object relation schemas:
+    creator = UserRelationSerializer(
+        help_text=RegionModel.creator.field.help_text,
+        required=RegionModel.creator.field.null,
+        allow_null=RegionModel.creator.field.blank,
     )
 
     class Meta:

@@ -1,11 +1,13 @@
 # AlpenWegs import:
 from alpenwegs.ashared.api.mixins.base_mixin import BaseMixin
 
+# AlpenWegs application import:
+from profiles.models.user_model import UserModel
+
 # Rest framework import:
 from django.core.exceptions import FieldDoesNotExist
 from rest_framework.mixins import ListModelMixin
 from rest_framework.exceptions import ParseError
-from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
 
@@ -27,6 +29,15 @@ class BaseListModelMixin(
         - If model has `creator` field → restrict to objects created by the user.
         - Otherwise → return all objects.
         """
+
+        # Check if request user is instance of UserModel:
+        if isinstance(self.request.user, UserModel):
+            # Filter only user that is requesting the data:
+            return self.query_model.objects.filter(
+                pk=self.request.user.pk,
+            ).order_by(
+                self.query_ordering
+            )
 
         try:
             # Check if model has creator field:

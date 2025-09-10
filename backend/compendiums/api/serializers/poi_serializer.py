@@ -75,7 +75,7 @@ class PoiDetailedSerializer(
         read_only=True,
     )
 
-    # Object relation definition:
+    # Other object relation schemas:
     creator = UserRelationSerializer(
         help_text=PoiModel.creator.field.help_text,
         required=PoiModel.creator.field.null,

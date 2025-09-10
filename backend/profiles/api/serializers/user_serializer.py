@@ -45,13 +45,11 @@ fields = [
     'location_name',
 ]
 read_only_fields = [
-    # Base Model values:
     'pk',
     'url',
 ]
 representation_fields = [
     'url',
-    'email',
     'username',
 ]
 

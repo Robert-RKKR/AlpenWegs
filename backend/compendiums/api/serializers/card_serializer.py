@@ -8,6 +8,7 @@ from rest_framework.serializers import HyperlinkedIdentityField
 
 # AlpenWegs application import:
 from compendiums.api.serializers.poi_serializer import PoiRelationSerializer
+from profiles.api.serializers.user_serializer import UserRelationSerializer
 from compendiums.models.card_model import CardModel
 from compendiums.models.poi_model import PoiModel
 
@@ -77,11 +78,16 @@ class CardDetailedSerializer(
         read_only=True,
     )
 
-    # Field related to relations with other models:
+    # Other object relation schemas:
+    creator = UserRelationSerializer(
+        help_text=CardModel.creator.field.help_text,
+        required=CardModel.creator.field.null,
+        allow_null=CardModel.creator.field.blank,
+    )
     poi = PoiRelationSerializer(
-        help_text=PoiModel.region.field.help_text,
-        required=PoiModel.region.field.null,
-        allow_null=PoiModel.region.field.blank,
+        help_text=CardModel.poi.field.help_text,
+        required=CardModel.poi.field.null,
+        allow_null=CardModel.poi.field.blank,
     )
 
     class Meta:

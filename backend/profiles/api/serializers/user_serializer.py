@@ -128,7 +128,7 @@ class UserRelationSerializer(
     """
 
     url = HyperlinkedIdentityField(
-        view_name='api-profiles:file_model-detail',
+        view_name='api-profiles:user_model-detail',
         help_text='URL to provided object.',
         read_only=True,
     )

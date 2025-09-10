@@ -13,18 +13,38 @@ from drf_spectacular.utils import extend_schema
 from rest_framework import serializers
 
 
-def build_api_response_schema(data_schema, many=False):
+def build_list_schema(data_schema, paginated: bool = False):
     """
-    Factory to wrap any serializer into the standard response schema.
-    If many=True, wraps as a list of the schema.
+    Wrapper for list responses (paginated or not).
     """
-
-    class APIResponseSchema(serializers.Serializer):
+    class ListSchema(serializers.Serializer):
         page_status = serializers.BooleanField()
-        page_data = data_schema(many=many)
-        page_error = None
+        page_results = data_schema(many=True)
+        page_error = serializers.JSONField(allow_null=True, required=False)
 
-    return APIResponseSchema
+        if paginated:
+            page_objects = serializers.IntegerField()
+            page_count = serializers.IntegerField()
+            page_links = serializers.DictField(
+                child=serializers.CharField(allow_null=True)
+            )
+
+    suffix = "PaginatedListResponse" if paginated else "ListResponse"
+    ListSchema.__name__ = f"{data_schema.__name__}{suffix}"
+    return ListSchema
+
+
+def build_retrieve_schema(data_schema):
+    """
+    Wrapper for single object responses.
+    """
+    class RetrieveSchema(serializers.Serializer):
+        page_status = serializers.BooleanField()
+        page_results = data_schema()
+        page_error = serializers.JSONField(allow_null=True, required=False)
+
+    RetrieveSchema.__name__ = f"{data_schema.__name__}RetrieveResponse"
+    return RetrieveSchema
 
 
 # Base list schema generator:
@@ -33,6 +53,7 @@ def schema_list(
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
+    paginated: bool = True,
 ):
     """
     Schema generator for standard list views.
@@ -43,7 +64,8 @@ def schema_list(
       and public entries of the model.
     """
 
-    response_schema = build_api_response_schema(default_schema, many=True)
+    # Generate paginated list schema based on model serializer:
+    response_schema = build_list_schema(default_schema, paginated=True)
 
     # Create a dedicated schema for list responses:
     list_schema = extend_schema(
@@ -95,12 +117,15 @@ def schema_admin(
     - Restricted to administrative users only.
     """
 
+    # Generate paginated list schema based on model serializer:
+    response_schema = build_list_schema(default_schema, paginated=True)
+
     # Create a dedicated schema for admin responses:
     admin_schema = extend_schema(
         # Define possible API responses:
         responses={
             200: OpenApiResponse(
-                default_schema,
+                response_schema,
                 description=f'Retrieve {object_repr} objects',
             ),
             401: OpenApiResponse(
@@ -143,12 +168,15 @@ def schema_representation(
     - Available for all users.
     """
 
+    # Generate non-paginated list schema based on model serializer:
+    response_schema = build_list_schema(default_schema, paginated=False)
+
     # Create a dedicated schema for representation responses:
     representation_schema = extend_schema(
         # Define possible API responses:
         responses={
             200: OpenApiResponse(
-                default_schema,
+                response_schema,
                 description=f'Retrieve {object_repr} objects',
             ),
             401: OpenApiResponse(
@@ -188,12 +216,15 @@ def schema_retrieve(
     - Ensures object visibility and ownership are respected.
     """
 
+    # Generate retrieval schema based on model serializer:
+    response_schema = build_retrieve_schema(default_schema)
+
     # Create a dedicated schema for retrieval responses:
     retrieval_schema = extend_schema(
         # Define possible API responses:
         responses={
             200: OpenApiResponse(
-                default_schema,
+                response_schema,
                 description=f'Retrieve {object_repr} object',
             ),
             401: OpenApiResponse(
@@ -245,12 +276,15 @@ def schema_create(
     - Returns the created object upon success.
     """
 
+    # Generate create schema based on model serializer:
+    response_schema = build_retrieve_schema(default_schema)
+
     # Create a dedicated schema for create responses:
     create_schema = extend_schema(
         # Define possible API responses:
         responses={
             201: OpenApiResponse(
-                default_schema,
+                response_schema,
                 description=f'Retrieve {object_repr} object',
             ),
             400: OpenApiResponse(
@@ -300,12 +334,15 @@ def schema_update(
     - Returns the updated object.
     """
 
+    # Generate update schema based on model serializer:
+    response_schema = build_retrieve_schema(default_schema)
+
     # Create a dedicated schema for update responses:
     update_schema = extend_schema(
         # Define possible API responses:
         responses={
             200: OpenApiResponse(
-                default_schema,
+                response_schema,
                 description=f'Updated and retrieve {object_repr} object',
             ),
             400: OpenApiResponse(
@@ -360,12 +397,15 @@ def schema_partial_update(
     - Returns the updated object.
     """
 
+    # Generate partial update schema based on model serializer:
+    response_schema = build_retrieve_schema(default_schema)
+
     # Create a dedicated schema for partial update responses:
     partial_update_schema = extend_schema(
         # Define possible API responses:
         responses={
             200: OpenApiResponse(
-                default_schema,
+                response_schema,
                 description=f'Updated and retrieve {object_repr} object',
             ),
             400: OpenApiResponse(

@@ -22,7 +22,7 @@ from drf_spectacular.utils import extend_schema_view
 
 # Trip Model API view class:
 @extend_schema_view(
-    representation=schema_representation(TripDetailedSerializer, 'Assets', 'File'),
+    representation=schema_representation(TripDetailedSerializer, 'Explorers', 'Trip'),
     partial_update=schema_partial_update(TripDetailedSerializer, 'Explorers', 'Trip'),
     retrieve=schema_retrieve(TripDetailedSerializer, 'Explorers', 'Trip'),
     destroy=schema_destroy(TripDetailedSerializer, 'Explorers', 'Trip'),

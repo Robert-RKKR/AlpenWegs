@@ -22,14 +22,14 @@ from drf_spectacular.utils import extend_schema_view
 
 # User Model api view class:
 @extend_schema_view(
-    representation=schema_representation(UserDetailedSerializer, 'Assets', 'File'),
-    partial_update=schema_partial_update(UserDetailedSerializer, 'ProUsers', 'User'),
-    retrieve=schema_retrieve(UserDetailedSerializer, 'ProUsers', 'User'),
-    destroy=schema_destroy(UserDetailedSerializer, 'ProUsers', 'User'),
-    update=schema_update(UserDetailedSerializer, 'ProUsers', 'User'),
-    create=schema_create(UserDetailedSerializer, 'ProUsers', 'User'),
-    admin=schema_list(UserDetailedSerializer, 'ProUsers', 'User'),
-    list=schema_list(UserDetailedSerializer, 'ProUsers', 'User'),
+    representation=schema_representation(UserDetailedSerializer, 'Profiles', 'User'),
+    partial_update=schema_partial_update(UserDetailedSerializer, 'Profiles', 'User'),
+    retrieve=schema_retrieve(UserDetailedSerializer, 'Profiles', 'User'),
+    destroy=schema_destroy(UserDetailedSerializer, 'Profiles', 'User'),
+    update=schema_update(UserDetailedSerializer, 'Profiles', 'User'),
+    create=schema_create(UserDetailedSerializer, 'Profiles', 'User'),
+    admin=schema_list(UserDetailedSerializer, 'Profiles', 'User'),
+    list=schema_list(UserDetailedSerializer, 'Profiles', 'User'),
 )
 class UserView(
     ReadWriteViewSet,

@@ -21,11 +21,11 @@ from rest_framework.decorators import action
 
 # ChangeLog Model api view class:
 @extend_schema_view(
-    representation=schema_representation(ChangeLogDetailedSerializer, 'Assets', 'File'),
-    compare_changes=schema_retrieve(ChangeLogDetailedSerializer, 'Notification', 'Change Log'),
-    retrieve=schema_retrieve(ChangeLogDetailedSerializer, 'Notification', 'Change Log'),
-    admin=schema_list(ChangeLogDetailedSerializer, 'Notification', 'Change Log'),
-    list=schema_list(ChangeLogDetailedSerializer, 'Notification', 'Change Log'),
+    representation=schema_representation(ChangeLogDetailedSerializer, 'Notifications', 'Change Log'),
+    compare_changes=schema_retrieve(ChangeLogDetailedSerializer, 'Notifications', 'Change Log'),
+    retrieve=schema_retrieve(ChangeLogDetailedSerializer, 'Notifications', 'Change Log'),
+    admin=schema_list(ChangeLogDetailedSerializer, 'Notifications', 'Change Log'),
+    list=schema_list(ChangeLogDetailedSerializer, 'Notifications', 'Change Log'),
 )
 class ChangeLogView(
     ReadOnlyViewSet,

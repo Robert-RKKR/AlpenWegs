@@ -10,7 +10,7 @@ def base_page_not_found(
     return JsonResponse(
         {
             'page_status': False,
-            'page_data': None,
+            'page_results': None,
             'page_error': {
                 'error_message': 'The requested API endpoint was not found.',
                 'error_code': 'not_found',

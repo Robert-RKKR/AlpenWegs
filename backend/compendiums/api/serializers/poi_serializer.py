@@ -7,7 +7,7 @@ from rest_framework.serializers import HyperlinkedIdentityField
 
 # AlpenWegs application import:
 from compendiums.api.serializers.region_serializer import RegionRelationSerializer
-from profiles.api.serializers.user_serializer import UserNestedSerializer
+from profiles.api.serializers.user_serializer import UserRelationSerializer
 from compendiums.models.poi_model import PoiModel
 
 
@@ -76,7 +76,7 @@ class PoiDetailedSerializer(
     )
 
     # Object relation definition:
-    creator = UserNestedSerializer(
+    creator = UserRelationSerializer(
         help_text=PoiModel.creator.field.help_text,
         required=PoiModel.creator.field.null,
         allow_null=PoiModel.creator.field.blank,

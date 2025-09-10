@@ -22,7 +22,7 @@ from drf_spectacular.utils import extend_schema_view
 
 # Section Model API view class:
 @extend_schema_view(
-    representation=schema_representation(SectionDetailedSerializer, 'Assets', 'File'),
+    representation=schema_representation(SectionDetailedSerializer, 'Explorers', 'Section'),
     partial_update=schema_partial_update(SectionDetailedSerializer, 'Explorers', 'Section'),
     retrieve=schema_retrieve(SectionDetailedSerializer, 'Explorers', 'Section'),
     destroy=schema_destroy(SectionDetailedSerializer, 'Explorers', 'Section'),

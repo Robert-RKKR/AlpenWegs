@@ -29,7 +29,7 @@ class BaseResponseRenderer(
         # Define the response structure:
         response_data = {
             'page_status': success,
-            'page_data': None,
+            'page_results': None,
             'page_error': None,
         }
 
@@ -42,7 +42,7 @@ class BaseResponseRenderer(
             
             else:
                 # Add data response directly:
-                response_data['page_data'] = data
+                response_data['page_results'] = data
         
         else:
             # If response is not successful, add errors to response:

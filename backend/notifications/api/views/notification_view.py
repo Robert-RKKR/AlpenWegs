@@ -19,11 +19,11 @@ from drf_spectacular.utils import extend_schema_view
 
 # Notification Model api view class:
 @extend_schema_view(
-    representation=schema_representation(NotificationDetailedSerializer, 'Assets', 'File'),
-    retrieve=schema_retrieve(NotificationDetailedSerializer, 'Notification', 'Notification'),
-    destroy=schema_destroy(NotificationDetailedSerializer, 'Notification', 'Notification'),
-    admin=schema_list(NotificationDetailedSerializer, 'Notification', 'Notification'),
-    list=schema_list(NotificationDetailedSerializer, 'Notification', 'Notification'),
+    representation=schema_representation(NotificationDetailedSerializer, 'Notifications', 'Notification'),
+    retrieve=schema_retrieve(NotificationDetailedSerializer, 'Notifications', 'Notification'),
+    destroy=schema_destroy(NotificationDetailedSerializer, 'Notifications', 'Notification'),
+    admin=schema_list(NotificationDetailedSerializer, 'Notifications', 'Notification'),
+    list=schema_list(NotificationDetailedSerializer, 'Notifications', 'Notification'),
 )
 class NotificationView(
     ReadDeleteViewSet,

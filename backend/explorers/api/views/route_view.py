@@ -22,7 +22,7 @@ from drf_spectacular.utils import extend_schema_view
 
 # Route Model API view class:
 @extend_schema_view(
-    representation=schema_representation(RouteDetailedSerializer, 'Assets', 'File'),
+    representation=schema_representation(RouteDetailedSerializer, 'Explorers', 'Route'),
     partial_update=schema_partial_update(RouteDetailedSerializer, 'Explorers', 'Route'),
     retrieve=schema_retrieve(RouteDetailedSerializer, 'Explorers', 'Route'),
     destroy=schema_destroy(RouteDetailedSerializer, 'Explorers', 'Route'),

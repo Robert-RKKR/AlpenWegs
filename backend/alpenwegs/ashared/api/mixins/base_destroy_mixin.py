@@ -44,11 +44,11 @@ class BaseDestroyModelMixin(
         self._create_notification(
             copy_instance, ActionTypeChoices.DELETE, request.user,
             False, self.log_changes)
-        
+
         # Return (204 HTTP - No Content) response:
-        return self._return_api_response(
-            status.HTTP_204_NO_CONTENT, [], False,
-            f'Object {instance} has been successfully deleted.'
+        return Response(
+            data=[],
+            status=status.HTTP_204_NO_CONTENT,
         )
 
     def destroy(self,

@@ -2,7 +2,6 @@
 from alpenwegs.ashared.api.mixins.base_mixin import BaseMixin
 
 # Rest framework import:
-from django.core.exceptions import FieldDoesNotExist
 from rest_framework.mixins import ListModelMixin
 from rest_framework.exceptions import ParseError
 from rest_framework.decorators import action

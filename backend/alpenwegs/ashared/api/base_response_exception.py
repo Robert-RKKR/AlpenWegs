@@ -108,14 +108,14 @@ def base_exception_handler(
     print('\n')
 
 
-    # error_response, response = collect_exception_data(
-    #     context=context,
-    #     exc=exc,
-    # )
-    # return Response(
-    #     data=error_response,
-    #     status=response.status_code
-    # )
+    error_response, response = collect_exception_data(
+        context=context,
+        exc=exc,
+    )
+    return Response(
+        data=error_response,
+        status=response.status_code
+    )
 
     # try:
     #     # Try to collect exception data:

@@ -1,0 +1,2591 @@
+{
+	"info": {
+		"_postman_id": "ab9a0000-ce35-4ef0-a184-f0d310ec851e",
+		"name": "AlpenWegs",
+		"description": "# 🌄 AlpenWegs API Workspace\n\n## 👋 Introduction\n\nWelcome to the **AlpenWegs API workspace**.  \nThis workspace is dedicated to the development and documentation of the AlpenWegs outdoor adventure platform—a comprehensive application supporting hiking, biking, trail running, and camping in Switzerland.\n\nThe AlpenWegs workspace serves as a single source of truth for our APIs, enabling contributors, developers, and testers to efficiently explore, validate, and extend the system’s capabilities.\n\n---\n\n## 🚀 Getting started with this workspace\n\n### Reference collections\n\nReference collections provide detailed documentation of AlpenWegs API endpoints. They demonstrate how to interact with the system’s core modules:\n\n- **Profiles** – Manage users, roles, settings, and achievements.\n    \n- **Assets** – Store and retrieve images, GPX tracks, and files.\n    \n- **Compendium** – Access articles, POIs, and cultural/historical content.\n    \n- **Events** – Create and manage group activities and outdoor meet-ups.\n    \n- **Explorer** – Plan, track, and analyze trails and routes.\n    \n\nEach collection includes example requests and responses to help you understand the structure, authentication requirements, and expected outputs.\n\n---\n\n### Blueprint collections\n\nBlueprint collections highlight practical workflows built on top of the AlpenWegs APIs. These examples show how to chain multiple endpoints to achieve specific use cases, such as:\n\n- Registering a new user, updating preferences, and logging first achievements.\n    \n- Uploading a GPX track, attaching photos, and creating a personalized route entry.\n    \n- Discovering trails within a region and saving them to a user’s “planned adventures.”\n    \n- Creating and joining events with other users.\n    \n\nThese collections help simulate real-world scenarios, providing a fast path to learning and validation.\n\n---\n\n### Environments\n\nAlpenWegs provides environments to simplify working across development, staging, and production. Each environment defines key variables such as:\n\n- `{{base_url}}` – API root endpoint\n    \n- `{{access_token}}` – Authentication token (JWT)\n    \n- `{{region_id}}`, `{{user_id}}` – Sample UUIDs for testing\n    \n\nUsing environments ensures smooth transitions between different contexts without manually editing requests.\n\n---\n\n## 🛟 Help and support\n\nIf you have questions, encounter issues, or would like to contribute improvements:\n\n- Contact the AlpenWegs engineering team\n    \n- Check documentation linked inside collections\n    \n- Share feedback directly in the workspace\n    \n\nTogether, we can make AlpenWegs a powerful platform for planning, experiencing, and remembering adventures in the Swiss Alps.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "11062867"
+	},
+	"item": [
+		{
+			"name": "Assets",
+			"item": [
+				{
+					"name": "File",
+					"item": [
+						{
+							"name": "Collect all Files",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/assets/file/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"assets",
+										"file",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect single File",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/assets/file/c057d898-14ab-4b92-83fc-d288e4a507ff/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"assets",
+										"file",
+										"c057d898-14ab-4b92-83fc-d288e4a507ff",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect all Files (Admin panel)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/assets/file/admin/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"assets",
+										"file",
+										"admin",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect all Files (Representation)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/assets/file/representation/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"assets",
+										"file",
+										"representation",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Photo",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "Compediums",
+			"item": [
+				{
+					"name": "PoI",
+					"item": [
+						{
+							"name": "Collect all Pois",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results[0].pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"compendiums_region_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/region/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"region",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect single Poi",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results.pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"compendiums_poi_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/poi/{{compendiums_poi_pk}}/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"poi",
+										"{{compendiums_poi_pk}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new Poi",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results.pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"compendiums_poi_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Function to generate a random string of letters only:",
+											"function randomLetters(min, max) {",
+											"    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\";",
+											"    const length = Math.floor(Math.random() * (max - min + 1)) + min;",
+											"    let result = \"\";",
+											"    for (let i = 0; i < length; i++) {",
+											"        result += chars.charAt(Math.floor(Math.random() * chars.length));",
+											"    }",
+											"    return result;",
+											"}",
+											"",
+											"// Function to generate a random string with spaces (for sentences):",
+											"function randomText(maxLength) {",
+											"    const words = [];",
+											"    const maxWords = Math.floor(maxLength / 6); // avg ~5 chars + space",
+											"    const wordCount = Math.floor(Math.random() * maxWords) + 5;",
+											"    for (let i = 0; i < wordCount; i++) {",
+											"        words.push(randomLetters(3, 10));",
+											"    }",
+											"    let text = words.join(\" \");",
+											"    return text.substring(0, maxLength); // ensure max length",
+											"}",
+											"",
+											"// Generate values:",
+											"let randomName = randomLetters(5, 25);",
+											"let randomSnippet = randomText(64);",
+											"let randomDescription = randomText(512);",
+											"",
+											"// Save to Postman variables:",
+											"pm.environment.set(\"random_name\", randomName);",
+											"pm.environment.set(\"random_snippet\", randomSnippet);",
+											"pm.environment.set(\"random_description\", randomDescription);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{random_name}}\",\n    \"snippet\": \"{{random_snippet}}\",\n    \"description\": \"{{random_description}}\",\n    \"creator\": \"{{profiles_user_pk}}\",\n    \"is_public\": true,\n    \"region\": \"{{compendiums_region_pk}}\",\n    \"category\": 10,\n    \"elevation\": 456\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/poi/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"poi",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update existing Poi",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results.pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"compendiums_poi_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Function to generate a random string of letters only:",
+											"function randomLetters(min, max) {",
+											"    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\";",
+											"    const length = Math.floor(Math.random() * (max - min + 1)) + min;",
+											"    let result = \"\";",
+											"    for (let i = 0; i < length; i++) {",
+											"        result += chars.charAt(Math.floor(Math.random() * chars.length));",
+											"    }",
+											"    return result;",
+											"}",
+											"",
+											"// Function to generate a random string with spaces (for sentences):",
+											"function randomText(maxLength) {",
+											"    const words = [];",
+											"    const maxWords = Math.floor(maxLength / 6); // avg ~5 chars + space",
+											"    const wordCount = Math.floor(Math.random() * maxWords) + 5;",
+											"    for (let i = 0; i < wordCount; i++) {",
+											"        words.push(randomLetters(3, 10));",
+											"    }",
+											"    let text = words.join(\" \");",
+											"    return text.substring(0, maxLength); // ensure max length",
+											"}",
+											"",
+											"// Generate values:",
+											"let randomName = randomLetters(5, 25);",
+											"let randomSnippet = randomText(64);",
+											"let randomDescription = randomText(512);",
+											"",
+											"// Save to Postman variables:",
+											"pm.environment.set(\"random_name\", randomName);",
+											"pm.environment.set(\"random_snippet\", randomSnippet);",
+											"pm.environment.set(\"random_description\", randomDescription);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{random_name}}\",\n    \"snippet\": \"{{random_snippet}}\",\n    \"description\": \"{{random_description}}\",\n    \"creator\": \"dd752a3b-e486-4cf4-baa7-02f6e97bfe1d\",\n    \"is_public\": true,\n    \"region\": \"769695e4-fdf0-4a20-afb3-c4bf5e487a70\",\n    \"category\": 10,\n    \"elevation\": 456\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/poi/{{compendiums_poi_pk}}/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"poi",
+										"{{compendiums_poi_pk}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Partially update existing Poi",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results.pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"compendiums_poi_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Function to generate a random string of letters only:",
+											"function randomLetters(min, max) {",
+											"    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\";",
+											"    const length = Math.floor(Math.random() * (max - min + 1)) + min;",
+											"    let result = \"\";",
+											"    for (let i = 0; i < length; i++) {",
+											"        result += chars.charAt(Math.floor(Math.random() * chars.length));",
+											"    }",
+											"    return result;",
+											"}",
+											"",
+											"// Function to generate a random string with spaces (for sentences):",
+											"function randomText(maxLength) {",
+											"    const words = [];",
+											"    const maxWords = Math.floor(maxLength / 6); // avg ~5 chars + space",
+											"    const wordCount = Math.floor(Math.random() * maxWords) + 5;",
+											"    for (let i = 0; i < wordCount; i++) {",
+											"        words.push(randomLetters(3, 10));",
+											"    }",
+											"    let text = words.join(\" \");",
+											"    return text.substring(0, maxLength); // ensure max length",
+											"}",
+											"",
+											"// Generate values:",
+											"let randomName = randomLetters(5, 25);",
+											"let randomSnippet = randomText(64);",
+											"let randomDescription = randomText(512);",
+											"",
+											"// Save to Postman variables:",
+											"pm.environment.set(\"random_name\", randomName);",
+											"pm.environment.set(\"random_snippet\", randomSnippet);",
+											"pm.environment.set(\"random_description\", randomDescription);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{random_name}}\",\n    \"snippet\": \"{{random_snippet}}\",\n    \"description\": \"{{random_description}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/poi/{{compendiums_poi_pk}}/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"poi",
+										"{{compendiums_poi_pk}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete existing Poi",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/poi/{{compendiums_poi_pk}}/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"poi",
+										"{{compendiums_poi_pk}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect all Pois (Admin panel)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results[0].pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"compendiums_region_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"packages": {},
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/region/admin/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"region",
+										"admin",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect all Pois (Representation)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/region/representation/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"region",
+										"representation",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Card",
+					"item": []
+				},
+				{
+					"name": "Region",
+					"item": [
+						{
+							"name": "Collect all Regions",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results[0].pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"compendiums_region_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/region/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"region",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect single Region",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results.pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"compendiums_region_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/region/{{compendiums_region_pk}}/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"region",
+										"{{compendiums_region_pk}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new Region",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results.pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"compendiums_region_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Function to generate a random string of letters only:",
+											"function randomLetters(min, max) {",
+											"    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\";",
+											"    const length = Math.floor(Math.random() * (max - min + 1)) + min;",
+											"    let result = \"\";",
+											"    for (let i = 0; i < length; i++) {",
+											"        result += chars.charAt(Math.floor(Math.random() * chars.length));",
+											"    }",
+											"    return result;",
+											"}",
+											"",
+											"// Function to generate a random string with spaces (for sentences):",
+											"function randomText(maxLength) {",
+											"    const words = [];",
+											"    const maxWords = Math.floor(maxLength / 6); // avg ~5 chars + space",
+											"    const wordCount = Math.floor(Math.random() * maxWords) + 5;",
+											"    for (let i = 0; i < wordCount; i++) {",
+											"        words.push(randomLetters(3, 10));",
+											"    }",
+											"    let text = words.join(\" \");",
+											"    return text.substring(0, maxLength); // ensure max length",
+											"}",
+											"",
+											"// Generate values:",
+											"let randomName = randomLetters(5, 25);",
+											"let randomSnippet = randomText(64);",
+											"let randomDescription = randomText(512);",
+											"",
+											"// Save to Postman variables:",
+											"pm.environment.set(\"random_name\", randomName);",
+											"pm.environment.set(\"random_snippet\", randomSnippet);",
+											"pm.environment.set(\"random_description\", randomDescription);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{random_name}}\",\n    \"snippet\": \"{{random_snippet}}\",\n    \"description\": \"{{random_description}}\",\n    \"creator\": \"{{profiles_user_pk}}\",\n    \"is_public\": true,\n    \"country\": 41\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/region/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"region",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update existing Region",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results.pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"compendiums_region_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Function to generate a random string of letters only:",
+											"function randomLetters(min, max) {",
+											"    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\";",
+											"    const length = Math.floor(Math.random() * (max - min + 1)) + min;",
+											"    let result = \"\";",
+											"    for (let i = 0; i < length; i++) {",
+											"        result += chars.charAt(Math.floor(Math.random() * chars.length));",
+											"    }",
+											"    return result;",
+											"}",
+											"",
+											"// Function to generate a random string with spaces (for sentences):",
+											"function randomText(maxLength) {",
+											"    const words = [];",
+											"    const maxWords = Math.floor(maxLength / 6); // avg ~5 chars + space",
+											"    const wordCount = Math.floor(Math.random() * maxWords) + 5;",
+											"    for (let i = 0; i < wordCount; i++) {",
+											"        words.push(randomLetters(3, 10));",
+											"    }",
+											"    let text = words.join(\" \");",
+											"    return text.substring(0, maxLength); // ensure max length",
+											"}",
+											"",
+											"// Generate values:",
+											"let randomName = randomLetters(5, 25);",
+											"let randomSnippet = randomText(64);",
+											"let randomDescription = randomText(512);",
+											"",
+											"// Save to Postman variables:",
+											"pm.environment.set(\"random_name\", randomName);",
+											"pm.environment.set(\"random_snippet\", randomSnippet);",
+											"pm.environment.set(\"random_description\", randomDescription);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{random_name}}\",\n    \"snippet\": \"{{random_snippet}}\",\n    \"description\": \"{{random_description}}\",\n    \"creator\": \"{{profiles_user_pk}}\",\n    \"is_public\": true,\n    \"country\": 41\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/region/{{compendiums_region_pk}}/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"region",
+										"{{compendiums_region_pk}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Partially update existing Region",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results.pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"compendiums_region_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Function to generate a random string of letters only:",
+											"function randomLetters(min, max) {",
+											"    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\";",
+											"    const length = Math.floor(Math.random() * (max - min + 1)) + min;",
+											"    let result = \"\";",
+											"    for (let i = 0; i < length; i++) {",
+											"        result += chars.charAt(Math.floor(Math.random() * chars.length));",
+											"    }",
+											"    return result;",
+											"}",
+											"",
+											"// Function to generate a random string with spaces (for sentences):",
+											"function randomText(maxLength) {",
+											"    const words = [];",
+											"    const maxWords = Math.floor(maxLength / 6); // avg ~5 chars + space",
+											"    const wordCount = Math.floor(Math.random() * maxWords) + 5;",
+											"    for (let i = 0; i < wordCount; i++) {",
+											"        words.push(randomLetters(3, 10));",
+											"    }",
+											"    let text = words.join(\" \");",
+											"    return text.substring(0, maxLength); // ensure max length",
+											"}",
+											"",
+											"// Generate values:",
+											"let randomName = randomLetters(5, 25);",
+											"let randomSnippet = randomText(64);",
+											"let randomDescription = randomText(512);",
+											"",
+											"// Save to Postman variables:",
+											"pm.environment.set(\"random_name\", randomName);",
+											"pm.environment.set(\"random_snippet\", randomSnippet);",
+											"pm.environment.set(\"random_description\", randomDescription);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"{{random_name}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/region/{{compendiums_region_pk}}/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"region",
+										"{{compendiums_region_pk}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete existing Region",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/region/{{compendiums_region_pk}}/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"region",
+										"{{compendiums_region_pk}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect all Regions (Admin panel)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results[0].pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"compendiums_poi_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/region/admin/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"region",
+										"admin",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect all Regions (Representation)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/compendiums/region/representation/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"compendiums",
+										"region",
+										"representation",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Explorers",
+			"item": [
+				{
+					"name": "Section",
+					"item": []
+				},
+				{
+					"name": "Route",
+					"item": []
+				},
+				{
+					"name": "Trip",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "Notifications",
+			"item": [
+				{
+					"name": "Notification",
+					"item": []
+				},
+				{
+					"name": "Change Log",
+					"item": [
+						{
+							"name": "Collect all Change Logs",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/notifications/change-log/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"notifications",
+										"change-log",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect single Change Log",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/notifications/change-log/0e996d11-bffc-4c50-bec6-63b937b41371/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"notifications",
+										"change-log",
+										"0e996d11-bffc-4c50-bec6-63b937b41371",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect single Change Log Comparison",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/notifications/change-log/3092121b-c1e7-4ec1-9f30-ab71003cad67/compare-changes/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"notifications",
+										"change-log",
+										"3092121b-c1e7-4ec1-9f30-ab71003cad67",
+										"compare-changes",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Profiles",
+			"item": [
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Collect all Users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results[0].pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"profiles_user_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/profiles/user/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"profiles",
+										"user",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect singiel User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results.pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"profiles_user_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/profiles/user/{{profiles_user_pk}}/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"profiles",
+										"user",
+										"{{profiles_user_pk}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results.pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"profiles_user_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Function to generate a random string of letters only:",
+											"function randomLetters(min, max) {",
+											"    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\";",
+											"    const length = Math.floor(Math.random() * (max - min + 1)) + min;",
+											"    let result = \"\";",
+											"    for (let i = 0; i < length; i++) {",
+											"        result += chars.charAt(Math.floor(Math.random() * chars.length));",
+											"    }",
+											"    return result;",
+											"}",
+											"",
+											"// Function to generate a random string with spaces (for sentences):",
+											"function randomText(maxLength) {",
+											"    const words = [];",
+											"    const maxWords = Math.floor(maxLength / 6); // avg ~5 chars + space",
+											"    const wordCount = Math.floor(Math.random() * maxWords) + 5;",
+											"    for (let i = 0; i < wordCount; i++) {",
+											"        words.push(randomLetters(3, 10));",
+											"    }",
+											"    let text = words.join(\" \");",
+											"    return text.substring(0, maxLength); // ensure max length",
+											"}",
+											"",
+											"// Generate values:",
+											"let randomName = randomLetters(5, 25);",
+											"let randomSnippet = randomText(64);",
+											"let randomDescription = randomText(512);",
+											"",
+											"// Save to Postman variables:",
+											"pm.environment.set(\"random_name\", randomName);",
+											"pm.environment.set(\"random_snippet\", randomSnippet);",
+											"pm.environment.set(\"random_description\", randomDescription);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{random_name}}@gmail.com\",\r\n    \"username\": \"{{random_name}}\",\r\n    \"first_name\": \"{{random_name}}\",\r\n    \"middle_name\": \"{{random_name}}\",\r\n    \"last_name\": \"{{random_name}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/profiles/user/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"profiles",
+										"user",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update existing User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results.pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"profiles_user_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Function to generate a random string of letters only:",
+											"function randomLetters(min, max) {",
+											"    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\";",
+											"    const length = Math.floor(Math.random() * (max - min + 1)) + min;",
+											"    let result = \"\";",
+											"    for (let i = 0; i < length; i++) {",
+											"        result += chars.charAt(Math.floor(Math.random() * chars.length));",
+											"    }",
+											"    return result;",
+											"}",
+											"",
+											"// Function to generate a random string with spaces (for sentences):",
+											"function randomText(maxLength) {",
+											"    const words = [];",
+											"    const maxWords = Math.floor(maxLength / 6); // avg ~5 chars + space",
+											"    const wordCount = Math.floor(Math.random() * maxWords) + 5;",
+											"    for (let i = 0; i < wordCount; i++) {",
+											"        words.push(randomLetters(3, 10));",
+											"    }",
+											"    let text = words.join(\" \");",
+											"    return text.substring(0, maxLength); // ensure max length",
+											"}",
+											"",
+											"// Generate values:",
+											"let randomName = randomLetters(5, 25);",
+											"let randomSnippet = randomText(64);",
+											"let randomDescription = randomText(512);",
+											"",
+											"// Save to Postman variables:",
+											"pm.environment.set(\"random_name\", randomName);",
+											"pm.environment.set(\"random_snippet\", randomSnippet);",
+											"pm.environment.set(\"random_description\", randomDescription);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{random_name}}@gmail.com\",\r\n    \"username\": \"{{random_name}}\",\r\n    \"first_name\": \"{{random_name}}\",\r\n    \"middle_name\": \"{{random_name}}\",\r\n    \"last_name\": \"{{random_name}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/profiles/user/{{profiles_user_pk}}/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"profiles",
+										"user",
+										"{{profiles_user_pk}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Partially update existing User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results.pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"profiles_user_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Function to generate a random string of letters only:",
+											"function randomLetters(min, max) {",
+											"    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\";",
+											"    const length = Math.floor(Math.random() * (max - min + 1)) + min;",
+											"    let result = \"\";",
+											"    for (let i = 0; i < length; i++) {",
+											"        result += chars.charAt(Math.floor(Math.random() * chars.length));",
+											"    }",
+											"    return result;",
+											"}",
+											"",
+											"// Function to generate a random string with spaces (for sentences):",
+											"function randomText(maxLength) {",
+											"    const words = [];",
+											"    const maxWords = Math.floor(maxLength / 6); // avg ~5 chars + space",
+											"    const wordCount = Math.floor(Math.random() * maxWords) + 5;",
+											"    for (let i = 0; i < wordCount; i++) {",
+											"        words.push(randomLetters(3, 10));",
+											"    }",
+											"    let text = words.join(\" \");",
+											"    return text.substring(0, maxLength); // ensure max length",
+											"}",
+											"",
+											"// Generate values:",
+											"let randomName = randomLetters(5, 25);",
+											"let randomSnippet = randomText(64);",
+											"let randomDescription = randomText(512);",
+											"",
+											"// Save to Postman variables:",
+											"pm.environment.set(\"random_name\", randomName);",
+											"pm.environment.set(\"random_snippet\", randomSnippet);",
+											"pm.environment.set(\"random_description\", randomDescription);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{random_name}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/profiles/user/{{profiles_user_pk}}/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"profiles",
+										"user",
+										"{{profiles_user_pk}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete existing User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Function to generate a random string of letters only:",
+											"function randomLetters(min, max) {",
+											"    const chars = \"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\";",
+											"    const length = Math.floor(Math.random() * (max - min + 1)) + min;",
+											"    let result = \"\";",
+											"    for (let i = 0; i < length; i++) {",
+											"        result += chars.charAt(Math.floor(Math.random() * chars.length));",
+											"    }",
+											"    return result;",
+											"}",
+											"",
+											"// Function to generate a random string with spaces (for sentences):",
+											"function randomText(maxLength) {",
+											"    const words = [];",
+											"    const maxWords = Math.floor(maxLength / 6); // avg ~5 chars + space",
+											"    const wordCount = Math.floor(Math.random() * maxWords) + 5;",
+											"    for (let i = 0; i < wordCount; i++) {",
+											"        words.push(randomLetters(3, 10));",
+											"    }",
+											"    let text = words.join(\" \");",
+											"    return text.substring(0, maxLength); // ensure max length",
+											"}",
+											"",
+											"// Generate values:",
+											"let randomName = randomLetters(5, 25);",
+											"let randomSnippet = randomText(64);",
+											"let randomDescription = randomText(512);",
+											"",
+											"// Save to Postman variables:",
+											"pm.environment.set(\"random_name\", randomName);",
+											"pm.environment.set(\"random_snippet\", randomSnippet);",
+											"pm.environment.set(\"random_description\", randomDescription);",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/profiles/user/{{profiles_user_pk}}/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"profiles",
+										"user",
+										"{{profiles_user_pk}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect all Users (Admin panel)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var pk = jsonData.page_results[0].pk;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"profiles_user_pk\", pk);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/profiles/user/admin/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"profiles",
+										"user",
+										"admin",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Collect all Users (Representation)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/profiles/user/representation/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"profiles",
+										"user",
+										"representation",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "The `/me` endpoints let you manage information about the authenticated user."
+				},
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "registration",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var refreshTokenValue = jsonData.page_results.refresh;",
+											"    var accessTokenValue = jsonData.page_results.access;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"refresh_token\", refreshTokenValue);",
+											"    pm.environment.set(\"access_token\", accessTokenValue);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "accept",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"{{user_name}}\",\n  \"email\": \"{{user_email}}\",\n  \"password1\": \"{{user_password}}\",\n  \"password2\": \"{{user_password}}\",\n  \"first_name\": \"Robert\",\n  \"last_name\": \"Kucharski\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/auth/registration/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"auth",
+										"registration",
+										""
+									]
+								},
+								"description": "Gets information about the authenticated user."
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var refreshTokenValue = jsonData.page_results.refresh;",
+											"    var accessTokenValue = jsonData.page_results.access;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"refresh_token\", refreshTokenValue);",
+											"    pm.environment.set(\"access_token\", accessTokenValue);",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"email\": \"{{user_email}}\",\n  \"password\": \"{{user_password}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/auth/login/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"auth",
+										"login",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refresh\": \"{{refresh_token}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/auth/logout/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"auth",
+										"logout",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Refresh",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Update access_token variable\", function () {",
+											"    ",
+											"    // Collect token from API response:",
+											"    var jsonData = pm.response.json();",
+											"    var refreshTokenValue = jsonData.page_results.refresh;",
+											"    var accessTokenValue = jsonData.page_results.access;",
+											"    ",
+											"    // Set the environment variable:",
+											"    pm.environment.set(\"refresh_token\", refreshTokenValue);",
+											"    pm.environment.set(\"access_token\", accessTokenValue);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{access_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"refresh\": \"{{refresh_token}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{protocol}}://{{hostname}}:{{port}}/api/auth/token/refresh/",
+									"protocol": "{{protocol}}",
+									"host": [
+										"{{hostname}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"auth",
+										"token",
+										"refresh",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

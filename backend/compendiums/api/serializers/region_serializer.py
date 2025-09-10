@@ -45,11 +45,7 @@ read_only_fields = [
     'updated',
 ]
 representation_fields = [
-    # BaseModel values:
-    'pk',
     'url',
-
-    # BaseIdentificationModel values:
     'name',
 ]
 

@@ -1,11 +1,13 @@
 # AlpenWegs application import:
+from notifications.api.serializers.change_log_serializer import ChangeLogRepresentationSerializer
 from notifications.api.serializers.change_log_serializer import ChangeLogWithoutAfterSerializer
-from notifications.api.serializers.change_log_serializer import ChangeLogSerializer
+from notifications.api.serializers.change_log_serializer import ChangeLogDetailedSerializer
+from notifications.api.serializers.change_log_serializer import ChangeLogRelationSerializer
 from notifications.api.filters.change_log_filter import ChangeLogFilter
-from profiles.api.serializers.user_serializer import UserSerializer
 from notifications.models.change_log_model import ChangeLogModel
 
 # AlpenWegs import:
+from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
 from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
 from alpenwegs.ashared.api.schemas.schema_generators import schema_list
@@ -19,10 +21,11 @@ from rest_framework.decorators import action
 
 # ChangeLog Model api view class:
 @extend_schema_view(
-    compare_changes=schema_retrieve(UserSerializer, 'Notification', 'Change Log'),
-    retrieve=schema_retrieve(UserSerializer, 'Notification', 'Change Log'),
-    admin=schema_list(UserSerializer, 'Notification', 'Change Log'),
-    list=schema_list(UserSerializer, 'Notification', 'Change Log'),
+    representation=schema_representation(ChangeLogDetailedSerializer, 'Assets', 'File'),
+    compare_changes=schema_retrieve(ChangeLogDetailedSerializer, 'Notification', 'Change Log'),
+    retrieve=schema_retrieve(ChangeLogDetailedSerializer, 'Notification', 'Change Log'),
+    admin=schema_list(ChangeLogDetailedSerializer, 'Notification', 'Change Log'),
+    list=schema_list(ChangeLogDetailedSerializer, 'Notification', 'Change Log'),
 )
 class ChangeLogView(
     ReadOnlyViewSet,
@@ -38,8 +41,13 @@ class ChangeLogView(
     query_model = ChangeLogModel
     query_ordering = '-created'
 
+    # Serializer class (Legacy, required by DRF):
+    serializer_class = ChangeLogDetailedSerializer
+
     # Serializer class used for the view:
-    serializer_class = ChangeLogSerializer
+    representation_serializer_class = ChangeLogRepresentationSerializer
+    detailed_serializer_class = ChangeLogDetailedSerializer
+    relation_serializer_class = ChangeLogRelationSerializer
 
     # Pagination class used for the view:
     pagination_class = BaseSmallPaginator

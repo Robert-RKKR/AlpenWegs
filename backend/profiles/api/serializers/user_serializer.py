@@ -11,6 +11,7 @@ from profiles.models.user_model import UserModel
 
 # User Model serializer details:
 model = UserModel
+depth = 0
 fields = [
     # Base Model values:
     'pk',
@@ -43,26 +44,20 @@ fields = [
     'location',
     'location_name',
 ]
+read_only_fields = [
+    # Base Model values:
+    'pk',
+    'url',
+]
+representation_fields = [
+    'url',
+    'email',
+    'username',
+]
 
 
-# User Model serializer class:
-class UserSerializer(BaseSerializer):
-
-    # Object URL definition:
-    url = HyperlinkedIdentityField(
-        view_name='api-profiles:user_model-detail',
-        help_text='URL to provided object.',
-        read_only=False
-    )
-
-    class Meta:
-
-        model = model
-        fields = fields
-
-
-# User Model nested serializer class:
-class UserNestedSerializer(WritableNestedSerializer):
+# User Model Detailed serializer class:
+class UserDetailedSerializer(BaseSerializer):
 
     # Object URL definition:
     url = HyperlinkedIdentityField(
@@ -73,5 +68,81 @@ class UserNestedSerializer(WritableNestedSerializer):
 
     class Meta:
 
-        model = model
+        # Define read only fields:
+        read_only_fields = read_only_fields
+
+        # Define writable fields:
         fields = fields
+
+        # Define related model:
+        model = model
+
+        # Define model depth:
+        depth = depth
+
+
+# User Representation serializer:
+class UserRepresentationSerializer(
+    BaseSerializer,
+):
+    """
+    Representation serializer for the User model. Includes only the fields
+    necessary for representing a User object in API responses.
+
+    Used for standard API actions such as list and retrieve, whenever
+    a simplified representation of a User object is sufficient.
+    """
+
+    # Default model URL field with hyperlink to retrieve view:
+    url = HyperlinkedIdentityField(
+        view_name='api-profiles:user_model-detail',
+        help_text='URL to provided object.',
+        read_only=True,
+    )
+
+    class Meta:
+
+        # Define read only fields:
+        read_only_fields = representation_fields
+
+        # Define writable fields:
+        fields = representation_fields
+
+        # Define related model:
+        model = model
+
+        # Define model depth:
+        depth = depth
+
+
+# User relation serializer:
+class UserRelationSerializer(
+    WritableNestedSerializer,
+):
+    """
+    Relation serializer for the User model. Includes all fields of
+    the User model but represents related objects in a simplified form.
+
+    Intended for use in other model serializers when only the relation
+    to the User model is needed, not its full details.
+    """
+
+    url = HyperlinkedIdentityField(
+        view_name='api-profiles:file_model-detail',
+        help_text='URL to provided object.',
+        read_only=True,
+    )
+
+    class Meta:
+
+        # Define read only fields:
+        read_only_fields = read_only_fields
+
+        # Define writable fields:
+        fields = fields
+
+        # Define related model:
+        model = model
+
+        # Define model depth:
+        depth = depth

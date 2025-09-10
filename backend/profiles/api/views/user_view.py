@@ -1,4 +1,5 @@
 # AlpenWegs import:
+from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
 from alpenwegs.ashared.api.schemas.schema_generators import schema_partial_update
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
 from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
@@ -9,7 +10,9 @@ from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
 
 # AlpenWegs application import:
-from profiles.api.serializers.user_serializer import UserSerializer
+from profiles.api.serializers.user_serializer import UserRepresentationSerializer
+from profiles.api.serializers.user_serializer import UserDetailedSerializer
+from profiles.api.serializers.user_serializer import UserRelationSerializer
 from profiles.api.filters.user_filter import UserFilter
 from profiles.models.user_model import UserModel
 
@@ -19,13 +22,14 @@ from drf_spectacular.utils import extend_schema_view
 
 # User Model api view class:
 @extend_schema_view(
-    partial_update=schema_partial_update(UserSerializer, 'Profiles', 'User'),
-    retrieve=schema_retrieve(UserSerializer, 'Profiles', 'User'),
-    destroy=schema_destroy(UserSerializer, 'Profiles', 'User'),
-    update=schema_update(UserSerializer, 'Profiles', 'User'),
-    create=schema_create(UserSerializer, 'Profiles', 'User'),
-    admin=schema_list(UserSerializer, 'Profiles', 'User'),
-    list=schema_list(UserSerializer, 'Profiles', 'User'),
+    representation=schema_representation(UserDetailedSerializer, 'Assets', 'File'),
+    partial_update=schema_partial_update(UserDetailedSerializer, 'ProUsers', 'User'),
+    retrieve=schema_retrieve(UserDetailedSerializer, 'ProUsers', 'User'),
+    destroy=schema_destroy(UserDetailedSerializer, 'ProUsers', 'User'),
+    update=schema_update(UserDetailedSerializer, 'ProUsers', 'User'),
+    create=schema_create(UserDetailedSerializer, 'ProUsers', 'User'),
+    admin=schema_list(UserDetailedSerializer, 'ProUsers', 'User'),
+    list=schema_list(UserDetailedSerializer, 'ProUsers', 'User'),
 )
 class UserView(
     ReadWriteViewSet,
@@ -41,8 +45,13 @@ class UserView(
     query_ordering = '-created'
     query_model = UserModel
 
+    # Serializer class (Legacy, required by DRF):
+    serializer_class = UserDetailedSerializer
+
     # Serializer class used for the view:
-    serializer_class = UserSerializer
+    representation_serializer_class = UserRepresentationSerializer
+    detailed_serializer_class = UserDetailedSerializer
+    relation_serializer_class = UserRelationSerializer
 
     # Pagination class used for the view:
     pagination_class = BaseSmallPaginator

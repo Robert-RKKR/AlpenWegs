@@ -56,6 +56,10 @@ read_only_fields = [
     'created',
     'updated',
 ]
+representation_fields = [
+    'url',
+    'name',
+]
 
 
 # Trip Detailed serializer:
@@ -81,6 +85,40 @@ class TripDetailedSerializer(
         read_only_fields = read_only_fields
         fields = fields
         model = model
+        depth = depth
+
+
+# Trip Representation serializer:
+class TripRepresentationSerializer(
+    BaseSerializer,
+):
+    """
+    Representation serializer for the Trip model. Includes only the fields
+    necessary for representing a Trip object in API responses.
+
+    Used for standard API actions such as list and retrieve, whenever
+    a simplified representation of a Trip object is sufficient.
+    """
+
+    # Default model URL field with hyperlink to retrieve view:
+    url = HyperlinkedIdentityField(
+        view_name='api-explorers:trip_model-detail',
+        help_text='URL to provided object.',
+        read_only=True,
+    )
+
+    class Meta:
+
+        # Define read only fields:
+        read_only_fields = representation_fields
+
+        # Define writable fields:
+        fields = representation_fields
+
+        # Define related model:
+        model = model
+
+        # Define model depth:
         depth = depth
 
 

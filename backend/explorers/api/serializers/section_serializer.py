@@ -57,6 +57,10 @@ read_only_fields = [
     'created',
     'updated',
 ]
+representation_fields = [
+    'url',
+    'name',
+]
 
 
 # Section Detailed serializer:
@@ -82,6 +86,40 @@ class SectionDetailedSerializer(
         read_only_fields = read_only_fields
         fields = fields
         model = model
+        depth = depth
+
+
+# Section Representation serializer:
+class SectionRepresentationSerializer(
+    BaseSerializer,
+):
+    """
+    Representation serializer for the Section model. Includes only the fields
+    necessary for representing a Section object in API responses.
+
+    Used for standard API actions such as list and retrieve, whenever
+    a simplified representation of a Section object is sufficient.
+    """
+
+    # Default model URL field with hyperlink to retrieve view:
+    url = HyperlinkedIdentityField(
+        view_name='api-explorers:section_model-detail',
+        help_text='URL to provided object.',
+        read_only=True,
+    )
+
+    class Meta:
+
+        # Define read only fields:
+        read_only_fields = representation_fields
+
+        # Define writable fields:
+        fields = representation_fields
+
+        # Define related model:
+        model = model
+
+        # Define model depth:
         depth = depth
 
 

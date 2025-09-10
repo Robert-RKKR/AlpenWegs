@@ -1,10 +1,13 @@
 # AlpenWegs application import:
+from explorers.api.serializers.trip_serializer import TripRepresentationSerializer
 from explorers.api.serializers.trip_serializer import TripDetailedSerializer
+from explorers.api.serializers.trip_serializer import TripRelationSerializer
 from explorers.api.filters.trip_filter import TripFilter
 from explorers.models.trip_model import TripModel
 
 # AlpenWegs import:
 from alpenwegs.ashared.api.schemas.schema_generators import schema_partial_update
+from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
 from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
 from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
@@ -19,6 +22,7 @@ from drf_spectacular.utils import extend_schema_view
 
 # Trip Model API view class:
 @extend_schema_view(
+    representation=schema_representation(TripDetailedSerializer, 'Assets', 'File'),
     partial_update=schema_partial_update(TripDetailedSerializer, 'Explorers', 'Trip'),
     retrieve=schema_retrieve(TripDetailedSerializer, 'Explorers', 'Trip'),
     destroy=schema_destroy(TripDetailedSerializer, 'Explorers', 'Trip'),
@@ -41,8 +45,13 @@ class TripView(
     query_ordering = '-created'
     query_model = TripModel
 
-    # Serializer class used for the view:
+    # Serializer class (Legacy, required by DRF):
     serializer_class = TripDetailedSerializer
+
+    # Serializer class used for the view:
+    representation_serializer_class = TripRepresentationSerializer
+    detailed_serializer_class = TripDetailedSerializer
+    relation_serializer_class = TripRelationSerializer
 
     # Pagination class used for the view:
     pagination_class = BaseSmallPaginator

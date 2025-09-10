@@ -1,15 +1,17 @@
 # AlpenWegs application import:
-from notifications.api.serializers.notification_serializer import NotificationSerializer
-from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
+from notifications.api.serializers.notification_serializer import NotificationRepresentationSerializer
+from notifications.api.serializers.notification_serializer import NotificationDetailedSerializer
+from notifications.api.serializers.notification_serializer import NotificationRelationSerializer
 from notifications.api.filters.notification_filter import NotificationFilter
 from notifications.models.notification_model import NotificationModel
 
 # AlpenWegs import:
+from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
+from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
 from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
 from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
 from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadDeleteViewSet
-from profiles.api.serializers.user_serializer import UserSerializer
 
 # Drf spectacular import:
 from drf_spectacular.utils import extend_schema_view
@@ -17,10 +19,11 @@ from drf_spectacular.utils import extend_schema_view
 
 # Notification Model api view class:
 @extend_schema_view(
-    retrieve=schema_retrieve(UserSerializer, 'Notification', 'Notification'),
-    destroy=schema_destroy(UserSerializer, 'Notification', 'Notification'),
-    admin=schema_list(UserSerializer, 'Notification', 'Notification'),
-    list=schema_list(UserSerializer, 'Notification', 'Notification'),
+    representation=schema_representation(NotificationDetailedSerializer, 'Assets', 'File'),
+    retrieve=schema_retrieve(NotificationDetailedSerializer, 'Notification', 'Notification'),
+    destroy=schema_destroy(NotificationDetailedSerializer, 'Notification', 'Notification'),
+    admin=schema_list(NotificationDetailedSerializer, 'Notification', 'Notification'),
+    list=schema_list(NotificationDetailedSerializer, 'Notification', 'Notification'),
 )
 class NotificationView(
     ReadDeleteViewSet,
@@ -36,8 +39,13 @@ class NotificationView(
     query_model = NotificationModel
     query_ordering = '-created'
 
+    # Serializer class (Legacy, required by DRF):
+    serializer_class = NotificationDetailedSerializer
+
     # Serializer class used for the view:
-    serializer_class = NotificationSerializer
+    representation_serializer_class = NotificationRepresentationSerializer
+    detailed_serializer_class = NotificationDetailedSerializer
+    relation_serializer_class = NotificationRelationSerializer
 
     # Pagination class used for the view:
     pagination_class = BaseSmallPaginator

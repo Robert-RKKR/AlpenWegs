@@ -6,6 +6,7 @@ from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
 from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
 from alpenwegs.ashared.api.schemas.schema_generators import schema_update
 from alpenwegs.ashared.api.schemas.schema_generators import schema_create
+from alpenwegs.ashared.api.schemas.schema_generators import schema_admin
 from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
 
@@ -28,7 +29,7 @@ from drf_spectacular.utils import extend_schema_view
     destroy=schema_destroy(UserDetailedSerializer, 'Profiles', 'User'),
     update=schema_update(UserDetailedSerializer, 'Profiles', 'User'),
     create=schema_create(UserDetailedSerializer, 'Profiles', 'User'),
-    admin=schema_list(UserDetailedSerializer, 'Profiles', 'User'),
+    admin=schema_admin(UserDetailedSerializer, 'Profiles', 'User'),
     list=schema_list(UserDetailedSerializer, 'Profiles', 'User'),
 )
 class UserView(

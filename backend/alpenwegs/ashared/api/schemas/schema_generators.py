@@ -1,61 +1,18 @@
 # AlpenWegs import:
 from alpenwegs.ashared.api.schemas.exceptions_schemas import TokenAuthenticationAPIExceptionSchema
+from alpenwegs.ashared.api.schemas.schema_base_generators import build_paginated_list_schema
 from alpenwegs.ashared.api.schemas.exceptions_schemas import PermissionAPIExceptionSchema
 from alpenwegs.ashared.api.schemas.exceptions_schemas import ValidationAPIExceptionSchema
 from alpenwegs.ashared.api.schemas.exceptions_schemas import NotContentAPIExceptionSchema
 from alpenwegs.ashared.api.schemas.exceptions_schemas import ProtectedAPIExceptionSchema
 from alpenwegs.ashared.api.schemas.exceptions_schemas import NotFoundAPIExceptionSchema
-from alpenwegs.ashared.api.schemas.response_schemas import StandardAPIExceptionSchema
+from alpenwegs.ashared.api.schemas.schema_base_generators import build_retrieve_schema
+from alpenwegs.ashared.api.schemas.schema_base_generators import build_list_schema
 
 # Drf spectacular import:
 from drf_spectacular.utils import OpenApiResponse
 from drf_spectacular.utils import extend_schema
 from rest_framework import serializers
-
-def build_paginated_list_schema(data_schema):
-    """
-    Custom schema matching your actual paginated response format.
-    """
-    class PaginatedListSchema(serializers.Serializer):
-        page_status = serializers.BooleanField()
-        page_results = data_schema(many=True)
-        page_objects = serializers.IntegerField()
-        page_count = serializers.IntegerField()
-        page_links = serializers.DictField(
-            child=serializers.CharField(allow_null=True)
-        )
-        page_error = serializers.JSONField(allow_null=True, required=False)
-
-    PaginatedListSchema.__name__ = f"{data_schema.__name__}PaginatedListResponse"
-    return PaginatedListSchema
-
-
-def build_list_schema(data_schema):
-    """
-    Wrapper for list responses (paginated or not).
-    """
-    class ListSchema(serializers.Serializer):
-        page_status = serializers.BooleanField()
-        page_results = data_schema(many=True)
-        page_error = serializers.JSONField(allow_null=True, required=False)
-
-    suffix = "ListResponse"
-    ListSchema.__name__ = f"{data_schema.__name__}{suffix}"
-    return ListSchema
-
-
-def build_retrieve_schema(data_schema):
-    """
-    Wrapper for single object responses.
-    """
-    class RetrieveSchema(serializers.Serializer):
-        page_status = serializers.BooleanField()
-        page_results = data_schema()
-        page_error = serializers.JSONField(allow_null=True, required=False)
-
-    RetrieveSchema.__name__ = f"{data_schema.__name__}RetrieveResponse"
-    return RetrieveSchema
-
 
 # Base list schema generator:
 def schema_list(
@@ -74,7 +31,11 @@ def schema_list(
     """
 
     # Generate paginated list schema based on model serializer:
-    response_schema = build_paginated_list_schema(default_schema)
+    response_schema = build_paginated_list_schema(
+        default_schema=default_schema,
+        schema_name='List',
+
+    )
 
     # Create a dedicated schema for list responses:
     list_schema = extend_schema(
@@ -127,7 +88,11 @@ def schema_admin(
     """
 
     # Generate paginated list schema based on model serializer:
-    response_schema = build_paginated_list_schema(default_schema)
+    response_schema = build_paginated_list_schema(
+        default_schema=default_schema,
+        schema_name='Admin',
+
+    )
 
     # Create a dedicated schema for admin responses:
     admin_schema = extend_schema(
@@ -178,7 +143,11 @@ def schema_representation(
     """
 
     # Generate non-paginated list schema based on model serializer:
-    response_schema = build_list_schema(default_schema)
+    response_schema = build_list_schema(
+        default_schema=default_schema,
+        schema_name='Representation',
+
+    )
 
     # Create a dedicated schema for representation responses:
     representation_schema = extend_schema(
@@ -226,7 +195,11 @@ def schema_retrieve(
     """
 
     # Generate retrieval schema based on model serializer:
-    response_schema = build_retrieve_schema(default_schema)
+    response_schema = build_retrieve_schema(
+        default_schema=default_schema,
+        schema_name='Retrieve',
+
+    )
 
     # Create a dedicated schema for retrieval responses:
     retrieval_schema = extend_schema(
@@ -286,7 +259,11 @@ def schema_create(
     """
 
     # Generate create schema based on model serializer:
-    response_schema = build_retrieve_schema(default_schema)
+    response_schema = build_retrieve_schema(
+        default_schema=default_schema,
+        schema_name='Create',
+
+    )
 
     # Create a dedicated schema for create responses:
     create_schema = extend_schema(
@@ -344,7 +321,11 @@ def schema_update(
     """
 
     # Generate update schema based on model serializer:
-    response_schema = build_retrieve_schema(default_schema)
+    response_schema = build_retrieve_schema(
+        default_schema=default_schema,
+        schema_name='Update',
+
+    )
 
     # Create a dedicated schema for update responses:
     update_schema = extend_schema(
@@ -407,7 +388,11 @@ def schema_partial_update(
     """
 
     # Generate partial update schema based on model serializer:
-    response_schema = build_retrieve_schema(default_schema)
+    response_schema = build_retrieve_schema(
+        default_schema=default_schema,
+        schema_name='PartialUpdate',
+
+    )
 
     # Create a dedicated schema for partial update responses:
     partial_update_schema = extend_schema(

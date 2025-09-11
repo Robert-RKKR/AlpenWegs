@@ -13,6 +13,7 @@ from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
 from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
 from alpenwegs.ashared.api.schemas.schema_generators import schema_update
 from alpenwegs.ashared.api.schemas.schema_generators import schema_create
+from alpenwegs.ashared.api.schemas.schema_generators import schema_admin
 from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
 
@@ -28,7 +29,7 @@ from drf_spectacular.utils import extend_schema_view
     destroy=schema_destroy(PoiDetailedSerializer, 'Compendiums', 'Poi'),
     update=schema_update(PoiDetailedSerializer, 'Compendiums', 'Poi'),
     create=schema_create(PoiDetailedSerializer, 'Compendiums', 'Poi'),
-    admin=schema_list(PoiDetailedSerializer, 'Compendiums', 'Poi'),
+    admin=schema_admin(PoiDetailedSerializer, 'Compendiums', 'Poi'),
     list=schema_list(PoiDetailedSerializer, 'Compendiums', 'Poi'),
 )
 class PoiView(ReadWriteViewSet):

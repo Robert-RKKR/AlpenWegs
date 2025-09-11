@@ -13,6 +13,7 @@ from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
 from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
 from alpenwegs.ashared.api.schemas.schema_generators import schema_update
 from alpenwegs.ashared.api.schemas.schema_generators import schema_create
+from alpenwegs.ashared.api.schemas.schema_generators import schema_admin
 from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
 
@@ -28,7 +29,7 @@ from drf_spectacular.utils import extend_schema_view
     destroy=schema_destroy(RouteDetailedSerializer, 'Explorers', 'Route'),
     update=schema_update(RouteDetailedSerializer, 'Explorers', 'Route'),
     create=schema_create(RouteDetailedSerializer, 'Explorers', 'Route'),
-    admin=schema_list(RouteDetailedSerializer, 'Explorers', 'Route'),
+    admin=schema_admin(RouteDetailedSerializer, 'Explorers', 'Route'),
     list=schema_list(RouteDetailedSerializer, 'Explorers', 'Route'),
 )
 class RouteView(

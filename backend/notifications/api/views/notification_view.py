@@ -10,6 +10,7 @@ from alpenwegs.ashared.api.schemas.schema_generators import schema_representatio
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
 from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
 from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
+from alpenwegs.ashared.api.schemas.schema_generators import schema_admin
 from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadDeleteViewSet
 
@@ -22,7 +23,7 @@ from drf_spectacular.utils import extend_schema_view
     representation=schema_representation(NotificationDetailedSerializer, 'Notifications', 'Notification'),
     retrieve=schema_retrieve(NotificationDetailedSerializer, 'Notifications', 'Notification'),
     destroy=schema_destroy(NotificationDetailedSerializer, 'Notifications', 'Notification'),
-    admin=schema_list(NotificationDetailedSerializer, 'Notifications', 'Notification'),
+    admin=schema_admin(NotificationDetailedSerializer, 'Notifications', 'Notification'),
     list=schema_list(NotificationDetailedSerializer, 'Notifications', 'Notification'),
 )
 class NotificationView(

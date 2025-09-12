@@ -1,6 +1,6 @@
 # AlpenWegs import:
-from alpenwegs.ashared.api.base_serializers import WritableNestedSerializer
-from alpenwegs.ashared.api.base_serializers import BaseSerializer
+from alpenwegs.ashared.api.serializers.base_serializers import WritableNestedSerializer
+from alpenwegs.ashared.api.serializers.base_serializers import BaseSerializer
 
 # Rest framework serializer import:
 from rest_framework.serializers import HyperlinkedIdentityField

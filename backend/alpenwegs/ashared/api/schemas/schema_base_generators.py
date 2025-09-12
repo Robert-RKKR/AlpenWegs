@@ -1,8 +1,8 @@
 # Drf spectacular import:
-from rest_framework import serializers
+from rest_framework.serializers import Serializer
 
 def build_paginated_list_schema(
-    default_schema: serializers.Serializer,
+    default_schema: Serializer,
     schema_name: str,
 ):
     """
@@ -14,7 +14,7 @@ def build_paginated_list_schema(
     """
 
     class PaginatedListSchema(
-        serializers.Serializer,
+        Serializer,
     ):
         """
         Base schema for paginated list responses.
@@ -40,7 +40,7 @@ def build_paginated_list_schema(
     return PaginatedListSchema
 
 def build_list_schema(
-    default_schema: serializers.Serializer,
+    default_schema: Serializer,
     schema_name: str,
 ):
     """
@@ -52,7 +52,7 @@ def build_list_schema(
     """
 
     class ListSchema(
-        serializers.Serializer,
+        Serializer,
     ):
         """
         Base schema for not paginated list responses.
@@ -73,7 +73,7 @@ def build_list_schema(
     return ListSchema
 
 def build_retrieve_schema(
-    default_schema: serializers.Serializer,
+    default_schema: Serializer,
     schema_name: str,
 ):
     """
@@ -85,7 +85,7 @@ def build_retrieve_schema(
     """
 
     class RetrieveSchema(
-        serializers.Serializer,
+        Serializer,
     ):
         """
         Base schema for retrieve responses.

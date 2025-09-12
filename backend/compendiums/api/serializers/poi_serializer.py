@@ -1,41 +1,37 @@
 # AlpenWegs import:
-from alpenwegs.ashared.api.base_serializers import WritableNestedSerializer
-from alpenwegs.ashared.api.base_serializers import BaseSerializer
-
-# Rest framework import:
-from rest_framework.serializers import HyperlinkedIdentityField
+from alpenwegs.ashared.api.serializers.base_serializers import (
+    WritableNestedSerializer,
+    BaseSerializer,
+)
+from alpenwegs.ashared.api.serializers.base_model_variables import (
+    base_identification_read_only_fields,
+    base_descriptive_read_only_fields,
+    base_timestamp_read_only_fields,
+    base_creator_read_only_fields,
+    base_model_read_only_fields,
+    base_identification_fields,
+    base_representation_fields,
+    base_descriptive_fields,
+    base_timestamp_fields,
+    base_creator_fields,
+    base_model_fields,
+)
 
 # AlpenWegs application import:
 from compendiums.api.serializers.region_serializer import RegionRelationSerializer
 from profiles.api.serializers.user_serializer import UserRelationSerializer
 from compendiums.models.poi_model import PoiModel
 
+# Rest framework import:
+from rest_framework.serializers import HyperlinkedIdentityField
+
 
 # PoI Model serializer details:
 model = PoiModel
 depth = 0
-fields = [
-    # BaseModel values:
-    'pk',
-    'url',
 
-    # BaseIdentificationModel values:
-    'name',
-    'slug',
-    'snippet',
-
-    # BaseDescriptiveModel values:
-    'description',
-
-    # BaseCreatorModel values:
-    'creator',
-    'is_public',
-
-    # BaseTimestampModel values:
-    'created',
-    'updated',
-
-    # PoiModel values:
+# PoI Model serializer fields:
+poi_fields = [
     'region',
     'transport_description',
     'category',
@@ -43,18 +39,23 @@ fields = [
     'longitude',
     'elevation',
 ]
-read_only_fields = [
-    'pk',
-    'url',
-    'slug',
-    'creator',
-    'created',
-    'updated',
-]
-representation_fields = [
-    'url',
-    'name',
-]
+
+# PoI model serializer combined fields:
+fields = (
+    base_model_fields
+    + base_identification_fields
+    + base_descriptive_fields
+    + base_timestamp_fields
+    + base_creator_fields
+    + poi_fields
+)
+read_only_fields = (
+    base_model_read_only_fields
+    + base_identification_read_only_fields
+    + base_descriptive_read_only_fields
+    + base_timestamp_read_only_fields
+    + base_creator_read_only_fields
+)
 
 
 # PoI Detailed serializer:
@@ -125,10 +126,10 @@ class PoiRepresentationSerializer(
     class Meta:
 
         # Define read only fields:
-        read_only_fields = representation_fields
+        read_only_fields = base_representation_fields
 
         # Define writable fields:
-        fields = representation_fields
+        fields = base_representation_fields
 
         # Define related model:
         model = model

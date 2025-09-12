@@ -6,15 +6,8 @@ from compendiums.api.filters.poi_filter import PoiFilter
 from compendiums.models.poi_model import PoiModel
 
 # AlpenWegs import:
-from alpenwegs.ashared.api.schemas.schema_generators import schema_partial_update
-from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
+from alpenwegs.ashared.api.schemas.schema_full_generator import red_write_schema
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
-from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
-from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
-from alpenwegs.ashared.api.schemas.schema_generators import schema_update
-from alpenwegs.ashared.api.schemas.schema_generators import schema_create
-from alpenwegs.ashared.api.schemas.schema_generators import schema_admin
-from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
 
 # API import:
@@ -23,14 +16,13 @@ from drf_spectacular.utils import extend_schema_view
 
 # PoI Model API view class:
 @extend_schema_view(
-    representation=schema_representation(PoiDetailedSerializer, 'Compendiums', 'Poi'),
-    partial_update=schema_partial_update(PoiDetailedSerializer, 'Compendiums', 'Poi'),
-    retrieve=schema_retrieve(PoiDetailedSerializer, 'Compendiums', 'Poi'),
-    destroy=schema_destroy(PoiDetailedSerializer, 'Compendiums', 'Poi'),
-    update=schema_update(PoiDetailedSerializer, 'Compendiums', 'Poi'),
-    create=schema_create(PoiDetailedSerializer, 'Compendiums', 'Poi'),
-    admin=schema_admin(PoiDetailedSerializer, 'Compendiums', 'Poi'),
-    list=schema_list(PoiDetailedSerializer, 'Compendiums', 'Poi'),
+    **red_write_schema(
+        representation_schema=PoiRepresentationSerializer,
+        detailed_schema=PoiDetailedSerializer,
+        relation_schema=PoiRelationSerializer,
+        application_repr='Compendiums',
+        object_repr='Poi',
+    )
 )
 class PoiView(ReadWriteViewSet):
     """

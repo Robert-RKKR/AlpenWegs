@@ -6,15 +6,8 @@ from compendiums.api.filters.card_filter import CardFilter
 from compendiums.models.card_model import CardModel
 
 # AlpenWegs import:
-from alpenwegs.ashared.api.schemas.schema_generators import schema_partial_update
-from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
+from alpenwegs.ashared.api.schemas.schema_full_generator import red_write_schema
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
-from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
-from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
-from alpenwegs.ashared.api.schemas.schema_generators import schema_update
-from alpenwegs.ashared.api.schemas.schema_generators import schema_create
-from alpenwegs.ashared.api.schemas.schema_generators import schema_admin
-from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
 
 # API import:
@@ -23,14 +16,13 @@ from drf_spectacular.utils import extend_schema_view
 
 # Card Model API view class:
 @extend_schema_view(
-    representation=schema_representation(CardDetailedSerializer, 'Compendiums', 'Card'),
-    partial_update=schema_partial_update(CardDetailedSerializer, 'Compendiums', 'Card'),
-    retrieve=schema_retrieve(CardDetailedSerializer, 'Compendiums', 'Card'),
-    destroy=schema_destroy(CardDetailedSerializer, 'Compendiums', 'Card'),
-    update=schema_update(CardDetailedSerializer, 'Compendiums', 'Card'),
-    create=schema_create(CardDetailedSerializer, 'Compendiums', 'Card'),
-    admin=schema_admin(CardDetailedSerializer, 'Compendiums', 'Card'),
-    list=schema_list(CardDetailedSerializer, 'Compendiums', 'Card'),
+    **red_write_schema(
+        representation_schema=CardRepresentationSerializer,
+        detailed_schema=CardDetailedSerializer,
+        relation_schema=CardRelationSerializer,
+        application_repr='Compendiums',
+        object_repr='Card',
+    )
 )
 class CardView(
     ReadWriteViewSet,

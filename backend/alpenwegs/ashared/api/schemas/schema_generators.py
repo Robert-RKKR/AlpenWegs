@@ -11,12 +11,12 @@ from alpenwegs.ashared.api.schemas.schema_base_generators import build_list_sche
 
 # Drf spectacular import:
 from drf_spectacular.utils import OpenApiResponse
+from rest_framework.serializers import Serializer
 from drf_spectacular.utils import extend_schema
-from rest_framework import serializers
 
 # Base list schema generator:
 def schema_list(
-    default_schema: serializers.Serializer,
+    response_schema: Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
@@ -31,8 +31,8 @@ def schema_list(
     """
 
     # Generate paginated list schema based on model serializer:
-    response_schema = build_paginated_list_schema(
-        default_schema=default_schema,
+    full_response_schema = build_paginated_list_schema(
+        default_schema=response_schema,
         schema_name='List',
 
     )
@@ -42,7 +42,7 @@ def schema_list(
         # Define possible API responses:
         responses={
             200: OpenApiResponse(
-                response_schema,
+                full_response_schema,
                 description=f'Retrieve {object_repr} objects',
             ),
             401: OpenApiResponse(
@@ -71,10 +71,9 @@ def schema_list(
     # Return extended schema for list view:
     return list_schema
 
-
 # Base admin schema generator:
 def schema_admin(
-    default_schema: serializers.Serializer,
+    response_schema: Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
@@ -88,8 +87,8 @@ def schema_admin(
     """
 
     # Generate paginated list schema based on model serializer:
-    response_schema = build_paginated_list_schema(
-        default_schema=default_schema,
+    full_response_schema = build_paginated_list_schema(
+        default_schema=response_schema,
         schema_name='Admin',
 
     )
@@ -99,7 +98,7 @@ def schema_admin(
         # Define possible API responses:
         responses={
             200: OpenApiResponse(
-                response_schema,
+                full_response_schema,
                 description=f'Retrieve {object_repr} objects',
             ),
             401: OpenApiResponse(
@@ -126,10 +125,9 @@ def schema_admin(
     # Return extended schema for admin view:
     return admin_schema
 
-
 # Base representation schema generator:
 def schema_representation(
-    default_schema: serializers.Serializer,
+    response_schema: Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
@@ -143,8 +141,8 @@ def schema_representation(
     """
 
     # Generate non-paginated list schema based on model serializer:
-    response_schema = build_list_schema(
-        default_schema=default_schema,
+    full_response_schema = build_list_schema(
+        default_schema=response_schema,
         schema_name='Representation',
 
     )
@@ -154,7 +152,7 @@ def schema_representation(
         # Define possible API responses:
         responses={
             200: OpenApiResponse(
-                response_schema,
+                full_response_schema,
                 description=f'Retrieve {object_repr} objects',
             ),
             401: OpenApiResponse(
@@ -182,7 +180,7 @@ def schema_representation(
 
 # Base retrieval schema generator:
 def schema_retrieve(
-    default_schema: serializers.Serializer,
+    response_schema: Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
@@ -195,8 +193,8 @@ def schema_retrieve(
     """
 
     # Generate retrieval schema based on model serializer:
-    response_schema = build_retrieve_schema(
-        default_schema=default_schema,
+    full_response_schema = build_retrieve_schema(
+        default_schema=response_schema,
         schema_name='Retrieve',
 
     )
@@ -206,7 +204,7 @@ def schema_retrieve(
         # Define possible API responses:
         responses={
             200: OpenApiResponse(
-                response_schema,
+                full_response_schema,
                 description=f'Retrieve {object_repr} object',
             ),
             401: OpenApiResponse(
@@ -243,10 +241,10 @@ def schema_retrieve(
     # Return extended schema for retrieval view:
     return retrieval_schema
 
-
 # Base create schema generator:
 def schema_create(
-    default_schema: serializers.Serializer,
+    response_schema: Serializer,
+    request_schema: Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
@@ -259,18 +257,21 @@ def schema_create(
     """
 
     # Generate create schema based on model serializer:
-    response_schema = build_retrieve_schema(
-        default_schema=default_schema,
+    full_response_schema = build_retrieve_schema(
+        default_schema=response_schema,
         schema_name='Create',
 
     )
 
     # Create a dedicated schema for create responses:
     create_schema = extend_schema(
+        # Define request schema:
+        request=request_schema,
+
         # Define possible API responses:
         responses={
             201: OpenApiResponse(
-                response_schema,
+                full_response_schema,
                 description=f'Retrieve {object_repr} object',
             ),
             400: OpenApiResponse(
@@ -305,10 +306,10 @@ def schema_create(
     # Return extended schema for create view:
     return create_schema
 
-
 # Base update schema generator:
 def schema_update(
-    default_schema: serializers.Serializer,
+    response_schema: Serializer,
+    request_schema: Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
@@ -321,18 +322,21 @@ def schema_update(
     """
 
     # Generate update schema based on model serializer:
-    response_schema = build_retrieve_schema(
-        default_schema=default_schema,
+    full_response_schema = build_retrieve_schema(
+        default_schema=response_schema,
         schema_name='Update',
 
     )
 
     # Create a dedicated schema for update responses:
     update_schema = extend_schema(
+        # Define request schema:
+        request=request_schema,
+
         # Define possible API responses:
         responses={
             200: OpenApiResponse(
-                response_schema,
+                full_response_schema,
                 description=f'Updated and retrieve {object_repr} object',
             ),
             400: OpenApiResponse(
@@ -372,10 +376,10 @@ def schema_update(
     # Return extended schema for update view:
     return update_schema
 
-
 # Base partial update schema generator:
 def schema_partial_update(
-    default_schema: serializers.Serializer,
+    response_schema: Serializer,
+    request_schema: Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
@@ -388,18 +392,21 @@ def schema_partial_update(
     """
 
     # Generate partial update schema based on model serializer:
-    response_schema = build_retrieve_schema(
-        default_schema=default_schema,
+    full_response_schema = build_retrieve_schema(
+        default_schema=response_schema,
         schema_name='PartialUpdate',
 
     )
 
     # Create a dedicated schema for partial update responses:
     partial_update_schema = extend_schema(
+        # Define request schema:
+        request=request_schema,
+
         # Define possible API responses:
         responses={
             200: OpenApiResponse(
-                response_schema,
+                full_response_schema,
                 description=f'Updated and retrieve {object_repr} object',
             ),
             400: OpenApiResponse(
@@ -439,10 +446,8 @@ def schema_partial_update(
     # Return extended schema for partial update view:
     return partial_update_schema
 
-
 # Base destroy schema generator:
 def schema_destroy(
-    default_schema: serializers.Serializer,
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,

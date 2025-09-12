@@ -27,6 +27,9 @@ class BaseUpdateModelMixin(
         **kwargs: dict,
     ) -> Response:
 
+        # Collect user from request:
+        user = getattr(request, 'user', False)
+
         # Update method:
         partial = kwargs.pop('partial', False)
         # Collect object instance:
@@ -39,6 +42,9 @@ class BaseUpdateModelMixin(
             data=request.data,
             partial=partial
         )
+        
+        # Add creator to serializer data if available:
+        serializer.save(creator=user)
         # Validate serializer:
         serializer.is_valid(raise_exception=True)
         # Save serializer:

@@ -47,6 +47,7 @@ read_only_fields = [
     'pk',
     'url',
     'slug',
+    'creator',
     'created',
     'updated',
 ]

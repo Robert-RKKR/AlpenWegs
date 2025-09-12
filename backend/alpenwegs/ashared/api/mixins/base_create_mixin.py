@@ -25,18 +25,24 @@ class BaseCreateModelMixin(
         **kwargs: dict,
     ) -> Response:
 
+        # Collect user from request:
+        user = getattr(request, 'user', False)
+
         # Collect a new objet detailed serializer:
         serializer = self._get_serializer(
             serializer_name='detailed',
             data=request.data,
         )
+        
+        # Add creator to serializer data if available:
+        serializer.save(creator=user)
         # Validate created serializer:
         serializer.is_valid(raise_exception=True)
         # Save a new instance based on validated serializer data:
         instance = serializer.save()
 
         # Create change log notification:
-        test = self._create_notification(
+        self._create_notification(
             action=ActionTypeChoices.CREATE,
             log_changes=self.log_changes,
             serializer=serializer,

@@ -1,51 +1,55 @@
 # Rest framework serializer import:
-from alpenwegs.ashared.api.serializers.base_serializers import WritableNestedSerializer
-from rest_framework.serializers import HyperlinkedIdentityField
-
-# AlpenWegs import:
-from alpenwegs.ashared.api.serializers.base_serializers import BaseSerializer
+from alpenwegs.ashared.api.serializers.base_serializers import (
+    WritableNestedSerializer,
+    BaseSerializer,
+)
+from alpenwegs.ashared.api.serializers.base_model_variables import (
+    base_object_representation_read_only_fields,
+    base_creator_read_only_fields,
+    base_model_read_only_fields,
+    base_object_representation_fields,
+    base_creator_fields,
+    base_model_fields,
+)
 
 # AlpenWegs application import:
 from notifications.models.change_log_model import ChangeLogModel
+
+# Rest framework import:
+from rest_framework.serializers import HyperlinkedIdentityField
 
 
 # ChangeLog Model serializer details:
 model = ChangeLogModel
 depth = 0
-fields = [
-    # Base Model values:
-    'pk',
-    'url',
-    # Object Representation Model values:
-    'app_name',
-    'model_name',
-    'object_id',
-    'object_repr',
-    # Model data time information:
-    'timestamp',
-    # User information:
-    'creator',
-    # Change details:
+
+# Change Log Model serializer fields:
+change_log_fields = [
     'action_type',
+    'timestamp',
     'after',
 ]
-read_only_fields = [
-    # Base Model values:
-    'pk',
-    'url',
-    # Object Representation Model values:
-    'app_name',
-    'model_name',
-    'object_id',
-    'object_repr',
-    # Model data time information:
-    'timestamp',
-    # User information:
-    'creator',
-    # Change details:
+change_log_read_only_fields = [
     'action_type',
+    'timestamp',
     'after',
 ]
+
+# Change Log model serializer combined fields:
+fields = (
+    base_model_fields
+    + base_object_representation_fields
+    + base_creator_fields
+    + change_log_fields
+)
+read_only_fields = (
+    base_model_read_only_fields
+    + base_object_representation_read_only_fields
+    + base_creator_read_only_fields
+    + change_log_read_only_fields
+)
+
+# ChangeLog Model representation serializer fields:
 representation_fields = [
     'url',
     'object_repr',

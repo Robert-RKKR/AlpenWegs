@@ -1,71 +1,70 @@
 # AlpenWegs import:
-from alpenwegs.ashared.api.serializers.base_serializers import WritableNestedSerializer
-from alpenwegs.ashared.api.serializers.base_serializers import BaseSerializer
+from alpenwegs.ashared.api.serializers.base_serializers import (
+    SerializedPkRelatedField,
+    WritableNestedSerializer,
+    BaseSerializer,
+)
+from alpenwegs.ashared.api.serializers.base_model_variables import (
+    base_identification_read_only_fields,
+    base_sport_category_read_only_fields,
+    base_characteristic_read_only_fields,
+    base_statistic_read_only_fields,
+    base_timestamp_read_only_fields,
+    base_creator_read_only_fields,
+    base_model_read_only_fields,
+    base_score_read_only_fields,
+    base_identification_fields,
+    base_representation_fields,
+    base_characteristic_fields,
+    base_sport_category_fields,
+    base_statistic_fields,
+    base_timestamp_fields,
+    base_creator_fields,
+    base_model_fields,
+    base_score_fields,
+)
+
+# AlpenWegs application import:
+from explorers.api.serializers.section_serializer import SectionRelationSerializer
+from profiles.api.serializers.user_serializer import UserRelationSerializer
+from explorers.models.section_model import SectionModel
+from explorers.models.route_model import RouteModel
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
-
-# AlpenWegs application import:
-from explorers.models.route_model import RouteModel
 
 
 # Route Model serializer details:
 model = RouteModel
 depth = 0
-fields = [
-    # BaseModel values:
-    'pk',
-    'url',
 
-    # BaseIdentificationModel values:
-    'name',
-    'slug',
-    'snippet',
-
-    # BaseCharacteristicModel values:
-    'difficulty',
-    'stamina_requirement',
-    'experience_requirement',
-    'potential_risk_requirement',
-    'potential_risk_description',
-    'family_friendly',
-    'best_seasons',
-    'best_months',
-    'winter_season',
-    'summer_season',
-
-    # BaseSportCategoryModel values:
-    'category',
-    'category_specific_difficulty',
-
-    # BaseStatisticModel values:
-    'comment_count',
-    'visit_count',
-    'download_count',
-
-    # BaseScoreModel values:
-    'score',
-
-    # BaseCreatorModel values:
-    'creator',
-    'is_public',
-
-    # BaseTimestampModel values:
-    'created',
-    'updated',
+# Route Model serializer fields:
+route_fields = [
+    'sections',
 ]
-read_only_fields = [
-    'pk',
-    'url',
-    'slug',
-    'creator',
-    'created',
-    'updated',
-]
-representation_fields = [
-    'url',
-    'name',
-]
+
+# Route model serializer combined fields:
+fields = (
+    base_model_fields
+    + base_characteristic_fields
+    + base_identification_fields
+    + base_sport_category_fields
+    + base_timestamp_fields
+    + base_statistic_fields
+    + base_creator_fields
+    + base_score_fields
+    + route_fields
+)
+read_only_fields = (
+    base_model_read_only_fields
+    + base_identification_read_only_fields
+    + base_characteristic_read_only_fields
+    + base_sport_category_read_only_fields
+    + base_statistic_read_only_fields
+    + base_timestamp_read_only_fields
+    + base_creator_read_only_fields
+    + base_score_read_only_fields
+)
 
 
 # Route Detailed serializer:
@@ -93,6 +92,22 @@ class RouteDetailedSerializer(
         model = model
         depth = depth
 
+    # Other object relation schemas:
+    creator = UserRelationSerializer(
+        help_text=RouteModel.creator.field.help_text,
+        required=RouteModel.creator.field.null,
+        allow_null=RouteModel.creator.field.blank,
+    )
+
+    # Other object Many to Many relation schemas:
+    sections = SerializedPkRelatedField(
+        queryset=SectionModel.objects.all(),
+        serializer=SectionRelationSerializer,
+        required=False,
+        allow_null=True,
+        many=True,
+    )
+
 
 # Route Representation serializer:
 class RouteRepresentationSerializer(
@@ -116,10 +131,10 @@ class RouteRepresentationSerializer(
     class Meta:
 
         # Define read only fields:
-        read_only_fields = representation_fields
+        read_only_fields = base_representation_fields
 
         # Define writable fields:
-        fields = representation_fields
+        fields = base_representation_fields
 
         # Define related model:
         model = model

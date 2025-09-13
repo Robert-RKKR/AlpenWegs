@@ -1,6 +1,20 @@
 # AlpenWegs import:
-from alpenwegs.ashared.api.serializers.base_serializers import WritableNestedSerializer
-from alpenwegs.ashared.api.serializers.base_serializers import BaseSerializer
+from alpenwegs.ashared.api.serializers.base_serializers import (
+    WritableNestedSerializer,
+    BaseSerializer,
+)
+from alpenwegs.ashared.api.serializers.base_model_variables import (
+    base_identification_read_only_fields,
+    base_descriptive_read_only_fields,
+    base_timestamp_read_only_fields,
+    base_creator_read_only_fields,
+    base_model_read_only_fields,
+    base_identification_fields,
+    base_descriptive_fields,
+    base_timestamp_fields,
+    base_creator_fields,
+    base_model_fields,
+)
 
 # Rest framework serializer import:
 from rest_framework.serializers import HyperlinkedIdentityField
@@ -12,42 +26,62 @@ from profiles.models.user_model import UserModel
 # User Model serializer details:
 model = UserModel
 depth = 0
-fields = [
-    # Base Model values:
-    'pk',
-    'url',
-    # Timestamp model values:
-    'created',
-    'updated',
+
+# User Model serializer fields:
+user_fields = [
     # Required User fields:
+    'is_superuser',
+    'last_login',
     'is_active',
     'is_staff',
-    'last_login',
-    'is_superuser',
     # Base User identification information:
-    'email',
-    'username',
-    'first_name',
     'middle_name',
+    'first_name',
     'last_name',
+    'username',
+    'email',
     # Password information:
     'password_to_change',
     # Contact information:
     'phone_number',
     # Personal information:
+    'birthday',
     'gender',
     'weight',
     'height',
     'bmi',
-    'birthday',
     # Location information:
-    'location',
     'location_name',
+    'location',
 ]
-read_only_fields = [
-    'pk',
-    'url',
+user_read_only_fields = [
+    # Required User fields:
+    'is_superuser',
+    'last_login',
+    'is_active',
+    'is_staff',
+    # Base User identification information:
+    'username',
+    'email',
+    # Password information:
+    'password_to_change',
+    # Personal information:
+    'bmi',
 ]
+
+# User model serializer combined fields:
+fields = (
+    base_model_fields
+    + base_timestamp_fields
+    + user_fields
+)
+read_only_fields = (
+    base_model_read_only_fields
+    + base_timestamp_read_only_fields
+    + user_read_only_fields
+)
+
+# User Model representation serializer fields:
 representation_fields = [
     'url',
     'username',

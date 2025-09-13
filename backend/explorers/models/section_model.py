@@ -83,7 +83,7 @@ class SectionModel(
         ],
     }
 
-    # Many-to-Many Relationships:
+    # Section Many-to-Many Relationships:
     photos = models.ManyToManyField(
         PhotoModel,
         through='SectionToPhotoModel',
@@ -103,10 +103,10 @@ class SectionModel(
             'to visit along the way. Points of Interest also '
             'mark the start and end points of the section.'
     )
-    sections = models.ManyToManyField(
+    cards = models.ManyToManyField(
         CardModel,
         through='SectionToCardModel',
-        related_name='section_sections',
+        related_name='section_cards',
         verbose_name='Section Cards',
         help_text='Cards associated with the section that can '
             'be obtained by the user by completing this section.'
@@ -118,6 +118,15 @@ class SectionModel(
         verbose_name='Section Regions',
         help_text='Geographical regions that this section crosses '
             'or belongs to. Useful for filtering and categorization.'
+    )
+
+    # Section Many-to-Many Relationships (reverse side):
+    routes = models.ManyToManyField(
+        'RouteModel',
+        through='SectionToRouteModel',
+        related_name='route_sections',
+        verbose_name='Route Sections',
+        help_text='Sections that are part of this route.'
     )
 
 

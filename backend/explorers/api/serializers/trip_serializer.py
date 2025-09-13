@@ -1,65 +1,71 @@
 # AlpenWegs import:
-from alpenwegs.ashared.api.serializers.base_serializers import WritableNestedSerializer
-from alpenwegs.ashared.api.serializers.base_serializers import BaseSerializer
+from alpenwegs.ashared.api.serializers.base_serializers import (
+    SerializedPkRelatedField,
+    WritableNestedSerializer,
+    BaseSerializer,
+)
+from alpenwegs.ashared.api.serializers.base_model_variables import (
+    base_identification_read_only_fields,
+    base_sport_category_read_only_fields,
+    base_descriptive_read_only_fields,
+    base_statistic_read_only_fields,
+    base_timestamp_read_only_fields,
+    base_creator_read_only_fields,
+    base_model_read_only_fields,
+    base_score_read_only_fields,
+    base_identification_fields,
+    base_representation_fields,
+    base_sport_category_fields,
+    base_descriptive_fields,
+    base_statistic_fields,
+    base_timestamp_fields,
+    base_creator_fields,
+    base_model_fields,
+    base_score_fields,
+)
+
+# AlpenWegs application import:
+from explorers.api.serializers.route_serializer import RouteRelationSerializer
+from profiles.api.serializers.user_serializer import UserRelationSerializer
+from explorers.models.route_model import RouteModel
+from explorers.models.trip_model import TripModel
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
-
-# AlpenWegs application import:
-from explorers.models.trip_model import TripModel
 
 
 # Trip Model serializer details:
 model = TripModel
 depth = 0
-fields = [
-    # BaseModel values:
-    'pk',
-    'url',
 
-    # BaseIdentificationModel values:
-    'name',
-    'slug',
-    'snippet',
-
-    # BaseDescriptiveModel values:
-    'description',
-
-    # BaseSportCategoryModel values:
-    'category',
-    'category_specific_difficulty',
-
-    # Trip-specific values:
+# Trip Model serializer fields:
+trip_fields = [
+    'routes',
     'days',
-
-    # BaseStatisticModel values:
-    'comment_count',
-    'visit_count',
-    'download_count',
-
-    # BaseScoreModel values:
-    'score',
-
-    # BaseCreatorModel values:
-    'creator',
-    'is_public',
-
-    # BaseTimestampModel values:
-    'created',
-    'updated',
 ]
-read_only_fields = [
-    'pk',
-    'url',
-    'slug',
-    'creator',
-    'created',
-    'updated',
-]
-representation_fields = [
-    'url',
-    'name',
-]
+
+# Trip model serializer combined fields:
+fields = (
+    base_model_fields
+    + base_sport_category_fields
+    + base_identification_fields
+    + base_descriptive_fields
+    + base_timestamp_fields
+    + base_statistic_fields
+    + base_creator_fields
+    + base_score_fields
+    + trip_fields
+)
+read_only_fields = (
+    base_model_read_only_fields
+    + base_sport_category_read_only_fields
+    + base_identification_read_only_fields
+    + base_descriptive_read_only_fields
+    + base_timestamp_read_only_fields
+    + base_statistic_read_only_fields
+    + base_creator_read_only_fields
+    + base_score_read_only_fields
+)
 
 
 # Trip Detailed serializer:
@@ -79,6 +85,22 @@ class TripDetailedSerializer(
         view_name='api-explorers:trip_model-detail',
         help_text='URL to provided object.',
         read_only=True,
+    )
+
+    # Other object relation schemas:
+    creator = UserRelationSerializer(
+        help_text=TripModel.creator.field.help_text,
+        required=TripModel.creator.field.null,
+        allow_null=TripModel.creator.field.blank,
+    )
+
+    # Other object Many to Many relation schemas:
+    routes = SerializedPkRelatedField(
+        queryset=RouteModel.objects.all(),
+        serializer=RouteRelationSerializer,
+        required=False,
+        allow_null=True,
+        many=True,
     )
 
     class Meta:
@@ -110,10 +132,10 @@ class TripRepresentationSerializer(
     class Meta:
 
         # Define read only fields:
-        read_only_fields = representation_fields
+        read_only_fields = base_representation_fields
 
         # Define writable fields:
-        fields = representation_fields
+        fields = base_representation_fields
 
         # Define related model:
         model = model

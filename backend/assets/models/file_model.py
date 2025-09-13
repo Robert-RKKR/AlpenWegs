@@ -65,7 +65,7 @@ class FileModel(
     }
 
     # File Information:
-    file = models.FileField(
+    path = models.FileField(
         upload_to='files/',
         verbose_name='File Path',
         help_text='Path where the file is stored.',

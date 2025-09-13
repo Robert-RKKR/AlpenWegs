@@ -1,6 +1,19 @@
 # AlpenWegs import:
-from alpenwegs.ashared.api.serializers.base_serializers import WritableNestedSerializer
-from alpenwegs.ashared.api.serializers.base_serializers import BaseSerializer
+from alpenwegs.ashared.api.serializers.base_serializers import (
+    WritableNestedSerializer,
+    BaseSerializer,
+)
+from alpenwegs.ashared.api.serializers.base_model_variables import (
+    base_identification_read_only_fields,
+    base_timestamp_read_only_fields,
+    base_creator_read_only_fields,
+    base_model_read_only_fields,
+    base_identification_fields,
+    base_representation_fields,
+    base_timestamp_fields,
+    base_creator_fields,
+    base_model_fields,
+)
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
@@ -12,41 +25,27 @@ from assets.models.file_model import FileModel
 # File Model serializer details:
 model = FileModel
 depth = 0
-fields = [
-    # BaseModel values:
-    'pk',
-    'url',
 
-    # BaseIdentificationModel values:
-    'name',
-    'slug',
-    'snippet',
-
-    # BaseCreatorModel values:
-    'creator',
-    'is_public',
-
-    # BaseTimestampModel values:
-    'created',
-    'updated',
-
-    # FileModel file values:
-    'file',
+# File Model serializer fields:
+file_fields = [
     'format',
+    'path',
 ]
-read_only_fields = [
-    'pk',
-    'url',
-    'slug',
-    'creator',
-    'created',
-    'updated',
-]
-representation_fields = [
-    'pk',
-    'url',
-    'name',
-]
+
+# File model serializer combined fields:
+fields = (
+    base_model_fields
+    + base_identification_fields
+    + base_timestamp_fields
+    + base_creator_fields
+    + file_fields
+)
+read_only_fields = (
+    base_model_read_only_fields
+    + base_identification_read_only_fields
+    + base_timestamp_read_only_fields
+    + base_creator_read_only_fields
+)
 
 
 # File Detailed serializer:
@@ -106,10 +105,10 @@ class FileRepresentationSerializer(
     class Meta:
 
         # Define read only fields:
-        read_only_fields = representation_fields
+        read_only_fields = base_representation_fields
 
         # Define writable fields:
-        fields = representation_fields
+        fields = base_representation_fields
 
         # Define related model:
         model = model

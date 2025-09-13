@@ -24,7 +24,6 @@ from rest_framework.serializers import HyperlinkedIdentityField
 from compendiums.api.serializers.poi_serializer import PoiRelationSerializer
 from profiles.api.serializers.user_serializer import UserRelationSerializer
 from compendiums.models.card_model import CardModel
-from compendiums.models.poi_model import PoiModel
 
 
 # Card Model serializer details:

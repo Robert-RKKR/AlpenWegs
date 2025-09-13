@@ -65,13 +65,13 @@ class RegionModel(
     }
     
     # Region Many-to-many relationship:
-    # routes = models.ManyToManyField(
-    #     'routes.RouteModel',
-    #     through='routes.RouteToRegionModel',
-    #     related_name='region_routes',
-    #     verbose_name='Routes',
-    #     help_text='Associated Routes.',
-    # )
+    sections = models.ManyToManyField(
+        'explorers.SectionModel',
+        through='explorers.SectionToRegionModel',
+        related_name='region_sections',
+        verbose_name='Sections',
+        help_text='Associated Sections.',
+    )
 
     # Region specific values:
     country = models.IntegerField(

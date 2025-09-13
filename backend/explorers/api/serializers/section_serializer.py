@@ -1,66 +1,79 @@
 # AlpenWegs import:
-from alpenwegs.ashared.api.serializers.base_serializers import WritableNestedSerializer
-from alpenwegs.ashared.api.serializers.base_serializers import BaseSerializer
+from alpenwegs.ashared.api.serializers.base_serializers import (
+    SerializedPkRelatedField,
+    WritableNestedSerializer,
+    BaseSerializer,
+)
+from alpenwegs.ashared.api.serializers.base_model_variables import (
+    base_identification_read_only_fields,
+    base_sport_category_read_only_fields,
+    base_characteristic_read_only_fields,
+    base_descriptive_read_only_fields,
+    base_timestamp_read_only_fields,
+    base_creator_read_only_fields,
+    base_model_read_only_fields,
+    base_identification_fields,
+    base_representation_fields,
+    base_characteristic_fields,
+    base_sport_category_fields,
+    base_gpx_read_only_fields,
+    base_descriptive_fields,
+    base_timestamp_fields,
+    base_creator_fields,
+    base_model_fields,
+    base_gpx_fields,
+)
+
+# AlpenWegs application import:
+from compendiums.api.serializers.region_serializer import RegionRelationSerializer
+from compendiums.api.serializers.card_serializer import CardRelationSerializer
+from compendiums.api.serializers.poi_serializer import PoiRelationSerializer
+from profiles.api.serializers.user_serializer import UserRelationSerializer
+from assets.api.serializers.photo_serializer import PhotoRelationSerializer
+from explorers.models.section_model import SectionModel
+from compendiums.models.region_model import RegionModel
+from compendiums.models.card_model import CardModel
+from compendiums.models.poi_model import PoiModel
+from assets.models.photo_model import PhotoModel
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
-
-# AlpenWegs application import:
-from explorers.models.section_model import SectionModel
 
 
 # Section Model serializer details:
 model = SectionModel
 depth = 0
-fields = [
-    # BaseModel values:
-    'pk',
-    'url',
 
-    # BaseIdentificationModel values:
-    'name',
-    'slug',
-    'snippet',
-
-    # BaseDescriptiveModel values:
-    'description',
-
-    # BaseCharacteristicModel values:
-    'difficulty',
-    'stamina_requirement',
-    'experience_requirement',
-    'potential_risk_requirement',
-    'potential_risk_description',
-    'family_friendly',
-    'best_seasons',
-    'best_months',
-    'winter_season',
-    'summer_season',
-
-    # BaseSportCategoryModel values:
-    'category',
-    'category_specific_difficulty',
-
-    # BaseCreatorModel values:
-    'creator',
-    'is_public',
-
-    # BaseTimestampModel values:
-    'created',
-    'updated',
+# Section Model serializer fields:
+section_fields = [
+    'regions',
+    'photos',
+    'cards',
+    'pois',
 ]
-read_only_fields = [
-    'pk',
-    'url',
-    'slug',
-    'creator',
-    'created',
-    'updated',
-]
-representation_fields = [
-    'url',
-    'name',
-]
+
+# Section model serializer combined fields:
+fields = (
+    base_model_fields
+    + base_characteristic_fields
+    + base_identification_fields
+    + base_sport_category_fields
+    + base_descriptive_fields
+    + base_timestamp_fields
+    + base_creator_fields
+    + base_gpx_fields
+    + section_fields
+)
+read_only_fields = (
+    base_model_read_only_fields
+    + base_identification_read_only_fields
+    + base_characteristic_read_only_fields
+    + base_sport_category_read_only_fields
+    + base_descriptive_read_only_fields
+    + base_timestamp_read_only_fields
+    + base_creator_read_only_fields
+    + base_gpx_read_only_fields
+)
 
 
 # Section Detailed serializer:
@@ -80,6 +93,43 @@ class SectionDetailedSerializer(
         view_name='api-explorers:section_model-detail',
         help_text='URL to provided object.',
         read_only=True,
+    )
+
+    # Other object relation schemas:
+    creator = UserRelationSerializer(
+        help_text=SectionModel.creator.field.help_text,
+        required=SectionModel.creator.field.null,
+        allow_null=SectionModel.creator.field.blank,
+    )
+
+    # Other object Many to Many relation schemas:
+    photos = SerializedPkRelatedField(
+        queryset=PhotoModel.objects.all(),
+        serializer=PhotoRelationSerializer,
+        required=False,
+        allow_null=True,
+        many=True,
+    )
+    regions = SerializedPkRelatedField(
+        queryset=RegionModel.objects.all(),
+        serializer=RegionRelationSerializer,
+        required=False,
+        allow_null=True,
+        many=True,
+    )
+    cards = SerializedPkRelatedField(
+        queryset=CardModel.objects.all(),
+        serializer=CardRelationSerializer,
+        required=False,
+        allow_null=True,
+        many=True,
+    )
+    pois = SerializedPkRelatedField(
+        queryset=PoiModel.objects.all(),
+        serializer=PoiRelationSerializer,
+        required=False,
+        allow_null=True,
+        many=True,
     )
 
     class Meta:
@@ -111,10 +161,10 @@ class SectionRepresentationSerializer(
     class Meta:
 
         # Define read only fields:
-        read_only_fields = representation_fields
+        read_only_fields = base_representation_fields
 
         # Define writable fields:
-        fields = representation_fields
+        fields = base_representation_fields
 
         # Define related model:
         model = model

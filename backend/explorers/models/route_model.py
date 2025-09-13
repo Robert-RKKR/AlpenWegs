@@ -1,4 +1,5 @@
 # AlpenWegs import:
+from alpenwegs.ashared.models.relationship_model import BaseRelationshipOrderedModel
 from alpenwegs.ashared.models.characteristic_model import BaseCharacteristicModel
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
 from alpenwegs.ashared.models.sport_category_model import BaseSportCategoryModel
@@ -9,6 +10,9 @@ from alpenwegs.ashared.models.statistic_model import BaseStatisticModel
 from alpenwegs.ashared.models.creator_model import BaseCreatorModel
 from alpenwegs.ashared.models.liked_model import BaseLikedModel
 from alpenwegs.ashared.models.score_model import BaseScoreModel
+
+# AlpenWegs application import:
+from explorers.models.section_model import SectionModel
 
 # Django import:
 from django.db import models
@@ -74,6 +78,15 @@ class RouteModel(
     }
 
     # Route Many-to-Many Relationships:
+    sections = models.ManyToManyField(
+        SectionModel,
+        through='SectionToRouteModel',
+        related_name='section_routes',
+        verbose_name='Sections',
+        help_text='Associated Sections.',
+    )
+
+    # Route Many-to-Many Relationships (reverse side):
     trips = models.ManyToManyField(
         'TripModel',
         through='TripToRouteModel',
@@ -81,4 +94,33 @@ class RouteModel(
         verbose_name='Route Trips',
         help_text='Trips that include this route '
             'as part of a multi-day experience.'
+    )
+
+
+class SectionToRouteModel(
+    BaseRelationshipOrderedModel,
+    BaseDescriptiveModel,
+):
+    """
+    An intermediate model for associating a Section
+    with a route. This model allows us to store the
+    relationship between a Section and a specific Route.
+    """
+    
+    # Base relation between Many-to-many Models:
+    route = models.ForeignKey(
+        RouteModel,
+        related_name='section_route_associations',
+        verbose_name='Route',
+        help_text='The Route that is associated with the Section '
+            'to Route M2M relationship.',
+        on_delete=models.CASCADE,
+    )
+    section = models.ForeignKey(
+        SectionModel,
+        related_name='section_trip_associations',
+        verbose_name='Section',
+        help_text='The Section that is associated with the Section '
+            'to Trip M2M relationship.',
+        on_delete=models.CASCADE,
     )

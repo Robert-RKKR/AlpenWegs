@@ -5,7 +5,12 @@ from django.contrib import admin
 from explorers.models.route_model import RouteModel
 from explorers.models.trip_model import TripModel
 from explorers.models.section_model import SectionModel
-
+from explorers.models.section_model import (
+    SectionToPhotoModel,
+    SectionToPoiModel,
+    SectionToCardModel,
+    SectionToRegionModel,
+)
 
 @admin.register(RouteModel)
 class RouteAdmin(admin.ModelAdmin):
@@ -38,18 +43,27 @@ class RouteAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
+                    'snippet',
+                    'creator',
                     'description',
+                    'category',
+                    'category_specific_difficulty',
                 )
             }
         ),
         (
             'Route data', {
                 'fields': (
-                    'distance',
-                    'ascent',
-                    'descent',
-                    'duration',
                     'difficulty',
+                    'stamina_requirement',
+                    'experience_requirement',
+                    'potential_risk_requirement',
+                    'potential_risk_description',
+                    'family_friendly',
+                    'best_seasons',
+                    'best_months',
+                    'winter_season',
+                    'summer_season',
                 )
             }
         ),
@@ -111,14 +125,9 @@ class TripAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
-                    'description'
-                )
-            }
-        ),
-        (
-            'Relations', {
-                'fields': (
+                    'snippet',
                     'creator',
+                    'description',
                     'trips',
                 )
             }
@@ -144,6 +153,26 @@ class TripAdmin(admin.ModelAdmin):
         'created',
         'updated'
     )
+
+
+class SectionToPhotoInline(admin.TabularInline):
+    model = SectionToPhotoModel
+    extra = 1
+
+
+class SectionToPoiInline(admin.TabularInline):
+    model = SectionToPoiModel
+    extra = 1
+
+
+class SectionToCardInline(admin.TabularInline):
+    model = SectionToCardModel
+    extra = 1
+
+
+class SectionToRegionInline(admin.TabularInline):
+    model = SectionToRegionModel
+    extra = 1
 
 
 @admin.register(SectionModel)
@@ -174,24 +203,40 @@ class SectionAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
+                    'snippet',
+                    'creator',
                     'description',
                 )
             }
         ),
         (
-            'Relations', {
+            'GPX', {
                 'fields': (
-                    'route',
+                    'duration',
+                    'distance',
+                    'elevation_gain',
+                    'elevation_loss',
+                    'highest_elevation',
+                    'lowest_elevation',
+                    'average_grade',
+                    'highest_grade',
+                    'track_types',
                 )
             }
         ),
         (
-            'Section data', {
+            'Route data', {
                 'fields': (
-                    'distance',
-                    'ascent',
-                    'descent',
-                    'duration',
+                    'difficulty',
+                    'stamina_requirement',
+                    'experience_requirement',
+                    'potential_risk_requirement',
+                    'potential_risk_description',
+                    'family_friendly',
+                    'best_seasons',
+                    'best_months',
+                    'winter_season',
+                    'summer_season',
                 )
             }
         ),
@@ -209,3 +254,10 @@ class SectionAdmin(admin.ModelAdmin):
         'created',
         'updated'
     )
+
+    inlines = [
+        SectionToPhotoInline,
+        SectionToPoiInline,
+        SectionToCardInline,
+        SectionToRegionInline,
+    ]

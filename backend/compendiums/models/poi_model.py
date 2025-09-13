@@ -78,15 +78,15 @@ class PoiModel(
         blank=True,
         null=True,
     )
-    
+
     # PoI Many-to-many relationships:
-    # routes = models.ManyToManyField(
-    #     'routes.RouteModel',
-    #     through='routes.RouteToPoiModel',
-    #     related_name='poi_routes',
-    #     verbose_name='Routes',
-    #     help_text='Associated Routes.',
-    # )
+    sections = models.ManyToManyField(
+        'explorers.SectionModel',
+        through='explorers.SectionToPoiModel',
+        related_name='poi_sections',
+        verbose_name='Sections',
+        help_text='Associated Sections.',
+    )
     
     # PoI description:
     transport_description = models.BigIntegerField(

@@ -1,9 +1,15 @@
 # AlpenWegs application import:
-from alpenwegs.ashared.api.serializers.base_serializers import WritableNestedSerializer
-from notifications.models.notification_model import NotificationModel
+from alpenwegs.ashared.api.serializers.base_serializers import (
+    WritableNestedSerializer,
+    BaseSerializer,
+)
+from alpenwegs.ashared.api.serializers.base_model_variables import (
+    base_model_read_only_fields,
+    base_model_fields,
+)
 
-# AlpenWegs import:
-from alpenwegs.ashared.api.serializers.base_serializers import BaseSerializer
+# AlpenWegs application import:
+from notifications.models.notification_model import NotificationModel
 
 # Rest framework serializer import:
 from rest_framework.serializers import HyperlinkedIdentityField
@@ -12,28 +18,34 @@ from rest_framework.serializers import HyperlinkedIdentityField
 # Notification Model serializer details:
 model = NotificationModel
 depth = 0
-fields = [
-    # Base Model values:
-    'pk',
-    'url',
-    # Base notification data:
+
+# Notification Model serializer fields:
+notification_fields = [
+    'object_url',
     'timestamp',
     'severity',
     'task_id',
     'message',
-    'object_url',
 ]
-read_only_fields = [
-    # Base Model values:
-    'pk',
-    'url',
-    # Base notification data:
+notification_read_only_fields = [
+    'object_url',
     'timestamp',
     'severity',
     'task_id',
     'message',
-    'object_url',
 ]
+
+# Notification model serializer combined fields:
+fields = (
+    base_model_fields
+    + notification_fields
+)
+read_only_fields = (
+    base_model_read_only_fields
+    + notification_read_only_fields
+)
+
+# Notification Model representation serializer fields:
 representation_fields = [
     'url',
 ]

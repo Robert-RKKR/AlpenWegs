@@ -43,7 +43,7 @@ class PhotoAdmin(admin.ModelAdmin):
                 'fields': (
                     'name',
                     'snippet',
-                    'file'
+                    'path'
                 )
             }
         ),
@@ -79,7 +79,6 @@ class FileAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'name',
-        'file',
         'creator',
         'is_public',
         'created',
@@ -106,7 +105,7 @@ class FileAdmin(admin.ModelAdmin):
                 'fields': (
                     'name',
                     'snippet',
-                    'file'
+                    'path'
                 )
             }
         ),

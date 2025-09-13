@@ -109,20 +109,10 @@ class BaseListModelMixin(
         **kwargs: dict,
     ) -> Response:
 
-        try:
-            # Try to collect all instances:
-            return self._call_list(
-                request=request,
-                *args,
-                **kwargs,
-            )
 
-        # Unexpected exception handling !TEMPORARY:
-        except Exception as exception:
-            # Test exceptions:
-            print(f'Type of list exception: {type(exception)}')
-            
-            # Raise not found error:
-            raise ParseError(
-                'An error occurred during the GET List API call.',
-            )
+        # Try to collect all instances:
+        return self._call_list(
+            request=request,
+            *args,
+            **kwargs,
+        )

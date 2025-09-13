@@ -39,6 +39,8 @@ class NotificationModel(
         'Admin':  [
             'view_all',
             'view_own',
+            'delete_own',
+            'delete_all',
         ],
     }
     

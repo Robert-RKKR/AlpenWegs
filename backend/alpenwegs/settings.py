@@ -1,7 +1,10 @@
-# Jazzmin - settings import:
+# Jazzminsettings import:
 from .jazzmin import GLOBAL_JAZZMIN_SETTINGS
 
-# Python - libraries import:
+# API description import:
+from .api_descrpiption import API_DESCRIPTION
+
+# Python libraries import:
 from datetime import timedelta
 from pathlib import Path
 import os
@@ -211,12 +214,16 @@ REST_USE_JWT = True
 # Schema configuration:
 SPECTACULAR_SETTINGS = {
     'TITLE': 'AlpenWegs REST API',
-    'DESCRIPTION': 'API for AlpenWegs project.',
-    'LICENSE': {'name': 'Apache v2 License'},
+    'DESCRIPTION': API_DESCRIPTION,
+    'LICENSE': {
+        'name': 'Apache v2 License',
+    },
     'VERSION': VERSION,
     'SERVE_INCLUDE_SCHEMA': False,
     'COMPONENT_SPLIT_REQUEST': True,
-    'SERVE_PERMISSIONS': ['rest_framework.permissions.AllowAny'],
+    'SERVE_PERMISSIONS': [
+        'rest_framework.permissions.AllowAny',
+    ],
     'SWAGGER_UI_SETTINGS': {
         'deepLinking': True,
         'persistAuthorization': True,

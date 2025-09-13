@@ -20,6 +20,7 @@ from drf_spectacular.utils import extend_schema_view
 @extend_schema_view(
     **red_write_schema(
         representation_schema=PoiRepresentationSerializer,
+        where_used_schema=PoiWhereUsedSerializer,
         detailed_schema=PoiDetailedSerializer,
         relation_schema=PoiRelationSerializer,
         application_repr='Compendiums',

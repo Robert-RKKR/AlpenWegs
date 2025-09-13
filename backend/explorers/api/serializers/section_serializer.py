@@ -74,6 +74,16 @@ read_only_fields = (
     + base_creator_read_only_fields
     + base_gpx_read_only_fields
 )
+base_gpx_fields = (
+    ['url', 'name', 'snippet', 'is_public', 'gpx_data']
+    + base_characteristic_fields
+    + base_sport_category_fields
+    + base_descriptive_fields
+    + section_fields
+)
+base_gpx_read_only_fields = [
+    'url',
+]
 
 
 # Section Detailed serializer:
@@ -195,4 +205,33 @@ class SectionRelationSerializer(
         read_only_fields = read_only_fields
         fields = fields
         model = model
+        depth = depth
+
+
+# Section GPX serializer:
+class SectionGpxSerializer(
+    BaseSerializer,
+):
+    """
+    """
+
+    # Default model URL field with hyperlink to retrieve view:
+    url = HyperlinkedIdentityField(
+        view_name='api-explorers:section_model-detail',
+        help_text='URL to provided object.',
+        read_only=True,
+    )
+
+    class Meta:
+
+        # Define read only fields:
+        read_only_fields = base_gpx_read_only_fields
+
+        # Define writable fields:
+        fields = base_gpx_fields
+
+        # Define related model:
+        model = model
+
+        # Define model depth:
         depth = depth

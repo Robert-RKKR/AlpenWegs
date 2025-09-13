@@ -22,7 +22,7 @@ Key Features:
 from alpenwegs.ashared.models.base_model import BaseModel
 
 # AlpenWegs application import:
-# from assets.models.file_model import FileModel
+from assets.models.file_model import FileModel
 
 # Django import:
 from django.db import models
@@ -54,14 +54,14 @@ class BaseGpxModel(
         abstract = True
 
     # Route GPX data:
-    # gpx_data = models.ForeignKey(
-    #     FileModel,
-    #     verbose_name='GPX Data',
-    #     help_text='GPX data file.',
-    #     on_delete=models.CASCADE,
-    #     blank=True,
-    #     null=True,
-    # )
+    gpx_data = models.ForeignKey(
+        FileModel,
+        verbose_name='GPX Data',
+        help_text='GPX data file.',
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+    )
     geojson = models.JSONField(
         verbose_name='Route GeoJSON Data',
         help_text='GeoJSON representation of the route path. '

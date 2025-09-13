@@ -98,6 +98,18 @@ def base_exception_handler(
     Base exception handler to return JSON error responses.
     """
 
+    # Try to collect exception data:
+    error_response, response = collect_exception_data(
+        context=context,
+        exc=exc,
+    )
+
+    # Return error response:
+    return Response(
+        data=error_response,
+        status=response.status_code
+    )
+
     try:
         # Try to collect exception data:
         error_response, response = collect_exception_data(

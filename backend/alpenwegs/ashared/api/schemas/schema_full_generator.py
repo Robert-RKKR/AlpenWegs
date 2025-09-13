@@ -20,6 +20,7 @@ def red_write_schema(
     object_repr: str,
     optional_tag: str = None,
     where_used_schema: Serializer = None,
+    **additional_schemas,
 ) -> tuple:
 
     # Generate and return Model schema:
@@ -84,6 +85,13 @@ def red_write_schema(
             optional_tag=optional_tag,
             object_repr=object_repr,
         )
+
+    # Add additional schemas if provided:
+    if additional_schemas:
+        # Iterate over additional schemas:
+        for key, schema in additional_schemas.items():
+            # Add additional schema to generated schema:
+            generated_schema[key] = schema
 
     # Return generated schema:
     return generated_schema

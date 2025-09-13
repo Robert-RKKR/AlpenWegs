@@ -34,10 +34,10 @@ class BaseCreateModelMixin(
             data=request.data,
         )
         
-        # Add creator to serializer data if available:
-        serializer.save(creator=user)
         # Validate created serializer:
         serializer.is_valid(raise_exception=True)
+        # Add creator to serializer data if available:
+        serializer.save(creator=user)
         # Save a new instance based on validated serializer data:
         instance = serializer.save()
 

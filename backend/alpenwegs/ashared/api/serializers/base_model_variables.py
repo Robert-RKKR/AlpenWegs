@@ -107,6 +107,7 @@ base_object_representation_read_only_fields = [
 
 # BaseGpx serializer details:
 base_gpx_fields = [
+    'gpx_data',
     'geojson',
     'duration',
     'distance',

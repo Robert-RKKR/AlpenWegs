@@ -19,10 +19,11 @@ def red_write_schema(
     application_repr: str,
     object_repr: str,
     optional_tag: str = None,
+    where_used_schema: Serializer = None,
 ) -> tuple:
 
     # Generate and return Model schema:
-    return {
+    generated_schema = {
         'representation': schema_representation(
             response_schema=representation_schema,
             application_repr=application_repr,
@@ -74,6 +75,18 @@ def red_write_schema(
             object_repr=object_repr,
         ),
     }
+
+    # Add where used schema if provided:
+    if where_used_schema:
+        generated_schema['where_used'] = schema_retrieve(
+            application_repr=application_repr,
+            response_schema=where_used_schema,
+            optional_tag=optional_tag,
+            object_repr=object_repr,
+        )
+
+    # Return generated schema:
+    return generated_schema
 
 # Read Only Schema Generator:
 def red_only_schema(

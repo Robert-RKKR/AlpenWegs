@@ -11,6 +11,7 @@ from rest_framework import serializers
 # Django import:
 from django.core.exceptions import MultipleObjectsReturned
 from django.core.exceptions import ObjectDoesNotExist
+from django.utils.module_loading import import_string
 from django.core.exceptions import FieldError
 
 
@@ -129,8 +130,12 @@ class SerializedPkRelatedField(
 
     def to_representation(self, value):
 
+        serializer_class = self.serializer
+        if isinstance(serializer_class, str):
+            serializer_class = import_string(serializer_class)
+
         # Return serialized representation:
-        return self.serializer(
+        return serializer_class(
             value, context={
                 'request': self.context['request']
             }

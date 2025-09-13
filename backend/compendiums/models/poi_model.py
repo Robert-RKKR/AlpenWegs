@@ -79,7 +79,7 @@ class PoiModel(
         null=True,
     )
 
-    # PoI Many-to-many relationships:
+    # PoI Many-to-many relationships (reverse side):
     sections = models.ManyToManyField(
         'explorers.SectionModel',
         through='explorers.SectionToPoiModel',

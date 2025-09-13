@@ -1,5 +1,6 @@
 # AlpenWegs import:
 from alpenwegs.ashared.api.serializers.base_serializers import (
+    SerializedPkRelatedField,
     WritableNestedSerializer,
     BaseSerializer,
 )
@@ -20,6 +21,7 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
 # AlpenWegs application import:
 from compendiums.api.serializers.region_serializer import RegionRelationSerializer
 from profiles.api.serializers.user_serializer import UserRelationSerializer
+from explorers.models.section_model import SectionModel
 from compendiums.models.poi_model import PoiModel
 
 # Rest framework import:
@@ -55,6 +57,14 @@ read_only_fields = (
     + base_descriptive_read_only_fields
     + base_timestamp_read_only_fields
     + base_creator_read_only_fields
+)
+where_used_fields = (
+    base_model_fields
+    + ['sections']
+)
+where_used_read_only_fields = (
+    base_model_read_only_fields
+    + ['sections']
 )
 
 
@@ -163,6 +173,49 @@ class PoiRelationSerializer(
 
         # Define writable fields:
         fields = fields
+
+        # Define related model:
+        model = model
+
+        # Define model depth:
+        depth = depth
+
+
+# Poi Where Used serializer:
+class PoiWhereUsedSerializer(
+    BaseSerializer,
+):
+    """
+    Where Used serializer for the Poi model. Includes fields
+    that identify where the PoI object is used. Collecting
+    data based on relations with other Models.
+
+    Used for retrieve API actions.
+    """
+
+    # Default model URL field with hyperlink to retrieve view:
+    url = HyperlinkedIdentityField(
+        view_name='api-compendiums:poi_model-detail',
+        help_text='URL to provided object.',
+        read_only=True,
+    )
+
+    # Other object relation schemas:
+    sections = SerializedPkRelatedField(
+        queryset=SectionModel.objects.all(),
+        serializer='explorers.api.serializers.section_serializer.SectionRelationSerializer',
+        required=False,
+        allow_null=True,
+        many=True,
+    )
+
+    class Meta:
+
+        # Define read only fields:
+        read_only_fields = where_used_read_only_fields
+
+        # Define writable fields:
+        fields = where_used_fields
 
         # Define related model:
         model = model

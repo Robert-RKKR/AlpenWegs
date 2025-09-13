@@ -1,11 +1,13 @@
 # AlpenWegs application import:
 from compendiums.api.serializers.poi_serializer import PoiRepresentationSerializer
+from compendiums.api.serializers.poi_serializer import PoiWhereUsedSerializer
 from compendiums.api.serializers.poi_serializer import PoiDetailedSerializer
 from compendiums.api.serializers.poi_serializer import PoiRelationSerializer
 from compendiums.api.filters.poi_filter import PoiFilter
 from compendiums.models.poi_model import PoiModel
 
 # AlpenWegs import:
+from alpenwegs.ashared.api.mixins.base_where_used_mixin import BaseWhereUsedModelMixin
 from alpenwegs.ashared.api.schemas.schema_full_generator import red_write_schema
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
 from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
@@ -24,7 +26,10 @@ from drf_spectacular.utils import extend_schema_view
         object_repr='Poi',
     )
 )
-class PoiView(ReadWriteViewSet):
+class PoiView(
+    ReadWriteViewSet,
+    BaseWhereUsedModelMixin,
+):
     """
     Read-write API view for the PoI model.
     """
@@ -44,6 +49,7 @@ class PoiView(ReadWriteViewSet):
 
     # Serializer class used for the view:
     representation_serializer_class = PoiRepresentationSerializer
+    where_used_serializer_class = PoiWhereUsedSerializer
     detailed_serializer_class = PoiDetailedSerializer
     relation_serializer_class = PoiRelationSerializer
 

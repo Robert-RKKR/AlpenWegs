@@ -1,4 +1,5 @@
 # AlpenWegs import:
+from alpenwegs.ashared.api.base_exceptions import PermissionAPIException
 from alpenwegs.ashared.api.mixins.base_mixin import BaseMixin
 
 # AlpenWegs application import:
@@ -31,7 +32,7 @@ class BaseListModelMixin(
         """
 
         # Check if request user is instance of UserModel:
-        if isinstance(self.request.user, UserModel):
+        if isinstance(self.query_model, UserModel):
             # Filter only user that is requesting the data:
             return self.query_model.objects.filter(
                 pk=self.request.user.pk,
@@ -51,11 +52,16 @@ class BaseListModelMixin(
             )
         
         except FieldDoesNotExist:
-            # Return all objects:
-            return self.query_model.objects.all(
-                ).order_by(
-                    self.query_ordering
-                )
+            # Define error details list:
+            error_details = {
+                'error_message': 'Model does not have a creator field.',
+                'error_code': 'permission_denied',
+            }
+
+            # Raise validation API exception with collected details:
+            raise PermissionAPIException(
+                error_details=error_details,
+            )
 
     def _call_list(self,
         request: Response,

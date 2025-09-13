@@ -6,15 +6,8 @@ from assets.api.filters.photo_filter import PhotoFilter
 from assets.models.photo_model import PhotoModel
 
 # AlpenWegs import:
-from alpenwegs.ashared.api.schemas.schema_generators import schema_partial_update
-from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
+from alpenwegs.ashared.api.schemas.schema_full_generator import red_write_schema
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
-from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
-from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
-from alpenwegs.ashared.api.schemas.schema_generators import schema_update
-from alpenwegs.ashared.api.schemas.schema_generators import schema_create
-from alpenwegs.ashared.api.schemas.schema_generators import schema_admin
-from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
 
 # API import:
@@ -23,14 +16,13 @@ from drf_spectacular.utils import extend_schema_view
 
 # Photo Model API view class:
 @extend_schema_view(
-    representation=schema_representation(PhotoRepresentationSerializer, 'Assets', 'Photo'),
-    partial_update=schema_partial_update(PhotoDetailedSerializer, 'Assets', 'Photo'),
-    retrieve=schema_retrieve(PhotoDetailedSerializer, 'Assets', 'Photo'),
-    destroy=schema_destroy(PhotoDetailedSerializer, 'Assets', 'Photo'),
-    update=schema_update(PhotoDetailedSerializer, 'Assets', 'Photo'),
-    create=schema_create(PhotoDetailedSerializer, 'Assets', 'Photo'),
-    admin=schema_admin(PhotoDetailedSerializer, 'Assets', 'Photo'),
-    list=schema_list(PhotoDetailedSerializer, 'Assets', 'Photo'),
+    **red_write_schema(
+        representation_schema=PhotoRepresentationSerializer,
+        detailed_schema=PhotoDetailedSerializer,
+        relation_schema=PhotoRelationSerializer,
+        application_repr='Assets',
+        object_repr='Photo',
+    )
 )
 class PhotoView(
     ReadWriteViewSet,

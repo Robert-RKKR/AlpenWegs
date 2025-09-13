@@ -33,11 +33,11 @@ depth = 0
 
 # Card Model serializer fields:
 card_fields = [
-    'poi',
+    'category_specific_difficulty',
+    'category',
     'elevation',
     'type',
-    'category',
-    'category_specific_difficulty',
+    'poi',
 ]
 
 # Card model serializer combined fields:

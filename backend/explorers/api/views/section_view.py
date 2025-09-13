@@ -6,15 +6,8 @@ from explorers.api.filters.section_filter import SectionFilter
 from explorers.models.section_model import SectionModel
 
 # AlpenWegs import:
-from alpenwegs.ashared.api.schemas.schema_generators import schema_partial_update
-from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
+from alpenwegs.ashared.api.schemas.schema_full_generator import red_write_schema
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
-from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
-from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
-from alpenwegs.ashared.api.schemas.schema_generators import schema_update
-from alpenwegs.ashared.api.schemas.schema_generators import schema_create
-from alpenwegs.ashared.api.schemas.schema_generators import schema_admin
-from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
 
 # API import:
@@ -23,14 +16,13 @@ from drf_spectacular.utils import extend_schema_view
 
 # Section Model API view class:
 @extend_schema_view(
-    representation=schema_representation(SectionDetailedSerializer, 'Explorers', 'Section'),
-    partial_update=schema_partial_update(SectionDetailedSerializer, 'Explorers', 'Section'),
-    retrieve=schema_retrieve(SectionDetailedSerializer, 'Explorers', 'Section'),
-    destroy=schema_destroy(SectionDetailedSerializer, 'Explorers', 'Section'),
-    update=schema_update(SectionDetailedSerializer, 'Explorers', 'Section'),
-    create=schema_create(SectionDetailedSerializer, 'Explorers', 'Section'),
-    admin=schema_admin(SectionDetailedSerializer, 'Explorers', 'Section'),
-    list=schema_list(SectionDetailedSerializer, 'Explorers', 'Section'),
+    **red_write_schema(
+        representation_schema=SectionRepresentationSerializer,
+        detailed_schema=SectionDetailedSerializer,
+        relation_schema=SectionRelationSerializer,
+        application_repr='Explorers',
+        object_repr='Section',
+    )
 )
 class SectionView(
     ReadWriteViewSet,

@@ -1,15 +1,3 @@
-# AlpenWegs import:
-from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
-from alpenwegs.ashared.api.schemas.schema_generators import schema_partial_update
-from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
-from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
-from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
-from alpenwegs.ashared.api.schemas.schema_generators import schema_update
-from alpenwegs.ashared.api.schemas.schema_generators import schema_create
-from alpenwegs.ashared.api.schemas.schema_generators import schema_admin
-from alpenwegs.ashared.api.schemas.schema_generators import schema_list
-from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
-
 # AlpenWegs application import:
 from profiles.api.serializers.user_serializer import UserRepresentationSerializer
 from profiles.api.serializers.user_serializer import UserDetailedSerializer
@@ -17,20 +5,24 @@ from profiles.api.serializers.user_serializer import UserRelationSerializer
 from profiles.api.filters.user_filter import UserFilter
 from profiles.models.user_model import UserModel
 
+# AlpenWegs import:
+from alpenwegs.ashared.api.schemas.schema_full_generator import red_write_schema
+from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
+from alpenwegs.ashared.api.base_model_viewset import ReadWriteViewSet
+
 # Drf spectacular import:
 from drf_spectacular.utils import extend_schema_view
 
 
 # User Model api view class:
 @extend_schema_view(
-    representation=schema_representation(UserDetailedSerializer, 'Profiles', 'User'),
-    partial_update=schema_partial_update(UserDetailedSerializer, 'Profiles', 'User'),
-    retrieve=schema_retrieve(UserDetailedSerializer, 'Profiles', 'User'),
-    destroy=schema_destroy(UserDetailedSerializer, 'Profiles', 'User'),
-    update=schema_update(UserDetailedSerializer, 'Profiles', 'User'),
-    create=schema_create(UserDetailedSerializer, 'Profiles', 'User'),
-    admin=schema_admin(UserDetailedSerializer, 'Profiles', 'User'),
-    list=schema_list(UserDetailedSerializer, 'Profiles', 'User'),
+    **red_write_schema(
+        representation_schema=UserRepresentationSerializer,
+        detailed_schema=UserDetailedSerializer,
+        relation_schema=UserRelationSerializer,
+        application_repr='Profiles',
+        object_repr='User',
+    )
 )
 class UserView(
     ReadWriteViewSet,

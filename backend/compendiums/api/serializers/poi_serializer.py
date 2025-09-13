@@ -32,12 +32,12 @@ depth = 0
 
 # PoI Model serializer fields:
 poi_fields = [
-    'region',
     'transport_description',
-    'category',
-    'latitude',
     'longitude',
     'elevation',
+    'latitude',
+    'category',
+    'region',
 ]
 
 # PoI model serializer combined fields:

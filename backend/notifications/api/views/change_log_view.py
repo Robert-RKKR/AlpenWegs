@@ -6,11 +6,8 @@ from notifications.api.filters.change_log_filter import ChangeLogFilter
 from notifications.models.change_log_model import ChangeLogModel
 
 # AlpenWegs import:
-from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
+from alpenwegs.ashared.api.schemas.schema_full_generator import red_only_schema
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
-from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
-from alpenwegs.ashared.api.schemas.schema_generators import schema_admin
-from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadOnlyViewSet
 
 # API import:
@@ -21,11 +18,13 @@ from rest_framework.decorators import action
 
 # ChangeLog Model api view class:
 @extend_schema_view(
-    representation=schema_representation(ChangeLogDetailedSerializer, 'Notifications', 'Change Log'),
-    compare_changes=schema_retrieve(ChangeLogDetailedSerializer, 'Notifications', 'Change Log'),
-    retrieve=schema_retrieve(ChangeLogDetailedSerializer, 'Notifications', 'Change Log'),
-    admin=schema_admin(ChangeLogDetailedSerializer, 'Notifications', 'Change Log'),
-    list=schema_list(ChangeLogDetailedSerializer, 'Notifications', 'Change Log'),
+    **red_only_schema(
+        representation_schema=ChangeLogRepresentationSerializer,
+        detailed_schema=ChangeLogDetailedSerializer,
+        relation_schema=ChangeLogRelationSerializer,
+        application_repr='Notifications',
+        object_repr='Change Log',
+    )
 )
 class ChangeLogView(
     ReadOnlyViewSet,

@@ -6,12 +6,8 @@ from notifications.api.filters.notification_filter import NotificationFilter
 from notifications.models.notification_model import NotificationModel
 
 # AlpenWegs import:
-from alpenwegs.ashared.api.schemas.schema_generators import schema_representation
+from alpenwegs.ashared.api.schemas.schema_full_generator import red_delete_schema
 from alpenwegs.ashared.api.base_response_pagination import BaseSmallPaginator
-from alpenwegs.ashared.api.schemas.schema_generators import schema_retrieve
-from alpenwegs.ashared.api.schemas.schema_generators import schema_destroy
-from alpenwegs.ashared.api.schemas.schema_generators import schema_admin
-from alpenwegs.ashared.api.schemas.schema_generators import schema_list
 from alpenwegs.ashared.api.base_model_viewset import ReadDeleteViewSet
 
 # Drf spectacular import:
@@ -20,11 +16,13 @@ from drf_spectacular.utils import extend_schema_view
 
 # Notification Model api view class:
 @extend_schema_view(
-    representation=schema_representation(NotificationDetailedSerializer, 'Notifications', 'Notification'),
-    retrieve=schema_retrieve(NotificationDetailedSerializer, 'Notifications', 'Notification'),
-    destroy=schema_destroy(NotificationDetailedSerializer, 'Notifications', 'Notification'),
-    admin=schema_admin(NotificationDetailedSerializer, 'Notifications', 'Notification'),
-    list=schema_list(NotificationDetailedSerializer, 'Notifications', 'Notification'),
+    **red_delete_schema(
+        representation_schema=NotificationRepresentationSerializer,
+        detailed_schema=NotificationDetailedSerializer,
+        relation_schema=NotificationRelationSerializer,
+        application_repr='Notifications',
+        object_repr='Notification',
+    )
 )
 class NotificationView(
     ReadDeleteViewSet,

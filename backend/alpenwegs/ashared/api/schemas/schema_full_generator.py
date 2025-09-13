@@ -43,7 +43,7 @@ def red_write_schema(
             object_repr=object_repr,
         ),
         'destroy': schema_destroy(
-            response_schema=application_repr,
+            application_repr=application_repr,
             optional_tag=optional_tag,
             object_repr=object_repr,
         ),
@@ -74,3 +74,85 @@ def red_write_schema(
             object_repr=object_repr,
         ),
     }
+
+# Read Only Schema Generator:
+def red_only_schema(
+    representation_schema: Serializer,
+    detailed_schema: Serializer,
+    relation_schema: Serializer,
+    application_repr: str,
+    object_repr: str,
+    optional_tag: str = None,
+) -> tuple:
+
+    # Generate and return Model schema:
+    return {
+        'representation': schema_representation(
+            response_schema=representation_schema,
+            application_repr=application_repr,
+            optional_tag=optional_tag,
+            object_repr=object_repr,
+        ),
+        'retrieve': schema_retrieve(
+            application_repr=application_repr,
+            response_schema=detailed_schema,
+            optional_tag=optional_tag,
+            object_repr=object_repr,
+        ),
+        'admin': schema_admin(
+            application_repr=application_repr,
+            response_schema=relation_schema,
+            optional_tag=optional_tag,
+            object_repr=object_repr,
+        ),
+        'list': schema_list(
+            application_repr=application_repr,
+            response_schema=relation_schema,
+            optional_tag=optional_tag,
+            object_repr=object_repr,
+        ),
+    }
+
+# Read Delete Schema Generator:
+def red_delete_schema(
+    representation_schema: Serializer,
+    detailed_schema: Serializer,
+    relation_schema: Serializer,
+    application_repr: str,
+    object_repr: str,
+    optional_tag: str = None,
+) -> tuple:
+
+    # Generate and return Model schema:
+    return {
+        'representation': schema_representation(
+            response_schema=representation_schema,
+            application_repr=application_repr,
+            optional_tag=optional_tag,
+            object_repr=object_repr,
+        ),
+        'retrieve': schema_retrieve(
+            application_repr=application_repr,
+            response_schema=detailed_schema,
+            optional_tag=optional_tag,
+            object_repr=object_repr,
+        ),
+        'destroy': schema_destroy(
+            application_repr=application_repr,
+            optional_tag=optional_tag,
+            object_repr=object_repr,
+        ),
+        'admin': schema_admin(
+            application_repr=application_repr,
+            response_schema=relation_schema,
+            optional_tag=optional_tag,
+            object_repr=object_repr,
+        ),
+        'list': schema_list(
+            application_repr=application_repr,
+            response_schema=relation_schema,
+            optional_tag=optional_tag,
+            object_repr=object_repr,
+        ),
+    }
+

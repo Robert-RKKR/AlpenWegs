@@ -68,6 +68,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    # CORS headers:
+    'corsheaders',
+
     # Allauth:
     'allauth',
     'allauth.account',
@@ -102,6 +105,8 @@ INSTALLED_APPS = [
 
 # Middleware configuration:
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -132,6 +137,13 @@ TEMPLATES = [
             ],
         },
     },
+]
+
+# CORS configuration:
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'http://5.180.148.151:5173',
 ]
 
 

@@ -1,4 +1,4 @@
-# React + NPM Project Commands
+# Frontend Commands
 
 ## Table of Contents
 

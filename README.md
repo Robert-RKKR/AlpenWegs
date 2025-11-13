@@ -65,7 +65,6 @@ Supports both one-day and multi-day adventures, offering full GPX integration, r
     - **`TripModel`**: Defines an official multi-day planned route composed of multiple Routes. Used as the system reference for user experiences and analytics.
     - **`TrackModel`**: Stores a user-recorded activity, including GPX data, performance metrics (speed, heart rate, duration), and environmental context. Each Track can link to Routes, Sections, or Journeys.
     - **`JourneyModel`**: Represents a user’s multi-day experience, aggregating multiple Tracks into one complete adventure. May optionally reference a Trip to indicate the planned route completed by the user.
-    - **`JourneyToTrackModel`**: Intermediate relationship model connecting Journeys with individual Tracks. Allows ordered and descriptive grouping of user activities within a single Journey.
 
 ### Compendium
 

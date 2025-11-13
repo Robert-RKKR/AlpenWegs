@@ -55,12 +55,17 @@ Handles all user-related data, including account details, preferences, activity 
 
 ### Explorer
 
-The core adventure module responsible for managing trails and route planning. It provides users with the tools to discover, create, and track activities like hiking, biking, and running. Supports both one-day and multi-day adventures, with full GPX and geospatial integration.
+The core adventure module responsible for managing routes, sections, tracks, and journeys.  
+It provides users with the tools to discover, plan, record, and analyze outdoor activities such as hiking, biking, and climbing.  
+Supports both one-day and multi-day adventures, offering full GPX integration, route linking, and geospatial analysis via GeoDjango.
 
 - **Models**:
-    - **`TrialModel`**: Represents a base trail between a source and destination, defining the general path of travel including terrain type, difficulty, and estimated duration.
-    - **`TrialSectionModel`**: Defines individual segments of a trail (e.g., day 1, alpine pass, forest descent), allowing multi-day or sectioned adventures to be composed flexibly.
-    - **`MultiDayTrialModel`**: Groups multiple `TrialModel` or `TrialSectionModel` entries to represent longer, continuous routes that span multiple days or stages.
+    - **`SectionModel`**: Represents the smallest GPX-based unit — a section of a trail or route. Includes sport-specific difficulty (e.g., T1–T6 for hiking, K1–K6 for via ferrata) and terrain details.
+    - **`RouteModel`**: Combines multiple Sections into a complete path or stage. Routes provide cumulative statistics and define the main navigable routes used within Trips.
+    - **`TripModel`**: Defines an official multi-day planned route composed of multiple Routes. Used as the system reference for user experiences and analytics.
+    - **`TrackModel`**: Stores a user-recorded activity, including GPX data, performance metrics (speed, heart rate, duration), and environmental context. Each Track can link to Routes, Sections, or Journeys.
+    - **`JourneyModel`**: Represents a user’s multi-day experience, aggregating multiple Tracks into one complete adventure. May optionally reference a Trip to indicate the planned route completed by the user.
+    - **`JourneyToTrackModel`**: Intermediate relationship model connecting Journeys with individual Tracks. Allows ordered and descriptive grouping of user activities within a single Journey.
 
 ### Compendium
 

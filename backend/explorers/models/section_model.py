@@ -103,14 +103,6 @@ class SectionModel(
             'to visit along the way. Points of Interest also '
             'mark the start and end points of the section.'
     )
-    cards = models.ManyToManyField(
-        CardModel,
-        through='SectionToCardModel',
-        related_name='section_cards',
-        verbose_name='Section Cards',
-        help_text='Cards associated with the section that can '
-            'be obtained by the user by completing this section.'
-    )
     regions = models.ManyToManyField(
         RegionModel,
         through='SectionToRegionModel',
@@ -118,6 +110,23 @@ class SectionModel(
         verbose_name='Section Regions',
         help_text='Geographical regions that this section crosses '
             'or belongs to. Useful for filtering and categorization.'
+    )
+
+    # Section One-to-Many Relationships:
+    start_poi = models.ForeignKey(
+        PoiModel,
+        related_name='poi_sections_start',
+        verbose_name='Start PoI',
+        help_text='Logical starting Point of Interest of the section.',
+        on_delete=models.PROTECT,
+    )
+
+    end_poi = models.ForeignKey(
+        PoiModel,
+        related_name='poi_sections_end',
+        verbose_name='End PoI',
+        help_text='Logical ending Point of Interest of the section.',
+        on_delete=models.PROTECT,
     )
 
     # Section Many-to-Many Relationships (reverse side):
@@ -209,35 +218,6 @@ class SectionToPoiModel(
             'length.'
         ),
         default=SectionPoiRoleChoices.VIA,
-    )
-
-
-class SectionToCardModel(
-    BaseRelationshipModel,
-):
-    """
-    Intermediate model linking a Section to Cards.
-
-    Allows tracking which achievement sections are tied to 
-    completing this section.
-    """
-    
-    # Base relation between Many-to-many Models:
-    section = models.ForeignKey(
-        SectionModel,
-        related_name='card_section_associations',
-        verbose_name='Section',
-        help_text='The Section that is associated with the Card '
-            'to Section M2M relationship.',
-        on_delete=models.PROTECT,
-    )
-    card = models.ForeignKey(
-        CardModel,
-        related_name='section_card_associations',
-        verbose_name='Card',
-        help_text='The Card that is associated with the Section '
-            'to Card M2M relationship.',
-        on_delete=models.PROTECT,
     )
 
 

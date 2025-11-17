@@ -88,7 +88,7 @@ class PoiModel(
         help_text='Associated Sections.',
     )
     
-    # PoI description:
+    # PoI transport:
     transport_description = models.BigIntegerField(
         verbose_name='Transport Description',
         help_text='Information about how to reach this PoI '

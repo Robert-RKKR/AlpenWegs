@@ -67,13 +67,7 @@ class CardModel(
         ],
     }
     
-    # Card Many-to-many relationships:
-    section = models.ManyToManyField(
-        'explorers.SectionModel',
-        through='explorers.SectionToCardModel',
-        related_name='card_sections',
-        verbose_name='Associated Sections',
-    )
+    # Card Many-to-many relationships (reverse side):
     users = models.ManyToManyField(
         'profiles.UserModel',
         through='profiles.UserToCardModel',
@@ -83,11 +77,13 @@ class CardModel(
     )
 
     # Card One-to-One relationships:
-    poi = models.ForeignKey(
+    poi = models.OneToOneField(
         PoiModel,
+        related_name='poi_card',
         verbose_name='Point of Interest',
-        help_text='Associated Point of Interest.',
+        help_text='Each Card is uniquely tied to exactly one Point of Interest.',
         on_delete=models.PROTECT,
+        unique=True,
     )
 
     # Card specific values:

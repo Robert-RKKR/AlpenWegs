@@ -76,7 +76,7 @@ class TrackModel(
         ],
     }
 
-    # Track relationships:
+    # Track Many-to-Many Relationships (reverse side):
     journey = models.ForeignKey(
         JourneyModel,
         verbose_name='Related Journey',

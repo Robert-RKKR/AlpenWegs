@@ -9,6 +9,7 @@ from alpenwegs.ashared.models.gpx_track_model import BaseGpxTrackModel
 from alpenwegs.ashared.models.creator_model import BaseCreatorModel
 from alpenwegs.ashared.models.liked_model import BaseLikedModel
 from alpenwegs.ashared.models.score_model import BaseScoreModel
+from alpenwegs.ashared.models.gpx_model import BaseGpxModel
 
 # AlpenWegs application import:
 from explorers.models.journey_model import JourneyModel
@@ -25,10 +26,11 @@ class TrackModel(
     BaseDescriptiveModel,
     BaseTimestampModel,
     BaseStatisticModel,
+    BaseGpxTrackModel,
     BaseCreatorModel,
     BaseLikedModel,
     BaseScoreModel,
-    BaseGpxTrackModel,
+    BaseGpxModel,
 ):
     """
     Model representing a single recorded Track (user activity).

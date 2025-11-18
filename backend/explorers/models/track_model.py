@@ -10,6 +10,7 @@ from alpenwegs.ashared.models.creator_model import BaseCreatorModel
 from alpenwegs.ashared.models.liked_model import BaseLikedModel
 from alpenwegs.ashared.models.score_model import BaseScoreModel
 from alpenwegs.ashared.models.gpx_model import BaseGpxModel
+from explorers.models.route_model import RouteModel
 
 # AlpenWegs application import:
 from explorers.models.journey_model import JourneyModel
@@ -33,7 +34,14 @@ class TrackModel(
     BaseGpxModel,
 ):
     """
-    Model representing a single recorded Track (user activity).
+    Represents a single user-recorded outdoor activity based on GPS data.
+    A Track captures one continuous segment of movement—such as hiking,
+    biking, running, fastpacking, ski touring, or any similar activity.
+    Tracks may form part of a multi-day Journey and may optionally reference
+    an official Route that inspired, guided, or aligns with the recorded
+    path. Alongside spatial and elevation data, Tracks store environmental,
+    group-related, and safety-relevant metadata, offering a concise yet
+    complete depiction of the user’s real-world outdoor experience.
     """
 
     class Meta:
@@ -78,17 +86,42 @@ class TrackModel(
         ],
     }
 
-    # Track Many-to-Many Relationships (reverse side):
+    # Track Many-to-One Relationship:
     journey = models.ForeignKey(
         JourneyModel,
         verbose_name='Related Journey',
+        related_name='tracks',
         help_text=(
-            'Optional Journey that this Track is part of. This allows grouping '
-            'multiple Tracks into a larger objective, such as a multi-day hike '
-            'or trek. A Journey provides a structured context for activities '
-            'that span several days, routes, or regions.'
+            'Optional Journey that this Track belongs to. A Journey represents '
+            'a multi-day, structured outdoor activity consisting of several '
+            'individually recorded Tracks. This relationship allows grouping '
+            'multiple daily segments or stages into a single overarching '
+            'objective—such as a multi-day hike, trek, expedition, or thematic '
+            'exploration route. Each Track contributes to the chronological and '
+            'narrative structure of the Journey, capturing daily progress, '
+            'environmental changes, and user performance over several days.'
         ),
-        on_delete=models.SET_NULL,
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+    )
+    route = models.ForeignKey(
+        RouteModel,
+        verbose_name='Related Route',
+        related_name='tracks',
+        help_text=(
+            'Optional reference to the official or user-defined Route that this '
+            'Track most closely corresponds to. A Route represents a predefined '
+            'path or trail in the AlpenWegs system, including its geometry, '
+            'difficulty rating, elevation profile, and metadata. Assigning a '
+            'Track to a Route establishes a conceptual link indicating that the '
+            'user intended to follow, was inspired by, or largely adhered to a '
+            'known trail. This relationship enables detailed analysis such as '
+            'route-based similarity computation, automatic verification against '
+            'official GPS geometry, and comparison of user performance across '
+            'different attempts of the same Route.'
+        ),
+        on_delete=models.PROTECT,
         blank=True,
         null=True,
     )

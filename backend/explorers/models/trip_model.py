@@ -1,11 +1,13 @@
 # AlpenWegs import:
 from alpenwegs.ashared.models.relationship_model import BaseRelationshipOrderedModel
+from alpenwegs.ashared.constants.accommodation_type import AccommodationTypeChoices
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
 from alpenwegs.ashared.models.sport_category_model import BaseSportCategoryModel
 from alpenwegs.ashared.models.accomplished_model import BaseAccomplishedModel
 from alpenwegs.ashared.models.descriptive_model import BaseDescriptiveModel
 from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 from alpenwegs.ashared.models.statistic_model import BaseStatisticModel
+from alpenwegs.ashared.models.multi_day_model import BaseMultiDayModel
 from alpenwegs.ashared.models.creator_model import BaseCreatorModel
 from alpenwegs.ashared.models.liked_model import BaseLikedModel
 from alpenwegs.ashared.models.score_model import BaseScoreModel
@@ -26,12 +28,20 @@ class TripModel(
     BaseDescriptiveModel,
     BaseTimestampModel,
     BaseStatisticModel,
+    BaseMultiDayModel,
     BaseCreatorModel,
     BaseLikedModel,
     BaseScoreModel,
 ):
     """
-    Model representing single multi-day Trip.
+    Represents a planned, structured multi-day Trip. A Trip defines an
+    ideal, predefined itinerary composed of one or more official Routes
+    and serves as the conceptual blueprint for a future outdoor project.
+    Trips describe how a multi-day journey is intended to proceed, including
+    its planned stages, recommended pacing, expected difficulty, thematic
+    purpose, and supporting logistical information. They act as templates
+    that users may follow, adapt, or take inspiration from when recording
+    their own real-world Journeys.
     """
 
     class Meta:
@@ -81,14 +91,14 @@ class TripModel(
         RouteModel,
         through='TripToRouteModel',
         related_name='trip_routes',
-        verbose_name='Routes',
-        help_text='Associated Routes.',
-    )
-    
-    # Trip related Information:
-    days = models.IntegerField(
-        verbose_name='Days',
-        help_text='Amount of days the multi-day route takes.' 
+        verbose_name='Planned Routes',
+        help_text=(
+            'Routes that form the planned structure of this Trip. Each Route '
+            'represents an official segment or stage of the intended '
+            'multi-day itinerary, defining planned geometry, pacing, and '
+            'difficulty. This selection represents the ideal blueprint that '
+            'a user may later choose to follow during an executed Journey.'
+        ),
     )
 
 
@@ -109,7 +119,7 @@ class TripToRouteModel(
         verbose_name='Trip',
         help_text='The Trip that is associated with the Route '
             'to Trip M2M relationship.',
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
     )
     route = models.ForeignKey(
         RouteModel,
@@ -117,7 +127,7 @@ class TripToRouteModel(
         verbose_name='Route',
         help_text='The Route that is associated with the Trip '
             'to Route M2M relationship.',
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
     )
     
     # Relation with other models:
@@ -126,7 +136,7 @@ class TripToRouteModel(
         verbose_name='Point of Interest',
         help_text='The point of interest associated with '
             'Route to Trip M2M relationship.',
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         blank=True,
         null=True,
     )

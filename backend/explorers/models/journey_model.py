@@ -1,17 +1,17 @@
 # AlpenWegs import:
-from alpenwegs.ashared.models.relationship_model import BaseRelationshipOrderedModel
+from alpenwegs.ashared.constants.accommodation_type import AccommodationTypeChoices
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
 from alpenwegs.ashared.models.sport_category_model import BaseSportCategoryModel
 from alpenwegs.ashared.models.accomplished_model import BaseAccomplishedModel
 from alpenwegs.ashared.models.descriptive_model import BaseDescriptiveModel
 from alpenwegs.ashared.models.statistic_model import BaseStatisticModel
 from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
+from alpenwegs.ashared.models.multi_day_model import BaseMultiDayModel
 from alpenwegs.ashared.models.creator_model import BaseCreatorModel
 from alpenwegs.ashared.models.liked_model import BaseLikedModel
 from alpenwegs.ashared.models.score_model import BaseScoreModel
 
 # AlpenWegs application import:
-from compendiums.models.poi_model import PoiModel
 from explorers.models.trip_model import TripModel
 
 # Django import:
@@ -26,12 +26,23 @@ class JourneyModel(
     BaseDescriptiveModel,
     BaseTimestampModel,
     BaseStatisticModel,
+    BaseMultiDayModel,
     BaseCreatorModel,
     BaseLikedModel,
     BaseScoreModel,
 ):
     """
-    Model representing a user-recorded multi-day Journey experience.
+    Represents a user-created multi-day Journey. A Journey groups several
+    Tracks into a single structured outdoor experience, providing the
+    chronological and narrative framework for extended hiking tours,
+    long-distance bike efforts, multi-stage trail runs, or similar
+    multi-day outdoor objectives. A Journey may optionally reference a
+    predefined Trip template, indicating that the user intended to follow
+    or approximate an official multi-day itinerary. Individual Tracks within
+    the Journey may also link to official Routes, allowing comparison
+    between the user’s recorded segments and known trails. Together, the
+    Journey, its Tracks, and any associated Trips or Routes form a complete
+    representation of a multi-day adventure.
     """
 
     class Meta:
@@ -76,79 +87,17 @@ class JourneyModel(
         ],
     }
 
-    # Journey Many-to-Many Relationships:
-    tracks = models.ManyToManyField(
-        'TrackModel',
-        through='JourneyToTrackModel',
-        related_name='journey_tracks',
-        verbose_name='Tracks',
-        help_text='Recorded Tracks associated with this multi-day Journey.',
-    )
-
-    # Journey related Information:
+    # Journey Many-to-One Relationship:
     trip = models.ForeignKey(
         TripModel,
         verbose_name='Related Trip',
-        help_text='Optional reference to a predefined Trip '
-            'that this Journey corresponds to.',
-        on_delete=models.SET_NULL,
-        blank=True,
-        null=True,
-    )
-    start_date = models.DateField(
-        verbose_name='Start Date',
-        help_text='Date when the Journey began.',
-        blank=True,
-        null=True,
-    )
-    end_date = models.DateField(
-        verbose_name='End Date',
-        help_text='Date when the Journey finished.',
-        blank=True,
-        null=True,
-    )
-    total_days = models.IntegerField(
-        verbose_name='Total Days',
-        help_text='Total number of days in this Journey. Automatically calculated from associated Tracks if not provided.',
-        blank=True,
-        null=True,
-    )
-
-
-# JourneyToTrack relationship model:
-class JourneyToTrackModel(
-    BaseRelationshipOrderedModel,
-    BaseDescriptiveModel,
-):
-    """
-    Intermediate model for associating Journeys with Tracks.
-    """
-
-    # Base relation between Many-to-many Models:
-    journey = models.ForeignKey(
-        JourneyModel,
-        related_name='track_journey_associations',
-        verbose_name='Journey',
-        help_text='The Journey that is associated with the Track '
-            'to Journey M2M relationship.',
-        on_delete=models.CASCADE,
-    )
-    track = models.ForeignKey(
-        TrackModel,
-        related_name='journey_track_associations',
-        verbose_name='Track',
-        help_text='The Track that is associated with the Journey '
-            'to Track M2M relationship.',
-        on_delete=models.CASCADE,
-    )
-    
-    # Relation with other models:
-    poi = models.ForeignKey(
-        PoiModel,
-        verbose_name='Point of Interest',
-        help_text='The point of interest associated with '
-            'Journey to Track M2M relationship.',
-        on_delete=models.CASCADE,
+        help_text=(
+            'Optional reference to a predefined Trip template. Trips define '
+            'recommended multi-day structures or official AlpenWegs routes. '
+            'Linking a Journey to a Trip allows comparing actual progress '
+            'with a predefined plan or map-based itinerary.'
+        ),
+        on_delete=models.PROTECT,
         blank=True,
         null=True,
     )

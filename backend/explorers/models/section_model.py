@@ -1,6 +1,5 @@
 # AlpenWegs import:
 from alpenwegs.ashared.models.relationship_model import BaseRelationshipOrderedModel
-from alpenwegs.ashared.constants.section_poi_category import SectionPoiRoleChoices
 from alpenwegs.ashared.models.characteristic_model import BaseCharacteristicModel
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
 from alpenwegs.ashared.models.sport_category_model import BaseSportCategoryModel
@@ -33,12 +32,20 @@ class SectionModel(
     BaseGpxModel,
 ):
     """
-    Represents a single route section within the AlpenWegs system.
+    Represents a single Section within the AlpenWegs ecosystem.
 
-    A section is the core building block of a route. It combines 
-    geographical, descriptive, and sport-specific characteristics 
-    (difficulty, sport category, GPX geometry, etc.) and links to 
-    related Points of Interest, Cards, and Regions.
+    A Section is the smallest, well-defined structural component of a full
+    Route. It represents a logically cohesive trail segment such as a valley
+    passage, ridge traversal, lakeside contour, alpine ascent, or technical
+    via ferrata stretch. Sections combine navigational geometry (GPX line),
+    sport-specific attributes (difficulty, allowed sports), descriptive
+    metadata, and relationships to Points of Interest, Regions, and visual
+    media.
+
+    Sections allow Routes to be built from modular, reusable, and clearly
+    delineated parts. This structure supports multi-route reuse (the same
+    Section may appear in multiple Routes), flexible trail construction,
+    detailed segment-level analytics, and user-friendly map presentation.
     """
 
     class Meta:
@@ -89,27 +96,38 @@ class SectionModel(
         through='SectionToPhotoModel',
         related_name='section_photos',
         verbose_name='Section Photos',
-        help_text='A collection of photos that are linked to '
-            'the section and that provide a visual documentation '
-            'of the section created by the section creator.'
+        help_text=(
+            'Photos that visually document this Section. These images may '
+            'include landscape views, trail markers, huts, technical areas, '
+            'bridges, seasonal conditions, or user-submitted impressions. '
+            'This media enriches the map and helps users understand terrain '
+            'difficulty, exposure, or scenic value.'
+        ),
     )
     pois = models.ManyToManyField(
         PoiModel,
         through='SectionToPoiModel',
         related_name='section_pois',
         verbose_name='Section Points of Interest (PoIs)',
-        help_text='A list of Points of Interest associated '
-            'with the section, highlighting key places for travelers '
-            'to visit along the way. Points of Interest also '
-            'mark the start and end points of the section.'
+        help_text=(
+            'Points of Interest that structure and annotate this Section. '
+            'PoIs mark meaningful locations like summits, huts, passes, lakes, '
+            'cultural sites, trail junctions, or wayfinding references. PoIs '
+            'provide semantic meaning to the raw GPX path and help users '
+            'navigate and understand the Section.'
+        ),
     )
     regions = models.ManyToManyField(
         RegionModel,
         through='SectionToRegionModel',
         related_name='section_regions',
         verbose_name='Section Regions',
-        help_text='Geographical regions that this section crosses '
-            'or belongs to. Useful for filtering and categorization.'
+        help_text=(
+            'Geographical regions that this Section traverses or belongs to. '
+            'Regions support filtering, browsing, and map-based exploration. '
+            'A Section may span multiple regions if it crosses borders or '
+            'large geographic areas.'
+        ),
     )
 
     # Section One-to-Many Relationships:
@@ -117,15 +135,23 @@ class SectionModel(
         PoiModel,
         related_name='poi_sections_start',
         verbose_name='Start PoI',
-        help_text='Logical starting Point of Interest of the section.',
+        help_text=(
+            'The logical starting Point of Interest for this Section. This '
+            'PoI acts as the anchor at the beginning of the GPX geometry. '
+            'It often represents a village, pass entrance, hut, or '
+            'junction where the Section officially begins.'
+        ),
         on_delete=models.PROTECT,
     )
-
     end_poi = models.ForeignKey(
         PoiModel,
         related_name='poi_sections_end',
         verbose_name='End PoI',
-        help_text='Logical ending Point of Interest of the section.',
+        help_text=(
+            'The logical ending Point of Interest for this Section. This PoI '
+            'marks where the Section concludes. It is often a hut, pass, road, '
+            'summit, or transition point where the next Section begins.'
+        ),
         on_delete=models.PROTECT,
     )
 
@@ -135,7 +161,11 @@ class SectionModel(
         through='SectionToRouteModel',
         related_name='route_sections',
         verbose_name='Route Sections',
-        help_text='Sections that are part of this route.'
+        help_text=(
+            'Routes that contain this Section. Routes are composed of multiple '
+            'Sections arranged in a defined order. The same Section may appear '
+            'in multiple Routes (e.g., shared valley trails or ridge lines).'
+        ),
     )
 
 
@@ -199,25 +229,6 @@ class SectionToPoiModel(
         help_text='The Point of Interest that is associated with the '
             'Section to Point of Interest M2M relationship.',
         on_delete=models.PROTECT,
-    )
-    
-    # PoI role in relation to section:
-    role = models.IntegerField(
-        choices=SectionPoiRoleChoices.choices,
-        db_index=True,
-        verbose_name='Role',
-        help_text=(
-            'Role of this Point of Interest within the section’s path. "START" '
-            'marks the logical beginning of the section (at most one per '
-            'section). "VIA" intermediate waypoint(s) along the section; '
-            'multiple allowed and ordered via seq_index; annotations that do '
-            'not change the section geometry. "END" marks the logical end of '
-            'the section (at most one per section). The POI does not have to '
-            'lie exactly on the path; nearby POIs may be snapped to the line '
-            'or connected visually. Typical anchors: START ≈ 0 m, END ≈ total '
-            'length.'
-        ),
-        default=SectionPoiRoleChoices.VIA,
     )
 
 

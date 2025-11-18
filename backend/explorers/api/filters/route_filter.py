@@ -17,11 +17,6 @@ class RouteFilter(
             # BaseModel values:
             'id': ['exact'],
 
-            # BaseIdentificationModel values:
-            'name': ['exact', 'icontains'],
-            'slug': ['exact', 'icontains'],
-            'snippet': ['exact', 'icontains'],
-
             # BaseCharacteristicModel values:
             'difficulty': ['exact', 'icontains'],
             'stamina_requirement': ['exact', 'icontains'],
@@ -34,23 +29,34 @@ class RouteFilter(
             'winter_season': ['exact'],
             'summer_season': ['exact'],
 
+            # BaseIdentificationModel values:
+            'name': ['exact', 'icontains'],
+            'slug': ['exact', 'icontains'],
+            'snippet': ['exact', 'icontains'],
+
             # BaseSportCategoryModel values:
             'category': ['exact'],
             'category_specific_difficulty': ['exact'],
+
+            # BaseAccomplishedModel values:
+            'accomplished_count': ['exact', 'lt', 'gt'],
+
+            # BaseDescriptiveModel values:
+            'description': ['exact', 'icontains'],
+
+            # BaseTimestampModel values:
+            'created': ['exact', 'lt', 'gt'],
+            'updated': ['exact', 'lt', 'gt'],
 
             # BaseStatisticModel values:
             'comment_count': ['exact', 'lt', 'gt'],
             'visit_count': ['exact', 'lt', 'gt'],
             'download_count': ['exact', 'lt', 'gt'],
 
-            # BaseScoreModel values:
-            'score': ['exact', 'lt', 'gt'],
-
             # BaseCreatorModel values:
             'creator': ['exact'],
             'is_public': ['exact'],
 
-            # BaseTimestampModel values:
-            'created': ['exact', 'lt', 'gt'],
-            'updated': ['exact', 'lt', 'gt'],
+            # BaseScoreModel values:
+            'score': ['exact', 'lt', 'gt'],
         }

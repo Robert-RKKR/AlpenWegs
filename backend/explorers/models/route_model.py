@@ -32,7 +32,13 @@ class RouteModel(
     BaseScoreModel,
 ):
     """
-    Model representing single Route.
+    Represents a single Route within the AlpenWegs system.
+
+    A Route is a structured, ordered collection of Sections forming a
+    coherent trail, itinerary, or thematic experience. It may represent
+    a classic long-distance hiking trail, a multi-stage mountain bike
+    itinerary, a high-alpine ridge traverse, a pilgrimage path, or any
+    other meaningful outdoor route defined by AlpenWegs.
     """
 
     class Meta:
@@ -81,10 +87,18 @@ class RouteModel(
     sections = models.ManyToManyField(
         SectionModel,
         through='SectionToRouteModel',
-        related_name='section_routes',
+        related_name='route_sections',
         verbose_name='Sections',
-        help_text='Associated Sections.',
+        help_text=(
+            'The ordered list of Sections that form this Route. Sections are '
+            'the atomic segments of a Route, each defining its own geometry, '
+            'start/end PoIs, intermediate PoIs, regions, and characteristics. '
+            'The order of Sections is controlled by the through-model '
+            '"SectionToRouteModel", which includes a sequence index for '
+            'precise arrangement of stage progression.'
+        ),
     )
+
 
     # Route Many-to-Many Relationships (reverse side):
     trips = models.ManyToManyField(
@@ -92,8 +106,11 @@ class RouteModel(
         through='TripToRouteModel',
         related_name='route_trips',
         verbose_name='Route Trips',
-        help_text='Trips that include this route '
-            'as part of a multi-day experience.'
+        help_text=(
+            'A list of Trips that incorporate this Route as part of a planned '
+            'multi-day itinerary. This allows official Routes to be used as '
+            'building blocks inside larger trip structures.'
+        ),
     )
 
 

@@ -1,18 +1,19 @@
+
 # AlpenWegs application import:
-from explorers.models.trip_model import TripModel
+from explorers.models.journey_model import JourneyModel
 
 # AlpenWegs import:
 from alpenwegs.ashared.filters.base_filter import BaseFilter
 
 
-# Trip Model filter class:
-class TripFilter(
+# Journey Model filter class:
+class JourneyFilter(
     BaseFilter,
 ):
 
     class Meta:
 
-        model = TripModel
+        model = JourneyModel
         fields = {
             # BaseModel values:
             'id': ['exact'],
@@ -26,12 +27,15 @@ class TripFilter(
             'category': ['exact'],
             'category_specific_difficulty': ['exact'],
 
-            # BaseDescriptiveModel values:
-            'description': ['exact', 'icontains'],
+            # BaseAccomplishedModel values:
+            'accomplished_count': ['exact', 'lt', 'gt'],
 
             # BaseTimestampModel values:
             'created': ['exact', 'lt', 'gt'],
             'updated': ['exact', 'lt', 'gt'],
+
+            # BaseDescriptiveModel values:
+            'description': ['exact', 'icontains'],
 
             # BaseStatisticModel values:
             'comment_count': ['exact', 'lt', 'gt'],

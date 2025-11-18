@@ -1,33 +1,21 @@
 # AlpenWegs application import:
-from explorers.models.section_model import SectionModel
+from explorers.models.track_model import TrackModel
 
 # AlpenWegs import:
 from alpenwegs.ashared.filters.base_filter import BaseFilter
 
 
-# Section Model filter class:
-class SectionFilter(
+# Track Model filter class:
+class TrackFilter(
     BaseFilter,
 ):
 
     class Meta:
 
-        model = SectionModel
+        model = TrackModel
         fields = {
             # BaseModel values:
             'id': ['exact'],
-
-            # BaseCharacteristicModel values:
-            'difficulty': ['exact', 'icontains'],
-            'stamina_requirement': ['exact', 'icontains'],
-            'experience_requirement': ['exact', 'icontains'],
-            'potential_risk_requirement': ['exact', 'icontains'],
-            'potential_risk_description': ['exact', 'icontains'],
-            'family_friendly': ['exact'],
-            'best_seasons': ['exact', 'icontains'],
-            'best_months': ['exact', 'icontains'],
-            'winter_season': ['exact'],
-            'summer_season': ['exact'],
 
             # BaseIdentificationModel values:
             'name': ['exact', 'icontains'],
@@ -38,6 +26,9 @@ class SectionFilter(
             'category': ['exact'],
             'category_specific_difficulty': ['exact'],
 
+            # BaseAccomplishedModel values:
+            'accomplished_count': ['exact', 'lt', 'gt'],
+
             # BaseDescriptiveModel values:
             'description': ['exact', 'icontains'],
 
@@ -45,9 +36,32 @@ class SectionFilter(
             'created': ['exact', 'lt', 'gt'],
             'updated': ['exact', 'lt', 'gt'],
 
+            # BaseGpxTrackModel values:
+            'start_time': ['exact', 'lt', 'gt'],
+            'end_time': ['exact', 'lt', 'gt'],
+            'moving_time': ['exact', 'lt', 'gt'],
+            'total_time': ['exact', 'lt', 'gt'],
+            'average_speed': ['exact', 'lt', 'gt'],
+            'maximum_speed': ['exact', 'lt', 'gt'],
+            'minimum_speed': ['exact', 'lt', 'gt'],
+            'average_heart_rate': ['exact', 'lt', 'gt'],
+            'maximum_heart_rate': ['exact', 'lt', 'gt'],
+            'minimum_heart_rate': ['exact', 'lt', 'gt'],
+            'calories_burned': ['exact', 'lt', 'gt'],
+            'steps_count': ['exact', 'lt', 'gt'],
+            'weather_conditions': ['exact'],
+            'temperature_average': ['exact', 'lt', 'gt'],
+            'equipment_used': ['exact'],
+            'moving_ratio': ['exact', 'lt', 'gt'],
+            'pace_average': ['exact', 'lt', 'gt'],
+            'pace_best': ['exact', 'lt', 'gt'],
+
             # BaseCreatorModel values:
             'creator': ['exact'],
             'is_public': ['exact'],
+
+            # BaseScoreModel values:
+            'score': ['exact', 'lt', 'gt'],
 
             # BaseGpxModel values:
             'duration': ['exact', 'lt', 'gt'],

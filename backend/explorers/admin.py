@@ -6,10 +6,9 @@ from explorers.models.route_model import RouteModel
 from explorers.models.trip_model import TripModel
 from explorers.models.section_model import SectionModel
 from explorers.models.section_model import (
+    SectionToRegionModel,
     SectionToPhotoModel,
     SectionToPoiModel,
-    SectionToCardModel,
-    SectionToRegionModel,
 )
 
 @admin.register(RouteModel)
@@ -165,11 +164,6 @@ class SectionToPoiInline(admin.TabularInline):
     extra = 1
 
 
-class SectionToCardInline(admin.TabularInline):
-    model = SectionToCardModel
-    extra = 1
-
-
 class SectionToRegionInline(admin.TabularInline):
     model = SectionToRegionModel
     extra = 1
@@ -256,8 +250,7 @@ class SectionAdmin(admin.ModelAdmin):
     )
 
     inlines = [
+        SectionToRegionInline,
         SectionToPhotoInline,
         SectionToPoiInline,
-        SectionToCardInline,
-        SectionToRegionInline,
     ]

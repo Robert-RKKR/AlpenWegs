@@ -1,6 +1,14 @@
 import gpxpy
 import gpxpy.gpx
 
+points = [
+    ['2.681679', '1.225483', 'zug station'],
+    ['2.681695', '1.225735', 'Zug'],
+    ['2.683766', '1.223240', 'Zugerberg'],
+    ['2.686765', '1.221233', 'unterägeri'],
+    ['2.690775', '1.215215', 'sattel'],
+]
+
 
 def process_gpx(file_path="Test4.gpx"):
     with open(file_path, "r") as f:
@@ -47,5 +55,14 @@ def process_gpx(file_path="Test4.gpx"):
     print(f"Stopped time: {stopped_time/60:.2f} min")
 
 
-# Run on your GPX file
-process_gpx("Test1.gpx")
+print("\nAAA.gpx")
+process_gpx("gpx/AAA.gpx")
+# # Run on your GPX file
+# print("\nProcessing Serqueaux_Dieppe.gpx")
+# process_gpx("gpx/Serqueaux_Dieppe.gpx")
+# print("\nProcessing Southampton_Portsmouth.gpx")
+# process_gpx("gpx/Southampton_Portsmouth.gpx")
+# print("\nProcessing Vitry-le-Francois_Langres.gpx")
+# process_gpx("gpx/Vitry-le-Francois_Langres.gpx")
+# print("\nProcessing VoieVerteHauteVosges.gpx")
+# process_gpx("gpx/VoieVerteHauteVosges.gpx")

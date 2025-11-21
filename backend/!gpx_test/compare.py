@@ -97,5 +97,5 @@ def print_similarity(result):
 
 
 # Example
-result = compare_gpx("AAA.gpx", "BBB.gpx", tolerance_m=25)
+result = compare_gpx("gpx/route_2025-01-04_5.32pm.gpx", "gpx/route_2025-02-01_3.41pm.gpx", tolerance_m=25)
 print_similarity(result)

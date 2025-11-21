@@ -18,27 +18,55 @@ def haversine(lat1, lon1, lat2, lon2):
 
 
 # -----------------------
+# Extract Apple Watch extensions  (FIXED)
+# -----------------------
+def extract_apple_extensions(point):
+    """
+    Reads Apple GPX extensions and returns dict:
+    speed, course, hAcc, vAcc
+    """
+    data = {}
+
+    if not point.extensions:
+        return data
+
+    for ext in point.extensions:
+        # FIX: iterate correctly (getchildren() does NOT work)
+        for child in list(ext):
+
+            tag = child.tag              # keep namespace
+            val = child.text.strip()
+
+            # Namespace-safe matching
+            if tag.endswith("speed"):
+                data["speed"] = float(val)
+            elif tag.endswith("course"):
+                data["course"] = float(val)
+            elif tag.endswith("hAcc") or tag.endswith("hacc"):
+                data["hAcc"] = float(val)
+            elif tag.endswith("vAcc") or tag.endswith("vacc"):
+                data["vAcc"] = float(val)
+            else:
+                data[tag] = val
+
+    return data
+
+
+# -----------------------
 # POI detection function
 # -----------------------
 def check_poi_matches(segment, poi_list, radius_m=100):
-    """
-    poi_list = [
-        ['lat', 'lon', 'name'],
-        ...
-    ]
-    """
     matches = []
 
     for raw_lat, raw_lon, name in poi_list:
         lat = float(raw_lat)
         lon = float(raw_lon)
 
-        # Check each GPX point
         for p in segment.points:
             d = haversine(p.latitude, p.longitude, lat, lon)
             if d <= radius_m:
                 matches.append((name, d))
-                break  # Stop when first match is found
+                break
 
     return matches
 
@@ -47,9 +75,6 @@ def check_poi_matches(segment, poi_list, radius_m=100):
 # Find closest POI to a single point
 # -----------------------
 def find_closest_poi(lat, lon, poi_list):
-    """
-    Returns (name, distance_m)
-    """
     closest_name = None
     closest_distance = float("inf")
 
@@ -63,7 +88,7 @@ def find_closest_poi(lat, lon, poi_list):
 
 
 # -----------------------
-# Your main GPX processor
+# MAIN
 # -----------------------
 def process_gpx(file_path="Test4.gpx", poi_list=None, poi_radius=100):
 
@@ -106,7 +131,49 @@ def process_gpx(file_path="Test4.gpx", poi_list=None, poi_radius=100):
     print(f"Moving time: {moving_time/60:.2f} min")
     print(f"Stopped time: {stopped_time/60:.2f} min")
 
-    # --- POI detection along route ---
+    # --------------------------------------------------
+    # Apple Watch Extensions - Extracted Values
+    # --------------------------------------------------
+    speeds = []
+    courses = []
+    haccs = []
+    vaccs = []
+
+    for p in segment.points:
+        ext = extract_apple_extensions(p)
+
+        if "speed" in ext:
+            speeds.append(ext["speed"])
+        if "course" in ext:
+            courses.append(ext["course"])
+        if "hAcc" in ext:
+            haccs.append(ext["hAcc"])
+        if "vAcc" in ext:
+            vaccs.append(ext["vAcc"])
+
+    # --------------------------------------------------
+    # Apple Watch Statistics (clean summary)
+    # --------------------------------------------------
+    print("\n=== Apple Watch Extension Data ===")
+
+    if speeds:
+        print(f"Avg Apple speed: {sum(speeds)/len(speeds):.2f} m/s")
+        print(f"Max Apple speed: {max(speeds):.2f} m/s")
+
+    if courses:
+        print(f"Avg course direction: {sum(courses)/len(courses):.1f}°")
+
+    if haccs:
+        print(f"Avg horizontal accuracy: {sum(haccs)/len(haccs):.2f} m")
+
+    if vaccs:
+        print(f"Avg vertical accuracy:   {sum(vaccs)/len(vaccs):.2f} m")
+
+    print(f"Points with extension data: {len(speeds)}")
+
+    # --------------------------------------------------
+    # POI detection
+    # --------------------------------------------------
     if poi_list:
         matches = check_poi_matches(segment, poi_list, radius_m=poi_radius)
 
@@ -119,12 +186,11 @@ def process_gpx(file_path="Test4.gpx", poi_list=None, poi_radius=100):
             for name, dist in matches:
                 print(f" • {name}  (closest point {dist:.1f} m)")
 
-        # --- Closest POI to start and end ---
         start_point = segment.points[0]
         end_point = segment.points[-1]
 
         start_closest, start_dist = find_closest_poi(start_point.latitude, start_point.longitude, poi_list)
-        end_closest, end_dist = find_closest_poi(end_point.latitude, end_point.longitude, poi_list)
+        end_closest, end_dist   = find_closest_poi(end_point.latitude, end_point.longitude, poi_list)
 
         print("\n=== Closest POIs ===")
         print(f"Start point closest to: {start_closest} ({start_dist:.1f} m)")
@@ -143,4 +209,11 @@ points = [
 ]
 
 # Run
-process_gpx("gpx/AAA.gpx", poi_list=points, poi_radius=100)
+# process_gpx("gpx/AAA.gpx", poi_list=points, poi_radius=100)
+
+
+print("\nProcessing route_2025-01-04_5.32pm.gpx")
+process_gpx("gpx/route_2025-01-04_5.32pm.gpx", poi_list=points, poi_radius=100)
+
+# print("\nProcessing route_2025-02-01_3.41pm.gpx")
+# process_gpx("gpx/route_2025-02-01_3.41pm.gpx", poi_list=points, poi_radius=100)

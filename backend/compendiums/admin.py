@@ -1,17 +1,23 @@
 # Django import:
+from leaflet.admin import LeafletGeoAdmin
 from django.contrib import admin
 
 # AlpenWegs import:
-from compendiums.models.poi_model import PoiModel
-from compendiums.models.card_model import CardModel
 from compendiums.models.region_model import RegionModel
+from compendiums.models.card_model import CardModel
+from compendiums.models.poi_model import PoiModel
 
 
 @admin.register(PoiModel)
-class PoiAdmin(admin.ModelAdmin):
+class PoiAdmin(LeafletGeoAdmin):
     """
     Admin panel for managing PoiModel objects.
     """
+
+    # Map settings (optional):
+    default_lon = 8.55
+    default_lat = 47.2
+    default_zoom = 8
 
     model = PoiModel
     list_display = (
@@ -50,10 +56,15 @@ class PoiAdmin(admin.ModelAdmin):
             'Description', {
                 'fields': (
                     'description',
-                    'elevation',
                 )
             }
         ),
+        ('Location', {
+            'fields': (
+                'location',
+                'elevation',
+            )
+        }),
         (
             'Region', {
                 'fields': (

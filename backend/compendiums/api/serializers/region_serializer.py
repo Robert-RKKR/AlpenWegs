@@ -18,10 +18,12 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
 )
 # AlpenWegs application import:
 from profiles.api.serializers.user_serializer import UserRelationSerializer
+from alpenwegs.ashared.constants.country import CountryChoices
 from compendiums.models.region_model import RegionModel
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
+from rest_framework import serializers
 
 
 # Region Model serializer details:
@@ -76,6 +78,18 @@ class RegionDetailedSerializer(
         required=RegionModel.creator.field.null,
         allow_null=RegionModel.creator.field.blank,
     )
+
+    # Special constance fields:
+    country = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_country(self, obj):
+        """
+        Convert integer value into full metadata dict.
+        """
+
+        # Return metadata dict for country:
+        return CountryChoices.dict_from_int(obj.country)
 
     class Meta:
 
@@ -143,6 +157,18 @@ class RegionRelationSerializer(
         help_text='URL to provided object.',
         read_only=True,
     )
+
+    # Special constance fields:
+    country = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_country(self, obj):
+        """
+        Convert integer value into full metadata dict.
+        """
+
+        # Return metadata dict for country:
+        return CountryChoices.dict_from_int(obj.country)
 
     class Meta:
 

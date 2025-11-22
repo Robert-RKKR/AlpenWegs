@@ -1,9 +1,6 @@
 # AlpenWeg import:
 from alpenwegs.ashared.constants.ashared.base_choices import BaseIntegerToDictChoices
 
-# Django translation model import:
-from django.utils.translation import gettext_lazy as _
-
 
 # Choices class:
 class CountryChoices(
@@ -11,40 +8,37 @@ class CountryChoices(
 ):
 
     # Choices values:
-    SWITZERLAND = 41, _('Switzerland')
-    GERMANY = 49, _('Germany')
-    AUSTRIA = 43, _('Austria')
-    FRANCE = 33, _('France')
-    ITALY = 39, _('Italy')
+    SWITZERLAND = 41, 'Switzerland'
+    GERMANY = 49, 'Germany'
+    AUSTRIA = 43, 'Austria'
+    FRANCE = 33, 'France'
+    ITALY = 39, 'Italy'
 
-    # Metadata class:
-    class Meta:
-
-        # Additional values translation:
-        metadata = {
-            41: {
-                'icon': '🇨🇭',
-                'name': _('Switzerland'),
-                'description': _('Alpine nation'),
-            },
-            49: {
-                'icon': '🇩🇪',
-                'name': _('Germany'),
-                'description': _('Neighbor to the north'),
-            },
-            43: {
-                'icon': '🇦🇹',
-                'name': _('Austria'),
-                'description': _('Eastern Alps')
-            },
-            33: {
-                'icon': '🇫🇷',
-                'name': _('France'),
-                'description': _('Western neighbor')
-            },
-            39: {
-                'icon': '🇮🇹',
-                'name': _('Italy'),
-                'description': _('Southern Alps')
-            }
-        }
+# Module-level metadata dictionary:
+COUNTRY_METADATA = {
+    41: {
+        'icon': '🇨🇭',
+        'name': 'Switzerland',
+        'description': 'Alpine nation',
+    },
+    49: {
+        'icon': '🇩🇪',
+        'name': 'Germany',
+        'description': 'Neighbor to the north',
+    },
+    43: {
+        'icon': '🇦🇹',
+        'name': 'Austria',
+        'description': 'Eastern Alps',
+    },
+    33: {
+        'icon': '🇫🇷',
+        'name': 'France',
+        'description': 'Western neighbor',
+    },
+    39: {
+        'icon': '🇮🇹',
+        'name': 'Italy',
+        'description': 'Southern Alps',
+    },
+}

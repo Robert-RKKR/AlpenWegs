@@ -4,6 +4,10 @@ from compendiums.models.poi_model import PoiModel
 # AlpenWegs import:
 from alpenwegs.ashared.filters.base_filter import BaseFilter
 
+# Django import:
+from django_filters import rest_framework as filters
+from django.contrib.gis.db.models import PointField
+
 
 # PoI Model filter class:
 class PoiFilter(
@@ -37,7 +41,14 @@ class PoiFilter(
             'region': ['exact'],
             'transport_description': ['exact', 'icontains'],
             'category': ['exact'],
-            'latitude': ['exact', 'lt', 'gt'],
-            'longitude': ['exact', 'lt', 'gt'],
             'elevation': ['exact', 'lt', 'gt'],
+        }
+
+        filter_overrides = {
+            PointField: {
+                'filter_class': filters.CharFilter,
+                'extra': lambda f: {
+                    'lookup_expr': 'exact',
+                },
+            },
         }

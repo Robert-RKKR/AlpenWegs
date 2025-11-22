@@ -82,6 +82,10 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
 
+    # GeoDjango:
+    'leaflet',
+    'django.contrib.gis',
+
     # Celery and channels:
     'django_celery_beat',
     'channels',
@@ -288,24 +292,34 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #==========================================================================
 
 # Database configuration:
-if DB_TYPE == 'sqlite3':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
+# if DB_TYPE == 'sqlite3':
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': BASE_DIR / 'db.sqlite3',
+#         }
+#     }
+# elif DB_TYPE == 'postgresql':
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql',
+#             'NAME': DB_NAME,
+#             'USER': DB_USER,
+#             'PASSWORD': DB_PASS,
+#             'HOST': DB_HOST,
+#             'PORT': DB_PORT,
+#         }
+#     }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.contrib.gis.db.backends.postgis",
+        "NAME": "alpenwegs",
+        "USER": "alpenuser",
+        "PASSWORD": "alpenpass",
+        "HOST": "127.0.0.1",
+        "PORT": "5432",
     }
-elif DB_TYPE == 'postgresql':
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': DB_NAME,
-            'USER': DB_USER,
-            'PASSWORD': DB_PASS,
-            'HOST': DB_HOST,
-            'PORT': DB_PORT,
-        }
-    }
+}
 
 # Password validation:
 AUTH_PASSWORD_VALIDATORS = [
@@ -394,4 +408,12 @@ JAZZMIN_UI_TWEAKS = {
     'sidebar': 'sidebar-light-primary',
     'theme_color': 'indigo',
     'sidebar_nav_flat_style': True
+}
+
+# Leaflet configuration:
+LEAFLET_CONFIG = {
+    "DEFAULT_CENTER": (47.2, 8.55),
+    "DEFAULT_ZOOM": 9,
+    "MIN_ZOOM": 2,
+    "MAX_ZOOM": 18,
 }

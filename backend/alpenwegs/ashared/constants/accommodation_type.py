@@ -1,34 +1,30 @@
 # AlpenWeg import:
 from alpenwegs.ashared.constants.ashared.base_choices import BaseIntegerChoices
 
-# Django translation model import:
-from django.utils.translation import gettext_lazy as _
-
-
 # Accommodation Choices class:
 class AccommodationTypeChoices(
     BaseIntegerChoices,
 ):
 
     # Basic accommodation types:
-    DORMITORY = 0, _('Dormitory')
-    PRIVATE_ROOM = 1, _('Private Room')
-    HOTEL = 2, _('Hotel')
+    DORMITORY = 0, 'Dormitory'
+    PRIVATE_ROOM = 1, 'Private Room'
+    HOTEL = 2, 'Hotel'
 
     # Outdoor accommodation types:
-    TENT = 10, _('Tent')
-    CAMPING = 11, _('Camping Site')
-    BIVOUAC = 12, _('Bivouac Spot')
+    TENT = 10, 'Tent'
+    CAMPING = 11, 'Camping Site'
+    BIVOUAC = 12, 'Bivouac Spot'
 
     # Mountain-specific accommodation types:
-    MOUNTAIN_HUT = 20, _('Mountain Hut')
-    ALPINE_HUT = 21, _('Alpine Hut')
-    WINTER_HUT = 22, _('Winter Hut')
+    MOUNTAIN_HUT = 20, 'Mountain Hut'
+    ALPINE_HUT = 21, 'Alpine Hut'
+    WINTER_HUT = 22, 'Winter Hut'
 
     # Specialty / long-distance accommodation:
-    HOSTEL = 30, _('Hostel')
-    GUESTHOUSE = 31, _('Guesthouse')
-    CABIN = 32, _('Cabin / Lodge')
+    HOSTEL = 30, 'Hostel'
+    GUESTHOUSE = 31, 'Guesthouse'
+    CABIN = 32, 'Cabin / Lodge'
 
     # Mixed or flexible:
-    MIXED = 40, _('Mixed Accommodation')
+    MIXED = 40, 'Mixed Accommodation'

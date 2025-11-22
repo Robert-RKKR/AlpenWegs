@@ -1,9 +1,6 @@
 # AlpenWeg import:
 from alpenwegs.ashared.constants.ashared.base_choices import BaseIntegerChoices
 
-# Django translation model import:
-from django.utils.translation import gettext_lazy as _
-
 
 # Choices class:
 class GenderTypeChoices(
@@ -11,6 +8,6 @@ class GenderTypeChoices(
 ):
 
     # Choices values:
-    EMPTY = 0, _('Empty')
-    FEMALE = 1, _('Female')
-    MALE = 2, _('Male')
+    EMPTY = 0, 'Empty'
+    FEMALE = 1, 'Female'
+    MALE = 2, 'Male'

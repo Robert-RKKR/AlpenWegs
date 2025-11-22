@@ -9,7 +9,7 @@ from alpenwegs.ashared.models.creator_model import BaseCreatorModel
 from compendiums.models.region_model import RegionModel
 
 # Django import:
-from django.db import models
+from django.contrib.gis.db import models
 
 
 # PoI Model class:
@@ -107,17 +107,12 @@ class PoiModel(
     )
     
     # PoI Geographic Location:
-    latitude = models.FloatField(
-        verbose_name='Latitude',
-        help_text='Latitude in decimal degrees (WGS84). '
-            'Used for map display and spatial queries.',
-        blank=True,
-        null=True,
-    )
-    longitude = models.FloatField(
-        verbose_name='Longitude',
-        help_text='Longitude in decimal degrees (WGS84). '
-            'Used for map display and spatial queries.',
+    location = models.PointField(
+        geography=True,
+        srid=4326,
+        verbose_name='Geographic Position (WGS84)',
+        help_text='Stores the precise geolocation of the '
+            'PoI using a PostGIS point.',
         blank=True,
         null=True,
     )

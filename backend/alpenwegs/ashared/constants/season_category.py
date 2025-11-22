@@ -1,93 +1,90 @@
 # AlpenWeg import:
 from alpenwegs.ashared.constants.ashared.base_choices import BaseIntegerToDictChoices
 
-# Django translation model import:
-from django.utils.translation import gettext_lazy as _
-
 
 # Month choices class:
 class MonthChoices(
     BaseIntegerToDictChoices,
 ):
 
-    JANUARY = 1, _('January')
-    FEBRUARY = 2, _('February')
-    MARCH = 3, _('March')
-    APRIL = 4, _('April')
-    MAY = 5, _('May')
-    JUNE = 6, _('June')
-    JULY = 7, _('July')
-    AUGUST = 8, _('August')
-    SEPTEMBER = 9, _('September')
-    OCTOBER = 10, _('October')
-    NOVEMBER = 11, _('November')
-    DECEMBER = 12, _('December')
+    JANUARY = 1, 'January'
+    FEBRUARY = 2, 'February'
+    MARCH = 3, 'March'
+    APRIL = 4, 'April'
+    MAY = 5, 'May'
+    JUNE = 6, 'June'
+    JULY = 7, 'July'
+    AUGUST = 8, 'August'
+    SEPTEMBER = 9, 'September'
+    OCTOBER = 10, 'October'
+    NOVEMBER = 11, 'November'
+    DECEMBER = 12, 'December'
 
-    # Metadata class:
-    class Meta:
+    # # Metadata class:
+    # class Meta:
 
-        metadata = {
-            1: {
-                'icon': '❄️',
-                'name': _('January'),
-                'description': _('Winter month, cold and snowy in the Alps')
-            },
-            2: {
-                'icon': '⛷️',
-                'name': _('February'),
-                'description': _('Peak of ski season in Switzerland')
-            },
-            3: {
-                'icon': '🌱',
-                'name': _('March'),
-                'description': _('Beginning of spring in lower valleys')
-            },
-            4: {
-                'icon': '🌸',
-                'name': _('April'),
-                'description': _('Spring blossoms, still snow in mountains')
-            },
-            5: {
-                'icon': '🌼',
-                'name': _('May'),
-                'description': _('Warm spring, hiking starts in lower areas')
-            },
-            6: {
-                'icon': '☀️',
-                'name': _('June'),
-                'description': _('Start of summer hiking season')
-            },
-            7: {
-                'icon': '🏞️',
-                'name': _('July'),
-                'description': _('Summer, ideal for alpine adventures')
-            },
-            8: {
-                'icon': '🚵',
-                'name': _('August'),
-                'description': _('Peak outdoor activity season in the Alps')
-            },
-            9: {
-                'icon': '🍂',
-                'name': _('September'),
-                'description': _('Start of autumn, cooler hiking conditions')
-            },
-            10: {
-                'icon': '🎃',
-                'name': _('October'),
-                'description': _('Autumn colors, some early snow in high Alps')
-            },
-            11: {
-                'icon': '🍁',
-                'name': _('November'),
-                'description': _('Transition to winter, foggy valleys')
-            },
-            12: {
-                'icon': '🎄',
-                'name': _('December'),
-                'description': _('Winter begins, ski season opens')
-            }
-        }
+    #     metadata = {
+    #         1: {
+    #             'icon': '❄️',
+    #             'name': 'January',
+    #             'description': 'Winter month, cold and snowy in the Alps',
+    #         },
+    #         2: {
+    #             'icon': '⛷️',
+    #             'name': 'February',
+    #             'description': 'Peak of ski season in Switzerland',
+    #         },
+    #         3: {
+    #             'icon': '🌱',
+    #             'name': 'March',
+    #             'description': 'Beginning of spring in lower valleys',
+    #         },
+    #         4: {
+    #             'icon': '🌸',
+    #             'name': 'April',
+    #             'description': 'Spring blossoms, still snow in mountains',
+    #         },
+    #         5: {
+    #             'icon': '🌼',
+    #             'name': 'May',
+    #             'description': 'Warm spring, hiking starts in lower areas',
+    #         },
+    #         6: {
+    #             'icon': '☀️',
+    #             'name': 'June',
+    #             'description': 'Start of summer hiking season',
+    #         },
+    #         7: {
+    #             'icon': '🏞️',
+    #             'name': 'July',
+    #             'description': 'Summer, ideal for alpine adventures',
+    #         },
+    #         8: {
+    #             'icon': '🚵',
+    #             'name': 'August',
+    #             'description': 'Peak outdoor activity season in the Alps',
+    #         },
+    #         9: {
+    #             'icon': '🍂',
+    #             'name': 'September',
+    #             'description': 'Start of autumn, cooler hiking conditions',
+    #         },
+    #         10: {
+    #             'icon': '🎃',
+    #             'name': 'October',
+    #             'description': 'Autumn colors, some early snow in high Alps',
+    #         },
+    #         11: {
+    #             'icon': '🍁',
+    #             'name': 'November',
+    #             'description': 'Transition to winter, foggy valleys',
+    #         },
+    #         12: {
+    #             'icon': '🎄',
+    #             'name': 'December',
+    #             'description': 'Winter begins, ski season opens',
+    #         }
+    #     }
 
 
 # Season choices class:
@@ -95,33 +92,33 @@ class SeasonChoices(
     BaseIntegerToDictChoices,
 ):
 
-    WINTER = 1, _('Winter')
-    SPRING = 2, _('Spring')
-    SUMMER = 3, _('Summer')
-    AUTUMN = 4, _('Autumn')
+    WINTER = 1, 'Winter'
+    SPRING = 2, 'Spring'
+    SUMMER = 3, 'Summer'
+    AUTUMN = 4, 'Autumn'
 
-    # Metadata class:
-    class Meta:
+    # # Metadata class:
+    # class Meta:
 
-        metadata = {
-            1: {
-                'icon': '❄️',
-                'name': _('Winter'),
-                'description': _('Snow season, skiing and winter sports')
-            },
-            2: {
-                'icon': '🌸',
-                'name': _('Spring'),
-                'description': _('Blooming season, hiking starts in valleys')
-            },
-            3: {
-                'icon': '☀️',
-                'name': _('Summer'),
-                'description': _('Peak outdoor season, alpine hiking and biking')
-            },
-            4: {
-                'icon': '🍂',
-                'name': _('Autumn'),
-                'description': _('Colorful landscapes, cooler hiking conditions')
-            }
-        }
+    #     metadata = {
+    #         1: {
+    #             'icon': '❄️',
+    #             'name': 'Winter',
+    #             'description': 'Snow season, skiing and winter sports'
+    #         },
+    #         2: {
+    #             'icon': '🌸',
+    #             'name': 'Spring',
+    #             'description': 'Blooming season, hiking starts in valleys',
+    #         },
+    #         3: {
+    #             'icon': '☀️',
+    #             'name': 'Summer',
+    #             'description': 'Peak outdoor season, alpine hiking and biking',
+    #         },
+    #         4: {
+    #             'icon': '🍂',
+    #             'name': 'Autumn',
+    #             'description': 'Colorful landscapes, cooler hiking conditions',
+    #         }
+    #     }

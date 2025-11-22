@@ -1,9 +1,6 @@
 # AlpenWeg import:
 from alpenwegs.ashared.constants.ashared.base_choices import BaseIntegerChoices
 
-# Django translation model import:
-from django.utils.translation import gettext_lazy as _
-
 
 # Choices class:
 class CardTypeChoices(
@@ -11,14 +8,14 @@ class CardTypeChoices(
 ):
 
     # Choices values:
-    MOUNTAIN_PEAK = 1, _('Mountain peak')
-    MOUNTAIN_RANGE = 2, _('Mountain range')
-    MOUNTAIN_HUT = 3, _('Mountain hut')
-    MOUNTAIN_ROUTE = 4, _('Mountain route')
-    MOUNTAIN_BRIDGE = 5, _('Mountain bridge')
-    MOUNTAIN_PASS = 6, _('Mountain pass')
-    MOUNTAIN_TRAIL = 7, _('Mountain trail')
-    MOUNTAIN_LAKE = 8, _('Mountain lake')
-    MOUNTAIN_CAVE = 9, _('Mountain cave')
-    MOUNTAIN_RUINS = 10, _('Mountain ruins')
-    SPECIAL_CARD = 99, _('Special card')
+    MOUNTAIN_PEAK = 1, 'Mountain peak'
+    MOUNTAIN_RANGE = 2, 'Mountain range'
+    MOUNTAIN_HUT = 3, 'Mountain hut'
+    MOUNTAIN_ROUTE = 4, 'Mountain route'
+    MOUNTAIN_BRIDGE = 5, 'Mountain bridge'
+    MOUNTAIN_PASS = 6, 'Mountain pass'
+    MOUNTAIN_TRAIL = 7, 'Mountain trail'
+    MOUNTAIN_LAKE = 8, 'Mountain lake'
+    MOUNTAIN_CAVE = 9, 'Mountain cave'
+    MOUNTAIN_RUINS = 10, 'Mountain ruins'
+    SPECIAL_CARD = 99, 'Special card'

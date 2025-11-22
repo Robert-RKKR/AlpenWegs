@@ -84,7 +84,7 @@ class BaseGpxModel(
     distance = models.FloatField(
         verbose_name='Route Distance',
         help_text='The total length of the route, measured in '
-        'kilometres. This includes the full distance from '
+        'kilometers. This includes the full distance from '
         'start to finish, including both flat and uphill sections.',
         blank=True,
         null=True,

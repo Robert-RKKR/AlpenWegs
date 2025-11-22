@@ -2,9 +2,11 @@
 from django.contrib import admin
 
 # AlpenWegs import:
-from explorers.models.route_model import RouteModel
-from explorers.models.trip_model import TripModel
 from explorers.models.section_model import SectionModel
+from explorers.models.journey_model import JourneyModel
+from explorers.models.route_model import RouteModel
+from explorers.models.track_model import TrackModel
+from explorers.models.trip_model import TripModel
 from explorers.models.section_model import (
     SectionToRegionModel,
     SectionToPhotoModel,
@@ -42,7 +44,6 @@ class RouteAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
-                    'snippet',
                     'creator',
                     'description',
                     'category',
@@ -69,13 +70,14 @@ class RouteAdmin(admin.ModelAdmin):
         (
             'Relations', {
                 'fields': (
-                    'gpx_file',
+                    'gpx_data',
                 )
             }
         ),
         (
             'Metadata', {
                 'fields': (
+                    'snippet',
                     'created',
                     'updated',
                 )
@@ -84,6 +86,7 @@ class RouteAdmin(admin.ModelAdmin):
     )
 
     readonly_fields = (
+        'snippet',
         'created',
         'updated'
     )
@@ -124,7 +127,6 @@ class TripAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
-                    'snippet',
                     'creator',
                     'description',
                     'trips',
@@ -141,6 +143,7 @@ class TripAdmin(admin.ModelAdmin):
         (
             'Metadata', {
                 'fields': (
+                    'snippet',
                     'created',
                     'updated'
                 )
@@ -149,6 +152,7 @@ class TripAdmin(admin.ModelAdmin):
     )
 
     readonly_fields = (
+        'snippet',
         'created',
         'updated'
     )
@@ -197,7 +201,6 @@ class SectionAdmin(admin.ModelAdmin):
             None, {
                 'fields': (
                     'name',
-                    'snippet',
                     'creator',
                     'description',
                 )
@@ -237,6 +240,7 @@ class SectionAdmin(admin.ModelAdmin):
         (
             'Metadata', {
                 'fields': (
+                    'snippet',
                     'created',
                     'updated',
                 )
@@ -245,6 +249,7 @@ class SectionAdmin(admin.ModelAdmin):
     )
 
     readonly_fields = (
+        'snippet',
         'created',
         'updated'
     )
@@ -254,3 +259,278 @@ class SectionAdmin(admin.ModelAdmin):
         SectionToPhotoInline,
         SectionToPoiInline,
     ]
+
+
+class TrackInline(admin.TabularInline):
+    model = TrackModel
+    extra = 0
+    fields = (
+        'name',
+        'category',
+        'distance',
+        'duration',
+        'verified',
+        'similarity_index',
+        'created',
+    )
+    readonly_fields = (
+        'snippet',
+        'created',
+    )
+    show_change_link = True
+
+
+@admin.register(JourneyModel)
+class JourneyAdmin(admin.ModelAdmin):
+    """
+    Admin panel for managing JourneyModel objects.
+    """
+
+    model = JourneyModel
+
+    list_display = (
+        'id',
+        'name',
+        'creator',
+        'category',
+        'is_public',
+        'total_days',
+        'created',
+        'updated',
+    )
+    list_filter = (
+        'category',
+        'is_public',
+        'created',
+        'updated',
+    )
+    search_fields = (
+        'name',
+        'description',
+        'creator__email',
+        'creator__first_name',
+        'creator__last_name',
+    )
+    ordering = (
+        '-created',
+    )
+
+    fieldsets = (
+        (
+            None, {
+                'fields': (
+                    'name',
+                    'creator',
+                    'description',
+                )
+            }
+        ),
+        (
+            'Classification', {
+                'fields': (
+                    'category',
+                    'users_accomplished',
+                    'score',
+                    'is_public',
+                )
+            }
+        ),
+        (
+            'Multi-day structure', {
+                'fields': (
+                    'total_days',
+                    'accommodation_type',
+                    'trip',
+                )
+            }
+        ),
+        (
+            'Statistics', {
+                'fields': (
+                    'distance',
+                    'duration',
+                    'elevation_gain',
+                    'elevation_loss',
+                )
+            }
+        ),
+        (
+            'Metadata', {
+                'fields': (
+                    'snippet',
+                    'created',
+                    'updated',
+                )
+            }
+        ),
+    )
+
+    readonly_fields = (
+        'snippet',
+        'created',
+        'updated'
+    )
+
+    inlines = [
+        TrackInline,
+    ]
+
+
+@admin.register(TrackModel)
+class TrackAdmin(admin.ModelAdmin):
+    """
+    Admin panel for managing TrackModel objects.
+    """
+
+    model = TrackModel
+
+    list_display = (
+        'id',
+        'name',
+        'category',
+        'journey',
+        'route',
+        'distance',
+        'duration',
+        'verified',
+        'similarity_index',
+        'created',
+        'updated',
+    )
+    list_filter = (
+        'category',
+        'verified',
+        'snow_track',
+        'night_track',
+        'rain_track',
+        'hot_weather_track',
+        'cold_weather_track',
+        'group_track',
+        'organized_track',
+        'guided_tour_track',
+        'hazardous_track',
+        'created',
+        'updated',
+    )
+    search_fields = (
+        'name',
+        'description',
+        'journey__name',
+        'route__name',
+        'creator__email',
+        'creator__first_name',
+        'creator__last_name',
+    )
+    ordering = (
+        '-created',
+    )
+
+    fieldsets = (
+        (
+            None, {
+                'fields': (
+                    'name',
+                    'creator',
+                    'description',
+                    'user_notes',
+                )
+            }
+        ),
+        (
+            'Classification', {
+                'fields': (
+                    'category',
+                    'users_accomplished',
+                    'score',
+                )
+            }
+        ),
+        (
+            'Relationships', {
+                'fields': (
+                    'journey',
+                    'route',
+                    'verified',
+                    'similarity_index',
+                )
+            }
+        ),
+        (
+            'GPS Data', {
+                'fields': (
+                    'gpx_data',
+                    'distance',
+                    'duration',
+                    'elevation_gain',
+                    'elevation_loss',
+                    'highest_elevation',
+                    'lowest_elevation',
+                )
+            }
+        ),
+        (
+            'Environment Conditions', {
+                'fields': (
+                    'snow_track',
+                    'night_track',
+                    'fog_track',
+                    'rain_track',
+                    'hot_weather_track',
+                    'cold_weather_track',
+                    'windy_track',
+                )
+            }
+        ),
+        (
+            'Group Activity', {
+                'fields': (
+                    'group_track',
+                    'organized_track',
+                    'leader_track',
+                    'guided_tour_track',
+                )
+            }
+        ),
+        (
+            'Activity Style', {
+                'fields': (
+                    'backpacking_track',
+                    'fast_hike_track',
+                    'training_track',
+                    'exploration_track',
+                )
+            }
+        ),
+        (
+            'Safety Metadata', {
+                'fields': (
+                    'hazardous_track',
+                    'injury_occurred',
+                    'rescue_assistance',
+                )
+            }
+        ),
+        (
+            'Metadata', {
+                'fields': (
+                    'snippet',
+                    'created',
+                    'updated',
+                )
+            }
+        ),
+    )
+
+    readonly_fields = (
+        'snippet',
+        'created',
+        'updated',
+        'distance',
+        'duration',
+        'elevation_gain',
+        'elevation_loss',
+        'highest_elevation',
+        'lowest_elevation',
+        'verified',
+        'similarity_index',
+    )

@@ -44,6 +44,8 @@ GLOBAL_JAZZMIN_SETTINGS = {
         'notifications.ChangeLogModel': 'fas fa-history',
         # Explorers app:
         'explorers': 'fas fa-hiking',
+        'explorers.TrackModel': 'fas fa-shoe-prints',
+        'explorers.JourneyModel': 'fas fa-passport',
         'explorers.SectionModel': 'fas fa-route',
         'explorers.RouteModel': 'fas fa-map-marked-alt',
         'explorers.TripModel': 'fas fa-mountain',

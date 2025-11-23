@@ -75,3 +75,6 @@ class FileModel(
         verbose_name='File Format',
         help_text='Format of the file, e.g., pdf, gpx, txt, etc.',
     )
+
+    def object_representation(self) -> str:
+        return f"File: {self.name}"

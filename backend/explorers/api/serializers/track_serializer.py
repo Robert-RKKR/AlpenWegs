@@ -7,7 +7,6 @@ from alpenwegs.ashared.api.serializers.base_serializers import (
 from alpenwegs.ashared.api.serializers.base_model_variables import (
     base_identification_read_only_fields,
     base_sport_category_read_only_fields,
-    base_characteristic_read_only_fields,
     base_statistic_read_only_fields,
     base_timestamp_read_only_fields,
     base_creator_read_only_fields,
@@ -15,7 +14,6 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
     base_score_read_only_fields,
     base_identification_fields,
     base_representation_fields,
-    base_characteristic_fields,
     base_sport_category_fields,
     base_statistic_fields,
     base_timestamp_fields,
@@ -25,13 +23,20 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
 )
 
 # AlpenWegs application import:
-from explorers.api.serializers.section_serializer import SectionRelationSerializer
+from alpenwegs.ashared.constants.sport_category_difficulty import SportCategoryDifficultyChoices
+from explorers.api.serializers.route_serializer import RouteRepresentationSerializer
+from explorers.api.serializers.journey_serializer import JourneyRelationSerializer
 from profiles.api.serializers.user_serializer import UserRelationSerializer
-from explorers.models.section_model import SectionModel
+from alpenwegs.ashared.constants.sport_category import SportCategoryChoices
+from assets.api.serializers.file_serializer import FileRelationSerializer
+from explorers.models.journey_model import JourneyModel
 from explorers.models.track_model import TrackModel
+from explorers.models.route_model import RouteModel
+from assets.models.file_model import FileModel
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
+from rest_framework import serializers
 
 
 # Track Model serializer details:
@@ -40,8 +45,6 @@ depth = 0
 
 # Track Model serializer fields:
 track_fields = [
-    'journey',
-    'route',
     'verified',
     'similarity_index',
     'user_notes',
@@ -63,12 +66,14 @@ track_fields = [
     'hazardous_track',
     'injury_occurred',
     'rescue_assistance',
+    'journey',
+    'route',
+    'gpx_data',
 ]
 
 # Track model serializer combined fields:
 fields = (
     base_model_fields
-    + base_characteristic_fields
     + base_identification_fields
     + base_sport_category_fields
     + base_timestamp_fields
@@ -80,7 +85,6 @@ fields = (
 read_only_fields = (
     base_model_read_only_fields
     + base_identification_read_only_fields
-    + base_characteristic_read_only_fields
     + base_sport_category_read_only_fields
     + base_statistic_read_only_fields
     + base_timestamp_read_only_fields
@@ -122,13 +126,50 @@ class TrackDetailedSerializer(
     )
 
     # Other object Many to Many relation schemas:
-    sections = SerializedPkRelatedField(
-        queryset=SectionModel.objects.all(),
-        serializer=SectionRelationSerializer,
+    journey = SerializedPkRelatedField(
+        queryset=JourneyModel.objects.all(),
+        serializer=JourneyRelationSerializer,
         required=False,
         allow_null=True,
         many=True,
     )
+    route = SerializedPkRelatedField(
+        queryset=RouteModel.objects.all(),
+        serializer=RouteRepresentationSerializer,
+        required=False,
+        allow_null=True,
+        many=True,
+    )
+    gpx_data = SerializedPkRelatedField(
+        queryset=FileModel.objects.all(),
+        serializer=FileRelationSerializer,
+        required=False,
+        allow_null=True,
+        many=True,
+    )
+
+    # Special constance fields:
+    category_specific_difficulty = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_category_specific_difficulty(self, obj):
+        """
+        Convert integer value into full metadata dict.
+        """
+
+        # Return metadata dict for country:
+        return SportCategoryDifficultyChoices.dict_from_int(
+            obj.category_specific_difficulty
+        )
+    
+    def get_category(self, obj):
+        """
+        Convert integer value into full metadata dict.
+        """
+
+        # Return metadata dict for country:
+        return SportCategoryChoices.dict_from_int(obj.category)
 
 
 # Track Representation serializer:
@@ -182,6 +223,29 @@ class TrackRelationSerializer(
         help_text='URL to provided object.',
         read_only=True,
     )
+
+    # Special constance fields:
+    category_specific_difficulty = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_category_specific_difficulty(self, obj):
+        """
+        Convert integer value into full metadata dict.
+        """
+
+        # Return metadata dict for country:
+        return SportCategoryDifficultyChoices.dict_from_int(
+            obj.category_specific_difficulty
+        )
+    
+    def get_category(self, obj):
+        """
+        Convert integer value into full metadata dict.
+        """
+
+        # Return metadata dict for country:
+        return SportCategoryChoices.dict_from_int(obj.category)
 
     class Meta:
         read_only_fields = read_only_fields

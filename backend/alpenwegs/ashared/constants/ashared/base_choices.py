@@ -2,6 +2,8 @@
 from django.db.models import IntegerChoices
 from django.db.models import TextChoices
 
+# Python import:
+import re
 
 
 # Base integer choices class:
@@ -134,13 +136,30 @@ class BaseIntegerToDictChoices(BaseIntegerChoices):
     """
 
     @classmethod
+    def _class_to_metadata_var(cls):
+        """
+        Convert class name like SportCategoryDifficultyChoices ->
+        SPORT_CATEGORY_DIFFICULTY_METADATA
+        """
+
+        # 1. Remove the suffix "Choices"
+        base = cls.__name__.replace("Choices", "")
+
+        # 2. CamelCase → snake_case
+        snake = re.sub(r'(?<!^)(?=[A-Z])', '_', base).lower()
+
+        # 3. snake_case → UPPER_CASE_METADATA
+        return snake.upper() + "_METADATA"
+
+    @classmethod
     def _load_metadata(cls):
         """
         Load metadata dict from same module.
         Expected name: {CLASSNAME}_METADATA
         Example: CountryChoices -> COUNTRY_METADATA
         """
-        meta_var_name = cls.__name__.replace("Choices", "").upper() + "_METADATA"
+
+        meta_var_name = cls._class_to_metadata_var()
         module = __import__(cls.__module__, fromlist=[meta_var_name])
         return getattr(module, meta_var_name, {})
 

@@ -94,11 +94,14 @@ class BasePermissionsModel(
 
         # Debug prints:
         # print(f'\n\n')
-        # print(f'Has permission view "app_label" value: "{app_label}".')
-        # print(f'Has permission view "model_name" value: "{model_name}".')
-        # print(f'Has permission view "model_cl" values: "{model_cls}".')
-        # print(f'Has permission view "action" value: "{action}".')
-        # print(f'Has permission view "codename" value: "{codename}".')
+        # print(f'DEBUG: User: "{user}" made action: "{action}" on model: "{model_name}".')
+        # print(f'DEBUG: Value view app label is: "{app_label}".')
+        # print(f'DEBUG: Value view model name is: "{model_name}".')
+        # print(f'DEBUG: Value view model class is: "{model_cls}".')
+        # print(f'DEBUG: Value view action is: "{action}".')
+        # print(f'DEBUG: Value view codename is: "{codename}".')
+        # print(f'DEBUG: User permissions: "{request.user.get_all_permissions()}"')
+        # print(f'DEBUG: User permissions: "{request.user.has_perm(codename)}"')
         # print(f'\n\n')
 
         # 7: Return whether the user has the required permission:

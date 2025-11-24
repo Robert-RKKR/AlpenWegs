@@ -31,6 +31,9 @@ class PhotoView(
     Read-write API views for the Photo model.
     """
 
+    # Log model changes:
+    log_changes = True
+
     # Queryset for the view (Legacy, required by DRF):
     queryset = PhotoModel.objects.all()
 

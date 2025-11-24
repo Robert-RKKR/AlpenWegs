@@ -36,10 +36,8 @@ class BaseCreateModelMixin(
         
         # Validate created serializer:
         serializer.is_valid(raise_exception=True)
-        # Add creator to serializer data if available:
-        serializer.save(creator=user)
         # Save a new instance based on validated serializer data:
-        instance = serializer.save()
+        instance = serializer.save(creator=user)
 
         # Create change log notification:
         self._create_notification(

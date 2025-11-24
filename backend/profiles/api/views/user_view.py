@@ -31,6 +31,9 @@ class UserView(
     User Read and write view.
     """
 
+    # Log model changes:
+    log_changes = True
+
     # Queryset for the view (Legacy, required by DRF):
     queryset = UserModel.objects.all()
 

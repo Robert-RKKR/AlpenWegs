@@ -92,14 +92,14 @@ class BaseIdentificationModel(
     #=================================================================
     # Before validation dedicated operations:
     #=================================================================
-    def run_before_validation(self):
+    def run_before_save(self):
         """
         Custom logic to be executed before saving the model.
         This method can be overridden in derived classes.
         """
 
-        # Call the original run_before_validation method:
-        super().run_before_validation()
+        # Call the original run_before_save method:
+        super().run_before_save()
         # Create slug based on provided name value:
         self._generate_slug()
         # Create default object snippet if not provided:

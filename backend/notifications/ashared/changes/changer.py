@@ -31,7 +31,7 @@ def collect_names(sender):
     return (app_name, model_name)
 
 def collect_object_representation(
-    instance
+    instance,
 ):
     """
     Collect object representation,

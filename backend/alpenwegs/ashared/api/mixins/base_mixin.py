@@ -60,18 +60,19 @@ class BaseMixin():
         kwargs.setdefault('context', self.get_serializer_context())
         return serializer_class(*args, **kwargs)
 
-    def _create_notification(self,
+    def _create_change_notification(self,
         instance: BaseModel,
         action: ActionTypeChoices,
         user: UserModel,
-        serializer = False,
-        log_changes = False
+        serializer: bool = False,
+        create_change: bool = False,
+        send_notification: bool = False,
     ) -> None:
         """
         Create a notification for object changes.
         """
 
-        if log_changes:
+        if create_change:
             # Create a new change notification:
             log_change(
                 instance=instance,
@@ -90,42 +91,38 @@ class BaseMixin():
             # Collect action representation:
             action_repr = ActionTypeChoices.value_from_int(action)
 
-            # Create a new notification:
-            notification = Notification(
-                task_id=f'api-{action_repr}',
-                channel_name=f'user_{user.id}',
-            )
+            # Check if notification should be sent:
+            if send_notification:
 
-            try:
-                # Send notification:
-                notification.info(
-                    f'{model_name} "{instance_representation}" '
-                    f'has been {action_repr}d.',
-                    url=url
+                # Create a new notification:
+                notification = Notification(
+                    task_id=f'api-{action_repr}',
+                    channel_name=f'user_{user.id}',
                 )
 
-            except (
-                redis.exceptions.ConnectionError,
-                redis.exceptions.TimeoutError,
-                redis.exceptions.ReadOnlyError,
-                ImproperlyConfigured
-            ) as exception:
-                
-                # # Raise an API-level 500 error:
-                # raise ValidationAPIException(
-                #     error_message='Notification service unavailable.',
-                #     error_details=[{
-                #         'error_field': 'redis',
-                #         'error_message': str(exception),
-                #         'error_code': 'redis_unavailable',
-                #     }],
-                #     status_code=500
-                # )
+                try:
+                    # Send notification:
+                    notification.info(
+                        f'{model_name} "{instance_representation}" '
+                        f'has been {action_repr}d.',
+                        url=url
+                    )
 
-                logger.critical(f'Notification service unavailable: {exception}')
+                except (
+                    redis.exceptions.ConnectionError,
+                    redis.exceptions.TimeoutError,
+                    redis.exceptions.ReadOnlyError,
+                    ImproperlyConfigured
+                ) as exception:
 
-                pass
+                    # Log error if notification service is unavailable:
+                    logger.critical(
+                        f'Notification service unavailable: {exception}'
+                    )
 
-            except Exception as exception:
+                except Exception as exception:
 
-                pass
+                    # Log error if notification service is unavailable:
+                    logger.critical(
+                        f'Notification error: {exception}'
+                    )

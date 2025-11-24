@@ -59,8 +59,9 @@ class BaseViewSet(
         OrderingFilter,
     ]
 
-    # Log changes:
-    log_changes = False
+    # Create change notifications:
+    send_notification = False
+    create_change = False
     
     metadata = {
         'my_custom_option': 'Some custom option',

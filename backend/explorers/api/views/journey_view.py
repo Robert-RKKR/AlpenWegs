@@ -31,8 +31,9 @@ class JourneyView(
     Read-write API view for the Journey model.
     """
 
-    # Log model changes:
-    log_changes = True
+    # Create change notifications:
+    send_notification = False
+    create_change = True
 
     # Queryset for the view (Legacy, required by DRF):
     queryset = JourneyModel.objects.all()

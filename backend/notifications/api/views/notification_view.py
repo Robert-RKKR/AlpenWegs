@@ -30,6 +30,10 @@ class NotificationView(
     """
     Notification Read and write view.
     """
+    
+    # Create change notifications:
+    send_notification = False
+    create_change = False
 
     # Queryset for the view (Legacy, required by DRF):
     queryset = NotificationModel.objects.all()

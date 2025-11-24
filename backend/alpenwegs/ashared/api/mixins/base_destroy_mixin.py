@@ -40,10 +40,15 @@ class BaseDestroyModelMixin(
         # Delete provided instance:
         self.perform_destroy(instance)
 
-        # Create a new change log notification:
-        self._create_notification(
-            copy_instance, ActionTypeChoices.DELETE, request.user,
-            False, self.log_changes)
+        # Create change notification log if enabled:
+        self._create_change_notification(
+            send_notification=self.send_notification,
+            create_change=self.create_change,
+            action=ActionTypeChoices.DELETE,
+            instance=copy_instance,
+            serializer=False,
+            user=request.user,
+        )
 
         # Return (204 HTTP - No Content) response:
         return Response(

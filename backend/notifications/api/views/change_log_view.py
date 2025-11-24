@@ -32,6 +32,10 @@ class ChangeLogView(
     """
     Change Log Read and write view.
     """
+    
+    # Create change notifications:
+    send_notification = False
+    create_change = False
 
     # Queryset for the view (Legacy, required by DRF):
     queryset = ChangeLogModel.objects.all()

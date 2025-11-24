@@ -44,8 +44,9 @@ class SectionView(
     Read-write API view for the Section model.
     """
 
-    # Log model changes:
-    log_changes = True
+    # Create change notifications:
+    send_notification = False
+    create_change = True
 
     # Queryset for the view (Legacy, required by DRF):
     queryset = SectionModel.objects.all()

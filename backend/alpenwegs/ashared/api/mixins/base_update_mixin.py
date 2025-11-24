@@ -49,11 +49,16 @@ class BaseUpdateModelMixin(
         serializer.is_valid(raise_exception=True)
         # Save serializer:
         instance = serializer.save()
-        
-        # Create a new change log notification:
-        self._create_notification(
-            instance, ActionTypeChoices.UPDATE, request.user,
-            serializer, self.log_changes)
+
+        # Create change notification log if enabled:
+        self._create_change_notification(
+            send_notification=self.send_notification,
+            create_change=self.create_change,
+            action=ActionTypeChoices.UPDATE,
+            serializer=serializer,
+            instance=instance,
+            user=request.user,
+        )
         
         # getattr update action:
         if getattr(instance, '_prefetched_objects_cache', None):

@@ -39,10 +39,11 @@ class BaseCreateModelMixin(
         # Save a new instance based on validated serializer data:
         instance = serializer.save(creator=user)
 
-        # Create change log notification:
-        self._create_notification(
+        # Create change notification log if enabled:
+        self._create_change_notification(
+            send_notification=self.send_notification,
+            create_change=self.create_change,
             action=ActionTypeChoices.CREATE,
-            log_changes=self.log_changes,
             serializer=serializer,
             user=request.user,
             instance=instance,

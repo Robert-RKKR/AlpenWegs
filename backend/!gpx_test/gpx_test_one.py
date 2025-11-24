@@ -11,25 +11,31 @@ points = [
 
 
 def process_gpx(file_path="Test4.gpx"):
+
     with open(file_path, "r") as f:
         gpx = gpxpy.parse(f)
 
-    # For simplicity, use the first track and first segment
+    # Track define a single activity (e.g., a run, a bike ride, etc.):
     track = gpx.tracks[0]
+    # Segment define a continuous part of a track (e.g., between pauses):
     segment = track.segments[0]
 
-    # --- Distance ---
-    distance_3d = segment.length_3d()  # meters
+    # Distance 3D defined latitude & longitude and elevation:
+    distance_3d = segment.length_3d()
 
-    # --- Elevation stats ---
-    elevations = [p.elevation for p in segment.points if p.elevation is not None]
+    # Distance 2D defined latitude & longitude only:
+    distance_2d = segment.length_2d()
+
+    # Collect total ascent and descent:
     total_ascent, total_descent = segment.get_uphill_downhill()
+
+    # Collect all elevations to find max and min elevation:
+    elevations = [p.elevation for p in segment.points if p.elevation is not None]
     max_ele = max(elevations) if elevations else None
     min_ele = min(elevations) if elevations else None
 
-    # --- Moving data (speed, times) ---
-    moving_data = segment.get_moving_data()  # returns (moving_time, stopped_time, moving_distance, stopped_distance, max_speed)
-    moving_time, stopped_time, moving_distance, stopped_distance, max_speed = moving_data
+    # Collect moving data:
+    moving_time, stopped_time, moving_distance, stopped_distance, max_speed = segment.get_moving_data()
 
     # Average speeds
     avg_speed_overall = distance_3d / (moving_time + stopped_time) if (moving_time + stopped_time) > 0 else 0
@@ -53,6 +59,7 @@ def process_gpx(file_path="Test4.gpx"):
     print(f"Ascent speed: {ascent_speed:.2f} m/h")
     print(f"Moving time: {moving_time/60:.2f} min")
     print(f"Stopped time: {stopped_time/60:.2f} min")
+    print(f"Stopped distance: {stopped_distance/60:.2f} m")
 
 
 print("\nAAA.gpx")

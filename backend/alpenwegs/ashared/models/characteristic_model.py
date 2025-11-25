@@ -46,6 +46,16 @@ class BaseCharacteristicModel(
         abstract = True
 
     # Characteristics values:
+    duration = models.FloatField(
+        verbose_name='Estimated Duration',
+        help_text='User estimated total time required to complete '
+        'the route, measured in hours. This estimate considers '
+        'the user\'s predicted hiking pace along with elevation '
+        'changes but may still be influenced by factors such '
+        'as weather conditions and trail difficulty.',
+        blank=True,
+        null=True,
+    )
     difficulty = models.CharField(
         verbose_name='General Difficulty Level',
         help_text='Overall difficulty level of the route. Options '

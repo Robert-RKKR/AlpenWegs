@@ -18,9 +18,9 @@ class TrackFilter(
             'id': ['exact'],
 
             # BaseIdentificationModel values:
+            'snippet': ['exact', 'icontains'],
             'name': ['exact', 'icontains'],
             'slug': ['exact', 'icontains'],
-            'snippet': ['exact', 'icontains'],
 
             # BaseSportCategoryModel values:
             'category': ['exact'],
@@ -37,24 +37,31 @@ class TrackFilter(
             'updated': ['exact', 'lt', 'gt'],
 
             # BaseGpxTrackModel values:
-            'start_time': ['exact', 'lt', 'gt'],
-            'end_time': ['exact', 'lt', 'gt'],
-            'moving_time': ['exact', 'lt', 'gt'],
-            'total_time': ['exact', 'lt', 'gt'],
-            'average_speed': ['exact', 'lt', 'gt'],
-            'maximum_speed': ['exact', 'lt', 'gt'],
-            'minimum_speed': ['exact', 'lt', 'gt'],
+            'overall_average_speed': ['exact', 'lt', 'gt'],
+            'descent_average_speed': ['exact', 'lt', 'gt'],
+            'maximum_descent_speed': ['exact', 'lt', 'gt'],
+            'ascent_average_speed': ['exact', 'lt', 'gt'],
+            'maximum_ascent_speed': ['exact', 'lt', 'gt'],
+            'moving_average_speed': ['exact', 'lt', 'gt'],
+            'temperature_average': ['exact', 'lt', 'gt'],
             'average_heart_rate': ['exact', 'lt', 'gt'],
             'maximum_heart_rate': ['exact', 'lt', 'gt'],
             'minimum_heart_rate': ['exact', 'lt', 'gt'],
             'calories_burned': ['exact', 'lt', 'gt'],
-            'steps_count': ['exact', 'lt', 'gt'],
-            'weather_conditions': ['exact'],
-            'temperature_average': ['exact', 'lt', 'gt'],
-            'equipment_used': ['exact'],
+            'maximum_speed': ['exact', 'lt', 'gt'],
+            'minimum_speed': ['exact', 'lt', 'gt'],
+            'average_speed': ['exact', 'lt', 'gt'],
             'moving_ratio': ['exact', 'lt', 'gt'],
             'pace_average': ['exact', 'lt', 'gt'],
+            'steps_count': ['exact', 'lt', 'gt'],
+            'moving_time': ['exact', 'lt', 'gt'],
+            'total_time': ['exact', 'lt', 'gt'],
+            'start_time': ['exact', 'lt', 'gt'],
+            'stop_time': ['exact', 'lt', 'gt'],
             'pace_best': ['exact', 'lt', 'gt'],
+            'end_time': ['exact', 'lt', 'gt'],
+            'weather_conditions': ['exact'],
+            'equipment_used': ['exact'],
 
             # BaseCreatorModel values:
             'creator': ['exact'],
@@ -64,12 +71,13 @@ class TrackFilter(
             'score': ['exact', 'lt', 'gt'],
 
             # BaseGpxModel values:
-            'duration': ['exact', 'lt', 'gt'],
-            'distance': ['exact', 'lt', 'gt'],
-            'elevation_gain': ['exact', 'lt', 'gt'],
-            'elevation_loss': ['exact', 'lt', 'gt'],
             'highest_elevation': ['exact', 'lt', 'gt'],
             'lowest_elevation': ['exact', 'lt', 'gt'],
+            'elevation_gain': ['exact', 'lt', 'gt'],
+            'elevation_loss': ['exact', 'lt', 'gt'],
+            'total_distance': ['exact', 'lt', 'gt'],
             'average_grade': ['exact', 'lt', 'gt'],
             'highest_grade': ['exact', 'lt', 'gt'],
+            'total_points': ['exact', 'lt', 'gt'],
+            'duration': ['exact', 'lt', 'gt'],
         }

@@ -18,21 +18,21 @@ class SectionFilter(
             'id': ['exact'],
 
             # BaseCharacteristicModel values:
-            'difficulty': ['exact', 'icontains'],
-            'stamina_requirement': ['exact', 'icontains'],
-            'experience_requirement': ['exact', 'icontains'],
             'potential_risk_requirement': ['exact', 'icontains'],
             'potential_risk_description': ['exact', 'icontains'],
-            'family_friendly': ['exact'],
+            'experience_requirement': ['exact', 'icontains'],
+            'stamina_requirement': ['exact', 'icontains'],
+            'difficulty': ['exact', 'icontains'],
             'best_seasons': ['exact', 'icontains'],
             'best_months': ['exact', 'icontains'],
+            'family_friendly': ['exact'],
             'winter_season': ['exact'],
             'summer_season': ['exact'],
 
             # BaseIdentificationModel values:
+            'snippet': ['exact', 'icontains'],
             'name': ['exact', 'icontains'],
             'slug': ['exact', 'icontains'],
-            'snippet': ['exact', 'icontains'],
 
             # BaseSportCategoryModel values:
             'category': ['exact'],
@@ -50,12 +50,13 @@ class SectionFilter(
             'is_public': ['exact'],
 
             # BaseGpxModel values:
-            'duration': ['exact', 'lt', 'gt'],
-            'distance': ['exact', 'lt', 'gt'],
-            'elevation_gain': ['exact', 'lt', 'gt'],
-            'elevation_loss': ['exact', 'lt', 'gt'],
             'highest_elevation': ['exact', 'lt', 'gt'],
             'lowest_elevation': ['exact', 'lt', 'gt'],
+            'elevation_gain': ['exact', 'lt', 'gt'],
+            'elevation_loss': ['exact', 'lt', 'gt'],
+            'total_distance': ['exact', 'lt', 'gt'],
             'average_grade': ['exact', 'lt', 'gt'],
             'highest_grade': ['exact', 'lt', 'gt'],
+            'total_points': ['exact', 'lt', 'gt'],
+            'duration': ['exact', 'lt', 'gt'],
         }

@@ -55,45 +55,107 @@ class BaseGpxTrackModel(
     # Time-related metrics:
     start_time = models.DateTimeField(
         verbose_name='Track Start Time',
-        help_text='Timestamp marking the start of the recorded activity.',
+        help_text='Marks the exact time when the activity recording '
+            'began. This value defines the starting point of the '
+            'entire performance timeline.',
         blank=True,
         null=True,
     )
     end_time = models.DateTimeField(
         verbose_name='Track End Time',
-        help_text='Timestamp marking the end of the recorded activity.',
+        help_text='Marks the exact time when the activity recording '
+            'finished. Used to determine total duration and to '
+            'close the activity timeline.',
         blank=True,
         null=True,
     )
     moving_time = models.FloatField(
         verbose_name='Moving Time (hours)',
-        help_text='Total time spent moving, excluding pauses, in hours.',
+        help_text='Total accumulated time during which the user was '
+            'actively progressing along the route. All pauses and '
+            'stationary intervals are excluded from this metric.',
         blank=True,
         null=True,
     )
     total_time = models.FloatField(
         verbose_name='Total Time (hours)',
-        help_text='Overall duration of the activity including pauses, in hours.',
+        help_text='Overall elapsed duration of the activity from start '
+            'to end. Includes pauses, waiting periods and all non '
+            'moving intervals.',
+        blank=True,
+        null=True,
+    )
+    stop_time = models.FloatField(
+        verbose_name='Stop Time hours',
+        help_text='Total duration of all pauses recorded throughout the '
+            'activity. Represents the accumulated period when the '
+            'user was stationary.',
         blank=True,
         null=True,
     )
 
+
     # Speed metrics:
     average_speed = models.FloatField(
         verbose_name='Average Speed (km/h)',
-        help_text='Average speed over the full activity duration.',
+        help_text='Average traveling speed measured across the full '
+            'activity. This value reflects the general pace over '
+            'the entire route.',
+        blank=True,
+        null=True,
+    )
+    overall_average_speed = models.FloatField(
+        verbose_name='Overall Average Speed km/h',
+        help_text='Represents the average speed measured across the entire '
+            'activity period including both movement and pauses. This '
+            'value reflects the complete performance progression.',
+        blank=True,
+        null=True,
+    )
+    moving_average_speed = models.FloatField(
+        verbose_name='Moving Average Speed km/h',
+        help_text='Represents the average speed measured only during periods '
+            'of recorded movement. Excludes all stop intervals from the '
+            'calculation to reflect pure travel speed.',
+        blank=True,
+        null=True,
+    )
+    ascent_average_speed = models.FloatField(
+        verbose_name='Ascent Average Speed km/h',
+        help_text='Represents the average speed achieved during climbing '
+            'sections. Useful for analyzing uphill performance and '
+            'physical effort in elevation gain.',
+        blank=True,
+        null=True,
+    )
+    descent_average_speed = models.FloatField(
+        verbose_name='Descent Average Speed km/h',
+        help_text='Represents the average speed achieved during descending '
+            'sections. Useful for determining control technique and '
+            'confidence on steep segments.',
         blank=True,
         null=True,
     )
     maximum_speed = models.FloatField(
         verbose_name='Maximum Speed (km/h)',
-        help_text='Highest recorded speed during the activity.',
+        help_text='Highest travelling speed recorded during the activity. '
+            'This value identifies the fastest moment captured.',
         blank=True,
         null=True,
     )
-    minimum_speed = models.FloatField(
-        verbose_name='Minimum Speed (km/h)',
-        help_text='Lowest recorded speed during the activity.',
+    maximum_ascent_speed = models.FloatField(
+        verbose_name='Maximum Ascent Speed km/h',
+        help_text='Represents the highest recorded climbing speed along the '
+            'full activity track. Indicates peak uphill efficiency and '
+            'maximum physical performance.',
+        blank=True,
+        null=True,
+    )
+    maximum_descent_speed = models.FloatField(
+        verbose_name='Maximum Descent Speed km/h',
+        help_text='Represents the highest recorded descending speed during '
+            'the activity. Highlights the fastest downhill section in '
+            'the full tracked route.',
         blank=True,
         null=True,
     )
@@ -101,19 +163,23 @@ class BaseGpxTrackModel(
     # Heart rate metrics:
     average_heart_rate = models.FloatField(
         verbose_name='Average Heart Rate (bpm)',
-        help_text='Average heart rate measured over the duration of the activity.',
+        help_text='Average heart rate sustained over the full duration '
+            'of the activity. Indicates exertion levels and fitness '
+            'capacity.',
         blank=True,
         null=True,
     )
     maximum_heart_rate = models.FloatField(
         verbose_name='Maximum Heart Rate (bpm)',
-        help_text='Highest heart rate recorded during the activity.',
+        help_text='Highest measured heart rate recorded during the full '
+            'activity. Highlights peak physical strain moments.',
         blank=True,
         null=True,
     )
     minimum_heart_rate = models.FloatField(
         verbose_name='Minimum Heart Rate (bpm)',
-        help_text='Lowest heart rate recorded during the activity.',
+        help_text='Lowest measured heart rate captured during the activity. '
+            'Useful for evaluating recovery stability.',
         blank=True,
         null=True,
     )
@@ -121,13 +187,15 @@ class BaseGpxTrackModel(
     # Energy and performance:
     calories_burned = models.FloatField(
         verbose_name='Calories Burned (kcal)',
-        help_text='Estimated total energy expenditure during the activity.',
+        help_text='Estimated total energy expenditure registered during '
+            'the activity. Helps evaluate effort and metabolic load.',
         blank=True,
         null=True,
     )
     steps_count = models.IntegerField(
         verbose_name='Steps Count',
-        help_text='Total number of steps taken during the activity (if available).',
+        help_text='Total number of steps taken during the full activity. '
+            'This value is available only when step data exists.',
         blank=True,
         null=True,
     )
@@ -135,20 +203,23 @@ class BaseGpxTrackModel(
     # Additional environmental and contextual data:
     weather_conditions = models.CharField(
         verbose_name='Weather Conditions',
-        help_text='General description of weather conditions (e.g., sunny, foggy, rainy).',
+        help_text='General description of the surrounding weather observed '
+            'during the activity. Examples include sunny stormy or foggy.',
         max_length=256,
         blank=True,
         null=True,
     )
     temperature_average = models.FloatField(
         verbose_name='Average Temperature (°C)',
-        help_text='Average ambient temperature during the activity.',
+        help_text='Average ambient temperature recorded throughout the '
+            'activity. Helps assess environmental influence on effort.',
         blank=True,
         null=True,
     )
     equipment_used = models.CharField(
         verbose_name='Equipment Used',
-        help_text='Optional description of equipment used, e.g., boots, poles, bike type.',
+        help_text='Optional description of used equipment such as boots or '
+            'hiking poles. Useful for determining conditions and load.',
         max_length=512,
         blank=True,
         null=True,
@@ -157,19 +228,22 @@ class BaseGpxTrackModel(
     # Motion and elevation data extensions:
     moving_ratio = models.FloatField(
         verbose_name='Moving Ratio (%)',
-        help_text='Ratio between moving time and total time (in percent).',
+        help_text='Rate of time spent moving relative to the full activity. '
+            'Indicates how constant the forward movement was.',
         blank=True,
         null=True,
     )
     pace_average = models.FloatField(
         verbose_name='Average Pace (min/km)',
-        help_text='Average pace calculated as minutes per kilometer.',
+        help_text='Average time needed to cover one kilometer. A lower value '
+            'reflects stronger performance in forward progression.',
         blank=True,
         null=True,
     )
     pace_best = models.FloatField(
         verbose_name='Best Pace (min/km)',
-        help_text='Best recorded pace for a single segment.',
+        help_text='Fastest pace achieved during any continuous part of the '
+            'activity. Marks the strongest recorded performance window.',
         blank=True,
         null=True,
     )

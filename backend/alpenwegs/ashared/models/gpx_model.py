@@ -57,86 +57,93 @@ class BaseGpxModel(
     gpx_data = models.ForeignKey(
         FileModel,
         verbose_name='GPX Data',
-        help_text='GPX data file.',
+        help_text='Stores the uploaded GPX file used to create and extract '
+            'route information. It contains the raw measurement data '
+            'required for distance elevation and grade analysis.',
         on_delete=models.CASCADE,
         blank=True,
         null=True,
     )
     geojson = models.JSONField(
         verbose_name='Route GeoJSON Data',
-        help_text='GeoJSON representation of the route path. '
-        'Created based on provided GPX file.',
+        help_text='Stores the GeoJSON representation of the route. This data '
+            'is generated from the GPX file to allow visual mapping and '
+            'geographical inspection in a standard format.',
         blank=True,
         null=True,
     )
 
     # Route GPX statistic metrics:
-    duration = models.FloatField(
-        verbose_name='Estimated Duration',
-        help_text='User estimated total time required to complete '
-        'the route, measured in hours. This estimate considers '
-        'the user\'s predicted hiking pace along with elevation '
-        'changes but may still be influenced by factors such '
-        'as weather conditions and trail difficulty.',
+    total_distance = models.FloatField(
+        verbose_name='Total Distance (meters)',
+        help_text='Total traversable route length computed from the '
+            'GPX coordinates, including 3D distance calculation when '
+            'elevation differences are present.',
         blank=True,
         null=True,
     )
-    distance = models.FloatField(
-        verbose_name='Route Distance',
-        help_text='The total length of the route, measured in '
-        'kilometers. This includes the full distance from '
-        'start to finish, including both flat and uphill sections.',
+    total_points = models.IntegerField(
+        verbose_name='Total GPX Points',
+        help_text='Total number of individual track coordinate points '
+            'recorded across every track segment in the GPX dataset. '
+            'Higher values indicate greater GPS sampling density.',
         blank=True,
         null=True,
     )
     elevation_gain = models.FloatField(
         verbose_name='Elevation Gain',
         help_text='Total amount of ascent measured in meters. '
-        'This is the cumulative elevation gain over the '
-        'entire route, adding up all the uphill sections.',
+            'This is the cumulative elevation gain over the '
+            'entire route, adding up all the uphill sections.',
         blank=True,
         null=True,
     )
     elevation_loss = models.FloatField(
         verbose_name='Elevation Loss',
         help_text='Total amount of descent measured in meters. '
-        'This is the cumulative descent over the entire route, '
-        'adding up all downhill sections.',
+            'This is the cumulative descent over the entire route, '
+            'adding up all downhill sections.',
         blank=True,
         null=True,
     )
     highest_elevation = models.FloatField(
         verbose_name='Highest Elevation',
-        help_text='Maximum altitude reached along the route, '
-        'measured in meters above sea level.',
+        help_text='The highest altitude point measured along the '
+            'recorded route. This metric helps determine '
+            'alpine difficulty levels.',
         blank=True,
         null=True,
     )
     lowest_elevation = models.FloatField(
         verbose_name='Lowest Elevation',
-        help_text='Minimum altitude encountered along the route, '
-        'measured in meters above sea level.',
+        help_text='The lowest altitude point measured along the '
+            'route. This value defines the minimum elevation '
+            'reached during the activity.',
         blank=True,
         null=True,
     )
     average_grade = models.FloatField(
         verbose_name='Average Grade',
         help_text='The average percentage of incline over the '
-        'entire route, calculated as (total elevation gain / total '
-        'distance) x 100. A higher value indicates a steeper route.',
+            'entire route, calculated as (total elevation gain / total '
+            'distance) x 100. A higher value indicates a steeper route.',
         blank=True,
         null=True,
     )
     highest_grade = models.FloatField(
         verbose_name='Maximum Grade',
         help_text='The steepest percentage climb at any point on the route. '
-        'This is the most challenging section in terms of gradient.',
+            'This is the most challenging section in terms of gradient.',
         blank=True,
         null=True,
     )
+
+    # Track types:
     track_types = models.JSONField(
         verbose_name='Track Types',
-        help_text='JSON structure describing the types of terrain.',
+        help_text='Stores descriptive information about the route '
+            'terrain. This may include surface type difficulty '
+            'and structure segments.',
         blank=True,
         null=True,
     )
@@ -144,7 +151,9 @@ class BaseGpxModel(
     # GPX graphs:
     elevation_graph = models.JSONField(
         verbose_name='Elevation Graph',
-        help_text='Xxx.',
+        help_text='Structured dataset used to construct an elevation '
+            'profile chart. Provides the height progression '
+            'along the full track distance.',
         blank=True,
         null=True,
     )

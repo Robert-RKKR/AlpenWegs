@@ -7,19 +7,23 @@ from alpenwegs.ashared.api.serializers.base_serializers import (
 from alpenwegs.ashared.api.serializers.base_model_variables import (
     base_identification_read_only_fields,
     base_sport_category_read_only_fields,
-    base_statistic_read_only_fields,
     base_timestamp_read_only_fields,
+    base_statistic_read_only_fields,
+    base_gpx_track_read_only_fields,
     base_creator_read_only_fields,
     base_model_read_only_fields,
     base_score_read_only_fields,
     base_identification_fields,
     base_representation_fields,
     base_sport_category_fields,
-    base_statistic_fields,
+    base_gpx_read_only_fields,
     base_timestamp_fields,
+    base_statistic_fields,
+    base_gpx_track_fields,
     base_creator_fields,
     base_model_fields,
     base_score_fields,
+    base_gpx_fields,
 )
 
 # AlpenWegs application import:
@@ -78,8 +82,10 @@ fields = (
     + base_sport_category_fields
     + base_timestamp_fields
     + base_statistic_fields
+    + base_gpx_track_fields
     + base_creator_fields
     + base_score_fields
+    + base_gpx_fields
     + track_fields
 )
 read_only_fields = (
@@ -88,8 +94,10 @@ read_only_fields = (
     + base_sport_category_read_only_fields
     + base_statistic_read_only_fields
     + base_timestamp_read_only_fields
+    + base_gpx_track_read_only_fields
     + base_creator_read_only_fields
     + base_score_read_only_fields
+    + base_gpx_read_only_fields
 )
 
 

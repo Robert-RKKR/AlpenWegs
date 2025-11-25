@@ -46,20 +46,37 @@ def process_gpx(file_path="Test4.gpx"):
 
     # --- Print results ---
     print("=== GPX Stats with gpxpy ===")
-    print(f"Track name: {track.name}")
-    print(f"Total points: {len(segment.points)}")
-    print(f"Total distance: {distance_3d:.2f} m")
-    print(f"Total ascent: {total_ascent:.2f} m")
-    print(f"Total descent: {total_descent:.2f} m")
-    print(f"Max elevation: {max_ele:.2f} m")
-    print(f"Min elevation: {min_ele:.2f} m")
-    print(f"Overall avg speed: {avg_speed_overall:.2f} m/s ({avg_speed_overall*3.6:.2f} km/h)")
-    print(f"Moving avg speed: {avg_speed_moving:.2f} m/s ({avg_speed_moving*3.6:.2f} km/h)")
-    print(f"Max speed: {max_speed:.2f} m/s ({max_speed*3.6:.2f} km/h)")
-    print(f"Ascent speed: {ascent_speed:.2f} m/h")
-    print(f"Moving time: {moving_time/60:.2f} min")
-    print(f"Stopped time: {stopped_time/60:.2f} min")
-    print(f"Stopped distance: {stopped_distance/60:.2f} m")
+    print(f"Track name: {track.name}")#
+    print(f"Total points: {len(segment.points)}")#
+    print(f"Total distance: {distance_3d:.2f} m")#
+    print(f"Total ascent: {total_ascent:.2f} m")#
+    print(f"Total descent: {total_descent:.2f} m")#
+    print(f"Max elevation: {max_ele:.2f} m")#
+    print(f"Min elevation: {min_ele:.2f} m")#
+    
+    print(f"Overall avg speed: {avg_speed_overall:.2f} m/s ({avg_speed_overall*3.6:.2f} km/h)")#
+    print(f"Moving avg speed: {avg_speed_moving:.2f} m/s ({avg_speed_moving*3.6:.2f} km/h)")#
+    print(f"Max speed: {max_speed:.2f} m/s ({max_speed*3.6:.2f} km/h)")#
+    print(f"Ascent speed: {ascent_speed:.2f} m/h")#
+    print(f"Moving time: {moving_time/60:.2f} min")#
+    print(f"Stopped time: {stopped_time/60:.2f} min")#
+    print(f"Stopped distance: {stopped_distance/60:.2f} m")#
+
+    """
+    average_grade
+    highest_grade
+    elevation_graph
+    total_time
+    ascent_average_speed
+    descent_average_speed
+    maximum_ascent_speed
+    maximum_descent_speed
+    moving_average_speed
+    moving_ratio
+    pace_average
+    pace_best
+    """
+
 
 
 print("\nAAA.gpx")

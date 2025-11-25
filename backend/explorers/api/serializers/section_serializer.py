@@ -51,6 +51,13 @@ section_fields = [
     'cards',
     'pois',
 ]
+section_gpx_fields = [
+    'url',
+    'name',
+    'snippet',
+    'is_public',
+    'gpx_data',
+]
 
 # Section model serializer combined fields:
 fields = (
@@ -74,14 +81,14 @@ read_only_fields = (
     + base_creator_read_only_fields
     + base_gpx_read_only_fields
 )
-base_gpx_fields = (
-    ['url', 'name', 'snippet', 'is_public', 'gpx_data']
+gpx_fields = (
+    section_gpx_fields
     + base_characteristic_fields
     + base_sport_category_fields
     + base_descriptive_fields
     + section_fields
 )
-base_gpx_read_only_fields = [
+gpx_read_only_fields = [
     'url',
 ]
 
@@ -225,10 +232,10 @@ class SectionGpxSerializer(
     class Meta:
 
         # Define read only fields:
-        read_only_fields = base_gpx_read_only_fields
+        read_only_fields = gpx_read_only_fields
 
         # Define writable fields:
-        fields = base_gpx_fields
+        fields = gpx_fields
 
         # Define related model:
         model = model

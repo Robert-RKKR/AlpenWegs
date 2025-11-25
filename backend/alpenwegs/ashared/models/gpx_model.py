@@ -19,6 +19,7 @@ Key Features:
 """
 
 # AlpenWegs import:
+from alpenwegs.ashared.tasks.model_tasks.gpx_model_task import base_gpx_model_task
 from alpenwegs.ashared.models.base_model import BaseModel
 
 # AlpenWegs application import:
@@ -157,3 +158,22 @@ class BaseGpxModel(
         blank=True,
         null=True,
     )
+
+    # Celery async method to run after commit:
+    def run_after_commit(self,
+        created: bool,
+    ) -> None:
+        """
+        Run base GPX task after commit.
+        """
+        
+        # Run super method:
+        super().run_after_commit(created)
+
+        # Check if GPX data exists:
+        if self.gpx_data_id:
+
+            # Schedule GPX processing task:
+            base_gpx_model_task.delay(
+                gpx_model_id=self.id,
+            )

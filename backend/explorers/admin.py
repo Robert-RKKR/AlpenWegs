@@ -183,7 +183,6 @@ class SectionAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'name',
-        'distance',
         'created',
         'updated',
     )
@@ -209,8 +208,6 @@ class SectionAdmin(admin.ModelAdmin):
         (
             'GPX', {
                 'fields': (
-                    'duration',
-                    'distance',
                     'elevation_gain',
                     'elevation_loss',
                     'highest_elevation',
@@ -224,6 +221,7 @@ class SectionAdmin(admin.ModelAdmin):
         (
             'Route data', {
                 'fields': (
+                    'estimated_duration',
                     'difficulty',
                     'stamina_requirement',
                     'experience_requirement',
@@ -390,7 +388,6 @@ class TrackAdmin(admin.ModelAdmin):
         'category',
         'journey',
         'route',
-        'distance',
         'duration',
         'verified',
         'similarity_index',
@@ -459,8 +456,6 @@ class TrackAdmin(admin.ModelAdmin):
             'GPS Data', {
                 'fields': (
                     'gpx_data',
-                    'distance',
-                    'duration',
                     'elevation_gain',
                     'elevation_loss',
                     'highest_elevation',
@@ -525,7 +520,6 @@ class TrackAdmin(admin.ModelAdmin):
         'snippet',
         'created',
         'updated',
-        'distance',
         'duration',
         'elevation_gain',
         'elevation_loss',

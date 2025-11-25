@@ -69,6 +69,14 @@ class BaseGpxTrackModel(
         blank=True,
         null=True,
     )
+    duration = models.FloatField(
+        verbose_name='Duration',
+        help_text='Total recorded time of the activity, measured in hours. '
+            'This value is derived from the tracked GPX data and reflects '
+            'the actual movement and pauses during the route.',
+        blank=True,
+        null=True,
+    )
     moving_time = models.FloatField(
         verbose_name='Moving Time (hours)',
         help_text='Total accumulated time during which the user was '
@@ -93,7 +101,6 @@ class BaseGpxTrackModel(
         blank=True,
         null=True,
     )
-
 
     # Speed metrics:
     average_speed = models.FloatField(

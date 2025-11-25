@@ -52,6 +52,7 @@ base_timestamp_fields = [
 # BaseCharacteristicModel serializer details:
 base_characteristic_fields = [
     'difficulty',
+    'estimated_duration',
     'stamina_requirement',
     'experience_requirement',
     'potential_risk_requirement',
@@ -109,7 +110,6 @@ base_object_representation_read_only_fields = [
 base_gpx_fields = [
     'gpx_data',
     'geojson',
-    'distance',
     'total_distance',
     'total_points',
     'elevation_gain',
@@ -147,7 +147,6 @@ base_gpx_track_fields = [
     'overall_average_speed',
     'moving_average_speed',
     'maximum_speed',
-    'minimum_speed',
     'ascent_average_speed',
     'descent_average_speed',
     'maximum_ascent_speed',
@@ -174,7 +173,6 @@ base_gpx_track_read_only_fields = [
     'overall_average_speed',
     'moving_average_speed',
     'maximum_speed',
-    'minimum_speed',
     'ascent_average_speed',
     'descent_average_speed',
     'maximum_ascent_speed',

@@ -49,7 +49,6 @@ class TrackFilter(
             'minimum_heart_rate': ['exact', 'lt', 'gt'],
             'calories_burned': ['exact', 'lt', 'gt'],
             'maximum_speed': ['exact', 'lt', 'gt'],
-            'minimum_speed': ['exact', 'lt', 'gt'],
             'average_speed': ['exact', 'lt', 'gt'],
             'moving_ratio': ['exact', 'lt', 'gt'],
             'pace_average': ['exact', 'lt', 'gt'],
@@ -59,6 +58,7 @@ class TrackFilter(
             'start_time': ['exact', 'lt', 'gt'],
             'stop_time': ['exact', 'lt', 'gt'],
             'pace_best': ['exact', 'lt', 'gt'],
+            'duration': ['exact', 'lt', 'gt'],
             'end_time': ['exact', 'lt', 'gt'],
             'weather_conditions': ['exact'],
             'equipment_used': ['exact'],
@@ -79,5 +79,4 @@ class TrackFilter(
             'average_grade': ['exact', 'lt', 'gt'],
             'highest_grade': ['exact', 'lt', 'gt'],
             'total_points': ['exact', 'lt', 'gt'],
-            'duration': ['exact', 'lt', 'gt'],
         }

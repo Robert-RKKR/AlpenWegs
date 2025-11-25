@@ -22,6 +22,7 @@ class SectionFilter(
             'potential_risk_description': ['exact', 'icontains'],
             'experience_requirement': ['exact', 'icontains'],
             'stamina_requirement': ['exact', 'icontains'],
+            'estimated_duration': ['exact', 'lt', 'gt'],
             'difficulty': ['exact', 'icontains'],
             'best_seasons': ['exact', 'icontains'],
             'best_months': ['exact', 'icontains'],
@@ -58,5 +59,4 @@ class SectionFilter(
             'average_grade': ['exact', 'lt', 'gt'],
             'highest_grade': ['exact', 'lt', 'gt'],
             'total_points': ['exact', 'lt', 'gt'],
-            'duration': ['exact', 'lt', 'gt'],
         }

@@ -12,6 +12,7 @@ Key Features:
 """
 
 # Django import:
+from django.forms.models import model_to_dict
 from django.db import transaction
 from django.db import models
 
@@ -136,14 +137,47 @@ class BaseModel(
     #=================================================================
     def as_dictionary(self) -> dict:
         """
+        Return attributes of the instance as a dictionary.
+        """
+
+        # Return model as dictionary:
+        return model_to_dict(self)
+
+    def as_dictionary_full(self) -> dict:
+        """
         Return all attributes of the instance as a dictionary.
         """
 
+        # Return model as dictionary with all fields:
         return {
             field.name: getattr(self, field.name)
-            for field in self._meta.fields
+            for field in self._meta.get_fields()
+            if field.concrete and not field.many_to_many
         }
+    
+    def as_dictionary_nested(self) -> dict:
+        """
+        Return attributes of the instance as a dictionary,
+        including nested related objects as dictionaries.
+        """
 
+        # Define result dictionary:
+        result = {}
+
+        # Iterate over all concrete fields:
+        for field in self._meta.concrete_fields:
+            value = getattr(self, field.name)
+
+            # If the field is a relation, convert to dictionary:
+            if field.is_relation and value:
+                value = value.as_dictionary()
+
+            # Assign value to result dictionary:
+            result[field.name] = value
+        
+        # Return result dictionary:
+        return result
+    
     #=================================================================
     # Methods run before and after saving model objects:
     # =================================================================

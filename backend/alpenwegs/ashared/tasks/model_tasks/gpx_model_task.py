@@ -118,10 +118,9 @@ class GpxModelTask(
         instance.elevation_gain = self._decimal_accuracy(elevation_gain, 2)
         instance.elevation_loss = self._decimal_accuracy(elevation_loss, 2)
         instance.average_grade = self._decimal_accuracy(average_grade, 2)
-        instance.total_points = len(segment.points)
-
-        instance.elevation_graph = elevation_graph
         instance.highest_grade = self.calculate_highest_grade(segment)
+        instance.total_points = len(segment.points)
+        instance.elevation_graph = elevation_graph
         # instance.track_types = track_types
         instance.geojson = geojson
 
@@ -139,7 +138,7 @@ class GpxModelTask(
             'average_grade',
             'highest_grade',
             'total_points',
-            'track_types',
+            # 'track_types',
             'geojson',
         ])
 

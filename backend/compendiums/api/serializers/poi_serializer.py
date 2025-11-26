@@ -21,11 +21,13 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
 # AlpenWegs application import:
 from compendiums.api.serializers.region_serializer import RegionRelationSerializer
 from profiles.api.serializers.user_serializer import UserRelationSerializer
+from alpenwegs.ashared.constants.poi_category import PoiCategoryChoices
 from explorers.models.section_model import SectionModel
 from compendiums.models.poi_model import PoiModel
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
+from rest_framework import serializers
 
 
 # PoI Model serializer details:
@@ -98,6 +100,16 @@ class PoiDetailedSerializer(
         allow_null=PoiModel.region.field.blank,
     )
 
+    # Special constance fields:
+    category = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_category(self, obj):
+        # Return metadata dict for country:
+        return PoiCategoryChoices.dict_from_int(
+            obj.category
+        )
+
     class Meta:
 
         # Define read only fields:
@@ -164,6 +176,16 @@ class PoiRelationSerializer(
         help_text='URL to provided object.',
         read_only=True,
     )
+
+    # Special constance fields:
+    category = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_category(self, obj):
+        # Return metadata dict for country:
+        return PoiCategoryChoices.dict_from_int(
+            obj.category
+        )
 
     class Meta:
 

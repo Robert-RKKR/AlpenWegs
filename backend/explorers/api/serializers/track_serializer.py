@@ -33,10 +33,7 @@ from explorers.api.serializers.journey_serializer import JourneyRelationSerializ
 from profiles.api.serializers.user_serializer import UserRelationSerializer
 from alpenwegs.ashared.constants.sport_category import SportCategoryChoices
 from assets.api.serializers.file_serializer import FileRelationSerializer
-from explorers.models.journey_model import JourneyModel
 from explorers.models.track_model import TrackModel
-from explorers.models.route_model import RouteModel
-from assets.models.file_model import FileModel
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
@@ -153,22 +150,16 @@ class TrackDetailedSerializer(
 
     # Special constance methods:
     def get_category_specific_difficulty(self, obj):
-        """
-        Convert integer value into full metadata dict.
-        """
-
         # Return metadata dict for country:
         return SportCategoryDifficultyChoices.dict_from_int(
             obj.category_specific_difficulty
         )
     
     def get_category(self, obj):
-        """
-        Convert integer value into full metadata dict.
-        """
-
         # Return metadata dict for country:
-        return SportCategoryChoices.dict_from_int(obj.category)
+        return SportCategoryChoices.dict_from_int(
+            obj.category
+        )
 
 
 # Track Representation serializer:
@@ -229,20 +220,12 @@ class TrackRelationSerializer(
 
     # Special constance methods:
     def get_category_specific_difficulty(self, obj):
-        """
-        Convert integer value into full metadata dict.
-        """
-
         # Return metadata dict for country:
         return SportCategoryDifficultyChoices.dict_from_int(
             obj.category_specific_difficulty
         )
     
     def get_category(self, obj):
-        """
-        Convert integer value into full metadata dict.
-        """
-
         # Return metadata dict for country:
         return SportCategoryChoices.dict_from_int(obj.category)
 

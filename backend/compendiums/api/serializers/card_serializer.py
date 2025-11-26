@@ -17,13 +17,17 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
     base_model_fields,
 )
 
-# Rest framework import:
-from rest_framework.serializers import HyperlinkedIdentityField
-
 # AlpenWegs application import:
+from alpenwegs.ashared.constants.sport_category_difficulty import SportCategoryDifficultyChoices
 from compendiums.api.serializers.poi_serializer import PoiRelationSerializer
 from profiles.api.serializers.user_serializer import UserRelationSerializer
+from alpenwegs.ashared.constants.sport_category import SportCategoryChoices
+from alpenwegs.ashared.constants.card_type import CardTypeChoices
 from compendiums.models.card_model import CardModel
+
+# Rest framework import:
+from rest_framework.serializers import HyperlinkedIdentityField
+from rest_framework import serializers
 
 
 # Card Model serializer details:
@@ -88,6 +92,30 @@ class CardDetailedSerializer(
         required=CardModel.poi.field.null,
         allow_null=CardModel.poi.field.blank,
     )
+
+    # Special constance fields:
+    category_specific_difficulty = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_category_specific_difficulty(self, obj):
+        # Return metadata dict for country:
+        return SportCategoryDifficultyChoices.dict_from_int(
+            obj.category_specific_difficulty
+        )
+
+    def get_category(self, obj):
+        # Return metadata dict for country:
+        return SportCategoryChoices.dict_from_int(
+            obj.category
+        )
+
+    def get_type(self, obj):
+        # Return metadata dict for country:
+        return CardTypeChoices.dict_from_int(
+            obj.type
+        )
 
     class Meta:
 
@@ -155,6 +183,30 @@ class CardRelationSerializer(
         help_text='URL to provided object.',
         read_only=True,
     )
+
+    # Special constance fields:
+    category_specific_difficulty = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_category_specific_difficulty(self, obj):
+        # Return metadata dict for country:
+        return SportCategoryDifficultyChoices.dict_from_int(
+            obj.category_specific_difficulty
+        )
+
+    def get_category(self, obj):
+        # Return metadata dict for country:
+        return SportCategoryChoices.dict_from_int(
+            obj.category
+        )
+
+    def get_type(self, obj):
+        # Return metadata dict for country:
+        return CardTypeChoices.dict_from_int(
+            obj.type
+        )
 
     class Meta:
 

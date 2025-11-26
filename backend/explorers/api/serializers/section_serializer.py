@@ -25,11 +25,15 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
 )
 
 # AlpenWegs application import:
+from alpenwegs.ashared.constants.sport_category_difficulty import SportCategoryDifficultyChoices
 from compendiums.api.serializers.region_serializer import RegionRelationSerializer
 from compendiums.api.serializers.card_serializer import CardRelationSerializer
 from compendiums.api.serializers.poi_serializer import PoiRelationSerializer
 from profiles.api.serializers.user_serializer import UserRelationSerializer
 from assets.api.serializers.photo_serializer import PhotoRelationSerializer
+from alpenwegs.ashared.constants.sport_category import SportCategoryChoices
+from alpenwegs.ashared.constants.season_category import SeasonChoices
+from alpenwegs.ashared.constants.season_category import MonthChoices
 from explorers.models.section_model import SectionModel
 from compendiums.models.region_model import RegionModel
 from compendiums.models.card_model import CardModel
@@ -38,6 +42,7 @@ from assets.models.photo_model import PhotoModel
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
+from rest_framework import serializers
 
 
 # Section Model serializer details:
@@ -149,6 +154,37 @@ class SectionDetailedSerializer(
         many=True,
     )
 
+    # Special constance fields:
+    category_specific_difficulty = serializers.SerializerMethodField()
+    best_seasons = serializers.SerializerMethodField()
+    best_months = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_category_specific_difficulty(self, obj):
+        # Return metadata dict for country:
+        return SportCategoryDifficultyChoices.dict_from_int(
+            obj.category_specific_difficulty
+        )
+
+    def get_best_seasons(self, obj):
+        # Return metadata dict for country:
+        return SeasonChoices.dict_from_int(
+            obj.best_seasons
+        )
+    
+    def get_best_months(self, obj):
+        # Return metadata dict for country:
+        return MonthChoices.dict_from_int(
+            obj.best_months
+        )
+    
+    def get_category(self, obj):
+        # Return metadata dict for country:
+        return SportCategoryChoices.dict_from_int(
+            obj.category
+        )
+
     class Meta:
         read_only_fields = read_only_fields
         fields = fields
@@ -228,6 +264,37 @@ class SectionGpxSerializer(
         help_text='URL to provided object.',
         read_only=True,
     )
+
+    # Special constance fields:
+    category_specific_difficulty = serializers.SerializerMethodField()
+    best_seasons = serializers.SerializerMethodField()
+    best_months = serializers.SerializerMethodField()
+    category = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_category_specific_difficulty(self, obj):
+        # Return metadata dict for country:
+        return SportCategoryDifficultyChoices.dict_from_int(
+            obj.category_specific_difficulty
+        )
+
+    def get_best_seasons(self, obj):
+        # Return metadata dict for country:
+        return SeasonChoices.dict_from_int(
+            obj.best_seasons
+        )
+    
+    def get_best_months(self, obj):
+        # Return metadata dict for country:
+        return MonthChoices.dict_from_int(
+            obj.best_months
+        )
+    
+    def get_category(self, obj):
+        # Return metadata dict for country:
+        return SportCategoryChoices.dict_from_int(
+            obj.category
+        )
 
     class Meta:
 

@@ -10,6 +10,7 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
     base_descriptive_read_only_fields,
     base_statistic_read_only_fields,
     base_timestamp_read_only_fields,
+    base_multi_day_read_only_fields,
     base_creator_read_only_fields,
     base_model_read_only_fields,
     base_score_read_only_fields,
@@ -19,12 +20,14 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
     base_descriptive_fields,
     base_statistic_fields,
     base_timestamp_fields,
+    base_multi_day_fields,
     base_creator_fields,
     base_model_fields,
     base_score_fields,
 )
 
 # AlpenWegs application import:
+from alpenwegs.ashared.constants.accommodation_type import AccommodationTypeChoices
 from explorers.api.serializers.route_serializer import RouteRelationSerializer
 from profiles.api.serializers.user_serializer import UserRelationSerializer
 from explorers.models.route_model import RouteModel
@@ -32,6 +35,7 @@ from explorers.models.trip_model import TripModel
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
+from rest_framework import serializers
 
 
 # Trip Model serializer details:
@@ -41,7 +45,6 @@ depth = 0
 # Trip Model serializer fields:
 trip_fields = [
     'routes',
-    'days',
 ]
 
 # Trip model serializer combined fields:
@@ -51,6 +54,7 @@ fields = (
     + base_identification_fields
     + base_descriptive_fields
     + base_timestamp_fields
+    + base_multi_day_fields
     + base_statistic_fields
     + base_creator_fields
     + base_score_fields
@@ -63,6 +67,7 @@ read_only_fields = (
     + base_descriptive_read_only_fields
     + base_timestamp_read_only_fields
     + base_statistic_read_only_fields
+    + base_multi_day_read_only_fields
     + base_creator_read_only_fields
     + base_score_read_only_fields
 )
@@ -102,6 +107,16 @@ class TripDetailedSerializer(
         allow_null=True,
         many=True,
     )
+
+    # Special constance fields:
+    accommodation = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_accommodation(self, obj):
+        # Return metadata dict for country:
+        return AccommodationTypeChoices.dict_from_int(
+            obj.accommodation
+        )
 
     class Meta:
         read_only_fields = read_only_fields
@@ -161,6 +176,16 @@ class TripRelationSerializer(
         help_text='URL to provided object.',
         read_only=True,
     )
+
+    # Special constance fields:
+    accommodation = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_accommodation(self, obj):
+        # Return metadata dict for country:
+        return AccommodationTypeChoices.dict_from_int(
+            obj.accommodation
+        )
 
     class Meta:
         read_only_fields = read_only_fields

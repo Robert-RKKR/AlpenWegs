@@ -4,22 +4,18 @@ from alpenwegs.ashared.api.serializers.base_serializers import (
     BaseSerializer,
 )
 from alpenwegs.ashared.api.serializers.base_model_variables import (
-    base_identification_read_only_fields,
-    base_descriptive_read_only_fields,
     base_timestamp_read_only_fields,
-    base_creator_read_only_fields,
     base_model_read_only_fields,
-    base_identification_fields,
-    base_descriptive_fields,
     base_timestamp_fields,
-    base_creator_fields,
     base_model_fields,
 )
 
 # Rest framework serializer import:
 from rest_framework.serializers import HyperlinkedIdentityField
+from rest_framework import serializers
 
 # AlpenWegs application import:
+from alpenwegs.ashared.constants.gender_type import GenderTypeChoices
 from profiles.models.user_model import UserModel
 
 
@@ -98,6 +94,16 @@ class UserDetailedSerializer(BaseSerializer):
         read_only=False
     )
 
+    # Special constance fields:
+    gender = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_gender(self, obj):
+        # Return metadata dict for country:
+        return GenderTypeChoices.dict_from_int(
+            obj.gender
+        )
+
     class Meta:
 
         # Define read only fields:
@@ -164,6 +170,16 @@ class UserRelationSerializer(
         help_text='URL to provided object.',
         read_only=True,
     )
+
+    # Special constance fields:
+    gender = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_gender(self, obj):
+        # Return metadata dict for country:
+        return GenderTypeChoices.dict_from_int(
+            obj.gender
+        )
 
     class Meta:
 

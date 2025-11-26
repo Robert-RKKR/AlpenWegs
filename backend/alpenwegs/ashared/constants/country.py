@@ -18,27 +18,27 @@ class CountryChoices(
 COUNTRY_METADATA = {
     41: {
         'icon': '🇨🇭',
-        'name': 'Switzerland',
         'description': 'Alpine nation',
+        'depend': None,
     },
     49: {
         'icon': '🇩🇪',
-        'name': 'Germany',
         'description': 'Neighbor to the north',
+        'depend': None,
     },
     43: {
         'icon': '🇦🇹',
-        'name': 'Austria',
         'description': 'Eastern Alps',
+        'depend': None,
     },
     33: {
         'icon': '🇫🇷',
-        'name': 'France',
         'description': 'Western neighbor',
+        'depend': None,
     },
     39: {
         'icon': '🇮🇹',
-        'name': 'Italy',
         'description': 'Southern Alps',
+        'depend': None,
     },
 }

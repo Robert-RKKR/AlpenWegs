@@ -13,10 +13,12 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
 )
 
 # AlpenWegs application import:
+from alpenwegs.ashared.constants.action_type import ActionTypeChoices
 from notifications.models.change_log_model import ChangeLogModel
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
+from rest_framework import serializers
 
 
 # ChangeLog Model serializer details:
@@ -65,6 +67,16 @@ class ChangeLogDetailedSerializer(BaseSerializer):
         help_text='URL to provided object.',
         read_only=False,
     )
+
+    # Special constance fields:
+    action_type = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_action_type(self, obj):
+        # Return metadata dict for country:
+        return ActionTypeChoices.dict_from_int(
+            obj.action_type
+        )
 
     class Meta:
 
@@ -132,6 +144,16 @@ class ChangeLogRelationSerializer(
         help_text='URL to provided object.',
         read_only=True,
     )
+
+    # Special constance fields:
+    action_type = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_action_type(self, obj):
+        # Return metadata dict for country:
+        return ActionTypeChoices.dict_from_int(
+            obj.action_type
+        )
 
     class Meta:
 

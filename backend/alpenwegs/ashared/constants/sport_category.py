@@ -29,67 +29,67 @@ class SportCategoryChoices(
 SPORT_CATEGORY_METADATA =  {
     110: {
         'icon': '🏃',
-        'name': 'Running',
         'description': 'Road and casual running',
+        'depend': None,
     },
     120: {
         'icon': '🥾',
-        'name': 'Hiking',
         'description': 'Alpine and trail hiking',
+        'depend': None,
     },
     130: {
         'icon': '🧗',
-        'name': 'Climbing',
         'description': 'Indoor and outdoor rock climbing',
+        'depend': None,
     },
     140: {
         'icon': '🧗‍♂️',
-        'name': 'Via Ferrata',
         'description': 'Fixed-rope climbing routes',
+        'depend': None,
     },
     150: {
         'icon': '🏞️',
-        'name': 'Trail Running',
         'description': 'Running on mountain or forest trails',
+        'depend': None,
     },
     210: {
         'icon': '🏃❄️',
-        'name': 'Winter Running',
         'description': 'Running in winter conditions',
+        'depend': None,
     },
     220: {
         'icon': '🥾❄️',
-        'name': 'Winter Hiking',
         'description': 'Snow-covered trail hiking',
+        'depend': None,
     },
     230: {
         'icon': '🎿',
-        'name': 'Snowshoeing',
         'description': 'Walking with snowshoes',
+        'depend': None,
     },
     240: {
         'icon': '⛷️',
-        'name': 'Ski Touring',
-        'description': 'Backcountry uphill and downhill skiing',
+        'description': 'Back country uphill and downhill skiing',
+        'depend': None,
     },
     250: {
         'icon': '🎿',
-        'name': 'Cross-Country Skiing',
         'description': 'Nordic skiing on prepared tracks',
+        'depend': None,
     },
     310: {
         'icon': '🚴',
-        'name': 'Biking',
         'description': 'General biking on mixed terrains',
+        'depend': None,
     },
     320: {
         'icon': '🚵',
-        'name': 'Mountain Biking',
         'description': 'Off-road and alpine biking',
+        'depend': None,
     },
     330: {
         'icon': '🚵‍♂️⬇️',
-        'name': 'Downhill Biking',
         'description': 'Gravity downhill biking',
-    }
+        'depend': None,
+    },
 }

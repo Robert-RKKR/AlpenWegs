@@ -92,6 +92,16 @@ base_score_read_only_fields = [
     'score',
 ]
 
+# BaseMultiDayModel serializer details:
+base_multi_day_fields = [
+    'start_date',
+    'end_date',
+    'total_days',
+    'accommodation',
+]
+base_multi_day_read_only_fields = [
+]
+
 # BaseObjectRepresentation serializer details:
 base_object_representation_fields = [
     'app_name',

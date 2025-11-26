@@ -9,10 +9,12 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
 )
 
 # AlpenWegs application import:
+from alpenwegs.ashared.constants.notification import SeverityChoices
 from notifications.models.notification_model import NotificationModel
 
 # Rest framework serializer import:
 from rest_framework.serializers import HyperlinkedIdentityField
+from rest_framework import serializers
 
 
 # Notification Model serializer details:
@@ -60,6 +62,16 @@ class NotificationDetailedSerializer(BaseSerializer):
         help_text='URL to provided object.',
         read_only=False,
     )
+
+    # Special constance fields:
+    severity = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_severity(self, obj):
+        # Return metadata dict for country:
+        return SeverityChoices.dict_from_int(
+            obj.severity
+        )
 
     class Meta:
 
@@ -127,6 +139,16 @@ class NotificationRelationSerializer(
         help_text='URL to provided object.',
         read_only=True,
     )
+
+    # Special constance fields:
+    severity = serializers.SerializerMethodField()
+
+    # Special constance methods:
+    def get_severity(self, obj):
+        # Return metadata dict for country:
+        return SeverityChoices.dict_from_int(
+            obj.severity
+        )
 
     class Meta:
 

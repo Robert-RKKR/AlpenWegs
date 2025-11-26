@@ -19,7 +19,6 @@ Key Features:
 """
 
 # AlpenWegs import:
-from alpenwegs.ashared.tasks.model_tasks.gpx_model_task import base_gpx_model_task
 from alpenwegs.ashared.models.base_model import BaseModel
 
 # AlpenWegs application import:
@@ -167,13 +166,22 @@ class BaseGpxModel(
         Run base GPX task after commit.
         """
         
-        # Run super method:
-        super().run_after_commit(created)
+        # Verify that GPX data exists:
+        if not self.gpx_data:
+            return
 
-        # Check if GPX data exists:
-        if self.gpx_data_id:
+        # Determine which concrete model triggered the task:
+        model_label = self._meta.label
 
-            # Schedule GPX processing task:
-            base_gpx_model_task.delay(
-                gpx_model_id=self.id,
-            )
+        # Path to GPX processing service:
+        service_path = (
+            'alpenwegs.ashared.tasks.model_tasks.gpx_model_task.GpxModelTask'
+        )
+
+        # Run shared task dispatcher from BaseModel:
+        super().run_model_task(
+            service_path=service_path,
+            model_label=model_label,
+            created=created,
+            pk=self.id,
+        )

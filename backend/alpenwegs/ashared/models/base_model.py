@@ -11,12 +11,18 @@ Key Features:
 - Standardized model representation.
 """
 
+# AlpenWegs import:
+from alpenwegs.ashared.tasks.model_task_runner import model_task_runner
+from alpenwegs.logger import app_logger
+
 # Django import:
 from django.forms.models import model_to_dict
 from django.db import transaction
 from django.db import models
 
 # Python import:
+from typing import Union
+from typing import Type
 import uuid
 import re
 
@@ -227,6 +233,42 @@ class BaseModel(
         
         pass
 
+    def run_model_task(self,
+        service_path: Union[str, Type],
+        model_label: str,
+        created: bool,
+        pk: str,
+    ) -> None:
+        
+        # Try Celery async execution first:
+        try:
+            # Run async task via Celery:
+            task = model_task_runner.delay(
+                model_label=model_label,
+                service_path=service_path,
+                pk=pk,
+            )
+            # Log successful scheduling of async task:
+            app_logger.info(f'Scheduled async task for {model_label} with PK {pk} and task ID {task}.')
+            return task
+
+        except Exception as exception:
+            app_logger.error(
+                f'Celery unavailable, running GPX task synchronously for Track {self.id}: {exception}'
+            )
+
+        # If Celery fails, run task synchronously:
+        try:
+            # Run synchronous task:
+            model_task_runner(
+                model_label=model_label,
+                service_path=service_path,
+                pk=pk,
+            )
+
+        except Exception as exception:
+            app_logger.exception(f'GPX processing failed for Track {self.id}: {exception}')
+
     #=================================================================
     # Override save and full clean method to include custom logic:
     # =================================================================
@@ -263,7 +305,7 @@ class BaseModel(
         # Run custom logic after saving:
         self.run_after_save()
 
-        # Schedule async hooks AFTER COMMIT:
+        # Schedule async hooks After Commit:
         transaction.on_commit(
             lambda: self.run_after_commit(is_new)
         )

@@ -72,7 +72,6 @@ track_fields = [
     'rescue_assistance',
     'journey',
     'route',
-    'gpx_data',
 ]
 
 # Track model serializer combined fields:
@@ -132,28 +131,20 @@ class TrackDetailedSerializer(
         required=TrackModel.creator.field.null,
         allow_null=TrackModel.creator.field.blank,
     )
-
-    # Other object Many to Many relation schemas:
-    journey = SerializedPkRelatedField(
-        queryset=JourneyModel.objects.all(),
-        serializer=JourneyRelationSerializer,
+    journey = JourneyRelationSerializer(
+        help_text=TrackModel.journey.field.help_text,
         required=False,
         allow_null=True,
-        many=True,
     )
-    route = SerializedPkRelatedField(
-        queryset=RouteModel.objects.all(),
-        serializer=RouteRepresentationSerializer,
+    route = RouteRepresentationSerializer(
+        help_text=TrackModel.route.field.help_text,
         required=False,
         allow_null=True,
-        many=True,
     )
-    gpx_data = SerializedPkRelatedField(
-        queryset=FileModel.objects.all(),
-        serializer=FileRelationSerializer,
+    gpx_data = FileRelationSerializer(
+        help_text=TrackModel.gpx_data.field.help_text,
         required=False,
         allow_null=True,
-        many=True,
     )
 
     # Special constance fields:

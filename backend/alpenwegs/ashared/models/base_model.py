@@ -58,6 +58,10 @@ class BaseModel(
     # Disable Django's default transaction management:
     _disable_after_commit = False
 
+    # List of fully-qualified task paths.
+    # Models can override it.
+    model_processing_tasks: list[str] = []
+
     # Primary Key value:
     id = models.UUIDField(
         primary_key=True,
@@ -67,7 +71,6 @@ class BaseModel(
         help_text='A unique identifier for the object, '
             'automatically generated as a UUIDv4 value.'
     )
-
 
     #=================================================================
     # Object statistic methods:
@@ -232,8 +235,32 @@ class BaseModel(
         is committed. Intended ONLY for scheduling asynchronous tasks
         (e.g. Celery), not for heavy synchronous processing.
         """
-        
-        pass
+
+        # If there is no tasks configured, do nothing:
+        if not self.model_processing_tasks:
+            return
+
+        # Determine model label and primary key:
+        model_label = self._meta.label
+        pk = self.id
+
+        # Iterate thru all configured model processing tasks:
+        for task_path in self.model_processing_tasks:
+            try:
+                # Try to run model task:
+                self.run_model_task(
+                    service_path=task_path,
+                    model_label=model_label,
+                    created=created,
+                    pk=pk,
+                )
+
+            except Exception as exc:
+                # Raise exception log:
+                app_logger.exception(
+                    f'Failed GPX processing task {task_path} '
+                    f'for model {model_label} PK={pk}: {exc}'
+                )
 
     def run_model_task(self,
         service_path: Union[str, Type],

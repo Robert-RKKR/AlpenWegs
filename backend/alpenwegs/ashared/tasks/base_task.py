@@ -49,3 +49,24 @@ class BaseTask:
 
         # Default implementation calls execute():
         return self.execute(instance)
+    
+    def _decimal_accuracy(self,
+        value: float,
+        places: int = 2,
+    ) -> float:
+        """
+        Round a float value to specified decimal places.
+        """
+
+        # Check if value is not None:
+        if isinstance(value, float):
+            # Return rounded value:
+            return round(value, places)
+        
+        elif isinstance(value, int):
+            # Return integer as float:
+            return float(value)
+        
+        else:
+            # Return None if value is None:
+            return None

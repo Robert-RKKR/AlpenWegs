@@ -37,7 +37,6 @@ class TrackFilter(
             'updated': ['exact', 'lt', 'gt'],
 
             # BaseGpxTrackModel values:
-            'overall_average_speed': ['exact', 'lt', 'gt'],
             'descent_average_speed': ['exact', 'lt', 'gt'],
             'maximum_descent_speed': ['exact', 'lt', 'gt'],
             'ascent_average_speed': ['exact', 'lt', 'gt'],

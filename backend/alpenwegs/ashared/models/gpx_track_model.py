@@ -47,10 +47,11 @@ class BaseGpxTrackModel(
         # Abstract class value:
         abstract = True
 
-    class Meta:
-        verbose_name = 'Base GPX Track Model'
-        verbose_name_plural = 'Base GPX Track Models'
-        abstract = True
+    # List of fully-qualified task paths for model processing:
+    model_processing_tasks = [
+        'alpenwegs.ashared.tasks.model_tasks.gpx_model_task.GpxModelTask',
+        'alpenwegs.ashared.tasks.model_tasks.gpx_track_task.GpxTrackModelTask',
+    ]
 
     # Time-related metrics:
     start_time = models.DateTimeField(
@@ -108,14 +109,6 @@ class BaseGpxTrackModel(
         help_text='Average traveling speed measured across the full '
             'activity. This value reflects the general pace over '
             'the entire route.',
-        blank=True,
-        null=True,
-    )
-    overall_average_speed = models.FloatField(
-        verbose_name='Overall Average Speed km/h',
-        help_text='Represents the average speed measured across the entire '
-            'activity period including both movement and pauses. This '
-            'value reflects the complete performance progression.',
         blank=True,
         null=True,
     )

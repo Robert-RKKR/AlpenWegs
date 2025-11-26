@@ -55,6 +55,8 @@ class BaseModel(
         # Default ordering:
         ordering = ['id']
 
+    # Disable Django's default transaction management:
+    _disable_after_commit = False
 
     # Primary Key value:
     id = models.UUIDField(
@@ -249,12 +251,17 @@ class BaseModel(
                 pk=pk,
             )
             # Log successful scheduling of async task:
-            app_logger.info(f'Scheduled async task for {model_label} with PK {pk} and task ID {task}.')
+            app_logger.info(f'Scheduled async task for {model_label} '
+                f'with PK {pk} and task ID {task}.'
+            )
+            # Return task response:
             return task
 
         except Exception as exception:
+            # Log error during Celery task scheduling:
             app_logger.error(
-                f'Celery unavailable, running GPX task synchronously for Track {self.id}: {exception}'
+                f'Celery unavailable, running GPX task synchronously '
+                f'for Track {self.id}: {exception}'
             )
 
         # If Celery fails, run task synchronously:
@@ -267,7 +274,10 @@ class BaseModel(
             )
 
         except Exception as exception:
-            app_logger.exception(f'GPX processing failed for Track {self.id}: {exception}')
+            # Log error during synchronous task execution:
+            app_logger.exception(
+                f'GPX processing failed for Track {self.id}: {exception}.'
+            )
 
     #=================================================================
     # Override save and full clean method to include custom logic:
@@ -306,6 +316,7 @@ class BaseModel(
         self.run_after_save()
 
         # Schedule async hooks After Commit:
-        transaction.on_commit(
-            lambda: self.run_after_commit(is_new)
-        )
+        if not getattr(self, '_disable_after_commit', False):
+            transaction.on_commit(
+                lambda: self.run_after_commit(is_new)
+            )

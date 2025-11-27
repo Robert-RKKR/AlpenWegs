@@ -43,13 +43,19 @@ class GpxTrackModelTask(
         
         except Exception as exception:
             # Log missing file and exit:
-            app_logger.error(f'Error processing GPX file: {exception}')
+            app_logger.error('GPX Model Task failed due to error related '
+                f'with opening of gpx file. Exception: {exception}'
+            )
+            # Return failure value:
             return False
         
         # Check if GPX has tracks and segments:
         if not gpx.tracks or not gpx.tracks[0].segments:
             # Log missing track/segment and exit:
-            app_logger.error('GPX track/segment missing or empty.')
+            app_logger.error('GPX Model Task failed due to error related '
+                'with missing tracks or segments.'
+            )
+            # Return failure value:
             return False
 
         # Collect first track of the GPX:
@@ -60,7 +66,10 @@ class GpxTrackModelTask(
         # Check if segment has points:
         if not segment.points:
             # Log missing points and exit:
-            app_logger.error('GPX segment contains no points.')
+            app_logger.error('GPX Model Task failed due to error related '
+                'with missing points in segment.'
+            )
+            # Return failure value:
             return False
 
         # Collect start and end times:
@@ -75,19 +84,21 @@ class GpxTrackModelTask(
         )
 
         # Built-in GPX moving/stopped time:
-        moving_time, stopped_time, moving_distance, stopped_distance, max_speed = segment.get_moving_data()
+        moving_time, stopped_time, moving_distance,\
+            stopped_distance, max_speed = segment.get_moving_data()
 
-        # Convert to seconds
-        moving_time_sec = moving_time
-        stopped_time_sec = stopped_time
+        # Convert time values to seconds:
+        moving_time_sec = self._safe_timedelta_seconds(moving_time)
+        stopped_time_sec = self._safe_timedelta_seconds(stopped_time)
         total_time_sec = self._safe_timedelta_seconds(total_time)
 
-        # 2. Speed values (m/s → km/h)
+        # Speed values conversions (m/s → km/h):
         def to_kmh(value_m_per_s):
             if not value_m_per_s:
                 return None
             return value_m_per_s * 3.6
 
+        # Calculate average and moving average speeds:
         average_speed = (
             moving_distance / total_time_sec if total_time_sec else None
         )
@@ -95,19 +106,21 @@ class GpxTrackModelTask(
             moving_distance / moving_time_sec if moving_time_sec else None
         )
 
-        # Convert speeds to km/h
+        # Convert speeds to km/h:
         average_speed_kmh = to_kmh(average_speed)
         moving_average_kmh = to_kmh(moving_average_speed)
         maximum_speed_kmh = to_kmh(max_speed)
 
-        # 3. Ascent/Descent speed calculations
+        # Ascent/Descent speed calculations:
         elevation_gain, elevation_loss = segment.get_uphill_downhill()
-        # positive descent ("loss") as absolute
+        # Positive descent ("loss") as absolute:
         elevation_loss = abs(elevation_loss)
 
+        # Declare ascent/descent time:
         ascent_time = 0.0
         descent_time = 0.0
-
+        
+        # Declare max speeds:
         max_ascent_speed = 0.0
         max_descent_speed = 0.0
 
@@ -164,30 +177,28 @@ class GpxTrackModelTask(
             moving_time_sec / total_time_sec if total_time_sec else None
         )
 
-        # Write into model instance
-        instance.start_time = start_time
-        instance.end_time = end_time
-        instance.duration = total_time_sec
-        instance.moving_time = moving_time_sec
-        instance.total_time = total_time_sec
-        instance.stop_time = stopped_time_sec
-
-        instance.average_speed = round(average_speed_kmh, 2) if average_speed_kmh else None
-        instance.moving_average_speed = round(moving_average_kmh, 2) if moving_average_kmh else None
-        instance.maximum_speed = round(maximum_speed_kmh, 2) if maximum_speed_kmh else None
-
-        instance.ascent_average_speed = round(ascent_average_speed, 2) if ascent_average_speed else None
+        # Update instance fields:
         instance.descent_average_speed = round(descent_average_speed, 2) if descent_average_speed else None
-        instance.maximum_ascent_speed = round(max_ascent_speed, 2) if max_ascent_speed else None
+        instance.ascent_average_speed = round(ascent_average_speed, 2) if ascent_average_speed else None
+        instance.moving_average_speed = round(moving_average_kmh, 2) if moving_average_kmh else None
         instance.maximum_descent_speed = round(max_descent_speed, 2) if max_descent_speed else None
-
+        instance.maximum_ascent_speed = round(max_ascent_speed, 2) if max_ascent_speed else None
+        instance.average_speed = round(average_speed_kmh, 2) if average_speed_kmh else None
+        instance.maximum_speed = round(maximum_speed_kmh, 2) if maximum_speed_kmh else None
         instance.moving_ratio = round(moving_ratio, 4) if moving_ratio else None
         instance.pace_average = round(pace_average, 3) if pace_average else None
         instance.pace_best = round(pace_best, 3) if pace_best else None
+        instance.moving_time = moving_time_sec
+        instance.stop_time = stopped_time_sec
+        instance.total_time = total_time_sec
+        instance.duration = total_time_sec
+        instance.start_time = start_time
+        instance.end_time = end_time
 
-        # Disable after-commit hooks
+        # Disable after commit to avoid recursion:
         instance._disable_after_commit = True
 
+        # Save updated instance fields:
         instance.save(update_fields=[
             'start_time',
             'end_time',

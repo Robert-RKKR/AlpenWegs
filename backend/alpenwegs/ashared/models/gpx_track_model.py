@@ -50,7 +50,7 @@ class BaseGpxTrackModel(
     # List of fully-qualified task paths for model processing:
     model_processing_tasks = [
         'alpenwegs.ashared.tasks.model_tasks.gpx_model_task.GpxModelTask',
-        'alpenwegs.ashared.tasks.model_tasks.gpx_track_task.GpxTrackModelTask',
+        'alpenwegs.ashared.tasks.model_tasks.gpx_model_track_task.GpxTrackModelTask',
     ]
 
     # Time-related metrics:

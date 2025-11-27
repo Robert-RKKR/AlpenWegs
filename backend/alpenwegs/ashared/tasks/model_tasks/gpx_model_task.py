@@ -59,13 +59,19 @@ class GpxModelTask(
         
         except Exception as exception:
             # Log missing file and exit:
-            app_logger.error(f'Error processing GPX file: {exception}')
+            app_logger.error('GPX Model Task failed due to error related '
+                f'with opening of gpx file. Exception: {exception}'
+            )
+            # Return failure value:
             return False
         
         # Check if GPX has tracks and segments:
         if not gpx.tracks or not gpx.tracks[0].segments:
             # Log missing track/segment and exit:
-            app_logger.error('GPX track/segment missing or empty.')
+            app_logger.error('GPX Model Task failed due to error related '
+                'with missing tracks or segments.'
+            )
+            # Return failure value:
             return False
 
         # Collect first track of the GPX:
@@ -76,7 +82,10 @@ class GpxModelTask(
         # Check if segment has points:
         if not segment.points:
             # Log missing points and exit:
-            app_logger.error('GPX segment contains no points.')
+            app_logger.error('GPX Model Task failed due to error related '
+                'with missing points in segment.'
+            )
+            # Return failure value:
             return False
 
         # Distance 3D defined latitude & longitude and elevation:
@@ -84,7 +93,9 @@ class GpxModelTask(
 
         # Collect total ascent and descent:
         elevation_gain, elevation_loss = segment.get_uphill_downhill()
-        average_grade = (elevation_gain / total_distance) * 100 if total_distance else None
+        average_grade = (
+            elevation_gain / total_distance
+        ) * 100 if total_distance else None
 
         # Collect all elevations to find max and min elevation:
         elevations = [

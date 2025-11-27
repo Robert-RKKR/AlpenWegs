@@ -162,31 +162,3 @@ class BaseGpxModel(
         blank=True,
         null=True,
     )
-
-    # # Celery async method to run after commit:
-    # def run_after_commit(self,
-    #     created: bool,
-    # ) -> None:
-    #     """
-    #     Run base GPX task after commit.
-    #     """
-        
-    #     # Verify that GPX data exists:
-    #     if not self.gpx_data:
-    #         return
-
-    #     # Determine which concrete model triggered the task:
-    #     model_label = self._meta.label
-
-    #     # Path to GPX processing service:
-    #     service_path = (
-    #         'alpenwegs.ashared.tasks.model_tasks.gpx_model_task.GpxModelTask'
-    #     )
-
-    #     # Run shared task dispatcher from BaseModel:
-    #     super().run_model_task(
-    #         service_path=service_path,
-    #         model_label=model_label,
-    #         created=created,
-    #         pk=self.id,
-    #     )

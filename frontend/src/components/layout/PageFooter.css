@@ -1,0 +1,19 @@
+.footer-menu {
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+}
+
+.footer-menu-item {
+    padding: var(--space-padding-primary);
+}
+
+.footer-submenu {
+    padding: var(--space-padding-primary);
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    display: flex;
+    width: 100%;
+}

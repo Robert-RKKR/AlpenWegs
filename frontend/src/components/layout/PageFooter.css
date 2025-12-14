@@ -17,3 +17,10 @@
     display: flex;
     width: 100%;
 }
+
+.footer-submenu-item {
+    padding: var(--space-padding-primary);
+    border-top: var(--border-primary);
+    text-align: center;
+    width: 50%;
+}

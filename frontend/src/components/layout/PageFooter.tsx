@@ -1,10 +1,10 @@
 // Import React components:
 import { NavLink } from "react-router-dom";
-import { CircleUser } from "lucide-react";
 
 // Import component css:
 import "./PageFooter.css";
 
+// Main Component Function:
 export function PageFooter() {
   return (
     <footer className="page-footer">

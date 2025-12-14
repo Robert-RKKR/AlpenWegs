@@ -5,6 +5,7 @@ import { ShieldAlert } from "lucide-react";
 // Import component css:
 import "./NotFoundPage.css";
 
+// Main Page Function:
 export function NotFoundPage() {
   return (
     <div className="box-component-pagination not-found-page">

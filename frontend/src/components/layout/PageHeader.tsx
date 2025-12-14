@@ -12,8 +12,11 @@ import "./PageHeader.css";
 export function PageHeader() {
   return (
     <header className="page-header">
-      {/* LEFT */}
+      
+      {/* Header Left Section */}
       <div className="header-left">
+        
+        {/* Header Logo Section */}
         <div className="header-section">
           <div className="header-logo">
             <NavLink to="/" aria-label="AlpenWegs Homepage">
@@ -22,6 +25,7 @@ export function PageHeader() {
           </div>
         </div>
 
+        {/* Header Menu Section */}
         <div className="header-section">
           <nav className="header-menu">
             <NavLink to="/explorer" className="header-menu-item">
@@ -35,16 +39,20 @@ export function PageHeader() {
             </NavLink>
           </nav>
         </div>
+      
       </div>
 
-      {/* RIGHT */}
+      {/* Header Right Section */}
       <div className="header-right">
+
+        {/* Header Search Section */}
         <div className="header-section">
           <div className="header-search">
             <input type="text" placeholder="Search..." />
           </div>
         </div>
 
+        {/* Header User Section */}
         <div className="header-section">
           <div className="header-user">
             <NavLink to="/profile">
@@ -52,6 +60,7 @@ export function PageHeader() {
             </NavLink>
           </div>
         </div>
+        
       </div>
     </header>
   );

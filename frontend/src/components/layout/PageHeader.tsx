@@ -36,7 +36,7 @@ export function PageHeader() {
             <NavLink to="/plans" className="header-menu-item">
               Plans
             </NavLink>
-            <NavLink to="/records" className="header-menu-item">
+            <NavLink to="/explorer/tracks" className="header-menu-item">
               Records
             </NavLink>
             <NavLink to="/events" className="header-menu-item">

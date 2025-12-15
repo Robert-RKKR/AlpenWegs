@@ -1,11 +1,11 @@
 import { Routes, Route } from "react-router-dom";
-import { ExplorerDashboard } from "./pages/ExplorerDashboard";
+import { ExplorerTracks } from "./pages/ExplorerTracks";
 import { RouteDetailPage } from "./pages/RouteDetailPage";
 
 export function ExplorerRoutes() {
   return (
     <Routes>
-      <Route index element={<ExplorerDashboard />} />
+      <Route path="tracks" element={<ExplorerTracks />} />
       <Route path="routes/:id" element={<RouteDetailPage />} />
     </Routes>
   );

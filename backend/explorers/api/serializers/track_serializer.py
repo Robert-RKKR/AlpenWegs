@@ -194,10 +194,10 @@ class TrackRepresentationSerializer(
     class Meta:
 
         # Define read only fields:
-        read_only_fields = base_representation_fields
+        read_only_fields = base_representation_fields + ['name']
 
         # Define writable fields:
-        fields = base_representation_fields
+        fields = base_representation_fields + ['name']
 
         # Define related model:
         model = model

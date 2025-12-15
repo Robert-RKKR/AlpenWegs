@@ -1,6 +1,7 @@
 # AlpenWegs import:
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
 from alpenwegs.ashared.models.sport_category_model import BaseSportCategoryModel
+from alpenwegs.ashared.models.gpx_localization import BaseGpxLocalizationModel
 from alpenwegs.ashared.models.accomplished_model import BaseAccomplishedModel
 from alpenwegs.ashared.models.descriptive_model import BaseDescriptiveModel
 from alpenwegs.ashared.models.statistic_model import BaseStatisticModel
@@ -21,6 +22,7 @@ from django.db import models
 
 # Track Model class:
 class TrackModel(
+    BaseGpxLocalizationModel,
     BaseIdentificationModel,
     BaseSportCategoryModel,
     BaseAccomplishedModel,

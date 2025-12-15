@@ -5,6 +5,7 @@ from alpenwegs.ashared.api.serializers.base_serializers import (
     BaseSerializer,
 )
 from alpenwegs.ashared.api.serializers.base_model_variables import (
+    base_gpx_localization_read_only_fields,
     base_identification_read_only_fields,
     base_sport_category_read_only_fields,
     base_timestamp_read_only_fields,
@@ -13,6 +14,7 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
     base_creator_read_only_fields,
     base_model_read_only_fields,
     base_score_read_only_fields,
+    base_gpx_localization_fields,
     base_identification_fields,
     base_representation_fields,
     base_sport_category_fields,
@@ -74,6 +76,7 @@ track_fields = [
 # Track model serializer combined fields:
 fields = (
     base_model_fields
+    + base_gpx_localization_fields
     + base_identification_fields
     + base_sport_category_fields
     + base_timestamp_fields
@@ -86,6 +89,7 @@ fields = (
 )
 read_only_fields = (
     base_model_read_only_fields
+    + base_gpx_localization_read_only_fields
     + base_identification_read_only_fields
     + base_sport_category_read_only_fields
     + base_statistic_read_only_fields
@@ -95,6 +99,12 @@ read_only_fields = (
     + base_score_read_only_fields
     + base_gpx_read_only_fields
 )
+
+# Track Relation serializer fields:
+fields_relation = fields.copy()
+fields_relation.remove('elevation_graph')
+fields_relation.remove('gpx_data')
+fields_relation.remove('geojson')
 
 
 # Track Detailed serializer:
@@ -231,6 +241,7 @@ class TrackRelationSerializer(
 
     class Meta:
         read_only_fields = read_only_fields
-        fields = fields
+        fields = fields_relation
         model = model
         depth = depth
+

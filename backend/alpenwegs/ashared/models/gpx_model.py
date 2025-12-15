@@ -48,7 +48,7 @@ class BaseGpxModel(
 
         # Model name values:
         verbose_name = 'Base GPX Model'
-        verbose_name_plural = 'Base GPX Modes'
+        verbose_name_plural = 'Base GPX Models'
 
         # Abstract class value:
         abstract = True

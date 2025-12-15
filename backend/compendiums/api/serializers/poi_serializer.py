@@ -5,11 +5,13 @@ from alpenwegs.ashared.api.serializers.base_serializers import (
     BaseSerializer,
 )
 from alpenwegs.ashared.api.serializers.base_model_variables import (
+    base_gpx_localization_read_only_fields,
     base_identification_read_only_fields,
     base_descriptive_read_only_fields,
     base_timestamp_read_only_fields,
     base_creator_read_only_fields,
     base_model_read_only_fields,
+    base_gpx_localization_fields,
     base_identification_fields,
     base_representation_fields,
     base_descriptive_fields,
@@ -37,8 +39,6 @@ depth = 0
 # PoI Model serializer fields:
 poi_fields = [
     'transport_description',
-    'location',
-    'elevation',
     'category',
     'region',
 ]
@@ -46,6 +46,7 @@ poi_fields = [
 # PoI model serializer combined fields:
 fields = (
     base_model_fields
+    + base_gpx_localization_fields
     + base_identification_fields
     + base_descriptive_fields
     + base_timestamp_fields
@@ -54,6 +55,7 @@ fields = (
 )
 read_only_fields = (
     base_model_read_only_fields
+    + base_gpx_localization_read_only_fields
     + base_identification_read_only_fields
     + base_descriptive_read_only_fields
     + base_timestamp_read_only_fields

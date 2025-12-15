@@ -197,3 +197,10 @@ base_gpx_track_read_only_fields = [
     'pace_average',
     'pace_best',
 ]
+
+# BaseGpxLocalizationModel serializer details:
+base_gpx_localization_read_only_fields = [
+    'location',
+    'elevation',
+]
+base_gpx_localization_fields = []

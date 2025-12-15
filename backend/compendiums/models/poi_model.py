@@ -1,5 +1,6 @@
 # AlpenWegs import:
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
+from alpenwegs.ashared.models.gpx_localization import BaseGpxLocalizationModel
 from alpenwegs.ashared.models.descriptive_model import BaseDescriptiveModel
 from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
 from alpenwegs.ashared.constants.poi_category import PoiCategoryChoices
@@ -9,15 +10,17 @@ from alpenwegs.ashared.models.creator_model import BaseCreatorModel
 from compendiums.models.region_model import RegionModel
 
 # Django import:
-from django.contrib.gis.db import models
+from django.db import models
 
 
 # PoI Model class:
 class PoiModel(
+    BaseGpxLocalizationModel,
     BaseIdentificationModel,
     BaseDescriptiveModel,
     BaseTimestampModel,
     BaseCreatorModel,
+
 ):
     """
     Point of Interest (PoI) Model for storing interesting locations,
@@ -104,21 +107,4 @@ class PoiModel(
         help_text='Classification of this Point of Interest '
             '(e.g. City, Village, Hut, Peak, Lake, Pass).',
         default=PoiCategoryChoices.OTHER,
-    )
-    
-    # PoI Geographic Location:
-    location = models.PointField(
-        geography=True,
-        srid=4326,
-        verbose_name='Geographic Position (WGS84)',
-        help_text='Stores the precise geolocation of the '
-            'PoI using a PostGIS point.',
-        blank=True,
-        null=True,
-    )
-    elevation = models.IntegerField(
-        verbose_name='Elevation (m a.s.l.)',
-        help_text='Elevation of the PoI in meters above sea level.',
-        blank=True,
-        null=True,
     )

@@ -6,6 +6,9 @@ import type { TrackRelationModel } from "../models/trackModel";
 import type { ApiListResponse } from "../../../services/api/types";
 import { Pagination } from "../../../services/ui/Pagination";
 
+// Import component css:
+import "./BoxContainer.css";
+
 export function ExplorerTracks() {
   const [page, setPage] = useState(1);
 
@@ -22,18 +25,26 @@ export function ExplorerTracks() {
   if (error || !data) return <div>Failed to load tracks</div>;
 
   return (
-    <div>
-      <ul>
-        {data.page_results.map((track) => (
-          <li key={track.pk}>{track.name}</li>
-        ))}
-      </ul>
+    <div className="box-container-objects">
+      <div className="box-container-heder">
+        <h2>Tracks</h2>
+      </div>
+      
+      <div className="box-container-body">
+        <ul>
+          {data.page_results.map((track) => (
+            <li key={track.pk}>{track.name} {track.total_distance ?? 0} m</li>
+          ))}
+        </ul>
+      </div>
 
-      <Pagination
-        page={page}
-        pageCount={data.page_count}
-        onChange={setPage}
-      />
+      <div className="box-container-footer">
+        <Pagination
+          page={page}
+          pageCount={data.page_count}
+          onChange={setPage}
+        />
+      </div>
     </div>
   );
 }

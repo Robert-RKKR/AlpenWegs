@@ -35,12 +35,12 @@ class BasePermissionsModel(
         request,
         view,
     ):
-
-        # 0: Collect user from request, deny if user data not found:
-        user = getattr(request, 'user', False)
-        if not user:
-            # Deny access if user is not found:
-            return False
+        # Collect user from request:
+        user = request.user
+        
+        # 0: Allow anonymous SAFE_METHODS (GET, HEAD, OPTIONS):
+        if not user.is_authenticated:
+            return request.method in SAFE_METHODS
         
         # 1: Allow full access for superusers:
         if user and user.is_superuser:
@@ -112,12 +112,12 @@ class BasePermissionsModel(
         view,
         obj,
     ):
-
-        # 0: Collect user from request, deny if user data not found:
-        user = getattr(request, 'user', False)
-        if not user:
-            # Deny access if user is not found:
-            return False
+        # Collect user from request:
+        user = request.user
+        
+        # 0: Allow anonymous SAFE_METHODS (GET, HEAD, OPTIONS):
+        if not user.is_authenticated:
+            return request.method in SAFE_METHODS
 
         # 1: Allow full access for superusers:
         if user and user.is_superuser:

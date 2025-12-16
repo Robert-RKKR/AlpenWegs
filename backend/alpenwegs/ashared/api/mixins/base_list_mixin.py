@@ -31,6 +31,25 @@ class BaseListModelMixin(
         - Otherwise → return all objects.
         """
 
+        # Check if user is authenticated:
+        if not self.request.user.is_authenticated:
+            
+            try:
+                # If model supports public visibility, return only public objects:
+                self.query_model._meta.get_field('is_public')
+
+                # Return only public objects:
+                return self.query_model.objects.filter(
+                    is_public=True
+                ).order_by(
+                    self.query_ordering
+                )
+            
+            # If model has no public field:
+            except FieldDoesNotExist:
+                # Return empty queryset:
+                return self.query_model.objects.none()
+
         # Check if request user is instance of UserModel:
         if isinstance(self.query_model, UserModel):
             # Filter only user that is requesting the data:
@@ -40,6 +59,7 @@ class BaseListModelMixin(
                 self.query_ordering
             )
 
+        # If user is authenticated, and is not UserModel instance:
         try:
             # Check if model has creator field:
             self.query_model._meta.get_field('creator')

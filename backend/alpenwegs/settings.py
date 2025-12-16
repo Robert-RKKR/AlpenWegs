@@ -2,7 +2,7 @@
 from .jazzmin import GLOBAL_JAZZMIN_SETTINGS
 
 # API description import:
-from .api_descrpiption import API_DESCRIPTION
+from .api import API_DESCRIPTION
 
 # Python libraries import:
 from datetime import timedelta
@@ -208,8 +208,8 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        # 'rest_framework.permissions.IsAuthenticated',
-        'alpenwegs.ashared.api.base_permissions_model.BasePermissionsModel',
+        # 'alpenwegs.ashared.api.base_permissions_model.BasePermissionsModel',
+        'rest_framework.permissions.AllowAny',
     ],
     'DEFAULT_RENDERER_CLASSES': [
         'alpenwegs.ashared.api.base_response_renderer.BaseResponseRenderer',

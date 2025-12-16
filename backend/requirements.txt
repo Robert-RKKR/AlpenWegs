@@ -22,12 +22,16 @@ dj-rest-auth==7.0.1
 Django==5.2.5
 django-allauth==65.11.0
 django-celery-beat==2.8.1
+django-cors-headers==4.9.0
 django-filter==25.1
 django-jazzmin==3.0.1
+django-leaflet==0.32.0
 django-timezone-field==7.1
 djangorestframework==3.16.1
 djangorestframework_simplejwt==5.5.1
 drf-spectacular==0.28.0
+GDAL==3.4.3
+gpxpy==1.6.2
 hyperlink==21.0.0
 idna==3.10
 incremental==24.7.2
@@ -39,8 +43,10 @@ kombu==5.5.4
 msgpack==1.1.1
 oauthlib==3.3.1
 packaging==25.0
+pillow==12.0.0
 pluggy==1.6.0
 prompt_toolkit==3.0.51
+psycopg2-binary==2.9.11
 pyasn1==0.6.1
 pyasn1_modules==0.4.2
 pycparser==2.22

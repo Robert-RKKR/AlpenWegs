@@ -292,32 +292,14 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 #==========================================================================
 
 # Database configuration:
-# if DB_TYPE == 'sqlite3':
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
-# elif DB_TYPE == 'postgresql':
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql',
-#             'NAME': DB_NAME,
-#             'USER': DB_USER,
-#             'PASSWORD': DB_PASS,
-#             'HOST': DB_HOST,
-#             'PORT': DB_PORT,
-#         }
-#     }
 DATABASES = {
-    "default": {
-        "ENGINE": "django.contrib.gis.db.backends.postgis",
-        "NAME": "alpenwegs",
-        "USER": "alpenuser",
-        "PASSWORD": "alpenpass",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': DB_NAME,
+        'USER': DB_USER,
+        'PASSWORD': DB_PASS,
+        'HOST': DB_HOST,
+        'PORT': DB_PORT,
     }
 }
 

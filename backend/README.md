@@ -122,14 +122,14 @@ git reset --hard HEAD    # Reset working dir to last commit (dangerous!)
 ### Run a new postgres container
 
 ```bash
-sudo docker run --name alpenwegs-postgres -e POSTGRES_USER=postgres_admin -e POSTGRES_DB=alpenwegs -e POSTGRES_PASSWORD='jt3g339d25rg0ea24' -p 5432:5432 -d postgres:latest
-sudo docker run --name alpenwegs-redis -d -p 6379:6379 redis
+sudo docker run --name alpenwegs-dev-postgres -e POSTGRES_USER=postgres_admin -e POSTGRES_DB=alpenwegs -e POSTGRES_PASSWORD='jt3g339d25rg0ea24' -p 5432:5432 -d postgis/postgis:16-3.4
+sudo docker run --name alpenwegs-dev-redis -d -p 6379:6379 redis
 
 # With network:
 
 sudo docker network create alpenwegs_network
-sudo docker run --name alpenwegs-postgres -e POSTGRES_USER=postgres_admin -e POSTGRES_DB=alpenwegs -e POSTGRES_PASSWORD='jt3g339d25rg0ea24' -p 5432:5432 --network alpenwegs_network -d postgres:latest
-sudo docker run --name alpenwegs-redis --network alpenwegs_network  -d -p 6379:6379 redis
+sudo docker run --name alpenwegs-dev-postgres -e POSTGRES_USER=postgres_admin -e POSTGRES_DB=alpenwegs -e POSTGRES_PASSWORD='jt3g339d25rg0ea24' -p 5432:5432 --network alpenwegs_network -d postgis/postgis:16-3.4
+sudo docker run --name alpenwegs-dev-redis --network alpenwegs_network  -d -p 6379:6379 redis
 ```
 
 ### Show all containers

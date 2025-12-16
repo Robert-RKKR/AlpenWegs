@@ -61,19 +61,14 @@ class Command(BaseCommand):
         ):
             
             # Check if user exist:
-            if UserModel.objects.filter(username=username).exists():
-                # Get the user object:
-                user = UserModel.objects.get(
-                    username=username,
+            if UserModel.objects.filter(email=email).exists():
+                # Log user existence:
+                self.style.SUCCESS(
+                    f'3.0: User with email "{email}" already exists. '
+                    'Skipping user creation.'
                 )
-                # Delete the user object:
-                user.delete()
-                # Log actions:
-                self.stdout.write(
-                    self.style.SUCCESS(
-                        f'3.0: Successfully deleted a old user.'
-                    )
-                )
+                # Return existing user:
+                return UserModel.objects.get(email=email)
 
             # Create a new user:
             if super_user:
@@ -201,11 +196,7 @@ class Command(BaseCommand):
         self.apply_role_permissions()
 
         # 3: Create default users:
-        try:
-            self.create_default_users()
+        self.create_default_users()
 
-            # 4: Add users to groups:
-            self.add_users_to_groups()
-
-        except Exception as e:
-            pass
+        # 4: Add users to groups:
+        self.add_users_to_groups()

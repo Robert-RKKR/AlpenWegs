@@ -201,7 +201,11 @@ class Command(BaseCommand):
         self.apply_role_permissions()
 
         # 3: Create default users:
-        self.create_default_users()
+        try:
+            self.create_default_users()
 
-        # 4: Add users to groups:
-        self.add_users_to_groups()
+            # 4: Add users to groups:
+            self.add_users_to_groups()
+
+        except Exception as e:
+            pass

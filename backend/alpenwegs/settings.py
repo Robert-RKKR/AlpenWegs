@@ -16,7 +16,8 @@ import os
 #==========================================================================
 
 # Main application Constance's:
-ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', default=['*'])
+# ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', default=['*'])
+ALLOWED_HOSTS = ['*']
 DEBUG = int(os.environ.get('DEBUG', default=True))
 BASE_DIR = Path(__file__).resolve().parent.parent
 DJANGO_SETTINGS_MODULE = 'alpenwegs.settings'
@@ -144,6 +145,9 @@ TEMPLATES = [
 
 # CORS configuration:
 CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'http://5.180.148.151:8000',
     'http://localhost:5173',
     'http://127.0.0.1:5173',
     'http://5.180.148.151:5173',
@@ -294,7 +298,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # Database configuration:
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': DB_NAME,
         'USER': DB_USER,
         'PASSWORD': DB_PASS,

@@ -203,8 +203,8 @@ base_gpx_track_read_only_fields = [
 ]
 
 # BaseGpxLocalizationModel serializer details:
-base_gpx_localization_read_only_fields = [
+base_gpx_localization_read_only_fields = []
+base_gpx_localization_fields = [
     'location',
     'elevation',
 ]
-base_gpx_localization_fields = []

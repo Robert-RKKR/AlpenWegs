@@ -20,7 +20,6 @@ class PoiModel(
     BaseDescriptiveModel,
     BaseTimestampModel,
     BaseCreatorModel,
-
 ):
     """
     Point of Interest (PoI) Model for storing interesting locations,

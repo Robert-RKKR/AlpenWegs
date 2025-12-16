@@ -4,6 +4,7 @@ from alpenwegs.ashared.api.base_exceptions import BaseAPIException
 # Rest framework import:
 from rest_framework.views import exception_handler
 from rest_framework.response import Response
+from rest_framework import status
 
 def collect_exception_data(
     exc: dict,
@@ -109,6 +110,35 @@ def base_exception_handler(
         data=error_response,
         status=response.status_code
     )
+
+    try:
+        error_response, response = collect_exception_data(
+            exc=exc,
+            context=context,
+        )
+
+        # Fallback when DRF returned no response
+        if response is None:
+            return Response(
+                data=error_response,
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        return Response(
+            data=error_response,
+            status=response.status_code,
+        )
+
+    except Exception as exception:
+        # Absolute last-resort fallback
+        return Response(
+            data={
+                "error_message": "Internal Server Error",
+                "error_code": 500,
+                "error_details": str(exception),
+            },
+            status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        )
 
     try:
         # Try to collect exception data:

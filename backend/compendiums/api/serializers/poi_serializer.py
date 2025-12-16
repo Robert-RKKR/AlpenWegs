@@ -29,6 +29,7 @@ from compendiums.models.poi_model import PoiModel
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
+from django.contrib.gis.geos import Point
 from rest_framework import serializers
 
 
@@ -70,7 +71,6 @@ where_used_read_only_fields = (
     + ['sections']
 )
 
-
 # PoI Detailed serializer:
 class PoiDetailedSerializer(
     BaseSerializer,
@@ -89,6 +89,21 @@ class PoiDetailedSerializer(
         help_text='URL to provided object.',
         read_only=True,
     )
+
+    # Poi GPX Localization validation:
+    location = serializers.CharField(required=False)
+    def validate_location(self, value):
+        try:
+            # Parse longitude and latitude:
+            lon, lat = map(float, value.split(","))
+            # Return Point object:
+            return Point(lon, lat, srid=4326)
+        except Exception:
+            # Raise validation error if parsing fails:
+            raise serializers.ValidationError(
+                "Location must be in format as 'longitude,latitude' "
+                "for example location 9.571444,47.114032."
+            )
 
     # Other object relation schemas:
     creator = UserRelationSerializer(

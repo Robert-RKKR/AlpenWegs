@@ -27,7 +27,9 @@ from django.contrib.gis.db import models
 
 
 # Base GPX Localization model class:
-class BaseGpxLocalizationModel(BaseModel):
+class BaseGpxLocalizationModel(
+    BaseModel,
+):
     """
     Abstract base model for GPX-derived localization data.
 

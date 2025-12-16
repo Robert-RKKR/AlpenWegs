@@ -46,7 +46,7 @@ def resolve_service(
         f'string import path. Provided type is "{type(service).__name__}".'
     )
 
-@shared_task(bind=True)
+@shared_task(bind=True, queue='process_model_tasks')
 def model_task_runner(self,
     service_path: Union[str, Type],
     model_label: str,

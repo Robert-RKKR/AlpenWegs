@@ -25,7 +25,7 @@ from alpenwegs.ashared.models.base_model import BaseModel
 from assets.models.file_model import FileModel
 
 # Django import:
-from django.db import models
+from django.contrib.gis.db import models
 
 
 # Base GPX model class:
@@ -53,10 +53,10 @@ class BaseGpxModel(
         # Abstract class value:
         abstract = True
 
-    # List of fully-qualified task paths for model processing:
-    model_processing_tasks = [
-        'alpenwegs.ashared.tasks.model_tasks.gpx_model_task.GpxModelTask'
-    ]
+    # Add Celery task requests for this model:
+    model_processing_tasks_request = {
+        'alpenwegs.ashared.tasks.model_tasks.gpx_model_task.GpxModelTask': 21
+    }
 
     # Route GPX data:
     gpx_data = models.ForeignKey(
@@ -74,6 +74,28 @@ class BaseGpxModel(
         help_text='Stores the GeoJSON representation of the route. This data '
             'is generated from the GPX file to allow visual mapping and '
             'geographical inspection in a standard format.',
+        blank=True,
+        null=True,
+    )
+    
+    # Geographic reference point derived from GPX:
+    location = models.PointField(
+        geography=True,
+        srid=4326,
+        verbose_name='GPX Location (WGS84)',
+        help_text=(
+            'Primary geographic reference point derived from the GPX '
+            'track, stored as a PostGIS point in WGS84 coordinates.'
+        ),
+        blank=True,
+        null=True,
+    )
+    elevation = models.IntegerField(
+        verbose_name='GPX Elevation (m a.s.l.)',
+        help_text=(
+            'Elevation in meters above sea level at the given '
+            'GPX-derived location.'
+        ),
         blank=True,
         null=True,
     )

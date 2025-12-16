@@ -187,6 +187,7 @@ python manage.py loaddata backup_data.json
 ### Celery
 
 ```bash
+celery -A alpenwegs worker -Q process_model_tasks --hostname=process_model_tasks@%h -l INFO
 celery -A alpenwegs worker -Q collect_hosts -l INFO
 celery -A alpenwegs worker --loglevel=info
 celery -A alpenwegs beat --loglevel=info

@@ -1,77 +1,18 @@
-# Django import:
-from django.core.files.storage import default_storage
-
 # AlpenWegs import:
-from alpenwegs.ashared.tasks.base_task import BaseTask
+from alpenwegs.ashared.tasks.model_tasks.gpx_model_task import GpxModelTask
 from alpenwegs.logger import app_logger
-
-# Python import:
-import gpxpy
 
 
 # GPX model Task:
 class GpxTrackModelTask(
-    BaseTask,
+    GpxModelTask,
 ):
     
-    @staticmethod
-    def _safe_timedelta_seconds(td):
-        """Convert timedelta to seconds as float."""
-        if td is None:
-            return None
-        return td.total_seconds()
-
-    def execute(self,
+    def process_and_save_gpx_track_data(self,
         instance,
+        segment,
     ) -> None:
-        """
-        Process GPX for extended track metrics:
-        - Time metrics
-        - Speed metrics
-        - Pace metrics
-        - Moving ratios
-        """
-
-        # Collect GPX file path:
-        gpx_file_field = instance.gpx_data.path
-        file_path = gpx_file_field.path
-
-        try:
-            # Try to collect GPX data:
-            with default_storage.open(file_path, "r") as file:
-                gpx = gpxpy.parse(file)
         
-        except Exception as exception:
-            # Log missing file and exit:
-            app_logger.error('GPX Model Task failed due to error related '
-                f'with opening of gpx file. Exception: {exception}'
-            )
-            # Return failure value:
-            return False
-        
-        # Check if GPX has tracks and segments:
-        if not gpx.tracks or not gpx.tracks[0].segments:
-            # Log missing track/segment and exit:
-            app_logger.error('GPX Model Task failed due to error related '
-                'with missing tracks or segments.'
-            )
-            # Return failure value:
-            return False
-
-        # Collect first track of the GPX:
-        track = gpx.tracks[0]
-        # Collect first segment of the track:
-        segment = track.segments[0]
-
-        # Check if segment has points:
-        if not segment.points:
-            # Log missing points and exit:
-            app_logger.error('GPX Model Task failed due to error related '
-                'with missing points in segment.'
-            )
-            # Return failure value:
-            return False
-
         # Collect start and end times:
         start_time = segment.points[0].time
         end_time = segment.points[-1].time
@@ -100,10 +41,14 @@ class GpxTrackModelTask(
 
         # Calculate average and moving average speeds:
         average_speed = (
-            moving_distance / total_time_sec if total_time_sec else None
+            moving_distance / total_time_sec
+            if moving_distance and total_time_sec
+            else None
         )
         moving_average_speed = (
-            moving_distance / moving_time_sec if moving_time_sec else None
+            moving_distance / moving_time_sec
+            if moving_distance and moving_time_sec
+            else None
         )
 
         # Convert speeds to km/h:
@@ -131,8 +76,10 @@ class GpxTrackModelTask(
             if p1.time is None or p2.time is None:
                 continue
 
-            delta_t = (p2.time - p1.time).total_seconds()
-            if delta_t <= 0:
+            # Use strict helper
+            delta_t = self._safe_timedelta_seconds(p2.time - p1.time)
+
+            if delta_t is None or delta_t <= 0:
                 continue
 
             delta_h = (p2.elevation - p1.elevation) if (p1.elevation is not None and p2.elevation is not None) else 0
@@ -174,7 +121,9 @@ class GpxTrackModelTask(
 
         # 5. Moving ratio
         moving_ratio = (
-            moving_time_sec / total_time_sec if total_time_sec else None
+            moving_time_sec / total_time_sec
+            if moving_time_sec and total_time_sec
+            else None
         )
 
         # Update instance fields:
@@ -220,3 +169,41 @@ class GpxTrackModelTask(
 
         # Return success value:
         return True
+
+    def execute(self,
+        instance,
+    ) -> None:
+        """
+        Process GPX for extended track metrics:
+        - Time metrics
+        - Speed metrics
+        - Pace metrics
+        - Moving ratios
+        """
+        
+        # Collect GPX context:
+        gpx_context = self.get_gpx_context(
+            instance=instance,
+        )
+
+        # Check if context retrieval was successful:
+        if not gpx_context:
+            return False
+        
+        # Unpack GPX context:
+        segment = gpx_context['segment']
+
+        # # Process and save GPX data to instance:
+        # status = self.process_and_save_gpx_data(
+        #     instance=instance,
+        #     segment=segment,
+        # )
+
+        # Process and save GPX data to instance:
+        status = self.process_and_save_gpx_track_data(
+            instance=instance,
+            segment=segment,
+        )
+
+        # Return status value:
+        return status

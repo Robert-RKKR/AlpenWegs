@@ -1,6 +1,9 @@
 # Alpenwegs import:
 from alpenwegs.logger import app_logger
 
+# Python import:
+from datetime import timedelta
+
 
 # Base Task Class:
 class BaseTask:
@@ -69,4 +72,18 @@ class BaseTask:
         
         else:
             # Return None if value is None:
+            return None
+
+    @staticmethod
+    def _safe_timedelta_seconds(value):
+        """
+        Convert timedelta to seconds as float.
+        """
+
+        # Check if value is timedelta:
+        if isinstance(value, timedelta):
+            return float(value.total_seconds())
+        
+        else:
+            # Return None if value is not timedelta:
             return None

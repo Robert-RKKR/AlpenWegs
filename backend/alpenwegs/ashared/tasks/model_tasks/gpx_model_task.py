@@ -1,17 +1,14 @@
-# Django import:
-from django.core.files.storage import default_storage
-
 # AlpenWegs import:
-from alpenwegs.ashared.tasks.base_task import BaseTask
+from alpenwegs.ashared.tasks.ashared.base_gpx import BaseGpxTask
 from alpenwegs.logger import app_logger
 
-# Python import:
-import gpxpy
+# Django import:
+from django.contrib.gis.geos import Point
 
 
 # GPX model Task:
 class GpxModelTask(
-    BaseTask,
+    BaseGpxTask,
 ):
     
     def calculate_highest_grade(self,
@@ -37,56 +34,14 @@ class GpxModelTask(
 
         # Return highest grade rounded to 2 decimal places:
         return round(highest_grade, 2) if highest_grade is not None else None
-
-    def execute(self,
+    
+    def process_and_save_gpx_data(self,
         instance,
+        segment,
     ) -> None:
         """
-        Process GPX for any BaseGpxModel-based instance.
-        Assumes:
-        - instance.gpx_data.path is a FileField
-        - instance has BaseGpxModel fields: distance, elevation_gain, etc.
+        Process base GPX metrics data.
         """
-
-        # Collect GPX file path:
-        gpx_file_field = instance.gpx_data.path
-        file_path = gpx_file_field.path
-
-        try:
-            # Try to collect GPX data:
-            with default_storage.open(file_path, "r") as file:
-                gpx = gpxpy.parse(file)
-        
-        except Exception as exception:
-            # Log missing file and exit:
-            app_logger.error('GPX Model Task failed due to error related '
-                f'with opening of gpx file. Exception: {exception}'
-            )
-            # Return failure value:
-            return False
-        
-        # Check if GPX has tracks and segments:
-        if not gpx.tracks or not gpx.tracks[0].segments:
-            # Log missing track/segment and exit:
-            app_logger.error('GPX Model Task failed due to error related '
-                'with missing tracks or segments.'
-            )
-            # Return failure value:
-            return False
-
-        # Collect first track of the GPX:
-        track = gpx.tracks[0]
-        # Collect first segment of the track:
-        segment = track.segments[0]
-
-        # Check if segment has points:
-        if not segment.points:
-            # Log missing points and exit:
-            app_logger.error('GPX Model Task failed due to error related '
-                'with missing points in segment.'
-            )
-            # Return failure value:
-            return False
 
         # Distance 3D defined latitude & longitude and elevation:
         total_distance = segment.length_3d()
@@ -102,6 +57,28 @@ class GpxModelTask(
             p.elevation for p in segment.points if p.elevation is not None]
         highest_elevation = max(elevations) if elevations else None
         lowest_elevation = min(elevations) if elevations else None
+
+        # Collect first point localization:
+        first_point = segment.points[0] if segment.points else None
+
+        if (
+            first_point
+            and first_point.longitude is not None
+            and first_point.latitude is not None
+        ):
+            instance.location = Point(
+                first_point.longitude,
+                first_point.latitude,
+                srid=4326,
+            )
+            instance.elevation = (
+                int(first_point.elevation)
+                if first_point.elevation is not None
+                else None
+            )
+        else:
+            instance.location = None
+            instance.elevation = None
 
         # Create geojson line:
         geojson = {
@@ -149,9 +126,42 @@ class GpxModelTask(
             'average_grade',
             'highest_grade',
             'total_points',
-            # 'track_types',
+            'elevation',
+            'location',
             'geojson',
+            # 'track_types',
         ])
 
         # Return success value:
         return True
+
+    def execute(self,
+        instance,
+    ) -> None:
+        """
+        Process GPX for any BaseGpxModel-based instance.
+        Assumes:
+        - instance.gpx_data.path is a FileField
+        - instance has BaseGpxModel fields: distance, elevation_gain, etc.
+        """
+        
+        # Collect GPX context:
+        gpx_context = self.get_gpx_context(
+            instance=instance,
+        )
+
+        # Check if context retrieval was successful:
+        if not gpx_context:
+            return False
+        
+        # Unpack GPX context:
+        segment = gpx_context['segment']
+
+        # Process and save GPX data to instance:
+        status = self.process_and_save_gpx_data(
+            instance=instance,
+            segment=segment,
+        )
+
+        # Return status value:
+        return status

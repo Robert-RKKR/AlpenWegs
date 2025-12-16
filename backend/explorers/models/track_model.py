@@ -1,7 +1,6 @@
 # AlpenWegs import:
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
 from alpenwegs.ashared.models.sport_category_model import BaseSportCategoryModel
-from alpenwegs.ashared.models.gpx_localization import BaseGpxLocalizationModel
 from alpenwegs.ashared.models.accomplished_model import BaseAccomplishedModel
 from alpenwegs.ashared.models.descriptive_model import BaseDescriptiveModel
 from alpenwegs.ashared.models.statistic_model import BaseStatisticModel
@@ -22,7 +21,6 @@ from django.db import models
 
 # Track Model class:
 class TrackModel(
-    BaseGpxLocalizationModel,
     BaseIdentificationModel,
     BaseSportCategoryModel,
     BaseAccomplishedModel,
@@ -38,12 +36,12 @@ class TrackModel(
     """
     Represents a single user-recorded outdoor activity based on GPS data.
     A Track captures one continuous segment of movement—such as hiking,
-    biking, running, fastpacking, ski touring, or any similar activity.
+    biking, running, back packing, ski touring, or any similar activity.
     Tracks may form part of a multi-day Journey and may optionally reference
     an official Route that inspired, guided, or aligns with the recorded
     path. Alongside spatial and elevation data, Tracks store environmental,
     group-related, and safety-relevant metadata, offering a concise yet
-    complete depiction of the user’s real-world outdoor experience.
+    complete depiction of the user's real-world outdoor experience.
     """
 
     class Meta:
@@ -234,7 +232,7 @@ class TrackModel(
         verbose_name='Windy Conditions',
         help_text=(
             'Indicates that the activity took place under strong or '
-            'destabilising wind conditions. Wind can influence balance, '
+            'destabilizing wind conditions. Wind can influence balance, '
             'comfort, safety on exposed ridges, and perceived temperature.'
         ),
         default=False,

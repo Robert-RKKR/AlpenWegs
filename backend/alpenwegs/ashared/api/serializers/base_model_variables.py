@@ -120,6 +120,8 @@ base_object_representation_read_only_fields = [
 base_gpx_fields = [
     'gpx_data',
     'geojson',
+    'location',
+    'elevation',
     'total_distance',
     'total_points',
     'elevation_gain',
@@ -133,6 +135,8 @@ base_gpx_fields = [
 ]
 base_gpx_read_only_fields = [
     'geojson',
+    'location',
+    'elevation',
     'duration',
     'total_distance',
     'total_points',

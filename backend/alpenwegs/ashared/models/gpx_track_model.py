@@ -47,11 +47,10 @@ class BaseGpxTrackModel(
         # Abstract class value:
         abstract = True
 
-    # List of fully-qualified task paths for model processing:
-    model_processing_tasks = [
-        'alpenwegs.ashared.tasks.model_tasks.gpx_model_task.GpxModelTask',
-        'alpenwegs.ashared.tasks.model_tasks.gpx_model_track_task.GpxTrackModelTask',
-    ]
+    # Add Celery task requests for this model:
+    model_processing_tasks_request = {
+        'alpenwegs.ashared.tasks.model_tasks.gpx_model_track_task.GpxTrackModelTask': 11,
+    }
 
     # Time-related metrics:
     start_time = models.DateTimeField(

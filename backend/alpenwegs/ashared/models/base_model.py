@@ -12,7 +12,7 @@ Key Features:
 """
 
 # AlpenWegs import:
-from alpenwegs.ashared.tasks.model_task_runner import model_task_runner
+from alpenwegs.ashared.tasks.ashared.model_task_runner import model_task_runner
 from alpenwegs.logger import app_logger
 
 # Django import:
@@ -58,8 +58,10 @@ class BaseModel(
     # Disable Django's default transaction management:
     _disable_after_commit = False
 
-    # List of fully-qualified task paths.
-    # Models can override it.
+    # Tasks requested by the child models:
+    model_processing_tasks_request: dict[str, int] = {}
+
+    # Resolved task execution order:
     model_processing_tasks: list[str] = []
 
     # Primary Key value:
@@ -227,6 +229,46 @@ class BaseModel(
     #=================================================================
     # Celery async method to run after commit:
     #=================================================================
+    def __init_subclass__(cls, **kwargs):
+        """
+        Initialize subclass and aggregate model
+        processing tasks from all base classes.
+        """
+        
+        # Call the superclass's __init_subclass__:
+        super().__init_subclass__(**kwargs)
+
+        # Collect tasks from child classes:
+        aggregated: dict[str, int] = {}
+
+        # Iterate through the MRO excluding the class itself:
+        for base in reversed(cls.__mro__[1:]):
+            # Collect tasks and their priorities from the classes:
+            base_tasks = getattr(base, "model_processing_tasks_request", {})
+            # Iterate through the tasks and priorities:
+            for task, priority in base_tasks.items():
+                # Higher priority always wins:
+                if task not in aggregated or priority > aggregated[task]:
+                    aggregated[task] = priority
+
+        # Add tasks from the current class:
+        own_tasks = cls.__dict__.get("model_processing_tasks_request", {})
+        # Iterate through the tasks and priorities:
+        for task, priority in own_tasks.items():
+            # Higher priority always wins:
+            if task not in aggregated or priority > aggregated[task]:
+                aggregated[task] = priority
+
+        # Sort by priority DESC:
+        cls.model_processing_tasks = [
+            task
+            for task, _ in sorted(
+                aggregated.items(),
+                key=lambda item: item[1],
+                reverse=True,
+            )
+        ]
+    
     def run_after_commit(self,
         created: bool,
     ) -> None:

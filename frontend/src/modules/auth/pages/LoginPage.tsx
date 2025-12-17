@@ -5,6 +5,15 @@ import axios from "axios";
 import { login } from "../api/authApi";
 import { useAuthStore } from "../../../stores/authStore";
 
+// Import application components:
+import { RkLogo } from "../../../assets/logo/RkLogo";
+
+// Import React components:
+import { NavLink } from "react-router-dom";
+
+// Import component css:
+import "./LoginPage.css";
+
 export function LoginPage() {
   const navigate = useNavigate();
   const setAuth = useAuthStore((s) => s.setAuth);
@@ -42,28 +51,43 @@ export function LoginPage() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        placeholder="Email"
-        value={email}
-        required
-        onChange={(e) => setEmail(e.target.value)}
-      />
+    <form className="login-container" onSubmit={handleSubmit}>
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        required
-        onChange={(e) => setPassword(e.target.value)}
-      />
+      <div className="login-card">
+        <div className="login-logo">
+          <NavLink to="/" aria-label="AlpenWegs Homepage">
+            <RkLogo />
+          </NavLink>
+        </div>
 
-      {error && <p>{error}</p>}
+        <div className="login-form">
+          <h1 className="login-title">AlpenWegs</h1>
+          <input
+            className="login-input"
+            type="email"
+            placeholder="Email"
+            value={email}
+            required
+            onChange={(e) => setEmail(e.target.value)}
+          />
 
-      <button type="submit" disabled={loading}>
-        {loading ? "Logging in…" : "Log in"}
-      </button>
+          <input
+            className="login-input"
+            type="password"
+            placeholder="Password"
+            value={password}
+            required
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+        <div className="login-process">
+          {error && <p>{error}</p>}
+          <button className="login-button" type="submit" disabled={loading}>
+            {loading ? "Logging in…" : "Log in"}
+          </button>
+        </div>
+      </div>
     </form>
   );
 }

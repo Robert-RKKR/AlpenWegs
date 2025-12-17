@@ -25,16 +25,15 @@ APP_NAME = 'AlpenWegs'
 VERSION = '0.1a'
 
 # Database Constance's:
-DB_PASS = os.environ.get('DB_PASS', default='jt3g339d25rg0ea24')
-DB_USER = os.environ.get('DB_USER', default='postgres_admin')
+DB_PASS = os.environ.get('DB_PASS', default='alpenwegs_password')
+DB_USER = os.environ.get('DB_USER', default='alpenwegs_admin')
 DB_HOST = os.environ.get('DB_HOST', default='127.0.0.1')
 DB_NAME = os.environ.get('DB_NAME', default='alpenwegs')
-DB_TYPE = os.environ.get('DB_TYPE', default='sqlite3')
-DB_PORT = os.environ.get('DB_PORT', default=5432)
+DB_PORT = os.environ.get('DB_PORT', default=5555)
 
 # Redis Constance's:
 REDIS_HOST = os.environ.get('REDIS_HOST', default='127.0.0.1')
-REDIS_PORT = os.environ.get('REDIS_PORT', default=6379)
+REDIS_PORT = os.environ.get('REDIS_PORT', default=6666)
 
 # Application keys Constance's:
 SECRET_KEY = os.environ.get('SECRET_KEY',
@@ -144,14 +143,10 @@ TEMPLATES = [
 ]
 
 # CORS configuration:
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:8000',
-    'http://127.0.0.1:8000',
-    'http://5.180.148.151:8000',
-    'http://localhost:5173',
-    'http://127.0.0.1:5173',
-    'http://5.180.148.151:5173',
-    'http://5.180.148.151:8001',
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^http://5\.180\.148\.151:\d+$",
+    r"^http://localhost:\d+$",
+    r"^http://127\.0\.0\.1:\d+$",
 ]
 CORS_ALLOW_CREDENTIALS = True
 

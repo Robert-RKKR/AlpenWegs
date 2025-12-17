@@ -122,13 +122,13 @@ git reset --hard HEAD    # Reset working dir to last commit (dangerous!)
 ### Run a new postgres container
 
 ```bash
-sudo docker run --name alpenwegs-dev-postgres -e POSTGRES_USER=postgres_admin -e POSTGRES_DB=alpenwegs -e POSTGRES_PASSWORD='jt3g339d25rg0ea24' -p 5432:5432 -d postgis/postgis:16-3.4
-sudo docker run --name alpenwegs-dev-redis -d -p 6379:6379 redis
+sudo docker run --name alpenwegs-dev-postgres -e POSTGRES_USER=alpenwegs_admin -e POSTGRES_DB=alpenwegs -e POSTGRES_PASSWORD=alpenwegs_password -p 5555:5432 -d postgis/postgis:16-3.4
+sudo docker run --name alpenwegs-dev-redis -p 6666:6379 -d redis:7-alpine
 
 # With network:
 
 sudo docker network create alpenwegs_network
-sudo docker run --name alpenwegs-dev-postgres -e POSTGRES_USER=postgres_admin -e POSTGRES_DB=alpenwegs -e POSTGRES_PASSWORD='jt3g339d25rg0ea24' -p 5432:5432 --network alpenwegs_network -d postgis/postgis:16-3.4
+sudo docker run --name alpenwegs-dev-postgres -e POSTGRES_USER=alpenwegs_admin -e POSTGRES_DB=alpenwegs -e POSTGRES_PASSWORD=alpenwegs_password -p 5432:5432 --network alpenwegs_network -d postgis/postgis:16-3.4
 sudo docker run --name alpenwegs-dev-redis --network alpenwegs_network  -d -p 6379:6379 redis
 ```
 
@@ -152,6 +152,10 @@ sudo docker rm <NAME>      # Remove a stopped container
 sudo docker-compose build                        # Build or rebuild services from docker-compose.yml
 sudo docker-compose up                           # Start containers defined in docker-compose.yml
 sudo docker-compose run --rm app sh -c <CMD>     # Run one-off command in 'app' container and remove it after
+
+
+docker compose down -v
+docker compose up -d
 ```
 
 ### Clean all containers

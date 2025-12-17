@@ -30,10 +30,14 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
 from alpenwegs.ashared.constants.sport_category_difficulty import SportCategoryDifficultyChoices
 from explorers.api.serializers.route_serializer import RouteRepresentationSerializer
 from explorers.api.serializers.journey_serializer import JourneyRelationSerializer
+from compendiums.api.serializers.poi_serializer import PoiRelationSerializer
+from assets.api.serializers.photo_serializer import PhotoRelationSerializer
 from profiles.api.serializers.user_serializer import UserRelationSerializer
 from alpenwegs.ashared.constants.sport_category import SportCategoryChoices
 from assets.api.serializers.file_serializer import FileRelationSerializer
 from explorers.models.track_model import TrackModel
+from compendiums.models.poi_model import PoiModel
+from assets.models.photo_model import PhotoModel
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
@@ -69,6 +73,10 @@ track_fields = [
     'rescue_assistance',
     'journey',
     'route',
+    'start_poi',
+    'end_poi',
+    'photos',
+    'pois',
 ]
 
 # Track model serializer combined fields:
@@ -128,7 +136,33 @@ class TrackDetailedSerializer(
         model = model
         depth = depth
 
+    # Other object Many to Many relation schemas:
+    photos = SerializedPkRelatedField(
+        queryset=PhotoModel.objects.all(),
+        serializer=PhotoRelationSerializer,
+        required=False,
+        allow_null=True,
+        many=True,
+    )
+    pois = SerializedPkRelatedField(
+        queryset=PoiModel.objects.all(),
+        serializer=PoiRelationSerializer,
+        required=False,
+        allow_null=True,
+        many=True,
+    )
+
     # Other object relation schemas:
+    start_poi = PoiRelationSerializer(
+        help_text=TrackModel.start_poi.field.help_text,
+        required=TrackModel.start_poi.field.null,
+        allow_null=TrackModel.start_poi.field.blank,
+    )
+    end_poi = PoiRelationSerializer(
+        help_text=TrackModel.end_poi.field.help_text,
+        required=TrackModel.end_poi.field.null,
+        allow_null=TrackModel.end_poi.field.blank,
+    )
     creator = UserRelationSerializer(
         help_text=TrackModel.creator.field.help_text,
         required=TrackModel.creator.field.null,

@@ -51,7 +51,9 @@ depth = 0
 
 # Section Model serializer fields:
 section_fields = [
+    'start_poi',
     'regions',
+    'end_poi',
     'photos',
     'cards',
     'pois',
@@ -152,6 +154,18 @@ class SectionDetailedSerializer(
         required=False,
         allow_null=True,
         many=True,
+    )
+
+    # Other object relation schemas:
+    start_poi = PoiRelationSerializer(
+        help_text=SectionModel.start_poi.field.help_text,
+        required=SectionModel.start_poi.field.null,
+        allow_null=SectionModel.start_poi.field.blank,
+    )
+    end_poi = PoiRelationSerializer(
+        help_text=SectionModel.end_poi.field.help_text,
+        required=SectionModel.end_poi.field.null,
+        allow_null=SectionModel.end_poi.field.blank,
     )
 
     # Special constance fields:

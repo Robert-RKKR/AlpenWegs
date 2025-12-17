@@ -6,6 +6,7 @@ from alpenwegs.ashared.models.creator_model import BaseCreatorModel
 # Django import:
 from django.db import models
 
+
 # File Model class:
 class FileModel(
     BaseIdentificationModel,

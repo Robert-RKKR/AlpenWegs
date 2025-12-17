@@ -111,7 +111,7 @@ class SectionModel(
         help_text=(
             'Points of Interest that structure and annotate this Section. '
             'PoIs mark meaningful locations like summits, huts, passes, lakes, '
-            'cultural sites, trail junctions, or wayfinding references. PoIs '
+            'cultural sites, trail junctions, or way finding references. PoIs '
             'provide semantic meaning to the raw GPX path and help users '
             'navigate and understand the Section.'
         ),
@@ -141,6 +141,8 @@ class SectionModel(
             'junction where the Section officially begins.'
         ),
         on_delete=models.PROTECT,
+        blank=True,
+        null=True,
     )
     end_poi = models.ForeignKey(
         PoiModel,
@@ -152,6 +154,8 @@ class SectionModel(
             'summit, or transition point where the next Section begins.'
         ),
         on_delete=models.PROTECT,
+        blank=True,
+        null=True,
     )
 
     # Section Many-to-Many Relationships (reverse side):
@@ -168,6 +172,7 @@ class SectionModel(
     )
 
 
+# Section Model Many-to-many relationships with other models:
 class SectionToPhotoModel(
     BaseRelationshipModel,
 ):
@@ -198,8 +203,19 @@ class SectionToPhotoModel(
         on_delete=models.PROTECT,
     )
 
+    # Additional fields for the Section-Photo relationship:
+    is_primary = models.BooleanField(
+        default=False,
+        verbose_name="Primary Section Photo",
+        help_text=(
+            'Marks this photo as the primary visual representation of the '
+            'section. The primary photo is used as the default image in '
+            'section previews, detail headers, maps, and summary cards. '
+            'Only one photo per section may be designated as primary.'
+        ),
+    )
 
-# Section Model Many-to-many relationships with other models:
+
 class SectionToPoiModel(
     BaseRelationshipOrderedModel,
 ):

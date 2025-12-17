@@ -1,6 +1,8 @@
 # AlpenWegs import:
+from alpenwegs.ashared.models.relationship_model import BaseRelationshipOrderedModel
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
 from alpenwegs.ashared.models.sport_category_model import BaseSportCategoryModel
+from alpenwegs.ashared.models.relationship_model import BaseRelationshipModel
 from alpenwegs.ashared.models.accomplished_model import BaseAccomplishedModel
 from alpenwegs.ashared.models.descriptive_model import BaseDescriptiveModel
 from alpenwegs.ashared.models.statistic_model import BaseStatisticModel
@@ -14,6 +16,8 @@ from explorers.models.route_model import RouteModel
 
 # AlpenWegs application import:
 from explorers.models.journey_model import JourneyModel
+from compendiums.models.poi_model import PoiModel
+from assets.models.photo_model import PhotoModel
 
 # Django import:
 from django.db import models
@@ -86,6 +90,34 @@ class TrackModel(
         ],
     }
 
+    # Track Many-to-Many Relationships:
+    photos = models.ManyToManyField(
+        PhotoModel,
+        through='TrackToPhotoModel',
+        related_name='track_photos',
+        verbose_name='Track Photos',
+        help_text=(
+            'Photos that visually document this Track. These images may '
+            'include landscape views, trail markers, huts, technical areas, '
+            'bridges, seasonal conditions, or user-submitted impressions. '
+            'This media enriches the map and helps users understand terrain '
+            'difficulty, exposure, or scenic value.'
+        ),
+    )
+    pois = models.ManyToManyField(
+        PoiModel,
+        through='TrackToPoiModel',
+        related_name='track_pois',
+        verbose_name='Track Points of Interest (PoIs)',
+        help_text=(
+            'Points of Interest that structure and annotate this Track. '
+            'PoIs mark meaningful locations like summits, huts, passes, lakes, '
+            'cultural sites, trail junctions, or way finding references. PoIs '
+            'provide semantic meaning to the raw GPX path and help users '
+            'navigate and understand the Track.'
+        ),
+    )
+
     # Track Many-to-One Relationship:
     journey = models.ForeignKey(
         JourneyModel,
@@ -125,6 +157,33 @@ class TrackModel(
         blank=True,
         null=True,
     )
+    start_poi = models.ForeignKey(
+        PoiModel,
+        related_name='poi_tracks_start',
+        verbose_name='Start PoI',
+        help_text=(
+            'The logical starting Point of Interest for this Track. This '
+            'PoI acts as the anchor at the beginning of the GPX geometry. '
+            'It often represents a village, pass entrance, hut, or '
+            'junction where the Track officially begins.'
+        ),
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+    )
+    end_poi = models.ForeignKey(
+        PoiModel,
+        related_name='poi_tracks_end',
+        verbose_name='End PoI',
+        help_text=(
+            'The logical ending Point of Interest for this Track. This PoI '
+            'marks where the Track concludes. It is often a hut, pass, road, '
+            'summit, or transition point where the next Track begins.'
+        ),
+        on_delete=models.PROTECT,
+        blank=True,
+        null=True,
+    )
 
     # Track analysis metadata:
     verified = models.BooleanField(
@@ -159,7 +218,7 @@ class TrackModel(
         help_text=(
             'Optional textual notes provided by the user, capturing personal '
             'observations (such as weather, terrain, equipment, hazards, or '
-            'group behaviour) that are not detectable from GPS data alone. '
+            'group behavior) that are not detectable from GPS data alone. '
             'Useful for retrospective insight and contextual interpretation '
             'of performance or conditions.'
         ),
@@ -350,4 +409,79 @@ class TrackModel(
             'understanding severe incidents and their context.'
         ),
         default=False,
+    )
+
+
+# Track Model Many-to-many relationships with other models:
+class TrackToPhotoModel(
+    BaseRelationshipModel,
+):
+    """
+    Intermediate model linking a Track to Photos.
+
+    Stores the association between a route track and one or more 
+    photos that visually document the track. This enables attaching 
+    user-contributed or system-provided media to enhance the track’s 
+    descriptive context.
+    """
+    
+    # Base relation between Many-to-many Models:
+    track = models.ForeignKey(
+        TrackModel,
+        related_name='photo_track_associations',
+        verbose_name='Track',
+        help_text='The Track that is associated with the Photo '
+            'to Track M2M relationship.',
+        on_delete=models.PROTECT,
+    )
+    photo = models.ForeignKey(
+        PhotoModel,
+        related_name='track_photo_associations',
+        verbose_name='Photo',
+        help_text='The Photo that is associated with the Track '
+            'to Photo M2M relationship.',
+        on_delete=models.PROTECT,
+    )
+
+    # Additional fields for the Track-Photo relationship:
+    is_primary = models.BooleanField(
+        default=False,
+        verbose_name="Primary Track Photo",
+        help_text=(
+            'Marks this photo as the primary visual representation of the '
+            'track. The primary photo is used as the default image in '
+            'track previews, detail headers, maps, and summary cards. '
+            'Only one photo per track may be designated as primary.'
+        ),
+    )
+
+
+class TrackToPoiModel(
+    BaseRelationshipOrderedModel,
+):
+    """
+    Intermediate model linking a Track to one or more
+    Points of Interest (PoIs).
+
+    Stores the ordered association and semantic role of a PoI
+    within the track's path. For example, a PoI can mark the
+    start, an intermediate waypoint, or the end of the track.
+    """
+    
+    # Base relation between Many-to-many Models:
+    track = models.ForeignKey(
+        TrackModel,
+        related_name='poi_track_associations',
+        verbose_name='Track',
+        help_text='The Track that is associated with the Point of '
+            'Interest to Track M2M relationship.',
+        on_delete=models.PROTECT,
+    )
+    poi = models.ForeignKey(
+        PoiModel,
+        related_name='track_poi_associations',
+        verbose_name='Point of Interest',
+        help_text='The Point of Interest that is associated with the '
+            'Track to Point of Interest M2M relationship.',
+        on_delete=models.PROTECT,
     )

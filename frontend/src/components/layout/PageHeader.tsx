@@ -1,19 +1,15 @@
 // Import application components:
-import { useAuthStore } from "../../stores/authStore";
 import { RkLogo } from "../../assets/logo/RkLogo";
+import { UserMenu } from "../other/UserMenu";
 
 // Import React components:
 import { NavLink } from "react-router-dom";
-import { CircleUser } from "lucide-react";
 
 // Import component css:
 import "./PageHeader.css";
 
 // Main Component Function:
 export function PageHeader() {
-
-  // Get authentication state:
-  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
   
   return (
     <header className="page-header">
@@ -63,9 +59,7 @@ export function PageHeader() {
         {/* Header User Section */}
         <div className="header-section">
           <div className="header-user">
-            <NavLink to={isAuthenticated ? "/auth/profile" : "/auth/login"}>
-              <CircleUser />
-            </NavLink>
+            <UserMenu />
           </div>
         </div>
         

@@ -1,8 +1,8 @@
 // Import application components:
-import { ExplorerRoutes } from "../modules/explorer/routes";
+import { ExplorerRoutes } from "../modules/explorers/routes";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { AppLayout } from "./layout/AppLayout";
-import { AuthRoutes } from "../modules/auth/routes";
+import { AuthRoutes } from "../modules/profiles/routes";
 
 // Import React components:
 import { Routes, Route } from "react-router-dom";

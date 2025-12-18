@@ -5,7 +5,7 @@ export type UserGender = {
   label: string | boolean | null;
 };
 
-export type UserProfile = {
+export type UserModel = {
   pk: string;
   url: string;
   created: string;
@@ -32,7 +32,7 @@ export type UserProfile = {
 
 export async function fetchUserProfile(
   userPk: string
-): Promise<UserProfile> {
+): Promise<UserModel> {
   const response = await apiClient.get(
     `/api/profiles/user/${userPk}/`
   );

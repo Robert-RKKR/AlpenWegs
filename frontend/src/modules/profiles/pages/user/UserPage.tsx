@@ -1,9 +1,15 @@
-import { useAuthStore } from "../../../stores/authStore";
+// React import:
+import { useAuthStore } from "../../../../stores/authStore";
 import { useQuery } from "@tanstack/react-query";
-import { fetchUserProfile } from "../api/profileApi";
-import type { UserProfile } from "../api/profileApi";
 
-export function ProfilePage() {
+// Application import:
+import { fetchUserProfile } from "../../api/userApi";
+import type { UserModel } from "../../api/userApi";
+
+// Import component css:
+import "./UserPage.css";
+
+export function UserPage() {
   const user = useAuthStore((s) => s.user);
 
   // Auth guard
@@ -15,7 +21,7 @@ export function ProfilePage() {
     data,
     isLoading,
     error,
-  } = useQuery<UserProfile>({
+  } = useQuery<UserModel>({
     queryKey: ["user-profile", user.pk],
     queryFn: () => fetchUserProfile(user.pk),
   });

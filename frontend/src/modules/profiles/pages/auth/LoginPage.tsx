@@ -2,11 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-import { login } from "../api/authApi";
-import { useAuthStore } from "../../../stores/authStore";
+import { login } from "../../api/authApi";
+import { useAuthStore } from "../../../../stores/authStore";
 
 // Import application components:
-import { RkLogo } from "../../../assets/logo/RkLogo";
+import { RkLogo } from "../../../../assets/logo/RkLogo";
 
 // Import React components:
 import { NavLink } from "react-router-dom";

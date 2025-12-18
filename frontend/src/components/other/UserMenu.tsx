@@ -39,9 +39,9 @@ export function UserMenu() {
   }
 
   return (
-    <div className="user-menu-wrapper" ref={ref}>
+    <div className="user-menu-container" ref={ref}>
       <button
-        className="user-menu-trigger"
+        className="user-menu-logo"
         onClick={() => setOpen((v) => !v)}
         aria-label="User menu"
       >
@@ -49,12 +49,12 @@ export function UserMenu() {
       </button>
 
       {open && (
-        <div className="user-menu">
+        <div className="user-menu-dropdown">
           {!isAuthenticated && (
             <>
               <NavLink
                 to="/auth/login"
-                className="user-menu-item"
+                className="user-menu-button"
                 onClick={() => setOpen(false)}
               >
                 Log in
@@ -64,23 +64,21 @@ export function UserMenu() {
 
           {isAuthenticated && user && (
             <>
-              <div className="user-menu-user">
-                <strong>
-                  {user.first_name} {user.last_name}
-                </strong>
-                <span>{user.email}</span>
+              <div className="user-menu-userinfo">
+                <h3 className="user-menu-username">{user.first_name} {user.last_name}</h3>
+                <p className="user-menu-email">{user.email}</p>
               </div>
 
               <NavLink
                 to="/auth/profile"
-                className="user-menu-item"
+                className="user-menu-button"
                 onClick={() => setOpen(false)}
               >
                 Profile
               </NavLink>
 
               <button
-                className="user-menu-item logout"
+                className="user-menu-button logout"
                 onClick={handleLogout}
               >
                 <LogOut size={16} />

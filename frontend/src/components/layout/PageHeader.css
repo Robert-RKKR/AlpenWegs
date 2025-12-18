@@ -47,20 +47,3 @@
     padding: var(--space-padding-secondary);
     border-radius: var(--radius-primary);
 }
-
-/* Page user */
-.header-user {
-    flex-wrap: wrap;
-}
-
-.header-user svg {
-    color: var(--color-dark-text-heading);
-    width: 30px;
-    height: 30px;
-}
-
-@media only screen and (max-width: 769px) {
-    .header-user {
-        margin-right: 0px;
-    }
-}

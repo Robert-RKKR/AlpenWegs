@@ -35,28 +35,52 @@ export function UserPage() {
   }
 
   return (
-    <div>
-      <h1>Profile</h1>
-      <br />
-      <p>
-        <strong>ID:</strong> {data.pk}
-      </p>
-      <br />
-      <p>
-        <strong>Email:</strong> {data.email}
-      </p>
-      <br />
-      <p>
-        <strong>First name:</strong> {data.first_name}
-      </p>
-      <br />
-      <p>
-        <strong>Last name:</strong> {data.last_name}
-      </p>
-      <br />
-      <p>
-        <strong>Last login:</strong> {data.last_login}
-      </p>
+    <div className="profile-container">
+      <div className="profile-menu">
+        <h2>User Profile</h2>
+      </div>
+
+      <div className="profile-content">
+        <div className="profile-details-item">
+          <div className="profile-details-label">ID</div>
+          <div className="profile-details-value">{data.pk}</div>
+        </div>
+
+        <div className="profile-details-item">
+          <div className="profile-details-label">Email</div>
+          <div className="profile-details-value">{data.email}</div>
+        </div>
+
+        <div className="profile-details-item">
+          <div className="profile-details-label">First name</div>
+          <div className="profile-details-value">{data.first_name}</div>
+        </div>
+
+        <div className="profile-details-item">
+          <div className="profile-details-label">Last name</div>
+          <div className="profile-details-value">{data.last_name}</div>
+        </div>
+
+        <div className="profile-details-item">
+          <div className="profile-details-label">Phone number</div>
+          <div className="profile-details-value">{data.phone_number || "No phone number data"}</div>
+        </div>
+
+        <div className="profile-details-item">
+          <div className="profile-details-label">Birthday</div>
+          <div className="profile-details-value">{data.birthday || "No birthday data"}</div>
+        </div>
+
+        <div className="profile-details-item">
+          <div className="profile-details-label">User created</div>
+          <div className="profile-details-value">{data.created}</div>
+        </div>
+
+        <div className="profile-details-item">
+          <div className="profile-details-label">Last login</div>
+          <div className="profile-details-value">{data.last_login}</div>
+        </div>
+      </div>
     </div>
   );
 }

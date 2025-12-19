@@ -1,0 +1,43 @@
+.profile-container {
+    gap: var(--space-secondary);
+    flex-direction: row;
+    display: flex;
+}
+
+.profile-menu {
+    background: var(--color-background-light-secondary);
+    padding: var(--space-padding-primary);
+    border-radius: var(--radius-primary);
+    box-shadow: var(--shadows-primary);
+    border: var(--border-primary);
+    flex-direction: column;
+    display: flex;
+}
+
+.profile-content {
+    background: var(--color-background-light-secondary);
+    padding: var(--space-padding-primary);
+    border-radius: var(--radius-primary);
+    box-shadow: var(--shadows-primary);
+    border: var(--border-primary);
+    flex-direction: column;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: var(--space-padding-primary);
+    row-gap: var(--space-padding-secondary);
+}
+
+
+.profile-details-item {
+    display: contents;
+}
+
+.profile-details-label {
+    padding: var(--space-padding-secondary);
+    font-weight: 700;
+}
+
+.profile-details-value {
+    padding: var(--space-padding-secondary);
+    word-break: break-word;
+}

@@ -61,7 +61,3 @@
 .user-menu-button:last-child {
     border-radius: 0px 0px var(--radius-primary) var(--radius-primary);
 }
-
-.user-menu-button:hover {
-    background-color: var(--color-background-hover);
-}

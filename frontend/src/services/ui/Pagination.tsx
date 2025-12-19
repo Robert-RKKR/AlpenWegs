@@ -42,7 +42,10 @@ export function Pagination({
     <div className="container-pagination">
       {/* First Page Button */}
       <button
-        className="container-pagination-item"
+        className={
+          "container-pagination-item" +
+          (page === 1 ? " container-pagination-disabled" : "")
+        }
         disabled={page === 1}
         onClick={() => onChange(1)}
       >
@@ -51,7 +54,10 @@ export function Pagination({
 
       {/* Previous Page Button */}
       <button
-        className="container-pagination-item"
+        className={
+          "container-pagination-item" +
+          (page === 1 ? " container-pagination-disabled" : "")
+        }
         disabled={page === 1}
         onClick={() => onChange(page - 1)}
       >
@@ -76,7 +82,10 @@ export function Pagination({
 
       {/* Next Page Button */}
       <button
-        className="container-pagination-item"
+        className={
+          "container-pagination-item" +
+          (page === pageCount ? " container-pagination-disabled" : "")
+        }
         disabled={page === pageCount}
         onClick={() => onChange(page + 1)}
       >
@@ -85,7 +94,10 @@ export function Pagination({
 
       {/* Last Page Button */}
       <button
-        className="container-pagination-item"
+        className={
+          "container-pagination-item" +
+          (page === pageCount ? " container-pagination-disabled" : "")
+        }
         disabled={page === pageCount}
         onClick={() => onChange(pageCount)}
       >

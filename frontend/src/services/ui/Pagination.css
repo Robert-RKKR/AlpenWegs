@@ -15,3 +15,8 @@
     background-color: var(--color-background-dark-secondary);
     color: var(--color-dark-text-primary);
 }
+
+.container-pagination-disabled {
+    color: var(--color-light-text-disabled);
+    cursor: auto;
+}

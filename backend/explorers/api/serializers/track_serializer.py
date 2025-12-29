@@ -35,6 +35,7 @@ from assets.api.serializers.photo_serializer import PhotoRelationSerializer
 from profiles.api.serializers.user_serializer import UserRelationSerializer
 from alpenwegs.ashared.constants.sport_category import SportCategoryChoices
 from assets.api.serializers.file_serializer import FileRelationSerializer
+from explorers.models.track_model import TrackToPhotoModel
 from explorers.models.track_model import TrackModel
 from compendiums.models.poi_model import PoiModel
 from assets.models.photo_model import PhotoModel
@@ -269,9 +270,62 @@ class TrackRelationSerializer(
         # Return metadata dict for country:
         return SportCategoryChoices.dict_from_int(obj.category)
 
+    # Virtual not existing in DB fields:
+    primary_photo = serializers.SerializerMethodField()
+
+    # Virtual not existing in DB fields methods:
+    def get_primary_photo(self, obj):
+        
+        # Get primary photo relation:
+        rel = (
+            obj.photo_track_associations
+               .filter(is_primary=True)
+               .select_related('photo')
+               .first()
+        )
+        # Return None if no primary photo:
+        if not rel:
+            return None
+        # Return primary photo data:
+        return {
+            'id': rel.photo.id,
+            'url': rel.photo.file.url,
+        }
+
     class Meta:
         read_only_fields = read_only_fields
-        fields = fields_relation
+        fields = fields_relation + ['primary_photo']
         model = model
         depth = depth
 
+# Track to Photo relation serializer:
+class TrackToPhotoRelationSerializer(
+    WritableNestedSerializer,
+):
+    """
+    Relation serializer for the Track to Photo relation.
+    """
+
+    # Other object relation schemas:
+    track = TrackRepresentationSerializer(
+        help_text=TrackToPhotoModel.track.field.help_text,
+        required=TrackToPhotoModel.track.field.null,
+        allow_null=TrackToPhotoModel.track.field.blank,
+    )
+    photo = PhotoRelationSerializer(
+        help_text=TrackToPhotoModel.photo.field.help_text,
+        required=TrackToPhotoModel.photo.field.null,
+        allow_null=TrackToPhotoModel.photo.field.blank,
+    )
+
+    class Meta:
+        model = TrackModel.photos.through
+        fields = [
+            'id',
+            'track',
+            'photo',
+            'is_primary',
+        ]
+        read_only_fields = [
+            'id',
+        ]

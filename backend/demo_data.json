@@ -1,0 +1,69 @@
+{
+    "configuration": {},
+    "objects": {
+        "admin@alpenwegs.com": {
+            "compendiums_region": {
+                "1": {
+                    "name": "xxx",
+                    "snippet": "xxx",
+                    "description": "xxx",
+                    "is_public": true,
+                    "country": 41
+                }
+            },
+            "compendiums_poi": {
+                "1": {
+                    "name": "xxx",
+                    "snippet": "xxx",
+                    "description": "xxx",
+                    "is_public": true,
+                    "region": "compendiums_region",
+                    "location": "xxx,xxx",
+                    "elevation": 0,
+                    "category": 11
+                }
+            },
+            "compendiums_card": {
+                "1": {
+                    "name": "xxx",
+                    "snippet": "xxx",
+                    "description": "xxx",
+                    "is_public": true,
+                    "category": 10,
+                    "poi": "compendiums_poi_1"
+                }
+            }
+        },
+        "member@alpenwegs.com": {
+            "assets_file": {
+                "1": {
+                    "name": "xxx",
+                    "is_public": true,
+                    "format": "xxx",
+                    "path": "xxx"
+                }
+            },
+            "assets_photo": {
+                "1": {
+                    "name": "xxx",
+                    "is_public": true,
+                    "format": "xxx",
+                    "path": "xxx"
+                }
+            },
+            "explorers_track": {
+                "1": {
+                    "name": "xxx",
+                    "snippet": "xxx",
+                    "description": "xxx",
+                    "category": 120,
+                    "category_specific_difficulty": 123,
+                    "is_public": true,
+                    "start_poi": "compendiums_poi",
+                    "gpx_data": "assets_file",
+                    "end_poi": "compendiums_poi"
+                }
+            }
+        }
+    }
+}

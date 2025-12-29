@@ -1,0 +1,96 @@
+/* Container body */
+.box-container-body {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-secondary);
+    width: 100%;
+}
+
+/* Container card */
+.container-card {
+    background: var(--color-background-light-secondary);
+    border-radius: var(--radius-primary);
+    box-shadow: var(--shadows-primary);
+    flex-direction: row;
+    overflow: hidden;
+    display: flex;
+    height: 100%;
+}
+
+.container-card:hover {
+    box-shadow: var(--shadows-secondary);
+    transition: box-shadow var(--time-transition-primary) ease;
+}
+
+.container-card span {
+    font-size: var(--font-size-text-secondary);
+}
+
+.container-card-image > img {
+    border-radius: var(--radius-primary) 0px 0px var(--radius-primary);
+    object-fit: cover;
+    width: 150px;
+}
+
+.container-card-content {
+    padding: var(--space-padding-primary);
+    flex-direction: column;
+    display: flex;
+}
+
+.card-content-element:not(:last-child) {
+    margin-bottom: var(--space-secondary);
+}
+
+.container-card-title > h3 {
+    font-size: var(--font-size-heading-secondary);
+    font-weight: bold;
+}
+
+.container-card-properties {
+    flex-direction: row;
+    display: flex;
+}
+
+.container-card-property {
+    background-color: #d8d8d8;
+    padding: var(--space-padding-secondary);
+    border-radius: var(--radius-primary);
+    justify-content: center;
+    align-items: center;
+}
+
+.container-card-property span {
+    align-items: center;
+    display: flex;
+    gap: var(--space-padding-secondary);
+}
+
+.container-card-property svg {
+    width: 12px;
+    height: 12px;
+}
+
+.container-card-property:not(:last-child) {
+    margin-right: var(--space-padding-secondary);
+}
+
+.container-card-description > p {
+    font-size: var(--font-size-text-secondary);
+}
+
+/* Extra */
+.container-card-extra-item:not(:last-child) {
+    margin-right: var(--space-padding-secondary);
+}
+
+.container-card-extra-item span {
+    align-items: center;
+    display: flex;
+    gap: var(--space-padding-secondary);
+}
+
+.container-card-extra-item svg {
+    width: 12px;
+    height: 12px;
+}

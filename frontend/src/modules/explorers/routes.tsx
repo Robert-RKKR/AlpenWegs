@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { ExplorerTracks } from "./pages/Tracks";
+import { ExplorerTracks } from "./pages/ExplorerTracks";
 import { RouteDetailPage } from "./pages/RouteDetailPage";
 
 export function ExplorerRoutes() {

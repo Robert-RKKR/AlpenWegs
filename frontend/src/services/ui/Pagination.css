@@ -1,9 +1,9 @@
-.container-pagination {
+.pagination {
     display: flex;
     gap: var(--space-padding-secondary);
 }
 
-.container-pagination-item {
+.pagination-item {
     padding: var(--space-padding-secondary) calc(var(--space-padding-primary) * 2);
     background: var(--color-background-light-secondary);
     border-radius: var(--radius-primary);
@@ -11,12 +11,12 @@
     cursor: pointer;
 }
 
-.container-pagination-active {
+.pagination-active {
     background-color: var(--color-background-dark-secondary);
     color: var(--color-dark-text-primary);
 }
 
-.container-pagination-disabled {
+.pagination-disabled {
     color: var(--color-light-text-disabled);
     cursor: auto;
 }

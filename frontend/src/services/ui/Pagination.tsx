@@ -39,12 +39,12 @@ export function Pagination({
   }
 
   return (
-    <div className="container-pagination">
+    <div className="pagination">
       {/* First Page Button */}
       <button
         className={
-          "container-pagination-item" +
-          (page === 1 ? " container-pagination-disabled" : "")
+          "pagination-item" +
+          (page === 1 ? " pagination-disabled" : "")
         }
         disabled={page === 1}
         onClick={() => onChange(1)}
@@ -55,8 +55,8 @@ export function Pagination({
       {/* Previous Page Button */}
       <button
         className={
-          "container-pagination-item" +
-          (page === 1 ? " container-pagination-disabled" : "")
+          "pagination-item" +
+          (page === 1 ? " pagination-disabled" : "")
         }
         disabled={page === 1}
         onClick={() => onChange(page - 1)}
@@ -70,8 +70,8 @@ export function Pagination({
           key={p}
           className={
             p === page
-              ? "container-pagination-item container-pagination-active"
-              : "container-pagination-item"
+              ? "pagination-item pagination-active"
+              : "pagination-item"
           }
           disabled={p === page}
           onClick={() => onChange(p)}
@@ -83,8 +83,8 @@ export function Pagination({
       {/* Next Page Button */}
       <button
         className={
-          "container-pagination-item" +
-          (page === pageCount ? " container-pagination-disabled" : "")
+          "pagination-item" +
+          (page === pageCount ? " pagination-disabled" : "")
         }
         disabled={page === pageCount}
         onClick={() => onChange(page + 1)}
@@ -95,8 +95,8 @@ export function Pagination({
       {/* Last Page Button */}
       <button
         className={
-          "container-pagination-item" +
-          (page === pageCount ? " container-pagination-disabled" : "")
+          "pagination-item" +
+          (page === pageCount ? " pagination-disabled" : "")
         }
         disabled={page === pageCount}
         onClick={() => onChange(pageCount)}

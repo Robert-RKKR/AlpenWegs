@@ -15,6 +15,10 @@ from drf_spectacular.utils import extend_schema_view
 from rest_framework.response import Response
 from rest_framework.decorators import action
 
+from alpenwegs.ashared.api.base_exceptions import (
+    ValidationAPIException,
+    NotFoundAPIException,
+)
 
 # ChangeLog Model api view class:
 @extend_schema_view(
@@ -64,8 +68,8 @@ class ChangeLogView(
     # Search filter parameters:
     search_fields = '__all__'
 
-    @action(detail=True, methods=['get'], url_path='compare-changes')
-    def compare_changes(self,
+    @action(detail=True, methods=['get'], url_path='compare')
+    def compare_change(self,
         request,
         pk=None,
     ):
@@ -76,27 +80,24 @@ class ChangeLogView(
 
         # Get the current change object:
         current_change = self.get_object()
-        
-        # Collect current change related AlpenWegs object:
-        current_change_app_name = current_change.app_name
-        current_change_model_name = current_change.model_name
-        current_change_object_id = current_change.object_id
-        
+
+        # Get the serializer for the current change:
+        serializer = self.detailed_serializer_class(
+            current_change,
+            context={'request': request},
+        )
+            
         # Get the previous change object for the same object:
         previous_change = ChangeLogModel.objects.filter(
-            app_name=current_change_app_name,
-            model_name=current_change_model_name,
-            object_id=current_change_object_id,
+            app_name=current_change.app_name,
+            model_name=current_change.model_name,
+            object_id=current_change.object_id,
             timestamp__lt=current_change.timestamp
         ).order_by('-timestamp').first()
         
         # Build the response data:
-        data = {
-            'change_object': ChangeLogRepresentationSerializer(
-                current_change, context={'request': request}).data,
-            'current_change': current_change.after,
-            'previous_change': previous_change.after if previous_change else None
-        }
+        data = serializer.data
+        data['before'] = previous_change.after if previous_change else None
         
         # Return collected data:
         return Response(data)

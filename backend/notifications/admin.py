@@ -105,7 +105,6 @@ class ChangLogAdmin(BaseAdmin):
                 ),
                 'fields': (
                     'after',
-                    'before',
                 ),
             }
         ),

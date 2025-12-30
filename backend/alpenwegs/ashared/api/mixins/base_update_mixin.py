@@ -43,10 +43,10 @@ class BaseUpdateModelMixin(
             partial=partial
         )
         
-        # Add creator to serializer data if available:
-        serializer.save(creator=user)
         # Validate serializer:
         serializer.is_valid(raise_exception=True)
+        # Add creator to serializer data if available:
+        serializer.save(creator=user)
         # Save serializer:
         instance = serializer.save()
 

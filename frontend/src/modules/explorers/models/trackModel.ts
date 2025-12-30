@@ -45,6 +45,8 @@ export type TrackRelationModel = TrackRepresentationModel & {
 
     category: TrackCategoryModel;
     category_specific_difficulty: TrackDifficultyModel;
+
+    primary_photo: string | null;
 };
 
 /* Track Detailed Model */

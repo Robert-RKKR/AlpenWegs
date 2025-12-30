@@ -20,7 +20,7 @@
 .objects-card-image > img {
     border-radius: var(--radius-primary) 0px 0px var(--radius-primary);
     object-fit: cover;
-    width: 150px;
+    height: 150px;
 }
 
 .objects-card-content {

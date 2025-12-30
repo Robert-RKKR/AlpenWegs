@@ -17,7 +17,7 @@ export function ObjectCard({
     <a href={href} className="objects-card">
       {/* Image – single value */}
       <div className="objects-card-image">
-        {image ?? null}
+        <img src={image as string} alt={title} />
       </div>
 
       <div className="objects-card-content">

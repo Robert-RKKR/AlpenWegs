@@ -17,7 +17,7 @@ export function ExplorerTracks() {
         }
         renderCard={(track) => ({
           href: `/tracks/${track.pk}`,
-          image: <></>,
+          image: track.primary_photo,
           title: track.name,
           properties: [
             track.category.label,

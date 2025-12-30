@@ -163,6 +163,7 @@ class RegionAdmin(admin.ModelAdmin):
         'id',
         'name',
         'country',
+        'type',
         'created',
         'updated'
     )
@@ -172,6 +173,7 @@ class RegionAdmin(admin.ModelAdmin):
     )
     search_fields = (
         'name',
+        'type__name',
         'country__name'
     )
     ordering = (
@@ -184,6 +186,8 @@ class RegionAdmin(admin.ModelAdmin):
                     'name',
                     'snippet',
                     'creator',
+                    'country',
+                    'type',
                 )
             }
         ),
@@ -191,13 +195,6 @@ class RegionAdmin(admin.ModelAdmin):
             'Description', {
                 'fields': (
                     'description',
-                )
-            }
-        ),
-        (
-            'Relations', {
-                'fields': (
-                    'country',
                 )
             }
         ),

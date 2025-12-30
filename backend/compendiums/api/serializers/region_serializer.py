@@ -18,6 +18,7 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
 )
 # AlpenWegs application import:
 from profiles.api.serializers.user_serializer import UserRelationSerializer
+from alpenwegs.ashared.constants.region_type import RegionTypeChoices
 from alpenwegs.ashared.constants.country import CountryChoices
 from compendiums.models.region_model import RegionModel
 
@@ -33,6 +34,7 @@ depth = 0
 # Region Model serializer fields:
 region_fields = [
     'country',
+    'type',
 ]
 
 # Region model serializer combined fields:
@@ -81,6 +83,7 @@ class RegionDetailedSerializer(
 
     # Special constance fields:
     country = serializers.SerializerMethodField()
+    type = serializers.SerializerMethodField()
 
     # Special constance methods:
     def get_country(self, obj):
@@ -90,6 +93,14 @@ class RegionDetailedSerializer(
 
         # Return metadata dict for country:
         return CountryChoices.dict_from_int(obj.country)
+    
+    def get_type(self, obj):
+        """
+        Convert integer value into full metadata dict.
+        """
+
+        # Return metadata dict for country:
+        return RegionTypeChoices.dict_from_int(obj.type)
 
     class Meta:
 

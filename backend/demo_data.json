@@ -1,69 +1,372 @@
 {
-    "configuration": {},
-    "objects": {
-        "admin@alpenwegs.com": {
-            "compendiums_region": {
-                "1": {
-                    "name": "xxx",
-                    "snippet": "xxx",
-                    "description": "xxx",
-                    "is_public": true,
-                    "country": 41
-                }
-            },
-            "compendiums_poi": {
-                "1": {
-                    "name": "xxx",
-                    "snippet": "xxx",
-                    "description": "xxx",
-                    "is_public": true,
-                    "region": "compendiums_region",
-                    "location": "xxx,xxx",
-                    "elevation": 0,
-                    "category": 11
-                }
-            },
-            "compendiums_card": {
-                "1": {
-                    "name": "xxx",
-                    "snippet": "xxx",
-                    "description": "xxx",
-                    "is_public": true,
-                    "category": 10,
-                    "poi": "compendiums_poi_1"
-                }
-            }
-        },
-        "member@alpenwegs.com": {
-            "assets_file": {
-                "1": {
-                    "name": "xxx",
-                    "is_public": true,
-                    "format": "xxx",
-                    "path": "xxx"
-                }
-            },
-            "assets_photo": {
-                "1": {
-                    "name": "xxx",
-                    "is_public": true,
-                    "format": "xxx",
-                    "path": "xxx"
-                }
-            },
-            "explorers_track": {
-                "1": {
-                    "name": "xxx",
-                    "snippet": "xxx",
-                    "description": "xxx",
-                    "category": 120,
-                    "category_specific_difficulty": 123,
-                    "is_public": true,
-                    "start_poi": "compendiums_poi",
-                    "gpx_data": "assets_file",
-                    "end_poi": "compendiums_poi"
-                }
-            }
-        }
+  "objects": [
+    {
+      "name": "Aargau",
+      "snippet": "Aargau is known for its rivers, gentle hills, and historic spa towns. It blends nature with strong industrial and cultural heritage.",
+      "description": "Aargau lies in northern Switzerland and is shaped by the Aare, Reuss, and Limmat rivers. The canton is known for its medieval castles, Roman heritage sites such as Vindonissa, and historic spa towns like Baden. Its landscape combines fertile plains, rolling hills, and forested areas, making it attractive for cycling and hiking. Aargau also plays an important role in Swiss industry and energy production, including hydroelectric and nuclear power.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Appenzell Ausserrhoden",
+      "snippet": "A canton of rolling hills, traditions, and colorful villages. It is famous for folklore, crafts, and open landscapes.",
+      "description": "Appenzell Ausserrhoden is located in northeastern Switzerland and is characterized by gentle hills rather than high alpine peaks. The canton is well known for its strong traditions, including folk music, traditional costumes, and local customs. Villages such as Herisau showcase painted houses and well-preserved architecture. The open countryside and panoramic views toward the Alpstein make it ideal for relaxed hiking and cultural exploration.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Appenzell Innerrhoden",
+      "snippet": "One of Switzerland’s smallest cantons, rich in tradition and alpine scenery. It is deeply rooted in customs and rural life.",
+      "description": "Appenzell Innerrhoden lies at the heart of the Alpstein region and is known for its dramatic limestone peaks, including the Säntis. The canton preserves unique political traditions such as the Landsgemeinde, where citizens vote in an open-air assembly. Its economy is closely linked to agriculture, cheese production, and tourism. Steep pastures, alpine huts, and scenic trails define the landscape.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Basel-Landschaft",
+      "snippet": "A canton of valleys, vineyards, and historic towns surrounding Basel. It combines rural charm with urban proximity.",
+      "description": "Basel-Landschaft extends around the city canton of Basel-Stadt and features a landscape of rolling Jura hills, narrow valleys, and agricultural land. The region is known for vineyards, medieval castles, and small historic towns such as Liestal. Its close economic and cultural ties to Basel make it a dynamic area for both living and commuting, while still offering many opportunities for nature activities.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Basel-Stadt",
+      "snippet": "Switzerland’s cultural capital on the Rhine. It is known for museums, architecture, and international flair.",
+      "description": "Basel-Stadt is a compact urban canton centered around the city of Basel, located at the border with France and Germany. It hosts one of the highest densities of museums in Europe and is renowned for art fairs such as Art Basel. The Rhine River shapes the city’s identity and lifestyle. Basel-Stadt is also a major hub for pharmaceuticals, research, and international business.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Bern",
+      "snippet": "A diverse canton with alpine peaks, lakes, and the federal capital. It offers some of Switzerland’s most iconic landscapes.",
+      "description": "The canton of Bern stretches from the Jura mountains through the Swiss Plateau to the high Alps. It includes world-famous destinations such as the Bernese Oberland, with peaks like the Eiger, Mönch, and Jungfrau. Bern is also home to the federal capital, known for its UNESCO-listed old town. The canton offers a wide variety of outdoor activities, from alpine hiking to lake tourism.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Fribourg",
+      "snippet": "A bilingual canton bridging German and French cultures. It features rolling countryside and medieval towns.",
+      "description": "Fribourg lies at the cultural boundary between German- and French-speaking Switzerland, making it officially bilingual. The canton is known for its agricultural landscapes, pre-alpine hills, and historic towns such as Fribourg city with its medieval old town. Dairy farming and cheese production are central to the region. Its lakes and gentle mountains offer diverse recreational opportunities.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Geneva",
+      "snippet": "An international hub on Lake Geneva with global institutions. It blends diplomacy, culture, and nature.",
+      "description": "Geneva is located at the western tip of Switzerland, bordered by France and Lake Geneva. It is home to numerous international organizations, including the United Nations and humanitarian institutions. The canton combines urban life with vineyards, lakeside promenades, and views of Mont Blanc. Geneva is also known for finance, watchmaking, and a strong international community.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Glarus",
+      "snippet": "A mountainous canton shaped by steep valleys and alpine traditions. It is known for dramatic landscapes.",
+      "description": "Glarus is dominated by alpine terrain, with steep valleys and rugged mountain peaks. The canton maintains the Landsgemeinde tradition, where citizens vote in an open public assembly. Its economy historically relied on textiles and industry, but tourism and outdoor sports now play a major role. Hiking, climbing, and alpine scenery define the region.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Graubünden",
+      "snippet": "Switzerland’s largest canton, famous for alpine valleys and multilingual culture. It is a paradise for mountain enthusiasts.",
+      "description": "Graubünden covers vast alpine terrain and is the only canton with three official languages: German, Romansh, and Italian. It includes famous regions such as Engadin, Davos, and St. Moritz. The canton is known for high mountain passes, glaciers, and traditional stone villages. Tourism, alpine sports, and nature conservation are central to its identity.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Jura",
+      "snippet": "A young canton of forests, pastures, and watchmaking heritage. It offers quiet landscapes and rural charm.",
+      "description": "The canton of Jura lies in northwestern Switzerland and is characterized by forested plateaus, rolling hills, and limestone formations. It has a strong tradition in watchmaking and craftsmanship. Jura is one of the newest Swiss cantons, established in 1979. Its calm atmosphere and natural landscapes make it ideal for hiking and nature-focused tourism.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Lucerne",
+      "snippet": "A central canton known for Lake Lucerne and mountain views. It is a major tourist and cultural destination.",
+      "description": "Lucerne is located in central Switzerland and is famous for its picturesque lake, historic wooden bridges, and surrounding mountains such as Pilatus and Rigi. The city of Lucerne is one of Switzerland’s most visited tourist destinations. The canton combines urban life, lakeside landscapes, and alpine foothills. Tourism and services play a key role in the regional economy.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Neuchâtel",
+      "snippet": "A lakeside canton with strong watchmaking traditions. It blends French culture with Swiss innovation.",
+      "description": "Neuchâtel lies along the northwestern shore of Lake Neuchâtel and has a strong French-speaking identity. The canton is historically linked to watchmaking, precision engineering, and innovation. Vineyards line the lake shores, while the Jura mountains rise to the north. Its cities combine elegant architecture with a relaxed lakeside atmosphere.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Nidwalden",
+      "snippet": "A small central canton with steep mountains and Lake Lucerne access. It offers dramatic alpine scenery.",
+      "description": "Nidwalden is located in central Switzerland and features steep alpine slopes rising directly from Lake Lucerne. The canton has a strong rural and alpine character, with farming and tourism as key sectors. Its mountains and lakes make it attractive for outdoor activities. Despite its small size, Nidwalden offers impressive natural diversity.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Obwalden",
+      "snippet": "A mountain canton known for high passes and alpine traditions. It lies at the heart of Switzerland.",
+      "description": "Obwalden is a central Swiss canton dominated by alpine landscapes, high passes, and traditional farming. The region has preserved strong local customs and a close connection to nature. Tourism focuses on hiking, winter sports, and mountain experiences. Its location makes it a gateway to many alpine regions.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Schaffhausen",
+      "snippet": "A northern canton famous for the Rhine Falls. It combines vineyards with historic towns.",
+      "description": "Schaffhausen lies in northern Switzerland, largely surrounded by Germany. The canton is best known for the Rhine Falls, Europe’s largest waterfall. Vineyards, medieval architecture, and river landscapes define the region. Its economy includes manufacturing, viticulture, and tourism.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Schwyz",
+      "snippet": "One of Switzerland’s founding cantons with strong alpine identity. It represents Swiss tradition and history.",
+      "description": "Schwyz is one of the original founding cantons of the Swiss Confederation and gave the country its name. The canton features alpine landscapes, lakes, and historic villages. It is known for traditional customs and strong local identity. Mountains like the Mythen and access to Lake Lucerne shape its geography.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Solothurn",
+      "snippet": "A canton of baroque heritage and Jura landscapes. It blends history with nature.",
+      "description": "Solothurn lies at the foot of the Jura mountains and is known for its baroque old town, considered one of the most beautiful in Switzerland. The canton combines agricultural lowlands with forested Jura hills. It has a rich cultural history and offers many hiking routes along the Jura ridges.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "St. Gallen",
+      "snippet": "A canton of rolling hills, lakes, and textile history. It bridges eastern Switzerland and the Alps.",
+      "description": "St. Gallen stretches from Lake Constance to the alpine regions of eastern Switzerland. The canton is historically known for its textile industry and the UNESCO-listed Abbey of St. Gallen. Its landscape ranges from gentle hills to alpine valleys. Industry, education, and tourism are all important to the region.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Thurgau",
+      "snippet": "A fertile canton on Lake Constance known for orchards. It offers gentle landscapes and lakeside life.",
+      "description": "Thurgau is located in northeastern Switzerland along Lake Constance. The canton is famous for fruit orchards, agriculture, and cycling-friendly terrain. Its landscape is mostly flat to gently rolling, making it accessible for many outdoor activities. The lake provides strong tourism and recreational value.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Ticino",
+      "snippet": "The Italian-speaking canton with Mediterranean flair. It combines palm trees, lakes, and alpine peaks.",
+      "description": "Ticino lies south of the Alps and has a distinctly Italian cultural influence. The canton features a mild climate, palm-lined lakes, and dramatic alpine valleys. Cities like Lugano and Locarno blend Swiss efficiency with Italian lifestyle. Tourism, finance, and cross-border trade are key to the region.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Uri",
+      "snippet": "A historic alpine canton at the gateway to the Gotthard. It is shaped by mountains and transit routes.",
+      "description": "Uri is one of the founding cantons of Switzerland and plays a central role in alpine transit via the Gotthard Pass. The canton is dominated by steep mountains, deep valleys, and alpine lakes. Its history is closely linked to trade and transport. Outdoor activities and alpine tourism are increasingly important.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Valais",
+      "snippet": "A high-alpine canton with Switzerland’s tallest peaks. It is famous for glaciers, wine, and mountain resorts.",
+      "description": "Valais stretches along the upper Rhône valley and includes some of the highest mountains in the Alps, such as the Matterhorn. The canton is known for its sunny climate, terraced vineyards, and major ski resorts. Agriculture, hydropower, and tourism are central economic pillars. Its alpine valleys offer exceptional hiking and mountaineering.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Vaud",
+      "snippet": "A lakeside canton with vineyards and cultural diversity. It combines alpine regions with urban centers.",
+      "description": "Vaud lies along Lake Geneva and includes both fertile lowlands and alpine areas. The canton is known for its vineyards in Lavaux, a UNESCO World Heritage site. Lausanne serves as an important cultural and educational center. Vaud offers a balance of urban life, wine culture, and outdoor activities.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Zug",
+      "snippet": "A small but economically powerful canton with lakeside scenery. It is known for business and quality of life.",
+      "description": "Zug is a compact canton in central Switzerland, famous for its low taxes and strong international business presence. Despite its economic profile, it offers beautiful natural landscapes, including Lake Zug and nearby hills. The city of Zug has a well-preserved old town. The canton combines economic dynamism with high living standards.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Zurich",
+      "snippet": "Switzerland’s largest economic and cultural hub. It blends urban life with lakes and forests.",
+      "description": "Zurich is Switzerland’s most populous canton and a global financial center. It offers a vibrant cultural scene, historic old towns, and access to Lake Zurich and surrounding forests. The canton balances modern urban development with strong environmental protection. Education, finance, and innovation drive its economy.",
+      "is_public": true,
+      "type": 2,
+      "country": 41
+    },
+    {
+      "name": "Muotathal",
+      "snippet": "A wild alpine valley famous for dramatic karst landscapes and deep gorges. It is one of central Switzerland’s most rugged regions.",
+      "description": "Muotathal is located in the canton of Schwyz and is known for its steep limestone mountains, remote valleys, and traditional alpine culture. The region features extensive cave systems, alpine pastures, and challenging hiking routes. It is especially popular among experienced hikers, climbers, and nature enthusiasts seeking untouched landscapes.",
+      "is_public": true,
+      "type": 10,
+      "country": 41
+    },
+    {
+      "name": "Engadin",
+      "snippet": "A high alpine valley with wide plains and bright light. It is famous for lakes, culture, and mountain sports.",
+      "description": "Engadin lies in the canton of Graubünden and is one of the highest inhabited valleys in Europe. It is characterized by wide valley floors, crystal-clear lakes, and larch forests. The region has a strong Romansh cultural identity and is a major destination for hiking, skiing, and endurance sports.",
+      "is_public": true,
+      "type": 10,
+      "country": 41
+    },
+    {
+      "name": "Emmental",
+      "snippet": "Rolling hills and traditional farms define this rural region. It is globally known for its cheese and pastoral scenery.",
+      "description": "Emmental is located mainly in the canton of Bern and is characterized by gentle hills, green meadows, and scattered farmhouses. The region is the birthplace of Emmental cheese and represents classic Swiss rural life. It offers extensive walking and cycling routes through peaceful countryside.",
+      "is_public": true,
+      "type": 10,
+      "country": 41
+    },
+    {
+      "name": "Val Bregaglia",
+      "snippet": "A dramatic alpine valley connecting Switzerland and Italy. It combines wild nature with artistic heritage.",
+      "description": "Val Bregaglia is situated in southeastern Graubünden and links the Engadin with northern Italy. The valley is known for steep granite walls, powerful waterfalls, and high alpine passes. It is also the birthplace of the artist Alberto Giacometti, giving the region cultural significance alongside its natural beauty.",
+      "is_public": true,
+      "type": 10,
+      "country": 41
+    },
+    {
+      "name": "Surselva",
+      "snippet": "A spacious alpine region along the upper Rhine. It is rich in Romansh culture and mountain landscapes.",
+      "description": "Surselva lies in western Graubünden and stretches along the upper course of the Rhine River. The region is known for its strong Romansh identity, traditional villages, and wide alpine valleys. Hiking, skiing, and river sports are key attractions throughout the year.",
+      "is_public": true,
+      "type": 10,
+      "country": 41
+    },
+    {
+      "name": "Vallemaggia",
+      "snippet": "A sunlit Ticino valley with stone villages and waterfalls. It offers a blend of alpine and Mediterranean character.",
+      "description": "Vallemaggia is located in the canton of Ticino and extends north of Locarno. The valley is famous for its stone architecture, clear rivers, and dramatic side valleys. It combines alpine hiking with a mild climate and strong Italian-speaking cultural traditions.",
+      "is_public": true,
+      "type": 10,
+      "country": 41
+    },
+    {
+      "name": "Haslital",
+      "snippet": "A high alpine valley shaped by glaciers and mountain passes. It is a gateway to some of Switzerland’s highest roads.",
+      "description": "Haslital lies in the eastern part of the canton of Bern and is defined by steep valleys, glaciers, and alpine peaks. The region is closely connected to major passes such as Grimsel and Susten. It offers impressive scenery for mountaineering, hiking, and alpine exploration.",
+      "is_public": true,
+      "type": 10,
+      "country": 41
+    },
+    {
+      "name": "Lavaux",
+      "snippet": "Terraced vineyards overlooking Lake Geneva. It is one of Switzerland’s most iconic wine regions.",
+      "description": "Lavaux is located in the canton of Vaud along the northern shore of Lake Geneva. The region is famous for its steep vineyard terraces, which are recognized as a UNESCO World Heritage site. It combines wine culture, lakeside views, and scenic walking paths.",
+      "is_public": true,
+      "type": 10,
+      "country": 41
+    },
+    {
+      "name": "Entlebuch",
+      "snippet": "A biosphere region of moors and pre-alpine landscapes. It is known for unspoiled nature and biodiversity.",
+      "description": "Entlebuch lies in the canton of Lucerne and is Switzerland’s first UNESCO biosphere reserve. The region features extensive moorlands, karst formations, and pre-alpine hills. It focuses on sustainable tourism, nature conservation, and traditional agriculture.",
+      "is_public": true,
+      "type": 10,
+      "country": 41
+    },
+    {
+      "name": "Val d’Anniviers",
+      "snippet": "A high alpine valley with traditional villages and 4000-meter peaks. It is deeply rooted in mountain life.",
+      "description": "Val d’Anniviers is located in the canton of Valais and is surrounded by some of the highest mountains in the Alps. The valley is known for its wooden villages, strong local traditions, and high-altitude landscapes. It is a popular destination for hiking, skiing, and alpine culture.",
+      "is_public": true,
+      "type": 10,
+      "country": 41
+    },
+    {
+      "name": "Aosta Valley",
+      "type": 3,
+      "snippet": "Aosta Valley is Italy’s smallest region, dominated by high Alpine peaks and deep valleys.",
+      "description": "Located in north-western Italy, Aosta Valley borders Switzerland and France and is home to some of the highest mountains in Europe, including Mont Blanc and Matterhorn. The region is known for alpine hiking, mountaineering, and historic Roman and medieval heritage.",
+      "is_public": true,
+      "country": 39
+    },
+    {
+      "name": "Piedmont",
+      "type": 3,
+      "snippet": "Piedmont is a large north-western Italian region framed by the Alps and fertile plains.",
+      "description": "Piedmont stretches from high Alpine mountain chains to rolling hills and river valleys. It offers a wide range of outdoor activities, from alpine trekking and ski touring to long-distance cultural and wine-region routes.",
+      "is_public": true,
+      "country": 39
+    },
+    {
+      "name": "Lombardy",
+      "type": 3,
+      "snippet": "Lombardy combines Alpine terrain with major lakes and densely populated plains.",
+      "description": "Located in northern Italy, Lombardy includes parts of the Alps, Lake Como, Lake Garda, and extensive lowlands. The region supports diverse hiking opportunities, from high-altitude alpine routes to scenic lake and valley trails.",
+      "is_public": true,
+      "country": 39
+    },
+    {
+      "name": "Trentino-Alto Adige",
+      "type": 3,
+      "snippet": "Trentino-Alto Adige is a mountainous region known for the Dolomites and alpine culture.",
+      "description": "Bordering Austria and Switzerland, this region features dramatic Dolomite landscapes, deep valleys, and a strong alpine tradition. It is one of Italy’s premier destinations for hiking, via ferrata, and multi-day mountain routes.",
+      "is_public": true,
+      "country": 39
+    },
+    {
+      "name": "Veneto",
+      "type": 3,
+      "snippet": "Veneto connects Alpine mountains with plains and coastal areas.",
+      "description": "Veneto includes the eastern Dolomites as well as extensive lowland regions. It offers varied outdoor experiences, combining alpine hiking, cultural routes, and access to historic towns and mountain villages.",
+      "is_public": true,
+      "country": 39
+    },
+    {
+      "name": "Friuli-Venezia Giulia",
+      "type": 3,
+      "snippet": "Friuli-Venezia Giulia is a border region shaped by mountains and cultural diversity.",
+      "description": "Situated in north-eastern Italy, the region features Alpine and pre-Alpine landscapes alongside plains and coastal zones. It is known for quieter mountain areas, cross-border trails, and a blend of Italian, Slavic, and Austrian influences.",
+      "is_public": true,
+      "country": 39
+    },
+    {
+      "name": "Liguria",
+      "type": 3,
+      "snippet": "Liguria is a narrow region where mountains meet the sea.",
+      "description": "Located along the north-western Italian coast, Liguria combines steep Apennine terrain with coastal landscapes. The region offers unique hiking routes connecting mountain ridges, coastal paths, and historic villages.",
+      "is_public": true,
+      "country": 39
+    },
+    {
+      "name": "Emilia-Romagna",
+      "type": 3,
+      "snippet": "Emilia-Romagna links the Apennines with fertile plains and historic cities.",
+      "description": "Stretching from the northern Apennines to the Po Valley, Emilia-Romagna offers diverse terrain suitable for hiking and cultural exploration. The region is known for long-distance trails, rural landscapes, and strong regional identity.",
+      "is_public": true,
+      "country": 39
+    },
+    {
+      "name": "Bavaria",
+      "type": 3,
+      "snippet": "Bavaria is Germany’s largest federal state, known for alpine landscapes and strong traditions.",
+      "description": "Located in southern Germany, Bavaria includes the Bavarian Alps, alpine foothills, and extensive river valleys. The region offers a dense network of hiking routes, mountain trails, and well-developed outdoor infrastructure.",
+      "is_public": true,
+      "country": 49
+    },
+    {
+      "name": "Baden-Württemberg",
+      "type": 3,
+      "snippet": "Baden-Württemberg features forests, low mountain ranges, and river valleys.",
+      "description": "Situated in south-western Germany, the region includes the Black Forest, Swabian Jura, and Upper Rhine Valley. It is well suited for hiking, long-distance trails, and nature-focused outdoor activities.",
+      "is_public": true,
+      "country": 49
     }
+  ]
 }

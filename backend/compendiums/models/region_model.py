@@ -2,6 +2,7 @@
 from alpenwegs.ashared.models.identification_model import BaseIdentificationModel
 from alpenwegs.ashared.models.descriptive_model import BaseDescriptiveModel
 from alpenwegs.ashared.models.timestamp_model import BaseTimestampModel
+from alpenwegs.ashared.constants.region_type import RegionTypeChoices
 from alpenwegs.ashared.models.creator_model import BaseCreatorModel
 from alpenwegs.ashared.constants.country import CountryChoices
 
@@ -79,4 +80,11 @@ class RegionModel(
         verbose_name='Country',
         help_text='Country where the region is located (fixed numeric list).',
         default=CountryChoices.SWITZERLAND,
+    )
+    type = models.IntegerField(
+        choices=RegionTypeChoices.choices,
+        verbose_name='Region Type',
+        help_text='Defines the logical type of the region, such as canton, geographic '
+            'region, or natural region (e.g., Canton, Valley, Mountain Range).',
+        default=RegionTypeChoices.CANTON,
     )

@@ -45,8 +45,8 @@ class BaseIdentificationModel(
         ordering = ['name']
 
     # Model validators:
-    name_validator = NameValueValidator()
-    snippet_validator = SnippetValueValidator()
+    # name_validator = NameValueValidator()
+    # snippet_validator = SnippetValueValidator()
 
     # Identification model values:
     name = models.CharField(
@@ -56,7 +56,7 @@ class BaseIdentificationModel(
             'spaces, or special characters such as -, _, and spaces. '
             'This field does not serve as a unique identifier within the '
             'application but helps users differentiate it from other objects.',
-        validators=[name_validator],
+        # validators=[name_validator],
         max_length=128,
         unique=True,
     )
@@ -69,11 +69,11 @@ class BaseIdentificationModel(
     )
     snippet = models.CharField(
         verbose_name='Snippet',
-        help_text='A short description of the object, between 8 and 256 '
+        help_text='A short description of the object, between 8 and 512 '
             'characters. It may include letters, numbers, spaces, and '
             'the special characters -, _, and .',
-        validators=[snippet_validator],
-        max_length=256,
+        # validators=[snippet_validator],
+        max_length=512,
         blank=True,
         null=True,
     )

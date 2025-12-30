@@ -35,4 +35,5 @@ class RegionFilter(
 
             # RegionModel values:
             'country': ['exact'],
+            'type': ['exact'],
         }

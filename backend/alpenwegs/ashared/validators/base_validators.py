@@ -17,8 +17,8 @@ class NameValueValidator(RegexValidator):
     Validate if specified value is a valid name field.
     """
 
-    regex = r'^[0-9,A-Z,a-z,-_. ]{3,64}$'
-    message = _('The object hostname must contain 3 to 64 digits, '\
+    regex = r"^[0-9A-Za-z_-’.]{3,128}$"
+    message = _('The object name must contain 3 to 128 digits, '\
         'letters and special characters -, _, . or spaces.')
     flags = 0
 
@@ -27,11 +27,11 @@ class NameValueValidator(RegexValidator):
 @deconstructible
 class SnippetValueValidator(RegexValidator):
     """
-    Validate if specified value is a valid description field.
+    Validate if specified value is a valid snippet field.
     """
 
-    regex = r'^[0-9,A-Z,a-z,-_." ]{8,256}$'
-    message = _('Description must contain 8 to 256 digits, letters '\
+    regex = r"^[0-9A-Za-z_-’.]{8,512}$"
+    message = _('Snippet must contain 8 to 512 digits, letters '\
         'and special characters -, _, . or spaces.')
     flags = 0
 

@@ -28,17 +28,15 @@ from alpenwegs.ashared.api.serializers.base_model_variables import (
 
 # AlpenWegs application import:
 from alpenwegs.ashared.constants.sport_category_difficulty import SportCategoryDifficultyChoices
+from explorers.api.serializers.track_sub_serializer import TrackToPhotoRelationSerializer
 from explorers.api.serializers.route_serializer import RouteRepresentationSerializer
 from explorers.api.serializers.journey_serializer import JourneyRelationSerializer
 from compendiums.api.serializers.poi_serializer import PoiRelationSerializer
-from assets.api.serializers.photo_serializer import PhotoRelationSerializer
 from profiles.api.serializers.user_serializer import UserRelationSerializer
 from alpenwegs.ashared.constants.sport_category import SportCategoryChoices
 from assets.api.serializers.file_serializer import FileRelationSerializer
-from explorers.models.track_model import TrackToPhotoModel
 from explorers.models.track_model import TrackModel
 from compendiums.models.poi_model import PoiModel
-from assets.models.photo_model import PhotoModel
 
 # Rest framework import:
 from rest_framework.serializers import HyperlinkedIdentityField
@@ -138,11 +136,9 @@ class TrackDetailedSerializer(
         depth = depth
 
     # Other object Many to Many relation schemas:
-    photos = SerializedPkRelatedField(
-        queryset=PhotoModel.objects.all(),
-        serializer=PhotoRelationSerializer,
+    photos = TrackToPhotoRelationSerializer(
+        source='photo_track_associations',
         required=False,
-        allow_null=True,
         many=True,
     )
     pois = SerializedPkRelatedField(
@@ -286,46 +282,17 @@ class TrackRelationSerializer(
         # Return None if no primary photo:
         if not rel:
             return None
-        # Return primary photo data:
-        return {
-            'id': rel.photo.id,
-            'url': rel.photo.file.url,
-        }
+        
+        request = self.context.get('request')
+        if request:
+            # Return full URL to photo file path:
+            return request.build_absolute_uri(rel.photo.path.url)
+
+        # Return photo file path:
+        return rel.photo.path.url
 
     class Meta:
         read_only_fields = read_only_fields
         fields = fields_relation + ['primary_photo']
         model = model
         depth = depth
-
-# Track to Photo relation serializer:
-class TrackToPhotoRelationSerializer(
-    WritableNestedSerializer,
-):
-    """
-    Relation serializer for the Track to Photo relation.
-    """
-
-    # Other object relation schemas:
-    track = TrackRepresentationSerializer(
-        help_text=TrackToPhotoModel.track.field.help_text,
-        required=TrackToPhotoModel.track.field.null,
-        allow_null=TrackToPhotoModel.track.field.blank,
-    )
-    photo = PhotoRelationSerializer(
-        help_text=TrackToPhotoModel.photo.field.help_text,
-        required=TrackToPhotoModel.photo.field.null,
-        allow_null=TrackToPhotoModel.photo.field.blank,
-    )
-
-    class Meta:
-        model = TrackModel.photos.through
-        fields = [
-            'id',
-            'track',
-            'photo',
-            'is_primary',
-        ]
-        read_only_fields = [
-            'id',
-        ]

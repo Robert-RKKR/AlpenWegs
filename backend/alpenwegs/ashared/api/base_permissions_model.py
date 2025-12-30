@@ -35,6 +35,10 @@ class BasePermissionsModel(
         request,
         view,
     ):
+        # Check for permission override in the view:
+        if view.permission_override:
+            return True
+
         # Collect user from request:
         user = request.user
         
@@ -112,6 +116,10 @@ class BasePermissionsModel(
         view,
         obj,
     ):
+        # Check for permission override in the view:
+        if view.permission_override:
+            return True
+        
         # Collect user from request:
         user = request.user
         

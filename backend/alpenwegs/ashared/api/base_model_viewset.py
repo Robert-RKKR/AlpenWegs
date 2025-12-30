@@ -41,6 +41,9 @@ class BaseViewSet(
             contextual information in API responses.
     """
 
+    # Permission override for the view:
+    permission_override = False
+
     # Initiate empty QuerySet:
     queryset = None
 

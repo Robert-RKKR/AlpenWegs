@@ -4,13 +4,13 @@ from alpenwegs.ashared.api.serializers.base_serializers import (
     BaseSerializer,
 )
 from alpenwegs.ashared.api.serializers.base_model_variables import (
+    base_representation_identification_fields,
     base_identification_read_only_fields,
     base_descriptive_read_only_fields,
     base_timestamp_read_only_fields,
     base_creator_read_only_fields,
     base_model_read_only_fields,
     base_identification_fields,
-    base_representation_fields,
     base_descriptive_fields,
     base_timestamp_fields,
     base_creator_fields,
@@ -139,10 +139,10 @@ class RegionRepresentationSerializer(
     class Meta:
 
         # Define read only fields:
-        read_only_fields = base_representation_fields
+        read_only_fields = base_representation_identification_fields
 
         # Define writable fields:
-        fields = base_representation_fields
+        fields = base_representation_identification_fields
 
         # Define related model:
         model = model

@@ -1,372 +1,1064 @@
 {
   "objects": [
     {
-      "name": "Aargau",
-      "snippet": "Aargau is known for its rivers, gentle hills, and historic spa towns. It blends nature with strong industrial and cultural heritage.",
-      "description": "Aargau lies in northern Switzerland and is shaped by the Aare, Reuss, and Limmat rivers. The canton is known for its medieval castles, Roman heritage sites such as Vindonissa, and historic spa towns like Baden. Its landscape combines fertile plains, rolling hills, and forested areas, making it attractive for cycling and hiking. Aargau also plays an important role in Swiss industry and energy production, including hydroelectric and nuclear power.",
+      "name": "Black Forest High Ridge",
+      "snippet": "A scenic ridge offering long forest hikes and panoramic views.",
+      "description": "The highest ridge areas of the Black Forest provide extensive hiking routes through dense forests, open meadows, and viewpoints overlooking the Rhine Valley.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "9eb018d9-0e54-454c-b112-cb7dad3cb19b",
+      "location": "8.206000,47.873000",
+      "elevation": 1493,
+      "category": 2
     },
     {
-      "name": "Appenzell Ausserrhoden",
-      "snippet": "A canton of rolling hills, traditions, and colorful villages. It is famous for folklore, crafts, and open landscapes.",
-      "description": "Appenzell Ausserrhoden is located in northeastern Switzerland and is characterized by gentle hills rather than high alpine peaks. The canton is well known for its strong traditions, including folk music, traditional costumes, and local customs. Villages such as Herisau showcase painted houses and well-preserved architecture. The open countryside and panoramic views toward the Alpstein make it ideal for relaxed hiking and cultural exploration.",
+      "name": "Feldberg Summit",
+      "snippet": "The highest peak in the Black Forest.",
+      "description": "Feldberg is the tallest mountain in Baden-Württemberg and a popular destination for hiking, winter sports, and panoramic alpine-style views.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "9eb018d9-0e54-454c-b112-cb7dad3cb19b",
+      "location": "8.003611,47.873611",
+      "elevation": 1493,
+      "category": 1
     },
     {
-      "name": "Appenzell Innerrhoden",
-      "snippet": "One of Switzerland’s smallest cantons, rich in tradition and alpine scenery. It is deeply rooted in customs and rural life.",
-      "description": "Appenzell Innerrhoden lies at the heart of the Alpstein region and is known for its dramatic limestone peaks, including the Säntis. The canton preserves unique political traditions such as the Landsgemeinde, where citizens vote in an open-air assembly. Its economy is closely linked to agriculture, cheese production, and tourism. Steep pastures, alpine huts, and scenic trails define the landscape.",
+      "name": "Lake Neuchâtel Shore",
+      "snippet": "A lakeside area with vineyards and walking paths.",
+      "description": "The shores of Lake Neuchâtel offer flat walking routes, nature reserves, and scenic views across Switzerland’s largest lake.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "93b4b3f6-524c-425e-a347-0533b1f09cfc",
+      "location": "6.931000,46.991000",
+      "elevation": 429,
+      "category": 8
     },
     {
-      "name": "Basel-Landschaft",
-      "snippet": "A canton of valleys, vineyards, and historic towns surrounding Basel. It combines rural charm with urban proximity.",
-      "description": "Basel-Landschaft extends around the city canton of Basel-Stadt and features a landscape of rolling Jura hills, narrow valleys, and agricultural land. The region is known for vineyards, medieval castles, and small historic towns such as Liestal. Its close economic and cultural ties to Basel make it a dynamic area for both living and commuting, while still offering many opportunities for nature activities.",
+      "name": "Neuchâtel Old Town",
+      "snippet": "Historic town center above the lake.",
+      "description": "Neuchâtel’s old town combines medieval streets, castle views, and cultural landmarks overlooking the lake.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "93b4b3f6-524c-425e-a347-0533b1f09cfc",
+      "location": "6.929000,46.990000",
+      "elevation": 475,
+      "category": 21
     },
     {
-      "name": "Basel-Stadt",
-      "snippet": "Switzerland’s cultural capital on the Rhine. It is known for museums, architecture, and international flair.",
-      "description": "Basel-Stadt is a compact urban canton centered around the city of Basel, located at the border with France and Germany. It hosts one of the highest densities of museums in Europe and is renowned for art fairs such as Art Basel. The Rhine River shapes the city’s identity and lifestyle. Basel-Stadt is also a major hub for pharmaceuticals, research, and international business.",
+      "name": "Piz Bernina",
+      "snippet": "The highest mountain of the Eastern Alps.",
+      "description": "Piz Bernina dominates the Engadin skyline and is a key objective for experienced mountaineers and alpine hikers.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "fbc94afc-12d7-4e76-8554-29eb3ea52772",
+      "location": "9.902778,46.379167",
+      "elevation": 4049,
+      "category": 1
     },
     {
-      "name": "Bern",
-      "snippet": "A diverse canton with alpine peaks, lakes, and the federal capital. It offers some of Switzerland’s most iconic landscapes.",
-      "description": "The canton of Bern stretches from the Jura mountains through the Swiss Plateau to the high Alps. It includes world-famous destinations such as the Bernese Oberland, with peaks like the Eiger, Mönch, and Jungfrau. Bern is also home to the federal capital, known for its UNESCO-listed old town. The canton offers a wide variety of outdoor activities, from alpine hiking to lake tourism.",
+      "name": "St. Moritz",
+      "snippet": "A world-famous alpine resort town.",
+      "description": "St. Moritz is known for its high-altitude climate, alpine sports, and access to Engadin hiking and mountain routes.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "fbc94afc-12d7-4e76-8554-29eb3ea52772",
+      "location": "9.838000,46.498000",
+      "elevation": 1822,
+      "category": 21
     },
     {
-      "name": "Fribourg",
-      "snippet": "A bilingual canton bridging German and French cultures. It features rolling countryside and medieval towns.",
-      "description": "Fribourg lies at the cultural boundary between German- and French-speaking Switzerland, making it officially bilingual. The canton is known for its agricultural landscapes, pre-alpine hills, and historic towns such as Fribourg city with its medieval old town. Dairy farming and cheese production are central to the region. Its lakes and gentle mountains offer diverse recreational opportunities.",
+      "name": "Zugspitze",
+      "snippet": "Germany’s highest mountain peak.",
+      "description": "Zugspitze offers alpine hiking, glacier views, and year-round access via cable car and mountain railway.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "09de337b-8c92-4e58-8ce6-95e1859455bc",
+      "location": "10.985556,47.421111",
+      "elevation": 2962,
+      "category": 1
     },
     {
-      "name": "Geneva",
-      "snippet": "An international hub on Lake Geneva with global institutions. It blends diplomacy, culture, and nature.",
-      "description": "Geneva is located at the western tip of Switzerland, bordered by France and Lake Geneva. It is home to numerous international organizations, including the United Nations and humanitarian institutions. The canton combines urban life with vineyards, lakeside promenades, and views of Mont Blanc. Geneva is also known for finance, watchmaking, and a strong international community.",
+      "name": "Garmisch-Partenkirchen",
+      "snippet": "Gateway town to the Bavarian Alps.",
+      "description": "This alpine town provides access to mountain trails, gorges, and high alpine routes near the Austrian border.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "09de337b-8c92-4e58-8ce6-95e1859455bc",
+      "location": "11.095000,47.491000",
+      "elevation": 708,
+      "category": 21
     },
     {
-      "name": "Glarus",
-      "snippet": "A mountainous canton shaped by steep valleys and alpine traditions. It is known for dramatic landscapes.",
-      "description": "Glarus is dominated by alpine terrain, with steep valleys and rugged mountain peaks. The canton maintains the Landsgemeinde tradition, where citizens vote in an open public assembly. Its economy historically relied on textiles and industry, but tourism and outdoor sports now play a major role. Hiking, climbing, and alpine scenery define the region.",
+      "name": "Mont Blanc Massif",
+      "snippet": "Europe’s highest mountain range.",
+      "description": "The Mont Blanc Massif includes glaciers, technical alpine routes, and some of the most iconic peaks in the Alps.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "6cb45523-ffcb-4dba-bc7a-8a08d33f311e",
+      "location": "6.865000,45.832000",
+      "elevation": 4808,
+      "category": 2
     },
     {
-      "name": "Graubünden",
-      "snippet": "Switzerland’s largest canton, famous for alpine valleys and multilingual culture. It is a paradise for mountain enthusiasts.",
-      "description": "Graubünden covers vast alpine terrain and is the only canton with three official languages: German, Romansh, and Italian. It includes famous regions such as Engadin, Davos, and St. Moritz. The canton is known for high mountain passes, glaciers, and traditional stone villages. Tourism, alpine sports, and nature conservation are central to its identity.",
+      "name": "Courmayeur",
+      "snippet": "Alpine town at the foot of Mont Blanc.",
+      "description": "Courmayeur serves as a major base for alpine climbing, hiking, and high mountain tours in the Aosta Valley.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "6cb45523-ffcb-4dba-bc7a-8a08d33f311e",
+      "location": "6.970000,45.792000",
+      "elevation": 1224,
+      "category": 22
     },
     {
-      "name": "Jura",
-      "snippet": "A young canton of forests, pastures, and watchmaking heritage. It offers quiet landscapes and rural charm.",
-      "description": "The canton of Jura lies in northwestern Switzerland and is characterized by forested plateaus, rolling hills, and limestone formations. It has a strong tradition in watchmaking and craftsmanship. Jura is one of the newest Swiss cantons, established in 1979. Its calm atmosphere and natural landscapes make it ideal for hiking and nature-focused tourism.",
+      "name": "Val d’Anniviers Alpine Ridge",
+      "snippet": "A high alpine ridge offering panoramic valley views.",
+      "description": "The upper ridges of Val d’Anniviers provide challenging alpine hikes with views of surrounding 4000-meter peaks and deep glacial valleys.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "fca6472d-5dc6-4469-8e67-902173fbe465",
+      "location": "7.595000,46.145000",
+      "elevation": 2800,
+      "category": 7
     },
     {
-      "name": "Lucerne",
-      "snippet": "A central canton known for Lake Lucerne and mountain views. It is a major tourist and cultural destination.",
-      "description": "Lucerne is located in central Switzerland and is famous for its picturesque lake, historic wooden bridges, and surrounding mountains such as Pilatus and Rigi. The city of Lucerne is one of Switzerland’s most visited tourist destinations. The canton combines urban life, lakeside landscapes, and alpine foothills. Tourism and services play a key role in the regional economy.",
+      "name": "Grimentz",
+      "snippet": "A traditional alpine village with preserved wooden houses.",
+      "description": "Grimentz is known for its historic architecture, access to alpine trails, and role as a starting point for hikes in Val d’Anniviers.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "fca6472d-5dc6-4469-8e67-902173fbe465",
+      "location": "7.576000,46.136000",
+      "elevation": 1570,
+      "category": 22
     },
     {
-      "name": "Neuchâtel",
-      "snippet": "A lakeside canton with strong watchmaking traditions. It blends French culture with Swiss innovation.",
-      "description": "Neuchâtel lies along the northwestern shore of Lake Neuchâtel and has a strong French-speaking identity. The canton is historically linked to watchmaking, precision engineering, and innovation. Vineyards line the lake shores, while the Jura mountains rise to the north. Its cities combine elegant architecture with a relaxed lakeside atmosphere.",
+      "name": "Lavaux Vineyard Trails",
+      "snippet": "Terraced vineyard paths overlooking Lake Geneva.",
+      "description": "Lavaux offers scenic walking routes through UNESCO-listed vineyards with views across Lake Geneva and the Alps.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "9ab77335-9e7a-4d47-ab01-9307a41d4795",
+      "location": "6.752000,46.487000",
+      "elevation": 520,
+      "category": 7
     },
     {
-      "name": "Nidwalden",
-      "snippet": "A small central canton with steep mountains and Lake Lucerne access. It offers dramatic alpine scenery.",
-      "description": "Nidwalden is located in central Switzerland and features steep alpine slopes rising directly from Lake Lucerne. The canton has a strong rural and alpine character, with farming and tourism as key sectors. Its mountains and lakes make it attractive for outdoor activities. Despite its small size, Nidwalden offers impressive natural diversity.",
+      "name": "Chexbres Viewpoint",
+      "snippet": "A panoramic viewpoint above Lake Geneva.",
+      "description": "Chexbres provides one of the best viewpoints over the Lavaux vineyards and Lake Geneva, popular for short walks and photography.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "9ab77335-9e7a-4d47-ab01-9307a41d4795",
+      "location": "6.770000,46.482000",
+      "elevation": 565,
+      "category": 21
     },
     {
-      "name": "Obwalden",
-      "snippet": "A mountain canton known for high passes and alpine traditions. It lies at the heart of Switzerland.",
-      "description": "Obwalden is a central Swiss canton dominated by alpine landscapes, high passes, and traditional farming. The region has preserved strong local customs and a close connection to nature. Tourism focuses on hiking, winter sports, and mountain experiences. Its location makes it a gateway to many alpine regions.",
+      "name": "Haslital Valley Floor",
+      "snippet": "A wide alpine valley shaped by glaciers and rivers.",
+      "description": "Haslital features broad valley trails, waterfalls, and access to high alpine passes connecting central Switzerland.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "fecc0d99-9baa-4704-9813-a7238c72fb3a",
+      "location": "8.185000,46.734000",
+      "elevation": 610,
+      "category": 22
     },
     {
-      "name": "Schaffhausen",
-      "snippet": "A northern canton famous for the Rhine Falls. It combines vineyards with historic towns.",
-      "description": "Schaffhausen lies in northern Switzerland, largely surrounded by Germany. The canton is best known for the Rhine Falls, Europe’s largest waterfall. Vineyards, medieval architecture, and river landscapes define the region. Its economy includes manufacturing, viticulture, and tourism.",
+      "name": "Meiringen",
+      "snippet": "Gateway town to alpine passes and gorges.",
+      "description": "Meiringen is a central base for hiking routes in Haslital, including access to Grimsel and Susten passes.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "fecc0d99-9baa-4704-9813-a7238c72fb3a",
+      "location": "8.183000,46.726000",
+      "elevation": 595,
+      "category": 21
     },
     {
-      "name": "Schwyz",
-      "snippet": "One of Switzerland’s founding cantons with strong alpine identity. It represents Swiss tradition and history.",
-      "description": "Schwyz is one of the original founding cantons of the Swiss Confederation and gave the country its name. The canton features alpine landscapes, lakes, and historic villages. It is known for traditional customs and strong local identity. Mountains like the Mythen and access to Lake Lucerne shape its geography.",
+      "name": "Muotathal Karst Plateau",
+      "snippet": "A wild karst landscape with caves and alpine meadows.",
+      "description": "Muotathal is known for its extensive karst formations, remote hiking terrain, and dramatic limestone cliffs.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "e09b8f76-b854-441b-ac87-7e5393a53e52",
+      "location": "8.760000,46.976000",
+      "elevation": 1050,
+      "category": 9
     },
     {
-      "name": "Solothurn",
-      "snippet": "A canton of baroque heritage and Jura landscapes. It blends history with nature.",
-      "description": "Solothurn lies at the foot of the Jura mountains and is known for its baroque old town, considered one of the most beautiful in Switzerland. The canton combines agricultural lowlands with forested Jura hills. It has a rich cultural history and offers many hiking routes along the Jura ridges.",
+      "name": "Muotathal Village",
+      "snippet": "A rural village surrounded by alpine terrain.",
+      "description": "Muotathal serves as a base for exploring nearby caves, alpine pastures, and mountain hiking routes.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "e09b8f76-b854-441b-ac87-7e5393a53e52",
+      "location": "8.765000,46.975000",
+      "elevation": 607,
+      "category": 22
     },
     {
-      "name": "St. Gallen",
-      "snippet": "A canton of rolling hills, lakes, and textile history. It bridges eastern Switzerland and the Alps.",
-      "description": "St. Gallen stretches from Lake Constance to the alpine regions of eastern Switzerland. The canton is historically known for its textile industry and the UNESCO-listed Abbey of St. Gallen. Its landscape ranges from gentle hills to alpine valleys. Industry, education, and tourism are all important to the region.",
+      "name": "Uetliberg",
+      "snippet": "A forested hill offering views over Zurich and the Alps.",
+      "description": "Uetliberg is a popular hiking destination with panoramic viewpoints and well-maintained trails above the city of Zurich.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "df37a429-e32b-47e8-938e-2e70a70d524c",
+      "location": "8.491000,47.349000",
+      "elevation": 869,
+      "category": 1
     },
     {
-      "name": "Thurgau",
-      "snippet": "A fertile canton on Lake Constance known for orchards. It offers gentle landscapes and lakeside life.",
-      "description": "Thurgau is located in northeastern Switzerland along Lake Constance. The canton is famous for fruit orchards, agriculture, and cycling-friendly terrain. Its landscape is mostly flat to gently rolling, making it accessible for many outdoor activities. The lake provides strong tourism and recreational value.",
+      "name": "Zurich Main Station",
+      "snippet": "The largest railway hub in Switzerland.",
+      "description": "Zurich Hauptbahnhof connects regional and international routes and serves as a common starting point for urban and regional exploration.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "df37a429-e32b-47e8-938e-2e70a70d524c",
+      "location": "8.540000,47.378000",
+      "elevation": 408,
+      "category": 23
     },
     {
-      "name": "Ticino",
-      "snippet": "The Italian-speaking canton with Mediterranean flair. It combines palm trees, lakes, and alpine peaks.",
-      "description": "Ticino lies south of the Alps and has a distinctly Italian cultural influence. The canton features a mild climate, palm-lined lakes, and dramatic alpine valleys. Cities like Lugano and Locarno blend Swiss efficiency with Italian lifestyle. Tourism, finance, and cross-border trade are key to the region.",
+      "name": "Matterhorn View Ridge",
+      "snippet": "A panoramic ridge with direct views of the Matterhorn.",
+      "description": "This high alpine ridge near Zermatt offers classic views of the Matterhorn and surrounding 4000-meter peaks, popular among hikers and photographers.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "c302b733-7d30-402e-ba97-f87c63455c1b",
+      "location": "7.749000,45.976000",
+      "elevation": 3100,
+      "category": 7
     },
     {
-      "name": "Uri",
-      "snippet": "A historic alpine canton at the gateway to the Gotthard. It is shaped by mountains and transit routes.",
-      "description": "Uri is one of the founding cantons of Switzerland and plays a central role in alpine transit via the Gotthard Pass. The canton is dominated by steep mountains, deep valleys, and alpine lakes. Its history is closely linked to trade and transport. Outdoor activities and alpine tourism are increasingly important.",
+      "name": "Zermatt",
+      "snippet": "A car-free alpine town beneath the Matterhorn.",
+      "description": "Zermatt is a world-famous mountain resort and starting point for high alpine hiking, climbing routes, and glacier tours.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "c302b733-7d30-402e-ba97-f87c63455c1b",
+      "location": "7.749000,46.020000",
+      "elevation": 1620,
+      "category": 21
     },
     {
-      "name": "Valais",
-      "snippet": "A high-alpine canton with Switzerland’s tallest peaks. It is famous for glaciers, wine, and mountain resorts.",
-      "description": "Valais stretches along the upper Rhône valley and includes some of the highest mountains in the Alps, such as the Matterhorn. The canton is known for its sunny climate, terraced vineyards, and major ski resorts. Agriculture, hydropower, and tourism are central economic pillars. Its alpine valleys offer exceptional hiking and mountaineering.",
+      "name": "Rigi Kulm",
+      "snippet": "A panoramic summit overlooking multiple Swiss lakes.",
+      "description": "Rigi Kulm offers wide views over Lake Lucerne, Lake Zug, and the central Swiss Alps, accessible by hiking routes and mountain railways.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "4090e456-2c83-4596-b196-6f88ea0e24b1",
+      "location": "8.484000,47.056000",
+      "elevation": 1797,
+      "category": 1
     },
     {
-      "name": "Vaud",
-      "snippet": "A lakeside canton with vineyards and cultural diversity. It combines alpine regions with urban centers.",
-      "description": "Vaud lies along Lake Geneva and includes both fertile lowlands and alpine areas. The canton is known for its vineyards in Lavaux, a UNESCO World Heritage site. Lausanne serves as an important cultural and educational center. Vaud offers a balance of urban life, wine culture, and outdoor activities.",
+      "name": "Arth-Goldau",
+      "snippet": "A transport hub between lakes and mountains.",
+      "description": "Arth-Goldau connects railway routes across central Switzerland and serves as a starting point for excursions toward Mount Rigi.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "4090e456-2c83-4596-b196-6f88ea0e24b1",
+      "location": "8.551000,47.046000",
+      "elevation": 518,
+      "category": 23
     },
     {
-      "name": "Zug",
-      "snippet": "A small but economically powerful canton with lakeside scenery. It is known for business and quality of life.",
-      "description": "Zug is a compact canton in central Switzerland, famous for its low taxes and strong international business presence. Despite its economic profile, it offers beautiful natural landscapes, including Lake Zug and nearby hills. The city of Zug has a well-preserved old town. The canton combines economic dynamism with high living standards.",
+      "name": "Aare Gorge Trail",
+      "snippet": "A dramatic trail through a narrow limestone gorge.",
+      "description": "The Aare Gorge trail follows wooden walkways through a deep gorge carved by glacial meltwater near Meiringen.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "0806593f-6e20-4aec-8a14-2db7aa837f9f",
+      "location": "8.218000,46.751000",
+      "elevation": 570,
+      "category": 7
     },
     {
-      "name": "Zurich",
-      "snippet": "Switzerland’s largest economic and cultural hub. It blends urban life with lakes and forests.",
-      "description": "Zurich is Switzerland’s most populous canton and a global financial center. It offers a vibrant cultural scene, historic old towns, and access to Lake Zurich and surrounding forests. The canton balances modern urban development with strong environmental protection. Education, finance, and innovation drive its economy.",
+      "name": "Interlaken",
+      "snippet": "A resort town between two alpine lakes.",
+      "description": "Interlaken lies between Lake Thun and Lake Brienz and acts as a base for alpine hiking, mountain excursions, and outdoor sports.",
       "is_public": true,
-      "type": 2,
-      "country": 41
+      "region": "0806593f-6e20-4aec-8a14-2db7aa837f9f",
+      "location": "7.863000,46.686000",
+      "elevation": 568,
+      "category": 21
     },
     {
-      "name": "Muotathal",
-      "snippet": "A wild alpine valley famous for dramatic karst landscapes and deep gorges. It is one of central Switzerland’s most rugged regions.",
-      "description": "Muotathal is located in the canton of Schwyz and is known for its steep limestone mountains, remote valleys, and traditional alpine culture. The region features extensive cave systems, alpine pastures, and challenging hiking routes. It is especially popular among experienced hikers, climbers, and nature enthusiasts seeking untouched landscapes.",
+      "name": "Rhine Promenade Basel",
+      "snippet": "Urban riverside walking paths along the Rhine.",
+      "description": "The Rhine promenade in Basel offers relaxed walking routes through the city with views of historic bridges and old town districts.",
       "is_public": true,
-      "type": 10,
-      "country": 41
+      "region": "ccceedf8-3b81-451d-9cf1-5361d351bfd0",
+      "location": "7.592000,47.559000",
+      "elevation": 260,
+      "category": 7
     },
     {
-      "name": "Engadin",
-      "snippet": "A high alpine valley with wide plains and bright light. It is famous for lakes, culture, and mountain sports.",
-      "description": "Engadin lies in the canton of Graubünden and is one of the highest inhabited valleys in Europe. It is characterized by wide valley floors, crystal-clear lakes, and larch forests. The region has a strong Romansh cultural identity and is a major destination for hiking, skiing, and endurance sports.",
+      "name": "Basel Minster",
+      "snippet": "A landmark cathedral overlooking the Rhine.",
+      "description": "Basel Minster is a historic cathedral offering views over the Rhine and serving as a cultural focal point of Basel-Stadt.",
       "is_public": true,
-      "type": 10,
-      "country": 41
+      "region": "ccceedf8-3b81-451d-9cf1-5361d351bfd0",
+      "location": "7.592500,47.558500",
+      "elevation": 267,
+      "category": 10
     },
     {
-      "name": "Emmental",
-      "snippet": "Rolling hills and traditional farms define this rural region. It is globally known for its cheese and pastoral scenery.",
-      "description": "Emmental is located mainly in the canton of Bern and is characterized by gentle hills, green meadows, and scattered farmhouses. The region is the birthplace of Emmental cheese and represents classic Swiss rural life. It offers extensive walking and cycling routes through peaceful countryside.",
+      "name": "Alpstein Ridge",
+      "snippet": "A rugged limestone mountain ridge.",
+      "description": "The Alpstein range features steep ridges, alpine lakes, and demanding hiking routes with dramatic scenery.",
       "is_public": true,
-      "type": 10,
-      "country": 41
+      "region": "cb729469-b086-4449-9837-38ee5a14c7e4",
+      "location": "9.421000,47.249000",
+      "elevation": 2100,
+      "category": 2
     },
     {
-      "name": "Val Bregaglia",
-      "snippet": "A dramatic alpine valley connecting Switzerland and Italy. It combines wild nature with artistic heritage.",
-      "description": "Val Bregaglia is situated in southeastern Graubünden and links the Engadin with northern Italy. The valley is known for steep granite walls, powerful waterfalls, and high alpine passes. It is also the birthplace of the artist Alberto Giacometti, giving the region cultural significance alongside its natural beauty.",
+      "name": "Appenzell Village",
+      "snippet": "A colorful village with strong traditions.",
+      "description": "Appenzell is known for its painted houses, regional culture, and access to hiking routes in the Alpstein area.",
       "is_public": true,
-      "type": 10,
-      "country": 41
+      "region": "cb729469-b086-4449-9837-38ee5a14c7e4",
+      "location": "9.412000,47.330000",
+      "elevation": 780,
+      "category": 22
     },
     {
-      "name": "Surselva",
-      "snippet": "A spacious alpine region along the upper Rhine. It is rich in Romansh culture and mountain landscapes.",
-      "description": "Surselva lies in western Graubünden and stretches along the upper course of the Rhine River. The region is known for its strong Romansh identity, traditional villages, and wide alpine valleys. Hiking, skiing, and river sports are key attractions throughout the year.",
+      "name": "Entlebuch Moorland Trails",
+      "snippet": "Wide hiking trails through protected moor landscapes.",
+      "description": "The Entlebuch region is a UNESCO Biosphere Reserve, known for its extensive moorlands, karst terrain, and well-marked hiking routes.",
       "is_public": true,
-      "type": 10,
-      "country": 41
+      "region": "f8a77ec7-065d-4a3e-a288-71d9b521262d",
+      "location": "8.094000,46.920000",
+      "elevation": 1100,
+      "category": 7
     },
     {
-      "name": "Vallemaggia",
-      "snippet": "A sunlit Ticino valley with stone villages and waterfalls. It offers a blend of alpine and Mediterranean character.",
-      "description": "Vallemaggia is located in the canton of Ticino and extends north of Locarno. The valley is famous for its stone architecture, clear rivers, and dramatic side valleys. It combines alpine hiking with a mild climate and strong Italian-speaking cultural traditions.",
+      "name": "Sörenberg",
+      "snippet": "Mountain village at the heart of Entlebuch.",
+      "description": "Sörenberg serves as a base for hiking and nature exploration in the Entlebuch Biosphere, with access to alpine pastures and peaks.",
       "is_public": true,
-      "type": 10,
-      "country": 41
+      "region": "f8a77ec7-065d-4a3e-a288-71d9b521262d",
+      "location": "8.045000,46.827000",
+      "elevation": 1166,
+      "category": 22
     },
     {
-      "name": "Haslital",
-      "snippet": "A high alpine valley shaped by glaciers and mountain passes. It is a gateway to some of Switzerland’s highest roads.",
-      "description": "Haslital lies in the eastern part of the canton of Bern and is defined by steep valleys, glaciers, and alpine peaks. The region is closely connected to major passes such as Grimsel and Susten. It offers impressive scenery for mountaineering, hiking, and alpine exploration.",
+      "name": "Vallemaggia Valley Trail",
+      "snippet": "A scenic trail following the Maggia river.",
+      "description": "The Vallemaggia trail network follows the Maggia river through granite villages, forests, and alpine landscapes.",
       "is_public": true,
-      "type": 10,
-      "country": 41
+      "region": "98e10c1e-c9af-4c65-ad79-aa59d2dfd412",
+      "location": "8.607000,46.338000",
+      "elevation": 350,
+      "category": 7
     },
     {
-      "name": "Lavaux",
-      "snippet": "Terraced vineyards overlooking Lake Geneva. It is one of Switzerland’s most iconic wine regions.",
-      "description": "Lavaux is located in the canton of Vaud along the northern shore of Lake Geneva. The region is famous for its steep vineyard terraces, which are recognized as a UNESCO World Heritage site. It combines wine culture, lakeside views, and scenic walking paths.",
+      "name": "Cevio",
+      "snippet": "Historic village in the Maggia Valley.",
+      "description": "Cevio is the cultural center of Vallemaggia, known for stone architecture and access to valley hiking routes.",
       "is_public": true,
-      "type": 10,
-      "country": 41
+      "region": "98e10c1e-c9af-4c65-ad79-aa59d2dfd412",
+      "location": "8.603000,46.315000",
+      "elevation": 417,
+      "category": 22
     },
     {
-      "name": "Entlebuch",
-      "snippet": "A biosphere region of moors and pre-alpine landscapes. It is known for unspoiled nature and biodiversity.",
-      "description": "Entlebuch lies in the canton of Lucerne and is Switzerland’s first UNESCO biosphere reserve. The region features extensive moorlands, karst formations, and pre-alpine hills. It focuses on sustainable tourism, nature conservation, and traditional agriculture.",
+      "name": "Surselva Alpine Meadows",
+      "snippet": "High alpine pastures and quiet hiking routes.",
+      "description": "Surselva offers open alpine meadows, historic mountain paths, and panoramic views across western Graubünden.",
       "is_public": true,
-      "type": 10,
-      "country": 41
+      "region": "98d7440a-2bee-491f-b255-74905723b9ba",
+      "location": "9.020000,46.750000",
+      "elevation": 1900,
+      "category": 7
     },
     {
-      "name": "Val d’Anniviers",
-      "snippet": "A high alpine valley with traditional villages and 4000-meter peaks. It is deeply rooted in mountain life.",
-      "description": "Val d’Anniviers is located in the canton of Valais and is surrounded by some of the highest mountains in the Alps. The valley is known for its wooden villages, strong local traditions, and high-altitude landscapes. It is a popular destination for hiking, skiing, and alpine culture.",
+      "name": "Ilanz",
+      "snippet": "The first town on the Rhine.",
+      "description": "Ilanz lies at the entrance of the Rhine Gorge and serves as a gateway to hiking routes in the Surselva region.",
       "is_public": true,
-      "type": 10,
-      "country": 41
+      "region": "98d7440a-2bee-491f-b255-74905723b9ba",
+      "location": "9.204000,46.774000",
+      "elevation": 699,
+      "category": 21
     },
     {
-      "name": "Aosta Valley",
-      "type": 3,
-      "snippet": "Aosta Valley is Italy’s smallest region, dominated by high Alpine peaks and deep valleys.",
-      "description": "Located in north-western Italy, Aosta Valley borders Switzerland and France and is home to some of the highest mountains in Europe, including Mont Blanc and Matterhorn. The region is known for alpine hiking, mountaineering, and historic Roman and medieval heritage.",
+      "name": "Val Bregaglia Granite Paths",
+      "snippet": "Historic mountain paths through granite landscapes.",
+      "description": "Val Bregaglia connects Switzerland and Italy through dramatic granite valleys, with traditional mule tracks and alpine trails.",
       "is_public": true,
-      "country": 39
+      "region": "c75e8191-c90b-4834-9831-1f4fdcbec697",
+      "location": "9.553000,46.333000",
+      "elevation": 1200,
+      "category": 7
     },
     {
-      "name": "Piedmont",
-      "type": 3,
-      "snippet": "Piedmont is a large north-western Italian region framed by the Alps and fertile plains.",
-      "description": "Piedmont stretches from high Alpine mountain chains to rolling hills and river valleys. It offers a wide range of outdoor activities, from alpine trekking and ski touring to long-distance cultural and wine-region routes.",
+      "name": "Bregaglia Village",
+      "snippet": "A village rooted in alpine trade history.",
+      "description": "The villages of Val Bregaglia reflect centuries of alpine transit and provide access to remote hiking terrain.",
       "is_public": true,
-      "country": 39
+      "region": "c75e8191-c90b-4834-9831-1f4fdcbec697",
+      "location": "9.561000,46.336000",
+      "elevation": 1010,
+      "category": 22
     },
     {
-      "name": "Lombardy",
-      "type": 3,
-      "snippet": "Lombardy combines Alpine terrain with major lakes and densely populated plains.",
-      "description": "Located in northern Italy, Lombardy includes parts of the Alps, Lake Como, Lake Garda, and extensive lowlands. The region supports diverse hiking opportunities, from high-altitude alpine routes to scenic lake and valley trails.",
+      "name": "Emmental Ridge Walk",
+      "snippet": "Rolling hills with panoramic Alpine views.",
+      "description": "The Emmental ridge paths offer gentle hiking across hills, farmland, and viewpoints toward the Bernese Alps.",
       "is_public": true,
-      "country": 39
+      "region": "29605240-c10a-4229-9065-d76fbc1ff862",
+      "location": "7.810000,46.910000",
+      "elevation": 980,
+      "category": 7
     },
     {
-      "name": "Trentino-Alto Adige",
-      "type": 3,
-      "snippet": "Trentino-Alto Adige is a mountainous region known for the Dolomites and alpine culture.",
-      "description": "Bordering Austria and Switzerland, this region features dramatic Dolomite landscapes, deep valleys, and a strong alpine tradition. It is one of Italy’s premier destinations for hiking, via ferrata, and multi-day mountain routes.",
+      "name": "Langnau im Emmental",
+      "snippet": "Market town in the heart of Emmental.",
+      "description": "Langnau is a traditional town surrounded by rolling countryside and serves as a base for regional hikes.",
       "is_public": true,
-      "country": 39
+      "region": "29605240-c10a-4229-9065-d76fbc1ff862",
+      "location": "7.788000,46.939000",
+      "elevation": 673,
+      "category": 21
     },
     {
-      "name": "Veneto",
-      "type": 3,
-      "snippet": "Veneto connects Alpine mountains with plains and coastal areas.",
-      "description": "Veneto includes the eastern Dolomites as well as extensive lowland regions. It offers varied outdoor experiences, combining alpine hiking, cultural routes, and access to historic towns and mountain villages.",
+      "name": "Upper Engadin Lakes",
+      "snippet": "A chain of high alpine lakes surrounded by open valleys.",
+      "description": "The Upper Engadin lakes form a unique alpine landscape with wide valleys, flat walking paths, and panoramic views of surrounding peaks.",
       "is_public": true,
-      "country": 39
+      "region": "e9bf9f2e-629a-48a9-bd4d-03c439464a7d",
+      "location": "9.856000,46.497000",
+      "elevation": 1790,
+      "category": 8
     },
     {
-      "name": "Friuli-Venezia Giulia",
-      "type": 3,
-      "snippet": "Friuli-Venezia Giulia is a border region shaped by mountains and cultural diversity.",
-      "description": "Situated in north-eastern Italy, the region features Alpine and pre-Alpine landscapes alongside plains and coastal zones. It is known for quieter mountain areas, cross-border trails, and a blend of Italian, Slavic, and Austrian influences.",
+      "name": "Pontresina",
+      "snippet": "An alpine village at the entrance to high mountain valleys.",
+      "description": "Pontresina serves as a gateway to glacier routes and hiking trails leading into the Bernina massif and upper Engadin.",
       "is_public": true,
-      "country": 39
+      "region": "e9bf9f2e-629a-48a9-bd4d-03c439464a7d",
+      "location": "9.896000,46.489000",
+      "elevation": 1805,
+      "category": 22
     },
     {
-      "name": "Liguria",
-      "type": 3,
-      "snippet": "Liguria is a narrow region where mountains meet the sea.",
-      "description": "Located along the north-western Italian coast, Liguria combines steep Apennine terrain with coastal landscapes. The region offers unique hiking routes connecting mountain ridges, coastal paths, and historic villages.",
+      "name": "Zugerberg Ridge Trail",
+      "snippet": "A forested ridge above Lake Zug.",
+      "description": "Zugerberg offers well-maintained hiking trails through forests and open viewpoints overlooking Lake Zug and central Switzerland.",
       "is_public": true,
-      "country": 39
+      "region": "3d8231d0-1dc0-412d-ad5f-4ce6760eca6c",
+      "location": "8.548000,47.132000",
+      "elevation": 980,
+      "category": 7
     },
     {
-      "name": "Emilia-Romagna",
-      "type": 3,
-      "snippet": "Emilia-Romagna links the Apennines with fertile plains and historic cities.",
-      "description": "Stretching from the northern Apennines to the Po Valley, Emilia-Romagna offers diverse terrain suitable for hiking and cultural exploration. The region is known for long-distance trails, rural landscapes, and strong regional identity.",
+      "name": "Zug Old Town",
+      "snippet": "Historic lakeside old town.",
+      "description": "The old town of Zug features medieval streets, a lakeside promenade, and easy access to regional walking routes.",
       "is_public": true,
-      "country": 39
+      "region": "3d8231d0-1dc0-412d-ad5f-4ce6760eca6c",
+      "location": "8.516000,47.169000",
+      "elevation": 425,
+      "category": 21
     },
     {
-      "name": "Bavaria",
-      "type": 3,
-      "snippet": "Bavaria is Germany’s largest federal state, known for alpine landscapes and strong traditions.",
-      "description": "Located in southern Germany, Bavaria includes the Bavarian Alps, alpine foothills, and extensive river valleys. The region offers a dense network of hiking routes, mountain trails, and well-developed outdoor infrastructure.",
+      "name": "Lavaux Panorama Trail",
+      "snippet": "A scenic trail through vineyard terraces.",
+      "description": "This trail crosses the terraced vineyards of Lavaux, offering panoramic views over Lake Geneva and the Alps.",
       "is_public": true,
-      "country": 49
+      "region": "3e88c6d9-131d-4f03-a712-6fdf370df499",
+      "location": "6.735000,46.488000",
+      "elevation": 560,
+      "category": 7
     },
     {
-      "name": "Baden-Württemberg",
-      "type": 3,
-      "snippet": "Baden-Württemberg features forests, low mountain ranges, and river valleys.",
-      "description": "Situated in south-western Germany, the region includes the Black Forest, Swabian Jura, and Upper Rhine Valley. It is well suited for hiking, long-distance trails, and nature-focused outdoor activities.",
+      "name": "Vevey",
+      "snippet": "A lakeside town on Lake Geneva.",
+      "description": "Vevey combines cultural landmarks with lakeside promenades and serves as a base for exploring the Lavaux region.",
       "is_public": true,
-      "country": 49
+      "region": "3e88c6d9-131d-4f03-a712-6fdf370df499",
+      "location": "6.841000,46.462000",
+      "elevation": 383,
+      "category": 21
+    },
+    {
+      "name": "Schöllenen Gorge",
+      "snippet": "A dramatic alpine gorge carved by the Reuss river.",
+      "description": "The Schöllenen Gorge connects the Uri valley with the Gotthard region and features historic bridges and hiking paths.",
+      "is_public": true,
+      "region": "c70e51b2-7771-4832-af0f-39018058eeeb",
+      "location": "8.593000,46.707000",
+      "elevation": 900,
+      "category": 7
+    },
+    {
+      "name": "Andermatt",
+      "snippet": "A mountain village at the crossroads of alpine passes.",
+      "description": "Andermatt lies at the junction of several historic alpine passes and is a hub for hiking, ski touring, and high mountain routes.",
+      "is_public": true,
+      "region": "c70e51b2-7771-4832-af0f-39018058eeeb",
+      "location": "8.595000,46.635000",
+      "elevation": 1444,
+      "category": 22
+    },
+    {
+      "name": "Valle Verzasca Trail",
+      "snippet": "A scenic valley trail along clear mountain rivers.",
+      "description": "Valle Verzasca is famous for its emerald waters, stone villages, and hiking paths following the river through steep valleys.",
+      "is_public": true,
+      "region": "cf1423e9-c981-4131-9a2f-512f31990175",
+      "location": "8.841000,46.257000",
+      "elevation": 500,
+      "category": 7
+    },
+    {
+      "name": "Lavertezzo",
+      "snippet": "A stone village with a historic arched bridge.",
+      "description": "Lavertezzo is a popular stop in the Verzasca Valley, known for its iconic bridge and access to river walks and mountain trails.",
+      "is_public": true,
+      "region": "cf1423e9-c981-4131-9a2f-512f31990175",
+      "location": "8.840000,46.258000",
+      "elevation": 536,
+      "category": 22
+    },
+    {
+      "name": "Lake Constance Shore Trails",
+      "snippet": "Flat lakeside paths with wide water views.",
+      "description": "The southern shores of Lake Constance offer easy walking and cycling routes through orchards, wetlands, and lakeside towns.",
+      "is_public": true,
+      "region": "a75306fb-68c1-43e0-a89d-f1a8e9d4a46d",
+      "location": "9.257000,47.560000",
+      "elevation": 395,
+      "category": 7
+    },
+    {
+      "name": "Frauenfeld",
+      "snippet": "Capital town of Thurgau.",
+      "description": "Frauenfeld lies along the Murg River and provides access to regional walking routes and Lake Constance excursions.",
+      "is_public": true,
+      "region": "a75306fb-68c1-43e0-a89d-f1a8e9d4a46d",
+      "location": "8.898000,47.559000",
+      "elevation": 417,
+      "category": 21
+    },
+    {
+      "name": "Alpstein High Trail",
+      "snippet": "A demanding alpine trail with exposed sections.",
+      "description": "The Alpstein high trail crosses rugged limestone terrain with dramatic views and access to peaks such as Säntis.",
+      "is_public": true,
+      "region": "62d28098-e4a0-4f2f-a870-34ceb78c9096",
+      "location": "9.343000,47.249000",
+      "elevation": 2200,
+      "category": 7
+    },
+    {
+      "name": "St. Gallen Old Town",
+      "snippet": "Historic center around the Abbey of St. Gallen.",
+      "description": "St. Gallen’s old town features UNESCO-listed heritage sites and serves as a cultural base for excursions into the Alpstein.",
+      "is_public": true,
+      "region": "62d28098-e4a0-4f2f-a870-34ceb78c9096",
+      "location": "9.376000,47.424000",
+      "elevation": 675,
+      "category": 21
+    },
+    {
+      "name": "Weissenstein Ridge",
+      "snippet": "A limestone ridge with views over the Swiss Plateau.",
+      "description": "The Weissenstein ridge offers panoramic hiking routes overlooking the Jura mountains and central Switzerland.",
+      "is_public": true,
+      "region": "05d10fa5-3fd0-4470-aa68-18e5a5ab43f0",
+      "location": "7.528000,47.244000",
+      "elevation": 1284,
+      "category": 7
+    },
+    {
+      "name": "Solothurn Old Town",
+      "snippet": "A baroque town on the Aare river.",
+      "description": "Solothurn’s historic center is known for its baroque architecture and access to Jura foothill walking routes.",
+      "is_public": true,
+      "region": "05d10fa5-3fd0-4470-aa68-18e5a5ab43f0",
+      "location": "7.537000,47.207000",
+      "elevation": 430,
+      "category": 21
+    },
+    {
+      "name": "Munot Circular Walk",
+      "snippet": "A scenic walk around a historic fortress.",
+      "description": "The Munot fortress in Schaffhausen is surrounded by walking paths offering views over the Rhine and old town.",
+      "is_public": true,
+      "region": "07488c03-1b84-4c71-99a2-1b7421dd81b5",
+      "location": "8.637000,47.697000",
+      "elevation": 403,
+      "category": 7
+    },
+    {
+      "name": "Schaffhausen Old Town",
+      "snippet": "A medieval town near the Rhine Falls.",
+      "description": "Schaffhausen’s old town is rich in historic buildings and serves as a base for exploring the Rhine Falls region.",
+      "is_public": true,
+      "region": "07488c03-1b84-4c71-99a2-1b7421dd81b5",
+      "location": "8.634000,47.698000",
+      "elevation": 403,
+      "category": 21
+    },
+    {
+      "name": "Melchsee-Frutt Plateau",
+      "snippet": "A high alpine plateau with lakes and trails.",
+      "description": "Melchsee-Frutt offers alpine hiking around mountain lakes and open plateaus above central Switzerland.",
+      "is_public": true,
+      "region": "fc6ab000-9e63-40e6-a27b-c1db7939a4c8",
+      "location": "8.277000,46.780000",
+      "elevation": 1920,
+      "category": 8
+    },
+    {
+      "name": "Sarnen",
+      "snippet": "Capital town of Obwalden.",
+      "description": "Sarnen lies on Lake Sarnen and serves as a gateway to alpine routes in Obwalden.",
+      "is_public": true,
+      "region": "fc6ab000-9e63-40e6-a27b-c1db7939a4c8",
+      "location": "8.248000,46.899000",
+      "elevation": 469,
+      "category": 21
+    },
+    {
+      "name": "Bürgenstock Cliff Walk",
+      "snippet": "A panoramic cliffside walking route above Lake Lucerne.",
+      "description": "The Bürgenstock cliff walk offers dramatic views over Lake Lucerne and the surrounding mountains, with well-secured paths suitable for relaxed hiking.",
+      "is_public": true,
+      "region": "7abf7935-1ea8-45e3-b38d-1415e8824970",
+      "location": "8.379000,46.999000",
+      "elevation": 875,
+      "category": 7
+    },
+    {
+      "name": "Stans",
+      "snippet": "Capital town of Nidwalden.",
+      "description": "Stans is a historic town at the foot of the Alps, providing access to mountain trails and lake-side walking routes.",
+      "is_public": true,
+      "region": "7abf7935-1ea8-45e3-b38d-1415e8824970",
+      "location": "8.366000,46.958000",
+      "elevation": 452,
+      "category": 21
+    },
+    {
+      "name": "Mount Pilatus Summit Trail",
+      "snippet": "A high mountain trail with sweeping alpine views.",
+      "description": "The Pilatus summit area offers marked hiking routes with panoramic views across Lake Lucerne and central Switzerland.",
+      "is_public": true,
+      "region": "74a8deaf-e3eb-4eea-9f6a-14865731f263",
+      "location": "8.253000,46.979000",
+      "elevation": 2128,
+      "category": 7
+    },
+    {
+      "name": "Lucerne Old Town",
+      "snippet": "Historic lakeside city center.",
+      "description": "Lucerne’s old town features medieval streets, iconic bridges, and serves as a hub for excursions into central Switzerland.",
+      "is_public": true,
+      "region": "74a8deaf-e3eb-4eea-9f6a-14865731f263",
+      "location": "8.305000,47.050000",
+      "elevation": 436,
+      "category": 21
+    },
+    {
+      "name": "Jura Ridge Trail",
+      "snippet": "A long ridge trail through limestone landscapes.",
+      "description": "The Jura ridge trail crosses open pastures and forested ridges, offering wide views over the Swiss Plateau and Alps.",
+      "is_public": true,
+      "region": "a3078c74-2f20-4f73-a075-785638f567cb",
+      "location": "7.154000,47.305000",
+      "elevation": 1200,
+      "category": 7
+    },
+    {
+      "name": "Delémont",
+      "snippet": "Capital town of the Jura canton.",
+      "description": "Delémont lies in a broad valley and serves as a base for hiking routes in the Jura mountains.",
+      "is_public": true,
+      "region": "a3078c74-2f20-4f73-a075-785638f567cb",
+      "location": "7.345000,47.364000",
+      "elevation": 435,
+      "category": 21
+    },
+    {
+      "name": "Klausen Pass Road",
+      "snippet": "A high alpine pass crossing between cantons.",
+      "description": "The Klausen Pass connects central Switzerland with eastern alpine regions and offers scenic routes for hiking and cycling.",
+      "is_public": true,
+      "region": "3c8485a4-6d81-4848-9508-fd79fa309cd3",
+      "location": "8.848000,46.866000",
+      "elevation": 1948,
+      "category": 6
+    },
+    {
+      "name": "Glarus Town",
+      "snippet": "Administrative center of the Glarus region.",
+      "description": "Glarus is surrounded by steep alpine valleys and provides access to demanding hiking and mountain routes.",
+      "is_public": true,
+      "region": "3c8485a4-6d81-4848-9508-fd79fa309cd3",
+      "location": "9.067000,47.040000",
+      "elevation": 472,
+      "category": 21
+    },
+    {
+      "name": "Lake Geneva Promenade",
+      "snippet": "Urban lakeside walking paths.",
+      "description": "The Lake Geneva promenade offers flat walking routes with views across the lake and surrounding mountains.",
+      "is_public": true,
+      "region": "1f29e483-039f-4e43-bf84-c720908a0465",
+      "location": "6.149000,46.204000",
+      "elevation": 375,
+      "category": 7
+    },
+    {
+      "name": "Geneva Old Town",
+      "snippet": "Historic district above the lake.",
+      "description": "Geneva’s old town features narrow streets, historic buildings, and viewpoints over Lake Geneva.",
+      "is_public": true,
+      "region": "1f29e483-039f-4e43-bf84-c720908a0465",
+      "location": "6.148000,46.201000",
+      "elevation": 410,
+      "category": 21
+    },
+    {
+      "name": "Fribourg Prealps Ridge",
+      "snippet": "Rolling pre-alpine ridges with wide views.",
+      "description": "The Fribourg Prealps offer a mix of open ridges and forested slopes, ideal for long-distance hiking with views toward the Bernese Alps.",
+      "is_public": true,
+      "region": "e714889b-3dd5-42b3-b373-f1d2964ddbee",
+      "location": "7.179000,46.658000",
+      "elevation": 1650,
+      "category": 7
+    },
+    {
+      "name": "Fribourg Old Town",
+      "snippet": "A medieval town built above the Sarine river.",
+      "description": "Fribourg’s old town features historic bridges, cathedral viewpoints, and serves as a base for exploring nearby pre-alpine regions.",
+      "is_public": true,
+      "region": "e714889b-3dd5-42b3-b373-f1d2964ddbee",
+      "location": "7.161000,46.806000",
+      "elevation": 610,
+      "category": 21
+    },
+    {
+      "name": "Blauen Ridge Trail",
+      "snippet": "A panoramic ridge walk above the Basel region.",
+      "description": "The Blauen ridge provides scenic hiking routes with views across the Rhine Valley, Jura hills, and Black Forest.",
+      "is_public": true,
+      "region": "bcc85d83-ab04-4e04-a68f-5b6d4d9ef98e",
+      "location": "7.634000,47.480000",
+      "elevation": 1165,
+      "category": 7
+    },
+    {
+      "name": "Liestal",
+      "snippet": "Capital town of Basel-Landschaft.",
+      "description": "Liestal lies along the Ergolz river and offers access to Jura foothill hiking routes and regional trails.",
+      "is_public": true,
+      "region": "bcc85d83-ab04-4e04-a68f-5b6d4d9ef98e",
+      "location": "7.739000,47.484000",
+      "elevation": 327,
+      "category": 21
+    },
+    {
+      "name": "Hoher Kasten Panorama Path",
+      "snippet": "A high ridge with panoramic Alpine views.",
+      "description": "Hoher Kasten marks the eastern edge of Switzerland and offers spectacular views over the Rhine Valley and surrounding Alps.",
+      "is_public": true,
+      "region": "32d42e4c-7909-4896-add2-afead0798c33",
+      "location": "9.486000,47.284000",
+      "elevation": 1794,
+      "category": 7
+    },
+    {
+      "name": "Herisau",
+      "snippet": "Administrative center of Appenzell Ausserrhoden.",
+      "description": "Herisau is surrounded by rolling hills and serves as a base for walking routes and cultural exploration in the Appenzell region.",
+      "is_public": true,
+      "region": "32d42e4c-7909-4896-add2-afead0798c33",
+      "location": "9.277000,47.386000",
+      "elevation": 771,
+      "category": 21
+    },
+    {
+      "name": "Aargau Jura Crest Trail",
+      "snippet": "A ridge trail along the northern Jura.",
+      "description": "This trail follows the Jura crest in Aargau, offering long-distance hiking with views toward the Swiss Plateau and Black Forest.",
+      "is_public": true,
+      "region": "b1f5e543-cedf-495c-bc5c-1cd22090c0b2",
+      "location": "8.043000,47.389000",
+      "elevation": 900,
+      "category": 7
+    },
+    {
+      "name": "Aarau",
+      "snippet": "Capital town on the Aare river.",
+      "description": "Aarau combines historic streets with river walks and serves as a gateway to hiking routes in Aargau and the Jura foothills.",
+      "is_public": true,
+      "region": "b1f5e543-cedf-495c-bc5c-1cd22090c0b2",
+      "location": "8.047000,47.392000",
+      "elevation": 381,
+      "category": 21
+    },
+    {
+      "name": "Gran Paradiso Summit Area",
+      "snippet": "High alpine terrain within Italy’s oldest national park.",
+      "description": "The Gran Paradiso massif offers classic alpine hiking and mountaineering routes surrounded by glaciers and protected wildlife areas.",
+      "is_public": true,
+      "region": "d950741a-4675-4d63-b6f0-0c74b8faa3e5",
+      "location": "7.273000,45.543000",
+      "elevation": 4061,
+      "category": 1
+    },
+    {
+      "name": "Cogne",
+      "snippet": "An alpine village in Gran Paradiso National Park.",
+      "description": "Cogne serves as a gateway to hiking trails, alpine pastures, and glacier valleys within the Gran Paradiso region.",
+      "is_public": true,
+      "region": "d950741a-4675-4d63-b6f0-0c74b8faa3e5",
+      "location": "7.357000,45.608000",
+      "elevation": 1544,
+      "category": 22
+    },
+    {
+      "name": "Monte Rosa East Ridge",
+      "snippet": "A high alpine ridge near Italy’s highest peaks.",
+      "description": "The Monte Rosa massif features extensive glaciers and some of the most demanding alpine routes in the Italian Alps.",
+      "is_public": true,
+      "region": "d950741a-4675-4d63-b6f0-0c74b8faa3e5",
+      "location": "7.867000,45.936000",
+      "elevation": 4554,
+      "category": 2
+    },
+    {
+      "name": "Alagna Valsesia",
+      "snippet": "A mountain village beneath Monte Rosa.",
+      "description": "Alagna is known for its Walser heritage and as a base for high alpine hiking, climbing, and glacier travel.",
+      "is_public": true,
+      "region": "d950741a-4675-4d63-b6f0-0c74b8faa3e5",
+      "location": "7.939000,45.852000",
+      "elevation": 1191,
+      "category": 22
+    },
+    {
+      "name": "Lake Como Mountain Trails",
+      "snippet": "Steep trails rising directly above the lake.",
+      "description": "The mountains around Lake Como offer dramatic hiking routes with steep ascents, panoramic viewpoints, and historic mule paths.",
+      "is_public": true,
+      "region": "6ba5b378-da6c-426d-9cdb-24ab4cab3bf2",
+      "location": "9.086000,45.992000",
+      "elevation": 1200,
+      "category": 7
+    },
+    {
+      "name": "Bellagio",
+      "snippet": "A historic lakeside town at the center of Lake Como.",
+      "description": "Bellagio combines cultural landmarks with access to mountain trails and ferry connections across Lake Como.",
+      "is_public": true,
+      "region": "6ba5b378-da6c-426d-9cdb-24ab4cab3bf2",
+      "location": "9.261000,45.987000",
+      "elevation": 229,
+      "category": 21
+    },
+    {
+      "name": "Dolomites Alta Via Section",
+      "snippet": "A classic high-altitude long-distance trail.",
+      "description": "This section of the Alta Via crosses dramatic Dolomite terrain with exposed paths, alpine huts, and limestone towers.",
+      "is_public": true,
+      "region": "cde517cc-3f6e-47c1-a500-e46e1fc702cf",
+      "location": "11.873000,46.410000",
+      "elevation": 2300,
+      "category": 7
+    },
+    {
+      "name": "Cortina d’Ampezzo",
+      "snippet": "A renowned alpine resort town in the Dolomites.",
+      "description": "Cortina serves as a hub for hiking, via ferrata routes, and mountain exploration in the eastern Dolomites.",
+      "is_public": true,
+      "region": "cde517cc-3f6e-47c1-a500-e46e1fc702cf",
+      "location": "12.135000,46.538000",
+      "elevation": 1210,
+      "category": 21
+    },
+    {
+      "name": "Cinque Terre Coastal Trail",
+      "snippet": "A dramatic coastal hiking path linking cliffside villages.",
+      "description": "The Cinque Terre trail network connects historic villages along steep cliffs, combining sea views, terraced vineyards, and demanding footpaths.",
+      "is_public": true,
+      "region": "1282972f-f96a-4320-ad14-95dad15ac535",
+      "location": "9.710000,44.119000",
+      "elevation": 350,
+      "category": 7
+    },
+    {
+      "name": "Vernazza",
+      "snippet": "A colorful fishing village on the Ligurian coast.",
+      "description": "Vernazza is one of the iconic Cinque Terre villages and a key stop for coastal hikers and cultural exploration.",
+      "is_public": true,
+      "region": "1282972f-f96a-4320-ad14-95dad15ac535",
+      "location": "9.684000,44.135000",
+      "elevation": 3,
+      "category": 22
+    },
+    {
+      "name": "Dolomiti Friulane Ridge",
+      "snippet": "Remote alpine ridges in eastern Dolomites.",
+      "description": "The Dolomiti Friulane offer wild, less-visited alpine terrain with demanding hiking routes and minimal infrastructure.",
+      "is_public": true,
+      "region": "4742e520-bcf8-4b28-b348-698c212fcfc4",
+      "location": "12.518000,46.334000",
+      "elevation": 2400,
+      "category": 2
+    },
+    {
+      "name": "Sauris",
+      "snippet": "A secluded alpine village with unique cultural heritage.",
+      "description": "Sauris is known for its isolated setting, alpine lakes, and access to quiet mountain trails in Friuli-Venezia Giulia.",
+      "is_public": true,
+      "region": "4742e520-bcf8-4b28-b348-698c212fcfc4",
+      "location": "12.704000,46.469000",
+      "elevation": 1400,
+      "category": 22
+    },
+    {
+      "name": "Brenta Apennines Ridge",
+      "snippet": "Rolling mountain ridges south of the Po Valley.",
+      "description": "The northern Apennines in Emilia-Romagna offer forested ridges, long-distance trails, and quieter hiking routes.",
+      "is_public": true,
+      "region": "64d10a1c-efc0-4020-9d21-d7fe70651020",
+      "location": "10.157000,44.382000",
+      "elevation": 1800,
+      "category": 2
+    },
+    {
+      "name": "Bologna Old Town",
+      "snippet": "Historic city with medieval arcades.",
+      "description": "Bologna combines rich cultural heritage with access to Apennine foothill hiking routes south of the city.",
+      "is_public": true,
+      "region": "64d10a1c-efc0-4020-9d21-d7fe70651020",
+      "location": "11.342000,44.494000",
+      "elevation": 54,
+      "category": 21
+    },
+    {
+      "name": "Dolomites of Veneto High Trail",
+      "snippet": "A demanding high-altitude Dolomite trail.",
+      "description": "This trail crosses dramatic limestone terrain with alpine huts and exposed sections typical of the Venetian Dolomites.",
+      "is_public": true,
+      "region": "c0030ed0-9137-44e3-bb55-39bc8d8bbe01",
+      "location": "12.221000,46.433000",
+      "elevation": 2400,
+      "category": 7
+    },
+    {
+      "name": "Cortina Valley Floor",
+      "snippet": "A broad alpine valley surrounded by Dolomite peaks.",
+      "description": "The Cortina valley provides access to numerous hiking routes and serves as a base for exploring the Venetian Dolomites.",
+      "is_public": true,
+      "region": "c0030ed0-9137-44e3-bb55-39bc8d8bbe01",
+      "location": "12.139000,46.540000",
+      "elevation": 1210,
+      "category": 21
+    },
+    {
+      "name": "Bavarian Alps High Trail",
+      "snippet": "A demanding alpine trail along the German-Austrian border.",
+      "description": "This high trail crosses rugged limestone terrain in the Bavarian Alps, offering panoramic views and access to classic mountain routes.",
+      "is_public": true,
+      "region": "09de337b-8c92-4e58-8ce6-95e1859455bc",
+      "location": "11.010000,47.500000",
+      "elevation": 2100,
+      "category": 7
+    },
+    {
+      "name": "Berchtesgaden",
+      "snippet": "An alpine town near Germany’s southeastern border.",
+      "description": "Berchtesgaden serves as a base for hiking in the National Park Berchtesgaden, with access to high alpine routes and lakes.",
+      "is_public": true,
+      "region": "09de337b-8c92-4e58-8ce6-95e1859455bc",
+      "location": "12.985000,47.632000",
+      "elevation": 573,
+      "category": 21
+    },
+    {
+      "name": "Black Forest Westweg Section",
+      "snippet": "A classic long-distance trail through dense forest.",
+      "description": "This section of the Westweg traverses high ridges, forest paths, and open viewpoints across the Black Forest.",
+      "is_public": true,
+      "region": "9eb018d9-0e54-454c-b112-cb7dad3cb19b",
+      "location": "8.180000,47.900000",
+      "elevation": 1100,
+      "category": 7
+    },
+    {
+      "name": "Freiburg im Breisgau",
+      "snippet": "A vibrant city at the edge of the Black Forest.",
+      "description": "Freiburg combines historic architecture with immediate access to Black Forest hiking routes and vineyard paths.",
+      "is_public": true,
+      "region": "9eb018d9-0e54-454c-b112-cb7dad3cb19b",
+      "location": "7.852000,47.995000",
+      "elevation": 278,
+      "category": 21
+    },
+    {
+      "name": "Königssee Lakeside Path",
+      "snippet": "A scenic path along emerald alpine waters.",
+      "description": "The Königssee lakeside paths offer calm walks beneath steep limestone walls within Berchtesgaden National Park.",
+      "is_public": true,
+      "region": "09de337b-8c92-4e58-8ce6-95e1859455bc",
+      "location": "12.957000,47.589000",
+      "elevation": 603,
+      "category": 8
+    },
+    {
+      "name": "Jennerbahn Summit Station",
+      "snippet": "Cable car access to panoramic alpine viewpoints.",
+      "description": "The Jennerbahn summit station provides access to high viewpoints and ridge walks above the Berchtesgadener Land.",
+      "is_public": true,
+      "region": "09de337b-8c92-4e58-8ce6-95e1859455bc",
+      "location": "13.007000,47.589000",
+      "elevation": 1800,
+      "category": 12
+    },
+    {
+      "name": "Belchen Summit Trail",
+      "snippet": "A high ridge trail to one of the Black Forest’s best viewpoints.",
+      "description": "The Belchen trail climbs through alpine-style meadows to a summit offering wide views over the Black Forest and Alps.",
+      "is_public": true,
+      "region": "9eb018d9-0e54-454c-b112-cb7dad3cb19b",
+      "location": "7.830000,47.822000",
+      "elevation": 1414,
+      "category": 7
+    },
+    {
+      "name": "Schauinsland Cable Car Station",
+      "snippet": "A historic cable car above Freiburg.",
+      "description": "Schauinslandbahn is one of Germany’s oldest cable cars, providing access to hiking routes and viewpoints above Freiburg.",
+      "is_public": true,
+      "region": "9eb018d9-0e54-454c-b112-cb7dad3cb19b",
+      "location": "7.899000,47.914000",
+      "elevation": 1220,
+      "category": 12
+    },
+    {
+      "name": "Dolomites Via Ferrata Section",
+      "snippet": "An exposed alpine route with fixed cables.",
+      "description": "This via ferrata section in the Dolomites combines scrambling, ladders, and fixed cables across steep limestone walls.",
+      "is_public": true,
+      "region": "cde517cc-3f6e-47c1-a500-e46e1fc702cf",
+      "location": "11.900000,46.430000",
+      "elevation": 2600,
+      "category": 4
+    },
+    {
+      "name": "Rifugio Lagazuoi",
+      "snippet": "A high-altitude mountain hut in the Dolomites.",
+      "description": "Rifugio Lagazuoi is a popular hut offering overnight accommodation and access to high alpine routes and via ferratas.",
+      "is_public": true,
+      "region": "cde517cc-3f6e-47c1-a500-e46e1fc702cf",
+      "location": "12.005000,46.531000",
+      "elevation": 2752,
+      "category": 3
+    },
+    {
+      "name": "Lake Maggiore Hillside Trail",
+      "snippet": "A hillside trail overlooking Lake Maggiore.",
+      "description": "The trails above Lake Maggiore offer scenic walking routes through chestnut forests and viewpoints over the lake.",
+      "is_public": true,
+      "region": "cf1423e9-c981-4131-9a2f-512f31990175",
+      "location": "8.734000,46.176000",
+      "elevation": 800,
+      "category": 7
+    },
+    {
+      "name": "Locarno",
+      "snippet": "A lakeside town with Mediterranean atmosphere.",
+      "description": "Locarno lies on Lake Maggiore and provides access to valley trails, lakeside promenades, and cable cars into the hills.",
+      "is_public": true,
+      "region": "cf1423e9-c981-4131-9a2f-512f31990175",
+      "location": "8.799000,46.169000",
+      "elevation": 200,
+      "category": 21
     }
   ]
 }

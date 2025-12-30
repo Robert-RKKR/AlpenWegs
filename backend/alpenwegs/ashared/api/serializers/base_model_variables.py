@@ -2,6 +2,12 @@
 base_representation_fields = [
     'pk',
     'url',
+    'name',
+]
+base_representation_identification_fields = [
+    'pk',
+    'url',
+    'name',
 ]
 
 # BaseModel serializer details:

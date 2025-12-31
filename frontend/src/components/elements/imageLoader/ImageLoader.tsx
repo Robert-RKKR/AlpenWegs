@@ -1,6 +1,9 @@
 // React imports:
 import { useState } from "react";
 
+// Components:
+import { StateLoader } from "../stateLoader/StateLoader";
+
 // Import component css:
 import "./ImageLoader.css";
 
@@ -21,9 +24,11 @@ export function ImageLoader({
   const imageSrc = !src || error ? fallback : src;
 
   return (
-    <div className={"image-loader-container"}>
+    <div className="image-loader-container">
       {!loaded && (
-        <div className="image-loader-spinner" />
+        <div className="image-loader-overlay">
+          <StateLoader />
+        </div>
       )}
 
       <img

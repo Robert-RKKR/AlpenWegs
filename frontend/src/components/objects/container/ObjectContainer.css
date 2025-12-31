@@ -4,6 +4,22 @@
     display: flex;
 }
 
+.objects-header {
+    background: var(--color-background-light-secondary);
+    padding: var(--space-padding-primary);
+    margin-bottom: var(--space-secondary);
+    border-radius: var(--radius-primary);
+    box-shadow: var(--shadows-primary);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    width: 100%;
+}
+
+.objects-header h2 {
+    font-size: var(--font-size-heading-secondary);
+}
+
 /* Container body */
 .objects-body {
     padding-bottom: var(--space-padding-primary);

@@ -1,4 +1,5 @@
 // Application imports:
+import { StateLoader } from "../../../components/elements/stateLoader/StateLoader";
 import type { ApiListResponse } from "../../../services/api/types";
 import { Pagination } from "../../../services/ui/Pagination";
 import { ObjectCard } from "../cards/ObjectCard";
@@ -35,11 +36,9 @@ export function ObjectContainer<TModel>({
   });
 
   if (isLoading) {
-    return <div className="objects-body">
-      <div className="objects-body-loading">
-        <p>Loading...</p>
-      </div>
-    </div>;
+    return <div className="objects-body-loading">
+        <StateLoader />
+      </div>;
   }
 
   if (error || !data) {

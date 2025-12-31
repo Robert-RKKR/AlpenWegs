@@ -26,6 +26,20 @@ export function ExplorerTrackDetailsPage() {
               { label: "Max speed", value: `${track.maximum_speed} km/h` },
             ],
           },
+          {
+            title: "Other Information",
+            properties: [
+              { label: "Avg speed", value: `${track.elevation_gain} km/h` },
+              { label: "Max speed", value: `${track.elevation_gain} km/h` },
+            ],
+          },
+          {
+            title: "More information",
+            properties: [
+              { label: "Avg speed", value: `${track.total_distance} km/h` },
+              { label: "Max speed", value: `${track.total_distance} km/h` },
+            ],
+          },
         ],
       })}
     />

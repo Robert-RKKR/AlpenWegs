@@ -1,0 +1,21 @@
+.object-details {
+    gap: var(--space-padding-primary);
+    flex-direction: column;
+    display: flex;
+}
+
+.object-details-card {
+    background: var(--color-background-light-secondary);
+    padding: var(--space-padding-primary);
+    border-radius: var(--radius-primary);
+    box-shadow: var(--shadows-primary);
+}
+
+
+
+
+.object-details-chapters {
+    gap: var(--space-padding-primary);
+    flex-direction: column;
+    display: flex;
+}

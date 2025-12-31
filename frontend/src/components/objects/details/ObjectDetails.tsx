@@ -3,6 +3,9 @@ import type { ObjectDetailsSchema } from "../types";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 
+// React imports:
+import { useState } from "react";
+
 // Import component css:
 import "./ObjectDetails.css";
 
@@ -12,12 +15,10 @@ type Props<T> = {
   mapDetails: (data: T) => ObjectDetailsSchema;
 };
 
-export function ObjectDetails<T>({
-  queryKey,
-  queryFn,
-  mapDetails,
-}: Props<T>) {
+export function ObjectDetails<T>({ queryKey, queryFn, mapDetails }: Props<T>) {
   const { id } = useParams<{ id: string }>();
+  
+  const [activeChapter, setActiveChapter] = useState(0);
 
   const { data, isLoading } = useQuery({
     queryKey: queryKey(id!),
@@ -33,14 +34,16 @@ export function ObjectDetails<T>({
 
   return (
     <div className="object-details">
-      {details.image && (
-        <img src={details.image} alt={details.title} />
-      )}
+      <div className="object-details-title object-details-card">
+        <h1>{details.title}</h1>
+      </div>
 
-      <h1>{details.title}</h1>
+      <div className="object-details-representation object-details-card">
+        {details.image && <img src={details.image} alt={details.title} />}
+      </div>
 
       {details.properties && (
-        <div className="object-details-properties">
+        <div className="object-details-properties object-details-card">
           {details.properties.map((p, i) => (
             <div key={i}>
               <strong>{p.label}:</strong> {p.value}
@@ -49,16 +52,35 @@ export function ObjectDetails<T>({
         </div>
       )}
 
-      {details.chapters?.map((chapter, i) => (
-        <section key={i}>
-          <h2>{chapter.title}</h2>
-          {chapter.properties.map((p, j) => (
-            <div key={j}>
-              <strong>{p.label}:</strong> {p.value}
-            </div>
-          ))}
-        </section>
-      ))}
+      <div className="object-details-chapters object-details-card">
+        {details.chapters && details.chapters.length > 0 && (
+          <div className="object-details-tabs">
+            {details.chapters.map((chapter, index) => (
+              <button
+                key={index}
+                className={`object-details-tab ${
+                  index === activeChapter ? "active" : ""
+                }`}
+                onClick={() => setActiveChapter(index)}
+                type="button"
+              >
+                {chapter.title}
+              </button>
+            ))}
+          </div>
+        )}
+
+        {details.chapters && details.chapters[activeChapter] && (
+          <div className="object-details-tab-content">
+            {details.chapters[activeChapter].properties.map((p, j) => (
+              <div key={j} className="object-details-property-row">
+                <span className="label">{p.label}</span>
+                <span className="value">{p.value}</span>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -1,22 +1,23 @@
+// Import application components:
 import { ObjectContainer } from "../../../components/objects/container/ObjectContainer";
-import { TrackApi } from "../api/trackApi";
 import type { TrackRelationModel } from "../models/trackModel";
+import { TrackApi } from "../api/trackApi";
 
-
-export function ExplorerTracks() {
+// ExplorerTracksPage component:
+export function ExplorerTracksPage() {
   return (
     <div className="objects">
       <div className="objects-header">
-        <h2></h2>
+        <h2>Tracks</h2>
       </div>
 
       <ObjectContainer<TrackRelationModel>
-        queryKey={(page) => ["tracks", "relation", page]}
+        queryKey={(page) => ["track", "relation", page]}
         queryFn={(page) =>
           TrackApi.light({ page_number: page })
         }
         renderCard={(track) => ({
-          href: `/tracks/${track.pk}`,
+          href: `/explorer/track/${track.pk}`,
           image: track.primary_photo,
           title: track.name,
           properties: [

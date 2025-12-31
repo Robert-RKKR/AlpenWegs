@@ -1,12 +1,16 @@
-import { Routes, Route } from "react-router-dom";
-import { ExplorerTracks } from "./pages/ExplorerTracks";
-import { RouteDetailPage } from "./pages/RouteDetailPage";
+//  Application imports:
+import { ExplorerTrackDetailsPage } from "./pages/ExplorerTrackDetailsPage";
+import { ExplorerTracksPage } from "./pages/ExplorerTracksPage";
 
+// React imports:
+import { Routes, Route } from "react-router-dom";
+
+// ExplorerRoutes component:
 export function ExplorerRoutes() {
   return (
     <Routes>
-      <Route path="tracks" element={<ExplorerTracks />} />
-      <Route path="routes/:id" element={<RouteDetailPage />} />
+      <Route path="track" element={<ExplorerTracksPage />} />
+      <Route path="track/:id" element={<ExplorerTrackDetailsPage />} />
     </Routes>
   );
 }

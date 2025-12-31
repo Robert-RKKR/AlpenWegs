@@ -1,7 +1,9 @@
-import { apiClient } from "./client";
-import { unwrapList, unwrapDetail } from "./helpers";
+// Application imports:
 import type { ApiListResponse, ApiDetailResponse } from "./types";
+import { unwrapList, unwrapDetail } from "./helpers";
+import { apiClient } from "./client";
 
+// BaseApi class:
 export class BaseApi {
   static list<T>(
     url: string,
@@ -12,7 +14,7 @@ export class BaseApi {
       .then(unwrapList);
   }
 
-  static detail<T>(
+  static retrieve<T>(
     url: string
   ): Promise<T> {
     return apiClient

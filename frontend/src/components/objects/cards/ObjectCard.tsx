@@ -1,11 +1,12 @@
-// Import applicable types:
+// Application imports:
 import type { ObjectCardProps } from "../types";
+
+// React imports:
+import { Link } from "react-router-dom";
+import { useState } from "react";
 
 // Import component css:
 import "./ObjectCard.css";
-
-// React imports:
-import { useState } from "react";
 
 // ObjectCard component:
 export function ObjectCard({
@@ -21,7 +22,7 @@ export function ObjectCard({
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <a href={href} className="objects-card">
+    <Link to={href} className="objects-card">
       {/* Image – single value */}
       <div className="objects-card-image">
         <img
@@ -75,6 +76,6 @@ export function ObjectCard({
           </div>
         )}
       </div>
-    </a>
+    </Link>
   );
 }

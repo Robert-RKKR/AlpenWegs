@@ -7,3 +7,20 @@ export type ObjectCardProps = {
   title: string;
   href: string;
 };
+
+export type ObjectDetailsSchema = {
+  image?: string | null;
+  title: string;
+  subtitle?: string;
+  properties?: {
+    label: string;
+    value: string | number;
+  }[];
+  chapters?: {
+    title: string;
+    properties: {
+      label: string;
+      value: string | number;
+    }[];
+  }[];
+};

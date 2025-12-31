@@ -6,9 +6,22 @@
 
 /* Container body */
 .objects-body {
-    display: grid;
+    padding-bottom: var(--space-padding-primary);
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-secondary);
+    display: grid;
     width: 100%;
-    padding-bottom: var(--space-padding-primary);
+}
+
+/* Object loading */
+.objects-body-loading {
+    background: var(--color-background-light-secondary);
+    border-radius: var(--radius-primary);
+    box-shadow: var(--shadows-primary);
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    height: 200px;
+    display: flex;
+    width: 100%;
 }

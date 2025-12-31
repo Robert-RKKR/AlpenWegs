@@ -5,7 +5,7 @@
     flex-direction: row;
     overflow: hidden;
     display: flex;
-    height: 100%;
+    height: 150px;
 }
 
 .objects-card:hover {
@@ -17,16 +17,24 @@
     font-size: var(--font-size-text-secondary);
 }
 
+.objects-card-image {
+    flex: 0 0 180px;
+    height: 100%;
+}
+
 .objects-card-image > img {
     border-radius: var(--radius-primary) 0px 0px var(--radius-primary);
     object-fit: cover;
-    height: 150px;
+    height: 100%;
+    width: 100%;
 }
 
 .objects-card-content {
     padding: var(--space-padding-primary);
     flex-direction: column;
     display: flex;
+    flex: 1;
+    overflow: hidden;
 }
 
 .objects-card-element:not(:last-child) {
@@ -36,6 +44,9 @@
 .objects-card-title > h3 {
     font-size: var(--font-size-heading-secondary);
     font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .objects-card-properties {
@@ -68,9 +79,14 @@
 
 .objects-card-description > p {
     font-size: var(--font-size-text-secondary);
+    overflow: hidden;
 }
 
 /* Extra */
+.objects-card-extra {
+    margin-top: auto;
+}
+
 .objects-card-extra-item:not(:last-child) {
     margin-right: var(--space-padding-secondary);
 }

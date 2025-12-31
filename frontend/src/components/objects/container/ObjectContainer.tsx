@@ -1,12 +1,17 @@
-import { useState } from "react";
+//  Import React Query and React:
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
-import { ObjectCard } from "../cards/ObjectCard";
-import { Pagination } from "../../../services/ui/Pagination";
+// Import application component and types:
 import type { ApiListResponse } from "../../../services/api/types";
+import { Pagination } from "../../../services/ui/Pagination";
+import { ObjectCard } from "../cards/ObjectCard";
 import type { ObjectCardProps } from "../types";
+
+// Import component css:
 import "./ObjectContainer.css";
 
+// Props for ObjectContainer component:
 type ObjectContainerProps<TModel> = {
   queryKey: (page: number) => readonly unknown[];
   queryFn: (page: number) => Promise<ApiListResponse<TModel>>;
@@ -14,6 +19,7 @@ type ObjectContainerProps<TModel> = {
   emptyMessage?: string;
 };
 
+// ObjectContainer component:
 export function ObjectContainer<TModel>({
   queryKey,
   queryFn,
@@ -29,11 +35,19 @@ export function ObjectContainer<TModel>({
   });
 
   if (isLoading) {
-    return <div className="objects-body">Loading…</div>;
+    return <div className="objects-body">
+      <div className="objects-body-loading">
+        <p>Loading...</p>
+      </div>
+    </div>;
   }
 
   if (error || !data) {
-    return <div className="objects-body">Failed to load data</div>;
+    return <div className="objects-body">
+      <div className="objects-body-loading">
+        <p>Failed to load data</p>
+      </div>
+    </div>;
   }
 
   if (!data.page_results.length) {

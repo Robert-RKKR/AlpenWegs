@@ -4,6 +4,9 @@ import type { ObjectCardProps } from "../types";
 // Import component css:
 import "./ObjectCard.css";
 
+// React imports:
+import { useState } from "react";
+
 // ObjectCard component:
 export function ObjectCard({
   href,
@@ -13,11 +16,22 @@ export function ObjectCard({
   description,
   extras = [],
 }: ObjectCardProps) {
+
+  // State to track if image has loaded:
+  const [loaded, setLoaded] = useState(false);
+
   return (
     <a href={href} className="objects-card">
       {/* Image – single value */}
       <div className="objects-card-image">
-        <img src={image as string} alt={title} />
+        <img
+          src={loaded && image ? image : "/empty.jpg"}
+          alt={title}
+          onLoad={() => setLoaded(true)}
+          onError={(e) => {
+            (e.currentTarget as HTMLImageElement).src = "/empty.jpg";
+          }}
+        />
       </div>
 
       <div className="objects-card-content">

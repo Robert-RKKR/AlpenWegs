@@ -1,6 +1,6 @@
 // Props for ObjectCard component:
 export type ObjectCardProps = {
-  image: React.ReactNode;
+  image?: string | null;
   properties: string[];
   description: string;
   extras: string[];

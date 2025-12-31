@@ -1,9 +1,9 @@
 // Application imports:
+import { ImageLoader } from "../../elements/imageLoader/ImageLoader";
 import type { ObjectCardProps } from "../types";
 
 // React imports:
 import { Link } from "react-router-dom";
-import { useState } from "react";
 
 // Import component css:
 import "./ObjectCard.css";
@@ -18,20 +18,13 @@ export function ObjectCard({
   extras = [],
 }: ObjectCardProps) {
 
-  // State to track if image has loaded:
-  const [loaded, setLoaded] = useState(false);
-
   return (
     <Link to={href} className="objects-card">
       {/* Image – single value */}
       <div className="objects-card-image">
-        <img
-          src={loaded && image ? image : "/empty.jpg"}
+        <ImageLoader
+          src={image as string}
           alt={title}
-          onLoad={() => setLoaded(true)}
-          onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = "/empty.jpg";
-          }}
         />
       </div>
 

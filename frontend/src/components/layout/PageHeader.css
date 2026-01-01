@@ -1,3 +1,17 @@
+/* Main Page Header Style */
+.page-header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 10;
+    width: 100vw;
+    justify-content: space-between;
+    background-color: var(--color-background-dark-primary);
+    box-shadow: var(--shadows-secondary);
+    height: var(--space-header);
+    padding: 0px var(--space-primary);
+}
+
 .header-section {
     display: flex;
     flex-direction: column;
@@ -16,7 +30,7 @@
     height: 50px;
     fill: var(--color-dark-text-heading);
     transition: fill var(--time-transition-primary) ease;
-    margin-right: var(--space-secondary);
+    margin-right: var(--space-padding-primary);
 }
 
 .header-logo svg:hover {
@@ -31,7 +45,7 @@
 }
 
 .header-menu-item {
-    padding: var(--space-secondary) calc(var(--space-secondary) / 2);
+    padding: var(--space-padding-primary) calc(var(--space-padding-primary) / 2);
     font-size: var(--font-size-heading-secondary);
     color: var(--color-dark-text-heading);
 }
@@ -43,7 +57,58 @@
 .header-search > input {
     background-color: rgba(255, 255, 255, 0.1);
     color: var(--color-dark-text-heading);
-    margin-right: var(--space-secondary);
+    margin-right: var(--space-padding-primary);
     padding: var(--space-padding-secondary);
     border-radius: var(--radius-primary);
+}
+
+/* Tablet settings */
+@media (max-width: 1024px) {
+
+    .page-header {
+        padding: var(--space-padding-primary);
+    }
+
+    .header-logo {
+        margin-left: var(--space-padding-primary);
+    }
+
+    .header-menu-item {
+        font-size: var(--font-size-body);
+        padding: var(--space-padding-primary);
+    }
+
+    .header-search > input {
+        width: 160px;
+    }
+}
+
+/* Mobile settings */
+@media (max-width: 768px) {
+
+    .page-header {
+        padding: calc(var(--space-padding-primary) * 2);
+        justify-content: center;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    /* Left side: logo only */
+    .header-left {
+        flex: 1;
+    }
+
+    .header-logo {
+        margin-left: 0;
+    }
+
+    /* Hide menu by default */
+    .header-menu {
+        display: none;
+    }
+
+    /* Visible when toggled */
+    .header-menu.menu-open {
+        display: flex;
+    }
 }

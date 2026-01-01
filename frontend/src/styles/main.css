@@ -13,20 +13,6 @@ body {
     justify-content: center;
 }
 
-/* Main Page Header Style */
-.page-header {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    z-index: 10;
-    width: 100vw;
-    justify-content: space-between;
-    background-color: var(--color-background-dark-primary);
-    box-shadow: var(--shadows-secondary);
-    height: var(--space-header);
-    padding: 0px var(--space-primary);
-}
-
 /* Main Page Body Style */
 .page-body {
     margin-top: calc(var(--space-header) + var(--space-primary));

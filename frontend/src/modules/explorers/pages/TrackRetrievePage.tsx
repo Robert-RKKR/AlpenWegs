@@ -8,12 +8,17 @@ export const trackRetrieveConfig = {
   api: {
     listUrl: "/api/explorers/track/",
   },
-  // Base page header configuration:
-  header: {
-    title: "Tracks",
-  },
   // Object mapping configuration:
-  image: ["primary_photo"],
+  image: {
+    key: "primary_photo",
+    label: "Primary Photo",
+    value: ["primary_photo"],
+  },
+  title: {
+    key: "name",
+    label: "Name",
+    value: ["name"],
+  },
   properties: [
     {
       key: "distance",

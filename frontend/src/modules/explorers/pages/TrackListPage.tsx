@@ -1,5 +1,5 @@
 // Import application components:
-import { ObjectListComponent } from "../../../components/objects/listComponent/ListComponent";
+import { ObjectListComponent } from "../../../components/objects/list/ListComponent";
 import type { TrackRelationModel } from "../models/trackModel";
 
 // Configuration for ObjectListComponent to display TrackRelationModel:
@@ -10,14 +10,34 @@ export const objectListConfig = {
   },
   // Base page header configuration:
   header: {
-    title: "Tracks",
+    title: {
+      key: "page_title",
+      label: "Title",
+      value: ["name"],
+      fallback: "Tracks",
+    },
   },
   // Card mapping configuration:
   card: {
-    href: ["pk", "/explorer/track/"],
-    image: ["primary_photo"],
-    title: ["name"],
-    description: ["snippet"],
+    href: {
+      base: "/explorer/track/",
+      id: "pk",
+    },
+    image: {
+      key: "primary_photo",
+      label: "Primary Photo",
+      value: ["primary_photo"],
+    },
+    title: {
+      key: "name",
+      label: "Name",
+      value: ["name"],
+    },
+    description: {
+      key: "snippet",
+      label: "Description",
+      value: ["snippet"],
+    },
     properties: [
       { key: "category", value: ["category", "label"] },
       {

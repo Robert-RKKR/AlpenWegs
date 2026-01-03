@@ -20,10 +20,16 @@ type ObjectRetrieveConfig = {
   api: {
     listUrl: string;
   };
-  header?: {
-    title?: string;
+  title?: {
+    key: string;
+    label?: string;
+    value: string[];
   };
-  image?: string[];
+  image?: {
+    key: string;
+    label?: string;
+    value: string[];
+  };
   properties?: {
     key: string;
     label: string;
@@ -46,9 +52,7 @@ type Props<T> = {
 };
 
 // ObjectRetrieveComponent component:
-export function ObjectRetrieveComponent<T>({
-  config,
-}: Props<T>) {
+export function ObjectRetrieveComponent<T>({ config }: Props<T>) {
   const { id } = useParams<{ id: string }>();
   const [activeChapter, setActiveChapter] = useState(0);
 
@@ -59,19 +63,33 @@ export function ObjectRetrieveComponent<T>({
     enabled: !!id,
   });
 
+  const resolvedTitle =
+    data && config.title
+      ? resolvePath(data, config.title.value)
+      : undefined;
+
+  const resolvedImage =
+    data && config.image
+      ? resolvePath(data, config.image.value)
+      : undefined;
+
   return (
     <div className="object-details">
-      <div className="object-details-title object-details-card card-box">
-        <h1>{config.header?.title}</h1>
-      </div>
+      {/* Title */}
+      {!isLoading && !error && resolvedTitle && (
+        <div className="object-details-title object-details-card card-box">
+          <h1>{resolvedTitle}</h1>
+        </div>
+      )}
 
-      {/* Loading / Error */}
+      {/* Loading */}
       {isLoading && (
         <div className="object-details-card card-box">
           <p>Loading…</p>
         </div>
       )}
 
+      {/* Error */}
       {!isLoading && error && (
         <div className="object-details-card card-box">
           <p>Failed to load data</p>
@@ -84,14 +102,12 @@ export function ObjectRetrieveComponent<T>({
           {/* Left column */}
           <div className="object-details-left">
             {/* Image */}
-            {config.image && (
+            {resolvedImage && (
               <div className="object-details-gallery object-details-card card-box">
-                {resolvePath(data, config.image) && (
-                  <img
-                    src={resolvePath(data, config.image)}
-                    alt={config.header?.title}
-                  />
-                )}
+                <img
+                  src={resolvedImage}
+                  alt={String(resolvedTitle ?? "")}
+                />
               </div>
             )}
 

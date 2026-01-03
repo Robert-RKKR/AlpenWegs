@@ -1,19 +1,26 @@
 // Application imports:
-import { ObjectRetrieveComponent } from "../../../components/objects/retrieve/RetrieveComponent";
+import { ObjectUpdateComponent } from "../../../components/objects/update/UpdateComponent";
 import type { TrackDetailedModel } from "../models/trackModel";
 
-// Configuration for ObjectRetrieveComponent to display TrackRelationModel:
-export const trackRetrieveConfig = {
+// Configuration for trackEditConfig to display TrackRelationModel:
+export const trackEditConfig = {
   // Base API call data:
   api: {
     listUrl: "/api/explorers/track/",
   },
-  // Base page header configuration:
-  header: {
-    title: "Tracks",
-  },
   // Object mapping configuration:
-  image: ["primary_photo"],
+  image: {
+    key: "primary_photo",
+    label: "Primary Photo",
+    value: ["primary_photo"],
+  },
+  title: {
+    key: "name",
+    label: "Name",
+    value: ["name"],
+    editable: true,
+    type: "text",
+  },
   properties: [
     {
       key: "distance",
@@ -66,10 +73,10 @@ export const trackRetrieveConfig = {
 };
 
 // TracksRetrievePage component:
-export function TrackEditPage() {
+export function TrackUpdatePage() {
   return (
-    <ObjectRetrieveComponent<TrackDetailedModel>
-      config={trackRetrieveConfig}
+    <ObjectUpdateComponent<TrackDetailedModel>
+      config={trackEditConfig}
     />
   );
 }

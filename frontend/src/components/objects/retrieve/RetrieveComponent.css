@@ -42,3 +42,11 @@
     flex-direction: column;
     display: flex;
 }
+
+.object-details-button {
+    padding: var(--space-padding-secondary) var(--space-padding-primary);
+    background: var(--color-background-light-primary);
+    box-shadow: var(--shadows-primary);
+    border: var(--border-primary);
+    cursor: pointer;
+}

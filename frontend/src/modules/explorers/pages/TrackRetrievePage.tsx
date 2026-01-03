@@ -14,6 +14,9 @@ export const trackRetrieveConfig = {
     label: "Primary Photo",
     value: ["primary_photo"],
   },
+  routes: {
+    edit: "/explorer/track",
+  },
   title: {
     key: "name",
     label: "Name",

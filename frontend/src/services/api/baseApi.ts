@@ -21,4 +21,13 @@ export class BaseApi {
       .get<ApiDetailResponse<T>>(url)
       .then(unwrapDetail);
   }
+  
+  static update<T>(
+    url: string,
+    data: Partial<T>
+  ): Promise<T> {
+    return apiClient
+      .patch<ApiDetailResponse<T>>(url, data)
+      .then(unwrapDetail);
+  }
 }

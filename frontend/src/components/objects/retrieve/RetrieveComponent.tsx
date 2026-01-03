@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 
 // React imports:
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 // Import component css:
@@ -20,7 +21,10 @@ type ObjectRetrieveConfig = {
   api: {
     listUrl: string;
   };
-  title?: {
+  routes: {
+    edit: string;
+  };
+  title: {
     key: string;
     label?: string;
     value: string[];
@@ -160,6 +164,16 @@ export function ObjectRetrieveComponent<T>({ config }: Props<T>) {
                     {`${resolvePath(data, p.value) ?? ""}${p.suffix ?? ""}`}
                   </div>
                 ))}
+              </div>
+            )}
+            {data && id && (
+              <div className="object-details-card card-box">
+                <Link
+                  to={`${config.routes.edit}/${id}/edit`}
+                  className="object-details-button"
+                >
+                  Edit
+                </Link>
               </div>
             )}
           </div>

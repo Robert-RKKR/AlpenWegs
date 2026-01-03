@@ -1,4 +1,5 @@
 // Application imports:
+import { ImageLoader } from "../../elements/imageLoader/ImageLoader";
 import { BaseApi } from "../../../services/api/baseApi";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -72,57 +73,66 @@ export function ObjectRetrieveComponent<T>({ config }: Props<T>) {
       ? resolvePath(data, config.title.value)
       : undefined;
 
-  const resolvedImage =
-    data && config.image
-      ? resolvePath(data, config.image.value)
-      : undefined;
+  const resolvedImages =
+  data && config.image
+    ? resolvePath(data, config.image.value)
+    : undefined;
 
   return (
-    <div className="object-details">
+    <div className="object-retrieve">
       {/* Title */}
       {!isLoading && !error && resolvedTitle && (
-        <div className="object-details-title object-details-card card-box">
+        <div className="object-retrieve-title object-retrieve-card card-box">
           <h1>{resolvedTitle}</h1>
         </div>
       )}
 
       {/* Loading */}
       {isLoading && (
-        <div className="object-details-card card-box">
+        <div className="object-retrieve-card card-box">
           <p>Loading…</p>
         </div>
       )}
 
       {/* Error */}
       {!isLoading && error && (
-        <div className="object-details-card card-box">
+        <div className="object-retrieve-card card-box">
           <p>Failed to load data</p>
         </div>
       )}
 
       {/* Data */}
       {!isLoading && !error && data && (
-        <div className="object-details-container">
+        <div className="object-retrieve-container">
           {/* Left column */}
-          <div className="object-details-left">
+          <div className="object-retrieve-left">
             {/* Image */}
-            {resolvedImage && (
-              <div className="object-details-gallery object-details-card card-box">
-                <img
-                  src={resolvedImage}
-                  alt={String(resolvedTitle ?? "")}
-                />
+            {Array.isArray(resolvedImages) && resolvedImages.length > 0 && (
+              <div className="object-retrieve-gallery object-retrieve-card card-box">
+                {resolvedImages.map((item) => (
+                  <div
+                    key={item.id}
+                    className={`object-retrieve-image ${
+                      item.is_primary ? "is-primary" : ""
+                    }`}
+                  >
+                    <ImageLoader
+                      src={item.photo.path}
+                      alt={String(resolvedTitle ?? "")}
+                    />
+                  </div>
+                ))}
               </div>
             )}
 
             {/* Chapters */}
             {config.chapters && config.chapters.length > 0 && (
-              <div className="object-details-chapters object-details-card card-box">
-                <div className="object-details-tabs">
+              <div className="object-retrieve-chapters object-retrieve-card card-box">
+                <div className="object-retrieve-tabs">
                   {config.chapters.map((chapter, index) => (
                     <button
                       key={index}
-                      className={`object-details-tab ${
+                      className={`object-retrieve-tab ${
                         index === activeChapter ? "active" : ""
                       }`}
                       onClick={() => setActiveChapter(index)}
@@ -134,14 +144,14 @@ export function ObjectRetrieveComponent<T>({ config }: Props<T>) {
                 </div>
 
                 {config.chapters[activeChapter] && (
-                  <div className="object-details-tab-content">
+                  <div className="object-retrieve-content">
                     {config.chapters[activeChapter].properties.map(
                       (p, j) => (
                         <div
                           key={j}
-                          className="object-details-property-row"
+                          className="object-retrieve-property-row"
                         >
-                          <span className="label">{p.label}</span>
+                          <span className="label">{p.label}:</span>
                           <span className="value">
                             {`${resolvePath(data, p.value) ?? ""}${p.suffix ?? ""}`}
                           </span>
@@ -155,22 +165,24 @@ export function ObjectRetrieveComponent<T>({ config }: Props<T>) {
           </div>
 
           {/* Right column */}
-          <div className="object-details-right">
+          <div className="object-retrieve-right">
             {config.properties && (
-              <div className="object-details-properties object-details-card card-box">
+              <div className="object-retrieve-properties object-retrieve-card card-box">
                 {config.properties.map((p, i) => (
                   <div key={i}>
-                    <strong>{p.label}:</strong>{" "}
-                    {`${resolvePath(data, p.value) ?? ""}${p.suffix ?? ""}`}
+                    <span className="label">{p.label}:</span>
+                    <span className="value">
+                      {`${resolvePath(data, p.value) ?? ""}${p.suffix ?? ""}`}
+                    </span>
                   </div>
                 ))}
               </div>
             )}
             {data && id && (
-              <div className="object-details-card card-box">
+              <div className="object-retrieve-card card-box">
                 <Link
                   to={`${config.routes.edit}/${id}/edit`}
-                  className="object-details-button"
+                  className="object-retrieve-button"
                 >
                   Edit
                 </Link>

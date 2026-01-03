@@ -7,12 +7,35 @@
 .object-details-card {
     background: var(--color-background-light-secondary);
     padding: var(--space-padding-primary);
-    border-radius: var(--radius-primary);
-    box-shadow: var(--shadows-primary);
 }
 
+.object-details-container {
+    gap: var(--space-padding-secondary);
+    flex-direction: row;
+    display: flex;
+}
 
+.object-details-left {
+    gap: var(--space-padding-secondary);
+    flex-direction: column;
+    display: flex;
+    width: 70%;
+}
 
+.object-details-right {
+    gap: var(--space-padding-secondary);
+    flex-direction: column;
+    display: flex;
+    width: 30%;
+}
+
+.object-details-tab {
+    padding: var(--space-padding-secondary) var(--space-padding-primary);
+    background: var(--color-background-light-primary);
+    box-shadow: var(--shadows-primary);
+    border: var(--border-primary);
+    cursor: pointer;
+}
 
 .object-details-chapters {
     gap: var(--space-padding-primary);

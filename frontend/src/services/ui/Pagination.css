@@ -4,10 +4,8 @@
 }
 
 .pagination-item {
-    padding: var(--space-padding-secondary) calc(var(--space-padding-primary) * 2);
     background: var(--color-background-light-secondary);
-    border-radius: var(--radius-primary);
-    border: var(--border-primary);
+    padding: var(--space-padding-secondary) calc(var(--space-padding-primary) * 2);
     cursor: pointer;
 }
 

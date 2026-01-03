@@ -7,7 +7,7 @@ import { TrackApi } from "../api/trackApi";
 export function ExplorerTracksPage() {
   return (
     <div className="objects">
-      <div className="objects-header">
+      <div className="objects-header card-box">
         <h2>Tracks</h2>
       </div>
 

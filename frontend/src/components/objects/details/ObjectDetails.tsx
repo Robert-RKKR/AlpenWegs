@@ -34,52 +34,63 @@ export function ObjectDetails<T>({ queryKey, queryFn, mapDetails }: Props<T>) {
 
   return (
     <div className="object-details">
-      <div className="object-details-title object-details-card">
+      <div className="object-details-title object-details-card card-box">
         <h1>{details.title}</h1>
       </div>
 
-      <div className="object-details-representation object-details-card">
-        {details.image && <img src={details.image} alt={details.title} />}
-      </div>
+      <div className="object-details-container">
 
-      {details.properties && (
-        <div className="object-details-properties object-details-card">
-          {details.properties.map((p, i) => (
-            <div key={i}>
-              <strong>{p.label}:</strong> {p.value}
-            </div>
-          ))}
-        </div>
-      )}
+        <div className="object-details-left">
 
-      <div className="object-details-chapters object-details-card">
-        {details.chapters && details.chapters.length > 0 && (
-          <div className="object-details-tabs">
-            {details.chapters.map((chapter, index) => (
-              <button
-                key={index}
-                className={`object-details-tab ${
-                  index === activeChapter ? "active" : ""
-                }`}
-                onClick={() => setActiveChapter(index)}
-                type="button"
-              >
-                {chapter.title}
-              </button>
-            ))}
+          <div className="object-details-gallery object-details-card card-box">
+            {details.image && <img src={details.image} alt={details.title} />}
           </div>
-        )}
 
-        {details.chapters && details.chapters[activeChapter] && (
-          <div className="object-details-tab-content">
-            {details.chapters[activeChapter].properties.map((p, j) => (
-              <div key={j} className="object-details-property-row">
-                <span className="label">{p.label}</span>
-                <span className="value">{p.value}</span>
+          <div className="object-details-chapters object-details-card card-box">
+            {details.chapters && details.chapters.length > 0 && (
+              <div className="object-details-tabs">
+                {details.chapters.map((chapter, index) => (
+                  <button
+                    key={index}
+                    className={`object-details-tab ${
+                      index === activeChapter ? "active" : ""
+                    }`}
+                    onClick={() => setActiveChapter(index)}
+                    type="button"
+                  >
+                    {chapter.title}
+                  </button>
+                ))}
               </div>
-            ))}
+            )}
+
+            {details.chapters && details.chapters[activeChapter] && (
+              <div className="object-details-tab-content">
+                {details.chapters[activeChapter].properties.map((p, j) => (
+                  <div key={j} className="object-details-property-row">
+                    <span className="label">{p.label}</span>
+                    <span className="value">{p.value}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+
           </div>
-        )}
+
+        </div>
+
+        <div className="object-details-right">
+          {details.properties && (
+            <div className="object-details-properties object-details-card card-box">
+              {details.properties.map((p, i) => (
+                <div key={i}>
+                  <strong>{p.label}:</strong> {p.value}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
       </div>
     </div>
   );

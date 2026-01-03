@@ -43,7 +43,7 @@ export function Pagination({
       {/* First Page Button */}
       <button
         className={
-          "pagination-item" +
+          "pagination-item card-box" +
           (page === 1 ? " pagination-disabled" : "")
         }
         disabled={page === 1}
@@ -55,7 +55,7 @@ export function Pagination({
       {/* Previous Page Button */}
       <button
         className={
-          "pagination-item" +
+          "pagination-item card-box" +
           (page === 1 ? " pagination-disabled" : "")
         }
         disabled={page === 1}
@@ -70,8 +70,8 @@ export function Pagination({
           key={p}
           className={
             p === page
-              ? "pagination-item pagination-active"
-              : "pagination-item"
+              ? "pagination-item pagination-active card-box"
+              : "pagination-item card-box"
           }
           disabled={p === page}
           onClick={() => onChange(p)}
@@ -83,7 +83,7 @@ export function Pagination({
       {/* Next Page Button */}
       <button
         className={
-          "pagination-item" +
+          "pagination-item card-box" +
           (page === pageCount ? " pagination-disabled" : "")
         }
         disabled={page === pageCount}
@@ -95,7 +95,7 @@ export function Pagination({
       {/* Last Page Button */}
       <button
         className={
-          "pagination-item" +
+          "pagination-item card-box" +
           (page === pageCount ? " pagination-disabled" : "")
         }
         disabled={page === pageCount}

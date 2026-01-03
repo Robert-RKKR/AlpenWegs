@@ -1,7 +1,5 @@
 .objects-card {
     background: var(--color-background-light-secondary);
-    border-radius: var(--radius-primary);
-    box-shadow: var(--shadows-primary);
     flex-direction: row;
     overflow: hidden;
     display: flex;
@@ -24,7 +22,6 @@
 
 .objects-card-image > img {
     border-radius: var(--radius-primary) 0px 0px var(--radius-primary);
-    object-fit: cover;
     height: 100%;
     width: 100%;
 }
@@ -34,7 +31,6 @@
     flex-direction: column;
     display: flex;
     flex: 1;
-    overflow: hidden;
 }
 
 .objects-card-element:not(:last-child) {
@@ -43,10 +39,6 @@
 
 .objects-card-title > h3 {
     font-size: var(--font-size-heading-secondary);
-    font-weight: bold;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .objects-card-properties {
@@ -79,7 +71,6 @@
 
 .objects-card-description > p {
     font-size: var(--font-size-text-secondary);
-    overflow: hidden;
 }
 
 /* Extra */
@@ -94,7 +85,6 @@
 .objects-card-extra-item span {
     align-items: center;
     display: flex;
-    gap: var(--space-padding-secondary);
 }
 
 .objects-card-extra-item svg {

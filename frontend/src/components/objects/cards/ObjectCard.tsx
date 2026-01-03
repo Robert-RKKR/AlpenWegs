@@ -19,7 +19,7 @@ export function ObjectCard({
 }: ObjectCardProps) {
 
   return (
-    <Link to={href} className="objects-card">
+    <Link to={href} className="objects-card card-box">
       {/* Image – single value */}
       <div className="objects-card-image">
         <ImageLoader

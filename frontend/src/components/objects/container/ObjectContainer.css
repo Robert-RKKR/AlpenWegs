@@ -8,8 +8,6 @@
     background: var(--color-background-light-secondary);
     padding: var(--space-padding-primary);
     margin-bottom: var(--space-secondary);
-    border-radius: var(--radius-primary);
-    box-shadow: var(--shadows-primary);
     justify-content: center;
     align-items: center;
     display: flex;

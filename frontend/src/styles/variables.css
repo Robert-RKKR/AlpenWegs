@@ -81,18 +81,18 @@
     --space-padding-secondary: 6px;
     
     /* CSS Variables - Shadows */
-    --shadows-primary: 0 2px 5px rgba(0, 0, 0, 0.2);
-    --shadows-secondary: 0 2px 12px rgba(0, 0, 0, 0.5);
+    --shadows-primary: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    --shadows-secondary: 0 .25rem .75rem rgba(0, 0, 0, .2);
     
     /* CSS Variables - Others */
-    --radius-primary: 10px;
+    --radius-primary: 8px;
 
     /* CSS Variables - Time */
     --time-transition-primary: 0.3s;
     --time-delay-primary: 0.1s;
 
     /* CSS Variables - Border */
-    --border-primary: 1px solid #e5e7eb;
+    --border-primary: 1px solid rgba(0, 0, 0, .125);
 }
 
 /* CSS Fonts */

@@ -30,6 +30,12 @@ body {
     display: flex;
 }
 
+/* Main box Styles */
+.card-box {
+    border-radius: var(--radius-primary);
+    box-shadow: var(--shadows-primary);
+    border: var(--border-primary);
+}
 
 /* Main Page Mobile Style */
 @media only screen and (max-width: 769px) {

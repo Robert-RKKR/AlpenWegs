@@ -1,6 +1,6 @@
 //  Application imports:
-import { ExplorerTrackDetailsPage } from "./pages/ExplorerTrackDetailsPage";
-import { ExplorerTracksPage } from "./pages/ExplorerTracksPage";
+import { TrackRetrievePage } from "./pages/TrackRetrievePage";
+import { TrackListPage } from "./pages/TrackListPage";
 
 // React imports:
 import { Routes, Route } from "react-router-dom";
@@ -9,8 +9,8 @@ import { Routes, Route } from "react-router-dom";
 export function ExplorerRoutes() {
   return (
     <Routes>
-      <Route path="track" element={<ExplorerTracksPage />} />
-      <Route path="track/:id" element={<ExplorerTrackDetailsPage />} />
+      <Route path="track" element={<TrackListPage />} />
+      <Route path="track/:id" element={<TrackRetrievePage />} />
     </Routes>
   );
 }

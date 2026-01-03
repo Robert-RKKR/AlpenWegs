@@ -20,7 +20,7 @@
     gap: var(--space-padding-secondary);
     flex-direction: column;
     display: flex;
-    width: 70%;
+    width: 60%;
 }
 
 /* Retrieve gallery */
@@ -28,11 +28,6 @@
     gap: var(--space-padding-secondary);
     flex-direction: row;
     display: flex;
-}
-
-.object-retrieve-image img {
-    border-radius: var(--radius-primary);
-    height: 300px;
 }
 
 /* Retrieve chapters */
@@ -72,7 +67,7 @@
     gap: var(--space-padding-secondary);
     flex-direction: column;
     display: flex;
-    width: 30%;
+    width: 40%;
 }
 
 .object-retrieve-properties {

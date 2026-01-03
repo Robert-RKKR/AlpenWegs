@@ -1,5 +1,5 @@
 // Application imports:
-import { ImageLoader } from "../../elements/imageLoader/ImageLoader";
+import { ImageCarousel } from "../../elements/imageCarousel/ImageCarousel";
 import { BaseApi } from "../../../services/api/baseApi";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -108,20 +108,14 @@ export function ObjectRetrieveComponent<T>({ config }: Props<T>) {
           <div className="object-retrieve-left">
             {/* Image */}
             {Array.isArray(resolvedImages) && resolvedImages.length > 0 && (
-              <div className="object-retrieve-gallery object-retrieve-card card-box">
-                {resolvedImages.map((item) => (
-                  <div
-                    key={item.id}
-                    className={`object-retrieve-image ${
-                      item.is_primary ? "is-primary" : ""
-                    }`}
-                  >
-                    <ImageLoader
-                      src={item.photo.path}
-                      alt={String(resolvedTitle ?? "")}
-                    />
-                  </div>
-                ))}
+              <div className="object-retrieve-card card-box">
+                <ImageCarousel
+                  height={500}
+                  images={resolvedImages.map((item) => ({
+                    src: item.photo?.path ?? null,
+                    alt: String(resolvedTitle ?? ""),
+                  }))}
+                />
               </div>
             )}
 

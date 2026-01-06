@@ -61,3 +61,17 @@
     border-radius: var(--radius-primary);
     border: none;
 }
+
+.login-remember {
+    margin-bottom: calc(var(--space-padding-primary) * 2);
+    margin-top: calc(var(--space-padding-primary) * 1);
+    color: var(--color-background-dark-primary);
+    font-size: var(--font-size-body-primary);
+    align-items: center;
+    display: flex;
+}
+
+.login-remember > input {
+    border: var(--border-primary);
+    padding: 7px;
+}

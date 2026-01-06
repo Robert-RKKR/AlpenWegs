@@ -60,9 +60,9 @@ input {
     outline: none;
     box-shadow: none;
 
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
+    /* appearance: none; */
+    /* -webkit-appearance: none; */
+    /* -moz-appearance: none; */
 
     background: transparent;
     color: inherit;

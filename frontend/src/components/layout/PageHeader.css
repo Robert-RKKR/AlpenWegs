@@ -84,7 +84,7 @@
 }
 
 /* Mobile settings */
-@media (max-width: 768px) {
+@media only screen and (max-width: 769px) {
 
     .page-header {
         padding: calc(var(--space-padding-primary) * 2);
@@ -103,8 +103,20 @@
     }
 
     /* Hide menu by default */
+    .header-left {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
     .header-menu {
-        display: none;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+    }
+    .header-right {
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
 
     /* Visible when toggled */

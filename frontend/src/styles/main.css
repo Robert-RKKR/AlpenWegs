@@ -40,8 +40,9 @@ body {
 /* Main Page Mobile Style */
 @media only screen and (max-width: 769px) {
     .page-body {
-        width: 100vw;
+    margin-top: 330px;
         padding: 0px var(--space-secondary);
+        width: 100vw;
     }
 
     .page-header {

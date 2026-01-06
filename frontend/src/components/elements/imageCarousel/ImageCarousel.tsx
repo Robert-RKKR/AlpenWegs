@@ -55,36 +55,24 @@ export function ImageCarousel({
   return (
     <>
       {/* Carousel */}
-      <div
-        className="image-carousel"
-        style={{ height }}
-      >
+      <div className="image-carousel" style={{ height }}>
         {images.map((img, i) => (
           <div
             key={i}
             className={`image-carousel-slide ${
               i === index ? "active" : ""
             }`}
-            onClick={() => setOpen(true)}
-          >
+            onClick={() => setOpen(true)}>
             <ImageLoader src={img.src} alt={img.alt} />
           </div>
         ))}
 
         {images.length > 1 && (
           <>
-            <button
-              type="button"
-              className="image-carousel-btn prev"
-              onClick={prev}
-            >
+            <button type="button" className="image-carousel-btn prev" onClick={prev}>
               ‹
             </button>
-            <button
-              type="button"
-              className="image-carousel-btn next"
-              onClick={next}
-            >
+            <button type="button" className="image-carousel-btn next" onClick={next}>
               ›
             </button>
           </>
@@ -98,33 +86,16 @@ export function ImageCarousel({
             className="image-carousel-lightbox-content"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              className="image-carousel-close"
-              onClick={close}
-              type="button"
-            >
+            <button className="image-carousel-close" onClick={close} type="button">
               ✕
             </button>
-
-            <ImageLoader
-              src={images[index].src}
-              alt={images[index].alt}
-            />
-
+            <ImageLoader src={images[index].src} alt={images[index].alt}/>
             {images.length > 1 && (
               <>
-                <button
-                  type="button"
-                  className="image-carousel-btn prev"
-                  onClick={prev}
-                >
+                <button type="button" className="image-carousel-btn prev" onClick={prev}>
                   ‹
                 </button>
-                <button
-                  type="button"
-                  className="image-carousel-btn next"
-                  onClick={next}
-                >
+                <button type="button" className="image-carousel-btn next" onClick={next}>
                   ›
                 </button>
               </>

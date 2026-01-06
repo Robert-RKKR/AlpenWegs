@@ -17,13 +17,6 @@
 
 .objects-card-image {
     flex: 0 0 180px;
-    height: 100%;
-}
-
-.objects-card-image > img {
-    border-radius: var(--radius-primary) 0px 0px var(--radius-primary);
-    height: 100%;
-    width: 100%;
 }
 
 .objects-card-content {

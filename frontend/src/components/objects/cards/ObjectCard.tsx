@@ -1,12 +1,9 @@
 // Imports:
-import { Card, Image, Text, Group, Badge, Button } from "@mantine/core";
+import { Card, Text, Group, Badge, Button } from "@mantine/core";
 import { ImageLoader } from "../../elements/imageLoader/ImageLoader";
 import type { ObjectCardProps } from "../types";
 import { IconEye } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
-
-// Import component css:
-import "./ObjectCard.css";
 
 // ObjectCard component:
 export function ObjectCard({

@@ -1,18 +1,11 @@
-// Application imports:
-import { StateLoader } from "../../elements/stateLoader/StateLoader";
+// Imports:
 import type { ApiListResponse } from "../../../services/api/types";
+import { Grid, Stack, Title, Center, Loader } from "@mantine/core";
 import { Pagination } from "../../../services/ui/Pagination";
 import { BaseApi } from "../../../services/api/baseApi";
 import { ObjectCard } from "../cards/ObjectCard";
-
-// Mantine imports:
-import { Grid, Stack, Title, Center } from "@mantine/core";
-
-// React imports:
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-
-// Import component css:
 import "./ListComponent.css";
 
 // Helpers:
@@ -84,7 +77,7 @@ export function ObjectListComponent<TModel>({
       {/* Loading */}
       {isLoading && (
         <Center py="xl">
-          <StateLoader />
+          <Loader />
         </Center>
       )}
 

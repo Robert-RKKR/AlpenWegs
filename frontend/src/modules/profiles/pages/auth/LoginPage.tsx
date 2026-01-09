@@ -1,21 +1,32 @@
-// Import application components:
+// Application imports:
 import { useAuthStore } from "../../../../stores/authStore";
 import { RkLogo } from "../../../../assets/logo/RkLogo";
+import { useNavigate, NavLink } from "react-router-dom";
 import { login } from "../../api/authApi";
-
-// Import React components:
-import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";import { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 
-// Import component css:
-import "./LoginPage.css";
+// Mantine:
+import {
+  Anchor,
+  Button,
+  Checkbox,
+  Container,
+  Group,
+  Paper,
+  PasswordInput,
+  Text,
+  TextInput,
+  Title,
+  Center,
+  Stack,
+} from "@mantine/core";
 
-// LoginPage component:
+// Styles:
+import classes from "./LoginPage.module.css";
+
 export function LoginPage() {
   const navigate = useNavigate();
-
-  // Zustand action:
   const setAuth = useAuthStore((s) => s.setAuth);
 
   // Form state:
@@ -33,14 +44,8 @@ export function LoginPage() {
     setLoading(true);
 
     try {
-      const { user, access, refresh } = await login({
-        email,
-        password,
-      });
-
-      // Persist auth + remember-me flag:
+      const { user, access, refresh } = await login({ email, password });
       setAuth(user, access, refresh, rememberMe);
-
       navigate("/auth/profile");
     } catch (err) {
       if (axios.isAxiosError(err)) {
@@ -57,63 +62,80 @@ export function LoginPage() {
   }
 
   return (
-    <form className="login-container" onSubmit={handleSubmit}>
-      <div className="login-card">
-        {/* Logo */}
-        <div className="login-logo">
-          <NavLink to="/" aria-label="AlpenWegs Homepage">
-            <RkLogo />
-          </NavLink>
-        </div>
+    <Container size={420} my={60}>
+      {/* Logo */}
+      <Center mb="md">
+        <NavLink to="/" aria-label="AlpenWegs Homepage">
+          <RkLogo />
+        </NavLink>
+      </Center>
 
-        {/* Form */}
-        <div className="login-form">
-          <h1 className="login-title">AlpenWegs</h1>
+      {/* Title */}
+      <Title ta="center" className={classes.title}>
+        Welcome back
+      </Title>
 
-          <input
-            className="login-input"
-            type="email"
-            placeholder="Email"
-            value={email}
-            required
-            autoComplete="email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
+      <Text className={classes.subtitle}>
+        Do not have an account yet?{" "}
+        <Anchor component={NavLink} to="/auth/register">
+          Create account
+        </Anchor>
+      </Text>
 
-          <input
-            className="login-input"
-            type="password"
-            placeholder="Password"
-            value={password}
-            required
-            autoComplete="current-password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-
-          {/* Remember me */}
-          <label className="login-remember">
-            <input
-              type="checkbox"
-              checked={rememberMe}
-              onChange={(e) => setRememberMe(e.target.checked)}
+      {/* Form card */}
+      <Paper withBorder shadow="sm" p={24} mt={30} radius="md">
+        <form onSubmit={handleSubmit}>
+          <Stack gap="md">
+            <TextInput
+              label="Email"
+              placeholder="you@example.com"
+              required
+              radius="md"
+              type="email"
+              value={email}
+              autoComplete="email"
+              onChange={(e) => setEmail(e.target.value)}
             />
-            Keep me logged in
-          </label>
-        </div>
 
-        {/* Actions */}
-        <div className="login-process">
-          {error && <p className="login-error">{error}</p>}
+            <PasswordInput
+              label="Password"
+              placeholder="Your password"
+              required
+              radius="md"
+              value={password}
+              autoComplete="current-password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
 
-          <button
-            className="login-button"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? "Logging in…" : "Log in"}
-          </button>
-        </div>
-      </div>
-    </form>
+            <Group justify="space-between">
+              <Checkbox
+                label="Keep me logged in"
+                checked={rememberMe}
+                onChange={(e) => setRememberMe(e.target.checked)}
+              />
+
+              <Anchor component="button" size="sm">
+                Forgot password?
+              </Anchor>
+            </Group>
+
+            {error && (
+              <Text c="red" size="sm">
+                {error}
+              </Text>
+            )}
+
+            <Button
+              type="submit"
+              fullWidth
+              radius="md"
+              loading={loading}
+            >
+              Log in
+            </Button>
+          </Stack>
+        </form>
+      </Paper>
+    </Container>
   );
 }

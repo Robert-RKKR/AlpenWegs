@@ -10,15 +10,15 @@ export type UserModel = {
   url: string;
   created: string;
   updated: string;
-  last_login: string | null;
+  last_login: string;
   is_superuser: boolean;
   is_active: boolean;
   is_staff: boolean;
   password_to_change: boolean;
   username: string;
   email: string;
-  first_name: string | null;
-  last_name: string | null;
+  first_name: string;
+  last_name: string;
   middle_name: string | null;
   phone_number: string | null;
   birthday: string | null;

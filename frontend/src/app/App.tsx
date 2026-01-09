@@ -9,6 +9,9 @@ import { queryClient } from "./providers/queryClient";
 import { BrowserRouter } from "react-router-dom";
 import { useEffect } from "react";
 
+// Mantine imports:
+import { MantineProvider } from "@mantine/core";
+
 // App component:
 export function App() {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -22,9 +25,16 @@ export function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
+      <MantineProvider
+        theme={{
+          primaryColor: "teal",
+          defaultRadius: "md",
+        }}
+      >
+        <BrowserRouter>
+          <AppRoutes />
+        </BrowserRouter>
+      </MantineProvider>
     </QueryClientProvider>
   );
 }

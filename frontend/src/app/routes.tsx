@@ -1,8 +1,9 @@
 // Import application components:
 import { ExplorerRoutes } from "../modules/explorers/routes";
+import { AuthRoutes } from "../modules/profiles/routes";
+import { HomeRoutes } from "../modules/home/routes";
 import { NotFoundPage } from "./pages/NotFoundPage";
 import { AppLayout } from "./layout/AppLayout";
-import { AuthRoutes } from "../modules/profiles/routes";
 
 // Import React components:
 import { Routes, Route } from "react-router-dom";
@@ -13,7 +14,7 @@ export function AppRoutes() {
     <Routes>
       <Route element={<AppLayout />}>
         {/* Home Page */}
-        <Route path="/" element={<div>Home</div>} />
+        <Route path="/" element={<HomeRoutes />} />
 
         {/* Explorers Pages */}
         <Route path="/explorer/*" element={<ExplorerRoutes />} />

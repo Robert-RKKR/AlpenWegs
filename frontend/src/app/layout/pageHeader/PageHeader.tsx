@@ -16,9 +16,7 @@ import { UserMenu } from "../userMenu/UserMenu";
 // Import CSS module:
 import classes from "./PageHeader.module.css";
 
-/* ------------------------------------------------------------------ */
-/* Dropdown feature items (used in desktop hover + mobile collapse)   */
-/* ------------------------------------------------------------------ */
+// Dropdown feature items (used in desktop hover + mobile collapse):
 const featureLinks = [
   {
     icon: IconCode,
@@ -67,9 +65,7 @@ export function PageHeader() {
     useDisclosure(false);
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
-  /* ------------------------------------------------------------------ */
-  /* Feature grid (desktop + mobile)                                     */
-  /* ------------------------------------------------------------------ */
+  /* Feature grid (desktop + mobile) */
   const featureItems = featureLinks.map((item) => (
     <UnstyledButton key={item.title} className={classes.subLink} component={NavLink} to={item.to} onClick={closeDrawer}>
       <Group wrap="nowrap" align="flex-start">
@@ -90,17 +86,13 @@ export function PageHeader() {
 
   return (
     <Box>
-      {/* =============================================================== */}
-      {/* Header bar (inside AppShell.Header)                             */}
-      {/* =============================================================== */}
+      {/* --- Header bar (inside AppShell.Header) --- */}
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           {/* Logo */}
           <IconTrekking size={32} color={theme.colors.blue[6]} />
 
-          {/* ----------------------------------------------------------- */}
-          {/* Desktop navigation                                          */}
-          {/* ----------------------------------------------------------- */}
+          {/* --- Desktop main navigation --- */}
           <Group h="100%" gap={0} visibleFrom="sm">
             <NavLink to="/" className={classes.link}>
               Home
@@ -157,7 +149,7 @@ export function PageHeader() {
             </NavLink>
           </Group>
 
-          {/* Desktop auth */}
+          {/* --- Desktop Authentication --- */}
           <Group visibleFrom="sm">
             {!isAuthenticated && (
               <>
@@ -169,7 +161,6 @@ export function PageHeader() {
                 </Button>
               </>
             )}
-
             {isAuthenticated && <UserMenu />}
           </Group>
 
@@ -178,14 +169,12 @@ export function PageHeader() {
         </Group>
       </header>
 
-      {/* =============================================================== */}
-      {/* Mobile drawer                                                   */}
-      {/* =============================================================== */}
+      {/* --- Mobile drawer --- */}
       <Drawer opened={drawerOpened} onClose={closeDrawer} size="100%" padding="md" title="Navigation" hiddenFrom="sm" zIndex={1000000}>
         <ScrollArea h="calc(100vh - 80px)" mx="-md">
           <Divider my="sm" />
 
-          {/* ---------------- Centered main navigation ---------------- */}
+          {/* --- Mobile main navigation --- */}
           <NavLink to="/" className={classes.link} onClick={closeDrawer}>
             <Center w="100%">Home</Center>
           </NavLink>
@@ -211,15 +200,19 @@ export function PageHeader() {
 
           <Divider my="sm" />
 
-          {/* ---------------- Auth buttons ---------------- */}
+          {/* --- Mobile Authentication --- */}
           <Group justify="center" grow pb="xl" px="md">
-            <Button variant="default" component={Link} to="/auth/login" onClick={closeDrawer}>
-              Log in
-            </Button>
-
-            <Button component={Link} to="/auth/register" onClick={closeDrawer}>
-              Sign up
-            </Button>
+            {!isAuthenticated && (
+              <>
+                <Button variant="default" component={Link} to="/auth/login">
+                  Log in
+                </Button>
+                <Button component={Link} to="/auth/register">
+                  Sign up
+                </Button>
+              </>
+            )}
+            {isAuthenticated && <UserMenu />}
           </Group>
         </ScrollArea>
       </Drawer>

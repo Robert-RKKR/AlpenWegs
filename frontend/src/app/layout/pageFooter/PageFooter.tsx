@@ -1,33 +1,39 @@
-// Import React components:
-import { NavLink } from "react-router-dom";
+// Imports:
+import { IconBrandInstagram, IconBrandTwitter, IconBrandYoutube } from '@tabler/icons-react';
+import { ActionIcon, Anchor, Group } from '@mantine/core';
+import classes from './PageFooter.module.css';
 
-// Import component css:
-import "./PageFooter.css";
+const links = [
+  { link: '#', label: 'Contact' },
+  { link: '#', label: 'Privacy' },
+  { link: '#', label: 'Blog' },
+  { link: '#', label: 'Store' },
+  { link: '#', label: 'Careers' },
+];
 
-// Main Component Function:
 export function PageFooter() {
+  const items = links.map((link) => (
+    <Anchor c="dimmed" key={link.label} href={link.link} lh={1} onClick={(event) => event.preventDefault()} size="sm">
+      {link.label}
+    </Anchor>
+  ));
+
   return (
-    <footer className="page-footer">
-      <div className="footer-menu">
-        <NavLink to="/home" className="footer-menu-item">
-          Home
-        </NavLink>
-        <NavLink to="/plans" className="footer-menu-item">
-          Plans
-        </NavLink>
-        <NavLink to="/records" className="footer-menu-item">
-          Records
-        </NavLink>
-        <NavLink to="/events" className="footer-menu-item">
-          Events
-        </NavLink>
-        <NavLink to="/compendium" className="footer-menu-item">
-          Compendium
-        </NavLink>
+    <div className={classes.footer}>
+      <div className={classes.inner}>
+        <Group className={classes.links}>{items}</Group>
+        <Group gap="xs" justify="flex-end" wrap="nowrap">
+          <ActionIcon size="lg" variant="default" radius="xl">
+            <IconBrandTwitter size={18} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size="lg" variant="default" radius="xl">
+            <IconBrandYoutube size={18} stroke={1.5} />
+          </ActionIcon>
+          <ActionIcon size="lg" variant="default" radius="xl">
+            <IconBrandInstagram size={18} stroke={1.5} />
+          </ActionIcon>
+        </Group>
       </div>
-      <div className="footer-submenu">
-        <p className="footer-submenu-item">© 2025 AlpenWegs</p>
-      </div>
-    </footer>
+    </div>
   );
 }

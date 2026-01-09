@@ -1,5 +1,5 @@
 // Imports:
-// import { PageFooter } from "./pageFooter/PageFooter";
+import { PageFooter } from "./pageFooter/PageFooter";
 import { PageHeader } from "./pageHeader/PageHeader";
 import { Outlet } from "react-router-dom";
 import { AppShell } from "@mantine/core";
@@ -9,6 +9,7 @@ export function AppLayout() {
   return (
     <AppShell
       header={{ height: 60 }}
+      footer={{ height: "auto" }}
       padding="md"
     >
       {/* Top bar */}
@@ -20,6 +21,11 @@ export function AppLayout() {
       <AppShell.Main>
         <Outlet />
       </AppShell.Main>
+
+      {/* Footer */}
+      <AppShell.Footer>
+        <PageFooter />
+      </AppShell.Footer>
     </AppShell>
   );
 }

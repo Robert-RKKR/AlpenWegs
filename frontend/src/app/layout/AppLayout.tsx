@@ -1,8 +1,6 @@
-// Import application components:
-// import { PageFooter } from "../../components/layout/PageFooter";
-import { PageHeader } from "../../components/layout/PageHeader";
-
-// Import React components:
+// Imports:
+// import { PageFooter } from "./pageFooter/PageFooter";
+import { PageHeader } from "./pageHeader/PageHeader";
 import { Outlet } from "react-router-dom";
 import { AppShell } from "@mantine/core";
 

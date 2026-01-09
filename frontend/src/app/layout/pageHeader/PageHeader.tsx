@@ -10,6 +10,8 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { NavLink, Link } from "react-router-dom";
+import { useAuthStore } from "../../../stores/authStore";
+import { UserMenu } from "../userMenu/UserMenu";
 
 // Import CSS module:
 import classes from "./PageHeader.module.css";
@@ -63,6 +65,7 @@ export function PageHeader() {
     useDisclosure(false);
   const [featuresOpened, { toggle: toggleFeatures }] =
     useDisclosure(false);
+  const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
   /* ------------------------------------------------------------------ */
   /* Feature grid (desktop + mobile)                                     */
@@ -156,12 +159,18 @@ export function PageHeader() {
 
           {/* Desktop auth */}
           <Group visibleFrom="sm">
-            <Button variant="default" component={Link} to="/auth/login">
-              Log in
-            </Button>
-            <Button component={Link} to="/auth/register">
-              Sign up
-            </Button>
+            {!isAuthenticated && (
+              <>
+                <Button variant="default" component={Link} to="/auth/login">
+                  Log in
+                </Button>
+                <Button component={Link} to="/auth/register">
+                  Sign up
+                </Button>
+              </>
+            )}
+
+            {isAuthenticated && <UserMenu />}
           </Group>
 
           {/* Mobile burger */}

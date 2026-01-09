@@ -1,8 +1,8 @@
-// Application imports:
+// Imports:
+import { Card, Image, Text, Group, Badge, Button } from "@mantine/core";
 import { ImageLoader } from "../../elements/imageLoader/ImageLoader";
 import type { ObjectCardProps } from "../types";
-
-// React imports:
+import { IconEye } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
 // Import component css:
@@ -17,58 +17,78 @@ export function ObjectCard({
   description,
   extras = [],
 }: ObjectCardProps) {
-
   return (
-    <Link to={href} className="objects-card card-box">
-      {/* Image – single value */}
-      <div className="objects-card-image">
+    <Card
+      component={Link}
+      to={href}
+      shadow="sm"
+      radius="md"
+      withBorder
+      padding="md"
+      style={{ height: "100%" }}
+    >
+      {/* Image */}
+      <Card.Section>
         <ImageLoader
           src={image as string}
           alt={title}
+          height={160}
         />
-      </div>
+      </Card.Section>
 
-      <div className="objects-card-content">
-        {/* Title – single value */}
-        <div className="objects-card-title objects-card-element">
-          <h3>{title}</h3>
-        </div>
+      {/* Title */}
+      <Text fw={500} mt="md" mb="xs">
+        {title}
+      </Text>
 
-        {/* Properties – list of values */}
-        {properties.length > 0 && (
-          <div className="objects-card-properties objects-card-element">
-            {properties.map((value, index) => (
-              <div
-                key={index}
-                className="objects-card-property"
-              >
-                <span>{value}</span>
-              </div>
-            ))}
-          </div>
-        )}
+      {/* Properties (primary badges) */}
+      {properties.length > 0 && (
+        <Group gap="xs" mb="sm">
+          {properties.map((value, index) => (
+            <Badge
+              key={index}
+              variant="light"
+              color="blue"
+              radius="sm"
+            >
+              {value}
+            </Badge>
+          ))}
+        </Group>
+      )}
 
-        {/* Description – single value */}
-        {description && (
-          <div className="objects-card-description objects-card-element">
-            <p>{description}</p>
-          </div>
-        )}
+      {/* Description */}
+      {description && (
+        <Text size="sm" c="dimmed" mb="sm">
+          {description}
+        </Text>
+      )}
 
-        {/* Extras – list of values */}
-        {extras.length > 0 && (
-          <div className="objects-card-extra objects-card-element">
-            {extras.map((value, index) => (
-              <div
-                key={index}
-                className="objects-card-extra-item"
-              >
-                <span>{value}</span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    </Link>
+      {/* Extras */}
+      {extras.length > 0 && (
+        <Group gap="xs" mb="md">
+          {extras.map((value, index) => (
+            <Badge
+              key={index}
+              variant="outline"
+              color="gray"
+              radius="sm"
+            >
+              {value}
+            </Badge>
+          ))}
+        </Group>
+      )}
+
+      {/* CTA */}
+      <Button
+        variant="light"
+        fullWidth
+        leftSection={<IconEye size={14} />}
+        mt="auto"
+      >
+        View details
+      </Button>
+    </Card>
   );
 }

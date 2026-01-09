@@ -5,6 +5,9 @@ import { Pagination } from "../../../services/ui/Pagination";
 import { BaseApi } from "../../../services/api/baseApi";
 import { ObjectCard } from "../cards/ObjectCard";
 
+// Mantine imports:
+import { Grid, Stack, Title, Center } from "@mantine/core";
+
 // React imports:
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -12,13 +15,13 @@ import { useState } from "react";
 // Import component css:
 import "./ListComponent.css";
 
-// Helpers functions:
+// Helpers:
 function resolvePath(obj: any, path?: string[]) {
   if (!path) return undefined;
   return path.reduce((acc, key) => acc?.[key], obj);
 }
 
-// Properties:
+// Types (unchanged)
 type ResolvedFieldConfig = {
   key: string;
   label?: string;
@@ -36,26 +39,21 @@ type ObjectListProps<TModel> = {
     api: {
       listUrl: string;
     };
-
     header?: {
       title?: ResolvedFieldConfig;
     };
-
     card: {
       href: HrefFieldConfig;
       image?: ResolvedFieldConfig;
       title?: ResolvedFieldConfig;
       description?: ResolvedFieldConfig;
-
       properties?: ResolvedFieldConfig[];
       extras?: ResolvedFieldConfig[];
     };
   };
-
   emptyMessage?: string;
 };
 
-// ObjectListComponent component:
 export function ObjectListComponent<TModel>({
   config,
   emptyMessage = "No items found",
@@ -73,107 +71,94 @@ export function ObjectListComponent<TModel>({
 
   const resolvedHeaderTitle =
     config.header?.title?.value && data?.page_results?.[0]
-      ? resolvePath(
-          data.page_results[0],
-          config.header.title.value,
-        )
+      ? resolvePath(data.page_results[0], config.header.title.value)
       : config.header?.title?.fallback;
 
   return (
-    <>
+    <Stack gap="lg">
       {/* Header */}
       {resolvedHeaderTitle && (
-        <div className="objects-header card-box">
-          <h2>{resolvedHeaderTitle}</h2>
-        </div>
+        <Title order={2}>{resolvedHeaderTitle}</Title>
       )}
 
       {/* Loading */}
       {isLoading && (
-        <div className="objects-body-loading">
+        <Center py="xl">
           <StateLoader />
-        </div>
+        </Center>
       )}
 
       {/* Error */}
       {!isLoading && error && (
-        <div className="objects-body objects-empty">
-          <p>Failed to load data</p>
-        </div>
+        <Center py="xl">
+          <Title order={4} c="red">
+            Failed to load data
+          </Title>
+        </Center>
       )}
 
       {/* Empty */}
       {!isLoading && !error && data && data.page_results.length === 0 && (
-        <div className="objects-body objects-empty">
+        <Center py="xl">
           {emptyMessage}
-        </div>
+        </Center>
       )}
 
-      {/* Data */}
+      {/* Data grid */}
       {!isLoading && !error && data && data.page_results.length > 0 && (
-        <div className="objects-body">
+        <Grid gutter="md">
           {data.page_results.map((item: any) => {
-            const hrefBase =
-              resolvePath(item, config.card.href.value) ??
-              "";
-
             const href =
               config.card.href.base +
               (item[config.card.href.id] ?? "");
 
             return (
-              <ObjectCard
+              <Grid.Col
                 key={item.pk ?? crypto.randomUUID()}
-                href={href}
-                image={
-                  resolvePath(
-                    item,
-                    config.card.image?.value,
-                  ) ?? undefined
-                }
-                title={
-                  resolvePath(
-                    item,
-                    config.card.title?.value,
-                  ) ?? ""
-                }
-                description={
-                  resolvePath(
-                    item,
-                    config.card.description?.value,
-                  ) ?? ""
-                }
-                properties={
-                  config.card.properties?.map(
-                    (p: any) =>
-                      `${resolvePath(item, p.value) ?? ""}${p.suffix ?? ""}`,
-                  ) ?? []
-                }
-                extras={
-                  config.card.extras?.map(
-                    (e: any) =>
-                      `${resolvePath(item, e.value) ?? ""}${e.suffix ?? ""}`,
-                  ) ?? []
-                }
-              />
+                span={{ base: 12, sm: 6, md: 4, lg: 3, xl: 2 }}
+              >
+                <ObjectCard
+                  href={href}
+                  image={
+                    resolvePath(item, config.card.image?.value) ??
+                    undefined
+                  }
+                  title={
+                    resolvePath(item, config.card.title?.value) ?? ""
+                  }
+                  description={
+                    resolvePath(item, config.card.description?.value) ??
+                    ""
+                  }
+                  properties={
+                    config.card.properties?.map(
+                      (p: any) =>
+                        `${resolvePath(item, p.value) ?? ""}${p.suffix ?? ""}`,
+                    ) ?? []
+                  }
+                  extras={
+                    config.card.extras?.map(
+                      (e: any) =>
+                        `${resolvePath(item, e.value) ?? ""}${e.suffix ?? ""}`,
+                    ) ?? []
+                  }
+                />
+              </Grid.Col>
             );
           })}
-        </div>
+        </Grid>
       )}
 
-      {/* Footer */}
-      {!isLoading &&
-        !error &&
-        data &&
-        data.page_results.length > 0 && (
-          <div className="objects-footer">
-            <Pagination
-              page={page}
-              pageCount={data.page_count}
-              onChange={setPage}
-            />
-          </div>
-        )}
-    </>
+      {/* Footer / Pagination */}
+      {!isLoading && !error && data && data.page_results.length > 0 && (
+        <Center pt="md">
+          <Pagination
+            page={page}
+            pageCount={data.page_count}
+            onChange={setPage}
+          />
+        </Center>
+      )}
+    </Stack>
   );
 }

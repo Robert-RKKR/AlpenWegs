@@ -1,28 +1,24 @@
 // Imports:
-import { PageFooter } from "./pageFooter/PageFooter";
 import { PageHeader } from "./pageHeader/PageHeader";
-import { Outlet } from "react-router-dom";
+import { PageFooter } from "./pageFooter/PageFooter";
+import { PageBody } from "./pageBody/PageBody";
 import { AppShell } from "@mantine/core";
 
 // Main Component Function:
 export function AppLayout() {
   return (
-    <AppShell
-      header={{ height: 60 }}
-      footer={{ height: "auto" }}
-      padding="md"
-    >
-      {/* Top bar */}
+    <AppShell header={{ height: 60 }} footer={{ height: "auto" }} padding={0}>
+      {/* Header */}
       <AppShell.Header>
         <PageHeader />
       </AppShell.Header>
 
-      {/* Main routed content */}
+      {/* Main body (scrollable, centered) */}
       <AppShell.Main>
-        <Outlet />
+        <PageBody />
       </AppShell.Main>
 
-      {/* Footer */}
+      {/* Footer (permanent) */}
       <AppShell.Footer>
         <PageFooter />
       </AppShell.Footer>

@@ -1,0 +1,19 @@
+.scroll {
+  height: 100%;
+}
+
+.body {
+  width: 80%;
+  margin: 0 auto;
+  padding-top: var(--mantine-spacing-md);
+  padding-bottom: var(--mantine-spacing-xl);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .body {
+    width: 100%;
+    padding-left: var(--mantine-spacing-sm);
+    padding-right: var(--mantine-spacing-sm);
+  }
+}

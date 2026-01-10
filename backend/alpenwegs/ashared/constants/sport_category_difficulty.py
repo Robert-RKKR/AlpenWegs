@@ -32,95 +32,107 @@ class SportCategoryDifficultyChoices(
     VII = 135, 'UIAA VII'
 
 # Module-level metadata dictionary:
-DIFFICULTY_METADATA =  {
-    # Hiking T-scale:
+DIFFICULTY_METADATA = {
     121: {
         'icon': '🟡',
         'description': 'Simple paths, well-marked, minimal risk.',
         'depend': SportCategoryChoices.HIKING,
+        'color': '#FBC02D',
     },
     122: {
         'icon': '🟡',
         'description': 'Mountain trails, more uneven ground, moderate risk.',
         'depend': SportCategoryChoices.HIKING,
+        'color': '#FBC02D',
     },
     123: {
         'icon': '🔴',
         'description': 'Exposed sections, need for surefootedness, some hands.',
         'depend': SportCategoryChoices.HIKING,
+        'color': '#E53935',
     },
     124: {
         'icon': '🔵',
         'description': 'Steeper terrain, occasional use of hands, high exposure.',
         'depend': SportCategoryChoices.HIKING,
+        'color': '#1E88E5',
     },
     125: {
         'icon': '⚫',
         'description': 'Very exposed, poor paths, need alpine experience.',
         'depend': SportCategoryChoices.HIKING,
+        'color': '#424242',
     },
     126: {
         'icon': '⚫',
         'description': 'Exposed climbing terrain, dangerous, expert level.',
         'depend': SportCategoryChoices.HIKING,
+        'color': '#424242',
     },
-
-    # Via Ferrata K-scale:
     141: {
         'icon': '🧗‍♂️',
         'description': 'Beginner ferrata, short ladders, well-protected.',
         'depend': SportCategoryChoices.VIA_FERRATA,
+        'color': '#66BB6A',
     },
     142: {
         'icon': '🧗‍♂️',
         'description': 'Moderate climbing, some exposure.',
         'depend': SportCategoryChoices.VIA_FERRATA,
+        'color': '#43A047',
     },
     143: {
         'icon': '🧗‍♂️',
         'description': 'Steeper sections, higher exposure.',
         'depend': SportCategoryChoices.VIA_FERRATA,
+        'color': '#FB8C00',
     },
     144: {
         'icon': '🧗‍♂️',
         'description': 'Athletic climbing, vertical or overhanging.',
         'depend': SportCategoryChoices.VIA_FERRATA,
+        'color': '#F4511E',
     },
     145: {
         'icon': '🧗‍♂️',
         'description': 'Sustained steepness, requires strength and experience.',
         'depend': SportCategoryChoices.VIA_FERRATA,
+        'color': '#D32F2F',
     },
     146: {
         'icon': '🧗‍♂️',
         'description': 'Severe difficulty, very overhanging sections.',
         'depend': SportCategoryChoices.VIA_FERRATA,
+        'color': '#B71C1C',
     },
-
-    # Climbing UIAA scale:
     131: {
         'icon': '🧗',
         'description': 'Easy climbing, big holds, beginners.',
         'depend': SportCategoryChoices.CLIMBING,
+        'color': '#81C784',
     },
     132: {
         'icon': '🧗',
         'description': 'Moderate climbing, small holds, some exposure.',
         'depend': SportCategoryChoices.CLIMBING,
+        'color': '#4CAF50',
     },
     133: {
         'icon': '🧗',
         'description': 'Sustained climbing, smaller holds.',
         'depend': SportCategoryChoices.CLIMBING,
+        'color': '#FFB300',
     },
     134: {
         'icon': '🧗',
         'description': 'Harder climbing, technical moves, advanced.',
         'depend': SportCategoryChoices.CLIMBING,
+        'color': '#FB8C00',
     },
     135: {
         'icon': '🧗',
         'description': 'Very difficult climbing, experts only.',
         'depend': SportCategoryChoices.CLIMBING,
+        'color': '#D84315',
     },
 }

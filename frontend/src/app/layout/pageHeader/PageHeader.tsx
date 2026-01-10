@@ -1,88 +1,29 @@
 //  Imports:
-import {
-  IconBook, IconChartPie3, IconChevronDown, IconTrekking,
-  IconCode, IconCoin, IconFingerprint, IconNotification,
-} from "@tabler/icons-react";
-import {
-  Anchor, Box, Burger, Button, Center, Collapse, Divider,
-  Drawer, Group, HoverCard, ScrollArea, SimpleGrid,
-  Text, ThemeIcon, UnstyledButton, useMantineTheme
-} from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
-import { NavLink, Link } from "react-router-dom";
+import { Box, Burger, Button, Center, Collapse, Divider, Drawer, useMantineTheme,
+  HoverCard, ScrollArea, UnstyledButton, Group, Text } from "@mantine/core";
+import { IconChevronDown, IconTrekking } from "@tabler/icons-react";
+import { planningMenu, trackingMenu } from "./pageHeaderData";
+import { PageHeaderDropdown } from "./PageHeaderDropdown";
 import { useAuthStore } from "../../../stores/authStore";
+import { NavLink, Link } from "react-router-dom";
 import { UserMenu } from "../userMenu/UserMenu";
-
-// Import CSS module:
+import { useDisclosure } from "@mantine/hooks";
 import classes from "./PageHeader.module.css";
 
-// Dropdown feature items (used in desktop hover + mobile collapse):
-const featureLinks = [
-  {
-    icon: IconCode,
-    title: "Open source",
-    description: "This Pokémon’s cry is very loud and distracting",
-    to: "/features/open-source",
-  },
-  {
-    icon: IconCoin,
-    title: "Free for everyone",
-    description: "The fluid of Smeargle’s tail secretions changes",
-    to: "/features/free",
-  },
-  {
-    icon: IconBook,
-    title: "Documentation",
-    description: "Yanma is capable of seeing 360 degrees without",
-    to: "/features/documentation",
-  },
-  {
-    icon: IconFingerprint,
-    title: "Security",
-    description: "The shell’s rounded shape and the grooves on its",
-    to: "/features/security",
-  },
-  {
-    icon: IconChartPie3,
-    title: "Analytics",
-    description: "This Pokémon uses its flying ability to quickly chase",
-    to: "/features/analytics",
-  },
-  {
-    icon: IconNotification,
-    title: "Notifications",
-    description: "Combusken battles with the intensely hot flames it spews",
-    to: "/features/notifications",
-  },
-];
-
 export function PageHeader() {
-  const theme = useMantineTheme();
 
-  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
-    useDisclosure(false);
-  const [featuresOpened, { toggle: toggleFeatures }] =
-    useDisclosure(false);
+  // State for mobile drawer:
+  const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
+
+  // State for dropdown menus:
+  const [planningOpened, { toggle: togglePlanning }] = useDisclosure(false);
+  const [trackingOpened, { toggle: toggleTracking }] = useDisclosure(false);
+
+  // Handlers authentication state:
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
-  /* Feature grid (desktop + mobile) */
-  const featureItems = featureLinks.map((item) => (
-    <UnstyledButton key={item.title} className={classes.subLink} component={NavLink} to={item.to} onClick={closeDrawer}>
-      <Group wrap="nowrap" align="flex-start">
-        <ThemeIcon size={34} variant="default" radius="md">
-          <item.icon size={22} color={theme.colors.blue[6]} />
-        </ThemeIcon>
-        <div>
-          <Text size="sm" fw={500}>
-            {item.title}
-          </Text>
-          <Text size="xs" c="dimmed">
-            {item.description}
-          </Text>
-        </div>
-      </Group>
-    </UnstyledButton>
-  ));
+  // Style theme:
+  const theme = useMantineTheme();
 
   return (
     <Box>
@@ -92,7 +33,7 @@ export function PageHeader() {
           {/* Logo */}
           <IconTrekking size={32} color={theme.colors.blue[6]} />
 
-          {/* --- Desktop main navigation --- */}
+          {/* ====== Desktop main navigation ====== */}
           <Group h="100%" gap={0} visibleFrom="sm">
             <NavLink to="/" className={classes.link}>
               Home
@@ -109,40 +50,26 @@ export function PageHeader() {
                   </Center>
                 </NavLink>
               </HoverCard.Target>
-
               <HoverCard.Dropdown style={{ overflow: "hidden" }}>
-                <Group justify="space-between" px="md">
-                  <Text fw={500}>Features</Text>
-                  <Anchor component={NavLink} to="/features" fz="xs">
-                    View all
-                  </Anchor>
-                </Group>
-
-                <Divider my="sm" />
-
-                <SimpleGrid cols={2} spacing={0}>
-                  {featureItems}
-                </SimpleGrid>
-
-                <div className={classes.dropdownFooter}>
-                  <Group justify="space-between">
-                    <div>
-                      <Text fw={500} fz="sm">
-                        Get started
-                      </Text>
-                      <Text size="xs" c="dimmed">
-                        Start planning your next adventure
-                      </Text>
-                    </div>
-                    <Button variant="default">Get started</Button>
-                  </Group>
-                </div>
+                <PageHeaderDropdown config={planningMenu} />
               </HoverCard.Dropdown>
             </HoverCard>
 
-            <NavLink to="/explorer/track" className={classes.link}>
-              Tracking
-            </NavLink>
+            <HoverCard width={600} position="bottom" radius="md" shadow="md" withinPortal>
+              <HoverCard.Target>
+                <NavLink to="/explorer/track" className={classes.link}>
+                  <Center inline>
+                    <Box component="span" mr={5}>
+                      Tracking
+                    </Box>
+                    <IconChevronDown size={16} />
+                  </Center>
+                </NavLink>
+              </HoverCard.Target>
+              <HoverCard.Dropdown style={{ overflow: "hidden" }}>
+                <PageHeaderDropdown config={trackingMenu} />
+              </HoverCard.Dropdown>
+            </HoverCard>
 
             <NavLink to="/compendium" className={classes.link}>
               Compendium
@@ -169,33 +96,44 @@ export function PageHeader() {
         </Group>
       </header>
 
-      {/* --- Mobile drawer --- */}
+      {/* ====== Mobile drawer ====== */}
       <Drawer opened={drawerOpened} onClose={closeDrawer} size="100%" padding="md" title="Navigation" hiddenFrom="sm" zIndex={1000000}>
         <ScrollArea h="calc(100vh - 80px)" mx="-md">
           <Divider my="sm" />
 
           {/* --- Mobile main navigation --- */}
           <NavLink to="/" className={classes.link} onClick={closeDrawer}>
-            <Center w="100%">Home</Center>
+            <Center w="100%"><Text size="lg">Home</Text></Center>
           </NavLink>
 
-          <UnstyledButton className={classes.link} onClick={toggleFeatures}>
+          <UnstyledButton className={classes.link} onClick={togglePlanning}>
             <Center w="100%">
               <Group gap={6}>
-                <Box component="span">Planning</Box>
+                <Box component="span"><Text size="lg">Planning</Text></Box>
                 <IconChevronDown size={16} />
               </Group>
             </Center>
           </UnstyledButton>
 
-          <Collapse in={featuresOpened}>{featureItems}</Collapse>
+          <Collapse in={planningOpened}>
+            <PageHeaderDropdown config={planningMenu} onItemClick={closeDrawer} mobile={true} />
+          </Collapse>
 
-          <NavLink to="/explorer/track" className={classes.link} onClick={closeDrawer}>
-            <Center w="100%">Tracking</Center>
-          </NavLink>
+          <UnstyledButton className={classes.link} onClick={toggleTracking}>
+            <Center w="100%">
+              <Group gap={6}>
+                <Box component="span"><Text size="lg">Tracking</Text></Box>
+                <IconChevronDown size={16} />
+              </Group>
+            </Center>
+          </UnstyledButton>
+
+          <Collapse in={trackingOpened} mb="lg">
+            <PageHeaderDropdown config={trackingMenu} onItemClick={closeDrawer} mobile={true} />
+          </Collapse>
 
           <NavLink to="/compendium" className={classes.link} onClick={closeDrawer}>
-            <Center w="100%">Compendium</Center>
+            <Center w="100%"><Text size="lg">Compendium</Text></Center>
           </NavLink>
 
           <Divider my="sm" />

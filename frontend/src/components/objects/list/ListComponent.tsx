@@ -1,9 +1,9 @@
 // Imports:
-import { Grid, Stack, Title, Center, Loader, Accordion } from "@mantine/core";
+import { Grid, Stack, Title, Center, Loader, Accordion, TextInput, RangeSlider } from "@mantine/core";
 import { ErrorWindow } from "../../elements/errorWindow/ErrorWindow";
 import type { ApiListResponse } from "../../../services/api/types";
 import { IconDatabaseOff, IconInbox } from "@tabler/icons-react";
-import { Pagination } from "../../../services/ui/Pagination";
+import { Pagination } from "../../elements/pagination/Pagination";
 import { BaseApi } from "../../../services/api/baseApi";
 import { PageContent } from "../../content/PageContent";
 import { useQuery } from "@tanstack/react-query";
@@ -120,7 +120,25 @@ export function ObjectListComponent<TModel>({
           {/* LEFT MENU */}
           <PageContent.Item area="menu">
             <Accordion defaultValue="Apples">
-              { searchItems }
+              {/* { searchItems } */}
+              <Accordion.Item key="nameSearch" value="Name Search">
+                <Accordion.Control icon="🍎">Name Search</Accordion.Control>
+                <Accordion.Panel>
+                  <TextInput label="Name" placeholder="Name..." error="Invalid name"/>
+                </Accordion.Panel>
+              </Accordion.Item>
+              <Accordion.Item key="distanceSearch" value="Distance Search">
+                <Accordion.Control icon="📏">Distance Search</Accordion.Control>
+                <Accordion.Panel>
+                  <RangeSlider mb="md" color="blue" max={100} defaultValue={[10, 30]} marks={[
+                    { value: 20, label: '20 Km' },
+                    { value: 40, label: '40 Km' },
+                    { value: 60, label: '60 Km' },
+                    { value: 80, label: '80 Km' },
+                  ]} />
+                  <TextInput label="Name" placeholder="Name..." error="Invalid name"/>
+                </Accordion.Panel>
+              </Accordion.Item>
             </Accordion>
           </PageContent.Item>
 

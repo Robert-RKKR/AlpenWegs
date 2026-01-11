@@ -1,23 +1,21 @@
 // Application imports:
-import { ImageCarousel } from "../../elements/imageCarousel/ImageCarousel";
 import { BaseApi } from "../../../services/api/baseApi";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
-// React imports:
-import { Link } from "react-router-dom";
+// Imports:
+import { Paper, Tabs, Stack, Group, Text, Button, Table } from "@mantine/core";
+import { ImageLoader } from "../../elements/imageLoader/ImageLoader";
+import { Carousel } from '@mantine/carousel';
 import { useState } from "react";
 
-// Import component css:
-import "./RetrieveComponent.css";
-
-// Helpers functions:
+// Helpers:
 function resolvePath(obj: any, path?: string[]) {
   if (!path) return undefined;
   return path.reduce((acc, key) => acc?.[key], obj);
 }
 
-// Properties:
+// Types:
 type ObjectRetrieveConfig = {
   api: {
     listUrl: string;
@@ -56,15 +54,13 @@ type Props<T> = {
   config: ObjectRetrieveConfig;
 };
 
-// ObjectRetrieveComponent component:
 export function ObjectRetrieveComponent<T>({ config }: Props<T>) {
   const { id } = useParams<{ id: string }>();
-  const [activeChapter, setActiveChapter] = useState(0);
+  const [activeChapter, setActiveChapter] = useState<string | null>("0");
 
   const { data, isLoading, error } = useQuery<T>({
     queryKey: [config.api.listUrl, id],
-    queryFn: () =>
-      BaseApi.retrieve<T>(`${config.api.listUrl}${id}/`),
+    queryFn: () => BaseApi.retrieve<T>(`${config.api.listUrl}${id}/`),
     enabled: !!id,
   });
 
@@ -74,117 +70,137 @@ export function ObjectRetrieveComponent<T>({ config }: Props<T>) {
       : undefined;
 
   const resolvedImages =
-  data && config.image
-    ? resolvePath(data, config.image.value)
-    : undefined;
+    data && config.image
+      ? resolvePath(data, config.image.value)
+      : undefined;
 
   return (
-    <div className="object-retrieve">
+    <Stack className="object-retrieve" gap="md" mt="md" mb="md">
       {/* Title */}
       {!isLoading && !error && resolvedTitle && (
-        <div className="object-retrieve-title object-retrieve-card card-box">
-          <h1>{resolvedTitle}</h1>
-        </div>
+        <Paper withBorder p="md">
+          <Text size="xl" fw={600}>
+            {resolvedTitle}
+          </Text>
+        </Paper>
       )}
 
       {/* Loading */}
       {isLoading && (
-        <div className="object-retrieve-card card-box">
-          <p>Loading…</p>
-        </div>
+        <Paper withBorder p="md">
+          <Text>Loading…</Text>
+        </Paper>
       )}
 
       {/* Error */}
       {!isLoading && error && (
-        <div className="object-retrieve-card card-box">
-          <p>Failed to load data</p>
-        </div>
+        <Paper withBorder p="md">
+          <Text c="red">Failed to load data</Text>
+        </Paper>
       )}
 
       {/* Data */}
       {!isLoading && !error && data && (
-        <div className="object-retrieve-container">
-          {/* Left column */}
-          <div className="object-retrieve-left">
-            {/* Image */}
+        <Group align="flex-start" gap="md" wrap="nowrap">
+          {/* LEFT COLUMN */}
+          <Stack style={{ flex: 2 }} gap="md">
+            {/* Images */}
             {Array.isArray(resolvedImages) && resolvedImages.length > 0 && (
-              <div className="object-retrieve-card card-box">
-                <ImageCarousel
-                  height={500}
-                  images={resolvedImages.map((item) => ({
-                    src: item.photo?.path ?? null,
-                    alt: String(resolvedTitle ?? ""),
-                  }))}
-                />
-              </div>
+              <Paper withBorder>
+                <Carousel withIndicators height={500} slideGap="sm" controlsOffset="md" emblaOptions={{
+                  loop: true, dragFree: false, align: 'center'}}>
+                  {resolvedImages.map((item, index) => (
+                    <Carousel.Slide key={index}>
+                      <ImageLoader
+                        src={item.photo?.path ?? null}
+                        alt={String(resolvedTitle ?? "")}
+                        height={500}
+                        fit="cover"
+                      />
+                    </Carousel.Slide>
+                  ))}
+                </Carousel>
+              </Paper>
             )}
 
             {/* Chapters */}
             {config.chapters && config.chapters.length > 0 && (
-              <div className="object-retrieve-chapters object-retrieve-card card-box">
-                <div className="object-retrieve-tabs">
+              <Paper withBorder p="sm">
+                <Tabs value={activeChapter} onChange={setActiveChapter}>
+                  <Tabs.List>
+                    {config.chapters.map((chapter, index) => (
+                      <Tabs.Tab key={index} value={String(index)}>
+                        {chapter.title}
+                      </Tabs.Tab>
+                    ))}
+                  </Tabs.List>
+
                   {config.chapters.map((chapter, index) => (
-                    <button
-                      key={index}
-                      className={`object-retrieve-tab ${
-                        index === activeChapter ? "active" : ""
-                      }`}
-                      onClick={() => setActiveChapter(index)}
-                      type="button"
-                    >
-                      {chapter.title}
-                    </button>
-                  ))}
-                </div>
-
-                {config.chapters[activeChapter] && (
-                  <div className="object-retrieve-content">
-                    {config.chapters[activeChapter].properties.map(
-                      (p, j) => (
-                        <div
-                          key={j}
-                          className="object-retrieve-property-row"
+                    <Tabs.Panel key={index} value={String(index)} pt="sm">
+                      <Stack>
+                        <Table
+                          striped
+                          verticalSpacing="xs"
+                          horizontalSpacing="md"
                         >
-                          <span className="label">{p.label}:</span>
-                          <span className="value">
-                            {`${resolvePath(data, p.value) ?? ""}${p.suffix ?? ""}`}
-                          </span>
-                        </div>
-                      ),
-                    )}
-                  </div>
-                )}
-              </div>
+                          <Table.Tbody>
+                            {chapter.properties.map((p, i) => (
+                              <Table.Tr key={i}>
+                                <Table.Td>
+                                  <Text size="sm" fw={500}>
+                                    {p.label}
+                                  </Text>
+                                </Table.Td>
+                                <Table.Td>
+                                  <Text size="sm">
+                                    {`${resolvePath(data, p.value) ?? ""}${p.suffix ?? ""}`}
+                                  </Text>
+                                </Table.Td>
+                              </Table.Tr>
+                            ))}
+                          </Table.Tbody>
+                        </Table>
+                      </Stack>
+                    </Tabs.Panel>
+                  ))}
+                </Tabs>
+              </Paper>
             )}
-          </div>
+          </Stack>
 
-          {/* Right column */}
-          <div className="object-retrieve-right">
+          {/* RIGHT COLUMN */}
+          <Stack style={{ flex: 1 }} gap="md">
+            {/* Properties */}
             {config.properties && (
-              <div className="object-retrieve-properties object-retrieve-card card-box">
-                {config.properties.map((p, i) => (
-                  <div key={i}>
-                    <span className="label">{p.label}:</span>
-                    <span className="value">
-                      {`${resolvePath(data, p.value) ?? ""}${p.suffix ?? ""}`}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              <Paper withBorder p="md">
+                <Stack gap="xs">
+                  {config.properties.map((p, i) => (  
+                    <Group key={i} justify="space-between">
+                      <Text fw={500}>{p.label}</Text>
+                      <Text>
+                        {`${resolvePath(data, p.value) ?? ""}${p.suffix ?? ""}`}
+                      </Text>
+                    </Group>
+                  ))}
+                </Stack>
+              </Paper>
             )}
-            {data && id && (
-              <div className="object-retrieve-card card-box">
-                <Link
+
+            {/* Edit button */}
+            {id && (
+              <Paper withBorder p="md">
+                <Button
+                  component={Link}
                   to={`${config.routes.edit}/${id}/edit`}
-                  className="object-retrieve-button"
+                  fullWidth
                 >
                   Edit
-                </Link>
-              </div>
+                </Button>
+              </Paper>
             )}
-          </div>
-        </div>
+          </Stack>
+        </Group>
       )}
-    </div>
+    </Stack>
   );
 }

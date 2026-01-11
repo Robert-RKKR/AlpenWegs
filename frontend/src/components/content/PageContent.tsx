@@ -55,7 +55,7 @@ export function PageContent({ type, children }: PageContentProps) {
 
       {/* RIGHT CONTENT */}
       <Box flex={1}>
-        <ScrollArea className={classes.rightContentScrollArea} offsetScrollbars scrollbarSize={6} scrollHideDelay={1500}>
+        <ScrollArea className={classes.rightContentScrollArea} offsetScrollbars scrollbarSize={6} scrollHideDelay={100}>
           <Box p="md">{content}</Box>
         </ScrollArea>
       </Box>

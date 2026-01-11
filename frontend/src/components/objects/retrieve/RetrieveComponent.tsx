@@ -6,8 +6,9 @@ import { useParams, Link } from "react-router-dom";
 // Imports:
 import { Paper, Tabs, Stack, Group, Text, Button, Table } from "@mantine/core";
 import { ImageLoader } from "../../elements/imageLoader/ImageLoader";
+import { useState, type ReactNode } from "react";
+import { useMediaQuery } from "@mantine/hooks";
 import { Carousel } from '@mantine/carousel';
-import { useState } from "react";
 
 // Helpers:
 function resolvePath(obj: any, path?: string[]) {
@@ -55,6 +56,11 @@ type Props<T> = {
 };
 
 export function ObjectRetrieveComponent<T>({ config }: Props<T>) {
+
+  // Responsive check:
+  const isMobile = useMediaQuery("(max-width: 48em)");
+
+  // State & Params:
   const { id } = useParams<{ id: string }>();
   const [activeChapter, setActiveChapter] = useState<string | null>("0");
 
@@ -73,6 +79,22 @@ export function ObjectRetrieveComponent<T>({ config }: Props<T>) {
     data && config.image
       ? resolvePath(data, config.image.value)
       : undefined;
+
+  const ResponsiveLayout = ({
+    mobile,
+    children,
+  }: {
+    mobile: boolean;
+    children: ReactNode;
+  }) => {
+    return mobile ? (
+      <Stack gap="md">{children}</Stack>
+    ) : (
+      <Group align="flex-start" gap="md" wrap="nowrap">
+        {children}
+      </Group>
+    );
+  };
 
   return (
     <Stack className="object-retrieve" gap="md" mt="md" mb="md">
@@ -101,7 +123,7 @@ export function ObjectRetrieveComponent<T>({ config }: Props<T>) {
 
       {/* Data */}
       {!isLoading && !error && data && (
-        <Group align="flex-start" gap="md" wrap="nowrap">
+        <ResponsiveLayout mobile={isMobile}>
           {/* LEFT COLUMN */}
           <Stack style={{ flex: 2 }} gap="md">
             {/* Images */}
@@ -138,11 +160,7 @@ export function ObjectRetrieveComponent<T>({ config }: Props<T>) {
                   {config.chapters.map((chapter, index) => (
                     <Tabs.Panel key={index} value={String(index)} pt="sm">
                       <Stack>
-                        <Table
-                          striped
-                          verticalSpacing="xs"
-                          horizontalSpacing="md"
-                        >
+                        <Table striped verticalSpacing="xs" horizontalSpacing="md">
                           <Table.Tbody>
                             {chapter.properties.map((p, i) => (
                               <Table.Tr key={i}>
@@ -189,17 +207,13 @@ export function ObjectRetrieveComponent<T>({ config }: Props<T>) {
             {/* Edit button */}
             {id && (
               <Paper withBorder p="md">
-                <Button
-                  component={Link}
-                  to={`${config.routes.edit}/${id}/edit`}
-                  fullWidth
-                >
+                <Button component={Link} to={`${config.routes.edit}/${id}/edit`} fullWidth>
                   Edit
                 </Button>
               </Paper>
             )}
           </Stack>
-        </Group>
+        </ResponsiveLayout>
       )}
     </Stack>
   );

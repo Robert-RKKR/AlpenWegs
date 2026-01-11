@@ -1,5 +1,5 @@
 // Imports:
-import { Grid, Stack, Title, Center, Loader, Accordion, TextInput, RangeSlider } from "@mantine/core";
+import { Grid, Stack, Title, Center, Loader, Accordion, TextInput, RangeSlider, Paper } from "@mantine/core";
 import { ErrorWindow } from "../../elements/errorWindow/ErrorWindow";
 import type { ApiListResponse } from "../../../services/api/types";
 import { IconDatabaseOff, IconInbox } from "@tabler/icons-react";
@@ -64,34 +64,6 @@ export function ObjectListComponent<TModel>({
     placeholderData: (prev) => prev,
   });
 
-  const searchData = [
-    {
-      emoji: '🍎',
-      value: 'Apples',
-      description:
-        'Crisp and refreshing fruit. Apples are known for their versatility and nutritional benefits. They come in a variety of flavors and are great for snacking, baking, or adding to salads.',
-    },
-    {
-      emoji: '🍌',
-      value: 'Bananas',
-      description:
-        'Naturally sweet and potassium-rich fruit. Bananas are a popular choice for their energy-boosting properties and can be enjoyed as a quick snack, added to smoothies, or used in baking.',
-    },
-    {
-      emoji: '🥦',
-      value: 'Broccoli',
-      description:
-        'Nutrient-packed green vegetable. Broccoli is packed with vitamins, minerals, and fiber. It has a distinct flavor and can be enjoyed steamed, roasted, or added to stir-fries.',
-    },
-  ];
-
-  const searchItems = searchData.map((item) => (
-    <Accordion.Item key={item.value} value={item.value}>
-      <Accordion.Control icon={item.emoji}>{item.value}</Accordion.Control>
-      <Accordion.Panel>{item.description}</Accordion.Panel>
-    </Accordion.Item>
-  ));
-
   const listTitle = config.header?.title;
 
   return (
@@ -116,9 +88,10 @@ export function ObjectListComponent<TModel>({
 
       {/* Data grid */}
       {!isLoading && !error && data && data.page_results.length > 0 && (
-        <PageContent type="menu">
+        <PageContent>
           {/* LEFT MENU */}
           <PageContent.Item area="menu">
+
             <Accordion defaultValue="Apples">
               {/* { searchItems } */}
               <Accordion.Item key="nameSearch" value="Name Search">
@@ -140,13 +113,22 @@ export function ObjectListComponent<TModel>({
                 </Accordion.Panel>
               </Accordion.Item>
             </Accordion>
+
+            <Center pt="md">
+              <Pagination page={page} pageCount={data.page_count} onChange={setPage}/>
+            </Center>
+
           </PageContent.Item>
 
 
           {/* RIGHT CONTENT */}
           <PageContent.Item area="content">
             {/* Header */}
-            <Title order={2}>{listTitle}</Title>
+            <Paper withBorder mb="md" p="md">
+              <Center>
+                <Title order={3}>{listTitle}</Title>
+              </Center>
+            </Paper>
 
             {/* Cards */}
             <Grid gutter="md">

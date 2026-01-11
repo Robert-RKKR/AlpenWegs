@@ -9,7 +9,6 @@
   top: var(--app-header-height);
   height: calc(100vh - 100px);
   background: var(--mantine-color-body);
-  /* overflow: hidden; */
 }
 
 /* Right Page Content */
@@ -17,4 +16,21 @@
   flex: 1;
   min-width: 0;
   height: calc(100vh - 100px);
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .leftContent {
+    position: static;
+    width: 100%;
+    height: auto;
+  }
+
+  .rightContentScrollArea {
+    height: auto;
+    min-width: unset;
+  }
 }

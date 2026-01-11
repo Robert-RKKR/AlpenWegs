@@ -1,6 +1,7 @@
 // Imports:
-import { Box, Flex, ScrollArea, Divider, Container } from "@mantine/core";
+import { Box, Flex, ScrollArea, Divider } from "@mantine/core";
 import classes from "./PageContent.module.css";
+import { useMediaQuery } from "@mantine/hooks";
 import type { ReactNode } from "react";
 
 type PageContentType = "full" | "menu";
@@ -20,16 +21,10 @@ function PageContentItem({ children }: PageContentItemProps) {
   return <>{children}</>;
 }
 
-export function PageContent({ type, children }: PageContentProps) {
-  if (type === "full") {
-    return (
-      <ScrollArea h="100%">
-        <Container size="lg" py="md">
-          {children}
-        </Container>
-      </ScrollArea>
-    );
-  }
+export function PageContent({ children }: PageContentProps) {
+
+  // Responsive check:
+  const isMobile = useMediaQuery("(max-width: 48em)");
 
   // Menu layout
   const items = Array.isArray(children) ? children : [children];
@@ -40,6 +35,22 @@ export function PageContent({ type, children }: PageContentProps) {
   const content = items.find(
     (child: any) => child?.props?.area === "content",
   );
+
+  if (isMobile) {
+    return (
+      <ScrollArea h="100%">
+        <Box p="md">
+          {/* Menu first */}
+          <Box mb="md">{menu}</Box>
+
+          <Divider my="sm" />
+
+          {/* Content full width */}
+          <Box>{content}</Box>
+        </Box>
+      </ScrollArea>
+    );
+  }
 
   return (
     <Flex h="100%" align="stretch">

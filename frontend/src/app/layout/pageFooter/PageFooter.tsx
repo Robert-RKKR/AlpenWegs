@@ -1,7 +1,7 @@
 // Imports:
 import { IconBrandInstagram, IconBrandTwitter, IconBrandYoutube } from '@tabler/icons-react';
-import { ActionIcon, Anchor, Group } from '@mantine/core';
-import classes from './PageFooter.module.css';
+import { ActionIcon, Anchor, Group, Box, Center } from '@mantine/core';
+import classes from "./PageFooter.module.css";
 
 const links = [
   { link: '#', label: 'Contact' },
@@ -19,21 +19,29 @@ export function PageFooter() {
   ));
 
   return (
-    <div className={classes.footer}>
-      <div className={classes.inner}>
-        <Group className={classes.links}>{items}</Group>
-        <Group gap="xs" justify="flex-end" wrap="nowrap">
-          <ActionIcon size="lg" variant="default" radius="xl">
-            <IconBrandTwitter size={18} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon size="lg" variant="default" radius="xl">
-            <IconBrandYoutube size={18} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon size="lg" variant="default" radius="xl">
-            <IconBrandInstagram size={18} stroke={1.5} />
-          </ActionIcon>
+    <Box h={40} px="sm" className={classes.footer}>
+      <Center h="100%">
+        <Group gap="md">
+          
+          {/* Text links */}
+          <Group gap="sm">
+            { items}
+          </Group>
+
+          {/* Social icons */}
+          <Group gap={4}>
+            <ActionIcon size={22} variant="subtle" radius="xl">
+              <IconBrandTwitter size={14} />
+            </ActionIcon>
+            <ActionIcon size={22} variant="subtle" radius="xl">
+              <IconBrandYoutube size={14} />
+            </ActionIcon>
+            <ActionIcon size={22} variant="subtle" radius="xl">
+              <IconBrandInstagram size={14} />
+            </ActionIcon>
+          </Group>
         </Group>
-      </div>
-    </div>
+      </Center>
+    </Box>
   );
 }

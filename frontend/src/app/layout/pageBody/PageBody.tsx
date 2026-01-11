@@ -1,15 +1,13 @@
 // Imports:
-import { ScrollArea } from "@mantine/core";
-import { Outlet } from "react-router-dom";
 import classes from "./PageBody.module.css";
+import { Outlet } from "react-router-dom";
+import { Box, Center } from "@mantine/core";
 
 // PageBody component:
 export function PageBody() {
   return (
-    <ScrollArea className={classes.scroll} type="auto" scrollbarSize={8}>
-      <main className={classes.body}>
-        <Outlet />
-      </main>
-    </ScrollArea>
+    <Box className={classes.body}>
+      <Outlet />
+    </Box>
   );
 }

@@ -29,34 +29,18 @@ export function ImageLoader({
   const imageSrc = !src || error ? fallback : src;
 
   return (
-    <Box
-      pos="relative"
-      h={height}
-      w={width}
-      style={{ borderRadius: radius, overflow: "hidden" }}
-    >
+    <Box pos="relative" h={height} w={width} style={{ borderRadius: radius, overflow: "hidden" }}>
       {/* Loader overlay */}
       {!loaded && (
-        <Center
-          pos="absolute"
-          inset={0}
-          style={{ zIndex: 1 }}
-        >
+        <Center pos="absolute" inset={0} style={{ zIndex: 1 }}>
           <Loader size="sm" />
         </Center>
       )}
 
       {/* Image */}
-      <Image
-        src={imageSrc}
-        alt={alt}
-        fit={fit}
-        height="100%"
-        width="100%"
-        radius={radius}
-        loading="lazy"
-        onLoad={() => setLoaded(true)}
-        onError={() => {
+      <Image src={imageSrc} alt={alt} fit={fit} height="100%"
+        width="100%" radius={radius} loading="lazy"
+        onLoad={() => setLoaded(true)} onError={() => {
           setError(true);
           setLoaded(true);
         }}

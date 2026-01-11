@@ -1,12 +1,14 @@
 // Imports:
+import { Grid, Stack, Title, Center, Loader, Accordion } from "@mantine/core";
+import { ErrorWindow } from "../../elements/errorWindow/ErrorWindow";
 import type { ApiListResponse } from "../../../services/api/types";
-import { Grid, Stack, Title, Center, Loader } from "@mantine/core";
+import { IconDatabaseOff, IconInbox } from "@tabler/icons-react";
 import { Pagination } from "../../../services/ui/Pagination";
 import { BaseApi } from "../../../services/api/baseApi";
-import { ObjectCard } from "../cards/ObjectCard";
+import { PageContent } from "../../content/PageContent";
 import { useQuery } from "@tanstack/react-query";
+import { ObjectCard } from "./card/ObjectCard";
 import { useState } from "react";
-import "./ListComponent.css";
 
 // Helpers:
 function resolvePath(obj: any, path?: string[]) {
@@ -33,7 +35,7 @@ type ObjectListProps<TModel> = {
       listUrl: string;
     };
     header?: {
-      title?: ResolvedFieldConfig;
+      title?: string;
     };
     card: {
       href: HrefFieldConfig;
@@ -62,17 +64,38 @@ export function ObjectListComponent<TModel>({
     placeholderData: (prev) => prev,
   });
 
-  const resolvedHeaderTitle =
-    config.header?.title?.value && data?.page_results?.[0]
-      ? resolvePath(data.page_results[0], config.header.title.value)
-      : config.header?.title?.fallback;
+  const searchData = [
+    {
+      emoji: '🍎',
+      value: 'Apples',
+      description:
+        'Crisp and refreshing fruit. Apples are known for their versatility and nutritional benefits. They come in a variety of flavors and are great for snacking, baking, or adding to salads.',
+    },
+    {
+      emoji: '🍌',
+      value: 'Bananas',
+      description:
+        'Naturally sweet and potassium-rich fruit. Bananas are a popular choice for their energy-boosting properties and can be enjoyed as a quick snack, added to smoothies, or used in baking.',
+    },
+    {
+      emoji: '🥦',
+      value: 'Broccoli',
+      description:
+        'Nutrient-packed green vegetable. Broccoli is packed with vitamins, minerals, and fiber. It has a distinct flavor and can be enjoyed steamed, roasted, or added to stir-fries.',
+    },
+  ];
+
+  const searchItems = searchData.map((item) => (
+    <Accordion.Item key={item.value} value={item.value}>
+      <Accordion.Control icon={item.emoji}>{item.value}</Accordion.Control>
+      <Accordion.Panel>{item.description}</Accordion.Panel>
+    </Accordion.Item>
+  ));
+
+  const listTitle = config.header?.title;
 
   return (
     <Stack gap="lg">
-      {/* Header */}
-      {resolvedHeaderTitle && (
-        <Title order={2}>{resolvedHeaderTitle}</Title>
-      )}
 
       {/* Loading */}
       {isLoading && (
@@ -83,74 +106,74 @@ export function ObjectListComponent<TModel>({
 
       {/* Error */}
       {!isLoading && error && (
-        <Center py="xl">
-          <Title order={4} c="red">
-            Failed to load data
-          </Title>
-        </Center>
+        <ErrorWindow icon={IconDatabaseOff} title="Failed to load data" description="The server returned an error while loading this list."/>
       )}
 
       {/* Empty */}
       {!isLoading && !error && data && data.page_results.length === 0 && (
-        <Center py="xl">
-          {emptyMessage}
-        </Center>
+        <ErrorWindow icon={IconInbox} title="Nothing here yet" description={emptyMessage}/>
       )}
 
       {/* Data grid */}
       {!isLoading && !error && data && data.page_results.length > 0 && (
-        <Grid gutter="md">
-          {data.page_results.map((item: any) => {
-            const href =
-              config.card.href.base +
-              (item[config.card.href.id] ?? "");
+        <PageContent type="menu">
+          {/* LEFT MENU */}
+          <PageContent.Item area="menu">
+            <Accordion defaultValue="Apples">
+              { searchItems }
+            </Accordion>
+          </PageContent.Item>
 
-            return (
-              <Grid.Col
-                key={item.pk ?? crypto.randomUUID()}
-                span={{ base: 12, sm: 6, md: 4, lg: 3, xl: 2 }}
-              >
-                <ObjectCard
-                  href={href}
-                  image={
-                    resolvePath(item, config.card.image?.value) ??
-                    undefined
-                  }
-                  title={
-                    resolvePath(item, config.card.title?.value) ?? ""
-                  }
-                  description={
-                    resolvePath(item, config.card.description?.value) ??
-                    ""
-                  }
-                  properties={
-                    config.card.properties?.map(
-                      (p: any) =>
-                        `${resolvePath(item, p.value) ?? ""}${p.suffix ?? ""}`,
-                    ) ?? []
-                  }
-                  extras={
-                    config.card.extras?.map(
-                      (e: any) =>
-                        `${resolvePath(item, e.value) ?? ""}${e.suffix ?? ""}`,
-                    ) ?? []
-                  }
-                />
-              </Grid.Col>
-            );
-          })}
-        </Grid>
-      )}
 
-      {/* Footer / Pagination */}
-      {!isLoading && !error && data && data.page_results.length > 0 && (
-        <Center pt="md">
-          <Pagination
-            page={page}
-            pageCount={data.page_count}
-            onChange={setPage}
-          />
-        </Center>
+          {/* RIGHT CONTENT */}
+          <PageContent.Item area="content">
+            {/* Header */}
+            <Title order={2}>{listTitle}</Title>
+
+            {/* Cards */}
+            <Grid gutter="md">
+              {data.page_results.map((item: any) => {
+                const href =
+                  config.card.href.base +
+                  (item[config.card.href.id] ?? "");
+
+                return (
+                  <Grid.Col key={item.pk ?? crypto.randomUUID()} span={{ base: 12, sm: 6, md: 4, lg: 3, xl: 3 }}>
+                    <ObjectCard
+                      href={href}
+                      image={
+                        resolvePath(item, config.card.image?.value) ??
+                        undefined
+                      }
+                      title={
+                        resolvePath(item, config.card.title?.value) ?? ""
+                      }
+                      description={
+                        resolvePath(item, config.card.description?.value) ??
+                        ""
+                      }
+                      properties={
+                        config.card.properties?.map(
+                          (p: any) =>
+                            `${resolvePath(item, p.value) ?? ""}${p.suffix ?? ""}`,
+                        ) ?? []
+                      }
+                      extras={
+                        config.card.extras?.map(
+                          (e: any) =>
+                            `${resolvePath(item, e.value) ?? ""}${e.suffix ?? ""}`,
+                        ) ?? []
+                      }
+                    />
+                  </Grid.Col>
+                );
+              })}
+            </Grid>
+            <Center pt="md">
+              <Pagination page={page} pageCount={data.page_count} onChange={setPage}/>
+            </Center>
+          </PageContent.Item>
+        </PageContent>
       )}
     </Stack>
   );

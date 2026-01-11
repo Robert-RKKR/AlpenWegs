@@ -31,7 +31,9 @@ export function PageHeader() {
       <header className={classes.header}>
         <Group justify="space-between" h="100%">
           {/* Logo */}
-          <IconTrekking size={32} color={theme.colors.blue[6]} />
+          <UnstyledButton component={Link} to="/" aria-label="Go to explorer">
+            <IconTrekking size={32} color={theme.colors.blue[6]} />
+          </UnstyledButton>
 
           {/* ====== Desktop main navigation ====== */}
           <Group h="100%" gap={0} visibleFrom="sm">

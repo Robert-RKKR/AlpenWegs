@@ -1,0 +1,20 @@
+.wrapper {
+  width: 100%;
+  align-items: flex-start;
+}
+
+/* Left Page Content */
+.leftContent {
+  position: sticky;
+  top: var(--app-header-height);
+  height: calc(100vh - 100px);
+  background: var(--mantine-color-body);
+  /* overflow: hidden; */
+}
+
+/* Right Page Content */
+.rightContentScrollArea {
+  flex: 1;
+  min-width: 0;
+  height: calc(100vh - 100px);
+}

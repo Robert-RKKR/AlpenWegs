@@ -1,7 +1,7 @@
 // Imports:
-import { Card, Text, Group, Badge, Button } from "@mantine/core";
-import { ImageLoader } from "../../elements/imageLoader/ImageLoader";
-import type { ObjectCardProps } from "../types";
+import { ImageLoader } from "../../../elements/imageLoader/ImageLoader";
+import { Card, Text, Group, Badge, Button, Spoiler } from "@mantine/core";
+import type { ObjectCardProps } from "../../types";
 import { IconEye } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 
@@ -15,22 +15,10 @@ export function ObjectCard({
   extras = [],
 }: ObjectCardProps) {
   return (
-    <Card
-      component={Link}
-      to={href}
-      shadow="sm"
-      radius="md"
-      withBorder
-      padding="md"
-      style={{ height: "100%" }}
-    >
+    <Card shadow="sm" radius="md" withBorder padding="md" style={{ height: "100%" }}>
       {/* Image */}
       <Card.Section>
-        <ImageLoader
-          src={image as string}
-          alt={title}
-          height={160}
-        />
+        <ImageLoader src={image as string} alt={title} height={160}/>
       </Card.Section>
 
       {/* Title */}
@@ -42,12 +30,7 @@ export function ObjectCard({
       {properties.length > 0 && (
         <Group gap="xs" mb="sm">
           {properties.map((value, index) => (
-            <Badge
-              key={index}
-              variant="light"
-              color="blue"
-              radius="sm"
-            >
+            <Badge key={index} variant="light" color="blue" radius="sm">
               {value}
             </Badge>
           ))}
@@ -57,7 +40,7 @@ export function ObjectCard({
       {/* Description */}
       {description && (
         <Text size="sm" c="dimmed" mb="sm">
-          {description}
+          <Spoiler maxHeight={60} showLabel="Show more" hideLabel="Hide">{description}</Spoiler>
         </Text>
       )}
 
@@ -65,12 +48,7 @@ export function ObjectCard({
       {extras.length > 0 && (
         <Group gap="xs" mb="md">
           {extras.map((value, index) => (
-            <Badge
-              key={index}
-              variant="outline"
-              color="gray"
-              radius="sm"
-            >
+            <Badge key={index} variant="outline" color="gray" radius="sm">
               {value}
             </Badge>
           ))}
@@ -78,12 +56,7 @@ export function ObjectCard({
       )}
 
       {/* CTA */}
-      <Button
-        variant="light"
-        fullWidth
-        leftSection={<IconEye size={14} />}
-        mt="auto"
-      >
+      <Button component={Link} to={href} variant="light" fullWidth leftSection={<IconEye size={14} />} mt="auto">
         View details
       </Button>
     </Card>

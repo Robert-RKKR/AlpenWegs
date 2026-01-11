@@ -7,7 +7,7 @@ import { AppShell } from "@mantine/core";
 // Main Component Function:
 export function AppLayout() {
   return (
-    <AppShell header={{ height: 60 }} footer={{ height: "auto" }} padding={0}>
+    <AppShell header={{ height: 60 }} footer={{ height: 40 }} padding={0}>
       {/* Header */}
       <AppShell.Header>
         <PageHeader />

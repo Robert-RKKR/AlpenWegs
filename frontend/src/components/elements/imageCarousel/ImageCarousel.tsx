@@ -1,11 +1,6 @@
 // Application imports:
 import { ImageLoader } from "../imageLoader/ImageLoader";
-
-// React imports:
 import { useEffect, useState } from "react";
-
-// Import component css:
-import "./ImageCarousel.css";
 
 // Properties:
 type ImageCarouselItem = {

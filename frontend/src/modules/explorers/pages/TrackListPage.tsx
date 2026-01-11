@@ -10,12 +10,7 @@ export const objectListConfig = {
   },
   // Base page header configuration:
   header: {
-    title: {
-      key: "page_title",
-      label: "Title",
-      value: ["name"],
-      fallback: "Tracks",
-    },
+    title: "Tracks",
   },
   // Card mapping configuration:
   card: {
